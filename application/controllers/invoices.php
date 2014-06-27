@@ -246,7 +246,7 @@ class Invoices extends CI_Controller {
 		// invoice id
 		$data['item'] = $this->invoice_model->get_invoice($id);
 		// for security, check whether the id in URL matches the invoice ID
-		$checkInvoice = $this->_searchArray($data['item'], 'id', $delete_id);
+		$checkInvoice = $this->_searchArray($data['item']['items'], 'id', $delete_id);
 		// make sure the id's given are whole numbers
 		if (is_numeric($id) && strpos( $id, '.' ) === false) {
 			

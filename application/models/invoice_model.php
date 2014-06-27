@@ -87,6 +87,7 @@ class Invoice_model extends CI_Model {
 		
 		$this->db->insert_batch('item', $items);
 		$this->db->where('id', $common_id);
+		$this->db->limit(1);
 		$amount = array('amount' => $sumTotal);
 		$this->db->update('common', $amount);
 		
@@ -145,6 +146,7 @@ class Invoice_model extends CI_Model {
 	function row_delete($delete_id)
 	{
 	   $this->db->where('id', $delete_id);
+	   $this->db->limit(1);
 	   $this->db->delete('item'); 
 	}
 	
@@ -153,6 +155,7 @@ class Invoice_model extends CI_Model {
 	   $this->db->where_in('common_id', $id);
 	   $this->db->delete('item'); 
 	   $this->db->where('id', $id);
+	   $this->db->limit(1);
 	   $this->db->delete('common');
 	}
 	
@@ -164,6 +167,7 @@ class Invoice_model extends CI_Model {
 	
 	function payment_delete($delete_id){
 		$this->db->where('pid', $delete_id);
+		$this->db->limit(1);
 		$this->db->delete('payments');
 	}
 	
