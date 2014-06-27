@@ -1,24 +1,12 @@
 $(document).foundation();
 $( document ).ready(function() {
     
-    // TRY TO PREVENT INVALID CHARACTERS ENTERED INTO TXT FIELDS
-    
-    /*
-    function preventChars(selectors, low, high) {
-    	$(selectors).keypress(function(e) {
-    		if (e.which < low || e.which > high)
-    		{
-    		    e.preventDefault();
-    		}
-    	})
-    }
-    preventChars(".qty, .unitCost", 48, 57);
-    */
-    
+    // PREVENT INVALID CHARACTERS ENTERED INTO TXT FIELDS
     $("input.qty, input.sum").keypress( function(e) {
         var chr = String.fromCharCode(e.which);
-        if ("1234567890.".indexOf(chr) < 0)
-            return false;
+        if ("1234567890.".indexOf(chr) < 0) {
+        	return false;
+        }
     });
     
     function randomizer() {
@@ -26,7 +14,6 @@ $( document ).ready(function() {
     	var txtString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
     	var strLength = 8;
     	var randomText = "-";
-    	
     	for (var i = 0; i < strLength; i++) {
     	
     		rand = Math.round( Math.random() * ( txtString.length - 0 ) );
@@ -64,7 +51,7 @@ $( document ).ready(function() {
       $(this).parent().parent().remove();
     });
     
-    // CALCULATE THE ITEM ROWS
+    // CALCULATE THE ITEM ROWS ON EDIT INVOICE PAGE
     $(document).on('change', ".sum", function(){
       var $this = $(this);
       var unitCost = $this.parent().parent().find('.unitCost').val();
@@ -76,57 +63,106 @@ $( document ).ready(function() {
     });
     
     
+    
     $('#addItems').click(function() {
     	$('#invoiceCreate tbody').append(' <tr><td><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></td><td><textarea name="description[]" cols="30" rows="3"></textarea></td><td><input type="text" name="unit_cost[]" class="unitCost sum"></td><td class="totalSum">$0.00</td><td><a class="delete-row">Remove</a></td></tr>');
     });
     
-    // AJAX FORMS
     
-  	var baseurl = window.location.protocol + "//" + window.location.host + "/" + "getpaid/";
+    var baseurl = window.location.protocol + "//" + window.location.host + "/" + "getpaid/";
     // variable to hold request
     var request;
-    // bind to the submit event of our form
-    $("#createForm").submit(function(event){
-        // abort any pending request
-        if (request) {
-            request.abort();
-        }
-        // setup some local variables
-        var $form = $(this);
-        // let's select and cache all the fields
-        var $inputs = $form.find("input, select, button, textarea");
-        // serialize the data in the form
-        var serializedData = $form.serialize();
-        
-        // let's disable the inputs for the duration of the ajax request
-        // Note: we disable elements AFTER the form data has been serialized.
-        // Disabled form elements will not be serialized.
-        $inputs.prop("disabled", true);
     
-        // fire off the request
-        request = $.ajax({
-            url: baseurl+"index.php/invoices/create",
-            type: "POST",
-            data: serializedData,
-            dataType: 'json',
-            cache:false,
-            success: function(respond) {
-                if (respond.result == 'false') {
-                	$('#form-errors').html(respond.errors);
-                } else {
-                 $('#form-errors').html(respond.errors);
-                 window.location.href = respond.redirect;
-                }
-              }
-        });
-        // callback handler that will be called regardless
-        // if the request failed or succeeded
-        request.always(function () {
-            // reenable the inputs
-            $inputs.prop("disabled", false);
-        });
+    function mycallback($records) {
+    	var id = window.location.pathname.split('/').pop();
+    	
+    	$( "#paymentModal" ).load( baseurl+"index.php/invoices/view_payments/"+id, function() {
+    	  var sum = 0;
+    	  
+    	  
+    	 	$('#invoicePayments input.amt').each(function() {
+    	  	var $this = $(this);
+    	  	// UPDATE THE PAYMENT TOTALS
+    	  	//alert($this.val());
+    	  	sum += parseFloat($this.val());
+    	  	
+    	  });
+    	  $("#amtPaid").html((sum).formatMoney(2, '.', ','));
+    	  var diff = $('#pamount').val();
+    	  $("#amtLeft").text(diff);
+    	});
+    }
     
-        // prevent default posting of form
-        event.preventDefault();
+    // AJAX FORMS
+    function ajaxRequest($this, url, callback) {
+    	// abort any pending request
+      if (request) request.abort();
+      // setup some local variables
+      var $form = $this;
+      // let's select and cache all the fields
+      var $inputs = $form.find("input, select, button, textarea");
+      // serialize the data in the form
+      var serializedData = $form.serialize();
+      
+      // let's disable the inputs for the duration of the ajax request
+      // Note: we disable elements AFTER the form data has been serialized.
+      // Disabled form elements will not be serialized.
+      $inputs.prop("disabled", true);
+      
+      // fire off the request
+      request = $.ajax({
+          url: baseurl+url,
+          type: "POST",
+          data: serializedData,
+          dataType: 'json',
+          cache:false,
+          success: function(respond) {
+          
+            if (respond.result == 'false') {
+            	
+            	var keys = Object.keys(respond);
+            	
+            	$('#form-errors').html(respond.errors);
+            	
+            } else {
+            
+             $('#form-errors').html(respond.errors);
+             
+             if(typeof respond.redirect != "undefined") window.location.href = respond.redirect;
+             
+             if(typeof respond.records != "undefined") callback(respond.records);
+             
+            }
+          }
+      });
+      // callback handler that will be called regardless
+      // if the request failed or succeeded
+      request.always(function () {
+          // reenable the inputs
+          $inputs.prop("disabled", false);
+      });
+      // prevent default posting of form
+      event.preventDefault();
+    }
+  	
+    
+    $("#createForm").on("submit", function(event) {
+    	$this = $(this);
+    	ajaxRequest($this, "index.php/invoices/create", myothercallback);
     });
+    
+    $( "#paymentModal" ).on( "submit", "#addPayment", function() {
+      var id = window.location.pathname.split('/').pop();
+      $this = $(this);
+      ajaxRequest($this, 'index.php/invoices/add_payment/'+id, mycallback);
+    });
+    
+    $("#addPaymentBtn").on("click", function() {
+    	var id = window.location.pathname.split('/').pop();
+    	$.get( baseurl+"index.php/invoices/view_payments/"+id, function( data ) {
+    	  $("#paymentModal").html( data );
+    	});
+    });
+    
+       
 });

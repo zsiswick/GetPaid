@@ -82,22 +82,15 @@ class Invoices extends CI_Controller {
 		$session_data = $this->session->userdata('logged_in');
 		$uid = $session_data['uid'];
 		$data['item'] = $this->invoice_model->get_invoice($id);
-		$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
-		$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
-		$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
-		$common_id = $data['item'][0]['iid'];
-		$pamount = $this->input->post('pamount');
-		$paymentDate = $this->_format_date_string($this->input->post('year'), $this->input->post('month'), $this->input->post('day'));
-		$pdata = array(
-			'payment_amount'=>$this->input->post('pamount'),
-			'pdate'=> $paymentDate,
-			'common_id'=>$common_id
-		);
+		
 				
 		if (empty($data['item'])) {
 				show_404();
 			
 		} else {
+			$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
+			$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
+			$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
 		$month=array('01'=>'January','02'=>'February','03'=>'March','04'=>'April','05'=>'May','06'=>'June','07'=>'July','08'=>'August','09'=>'September','10'=>'October','11'=>'November','12'=>'December');
 			$datePieces = explode("-", $data['item'][0]['date']);		
 			$data['dateDay'] = $datePieces[2];
@@ -105,6 +98,10 @@ class Invoices extends CI_Controller {
 			$data['dateYear'] = $datePieces[0];
 			$data['title'] = $data['item'][0]['client'];
 			
+			$this->load->view('templates/header', $data);
+			$this->load->view('pages/invoices/view', $data);
+			$this->load->view('templates/footer');
+			/*
 			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|numeric');
 			$this->form_validation->set_rules('day', 'Day', 'required');
 			$this->form_validation->set_rules('month', 'Month', 'required');
@@ -123,8 +120,65 @@ class Invoices extends CI_Controller {
 				}
 			} else {
 				show_404();
+			}*/
+		}
+	}
+	
+	public function add_payment($id) {
+		$data['item'] = $this->invoice_model->get_invoice($id);
+		$common_id = $data['item'][0]['iid'];
+		$this->db->select('payments');
+		$pamount = $this->input->post('pamount');
+		$paymentDate = $this->_format_date_string($this->input->post('year'), $this->input->post('month'), $this->input->post('day'));
+		$pdata = array(
+			'payment_amount'=>$pamount,
+			'pdate'=> $paymentDate,
+			'common_id'=>$common_id
+		);
+
+		if (empty($data['item'])) {
+				show_404();
+		} else {
+			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|numeric');
+			$this->form_validation->set_rules('day', 'Day', 'required');
+			$this->form_validation->set_rules('month', 'Month', 'required');
+			$this->form_validation->set_rules('year', 'Year', 'required');
+			// CHECK THE FORM TO SEE IF SUBMITTED VIA AJAX
+			if($this->input->is_ajax_request()){
+				$respond=array();
+				if($this->form_validation->run()==false){
+				   $respond['result'] = 'false';
+				   $respond['errors'] = validation_errors();
+				} else {
+				  $respond['result'] = 'true';
+					$respond['errors'] = 'The payment was added!';
+					$this->invoice_model->add_payment($pdata);
+					//$respond['redirect'] = base_url().'/index.php/invoices/view/'.$id;
+					$respond['records'] = $pdata;
+				}
+				return $this->output->set_output(json_encode($respond));
 			}
 		}
+	}
+	
+	public function view_payments($id) {
+		$session_data = $this->session->userdata('logged_in');
+		$data['first_name'] = $this->userdata['user_first_name'];
+		$uid = $this->userdata['uid'];
+		$data['item'] = $this->invoice_model->get_invoice($id);
+		
+		$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
+		$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
+		$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
+		$common_id = $data['item'][0]['iid'];
+		$pamount = $this->input->post('pamount');
+		$paymentDate = $this->_format_date_string($this->input->post('year'), $this->input->post('month'), $this->input->post('day'));
+		$pdata = array(
+			'payment_amount'=>$this->input->post('pamount'),
+			'pdate'=> $paymentDate,
+			'common_id'=>$common_id
+		);
+		$this->load->view('pages/invoices/view_payments', $data);
 	}
 	
 	public function create(){
@@ -145,8 +199,7 @@ class Invoices extends CI_Controller {
 		   if($this->form_validation->run()==false){
 		      $respond['result'] = 'false';
 		      $respond['errors'] = validation_errors();
-		   }
-		   else {
+		   } else {
 		      $respond['result'] = 'true';
 		      $respond['errors'] = 'The invoice was added!';
 		      $this->invoice_model->set_invoice();
