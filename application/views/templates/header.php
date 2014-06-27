@@ -19,6 +19,7 @@
 		<ul class="right">
 			<li><?php echo anchor('invoices', 'Invoices'); ?></li>
 			<li><?php echo anchor('clients', 'Clients'); ?></li>
+			<li><?php echo anchor('settings', 'Settings'); ?></li>
 		</ul>
 	</section>
 </nav>
