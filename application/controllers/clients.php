@@ -46,7 +46,7 @@ class Clients extends CI_Controller {
 		$data['title'] = 'Add a client';
 		$this->form_validation->set_rules('company', 'Company', 'required');
 		$this->form_validation->set_rules('contact', 'Contact Name', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 	
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('templates/header', $data);
@@ -68,7 +68,7 @@ class Clients extends CI_Controller {
 		$data['title'] = 'Edit Client';
 		$this->form_validation->set_rules('company', 'Company', 'required');
 		$this->form_validation->set_rules('contact', 'Contact Name', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 	
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('templates/header', $data);

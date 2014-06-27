@@ -18,6 +18,9 @@ class User_model extends CI_Model {
  }
  function register($username, $password) {
     $user = array(
+    	'first_name' => $this->input->post('first_name'),
+    	'last_name' => $this->input->post('last_name'),
+    	'email' => $this->input->post('email'),
     	'username' => $this->input->post('username'), 
     	'password' => sha1($this->input->post('password'))
     );
