@@ -32,16 +32,7 @@ class Invoice_model extends CI_Model {
 	}
 	
 	public function get_invoice($id)
-	{/*
-		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status, item.*, payments.*', false);
-		$this->db->from('common c');
-		$this->db->join('item', 'item.common_id = c.id', 'left');
-		$this->db->join('payments', 'payments.common_id = c.id', 'left');
-		$this->db->where('c.id', $id);
-		$this->db->order_by("id", "asc");
-		$query = $this->db->get();
-		return $query->result_array();
-		*/
+	{
 		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
@@ -106,7 +97,7 @@ class Invoice_model extends CI_Model {
 	{	
 		
 		/*
-		** ALL THIS SHOULD BE DONE IN THE CONTROLLER!!!
+		** ALL THIS COULD BE PASSED IN FROM THE CONTROLLER!
 		*/
 		$id = $this->input->post('item_id');
 		$quantity = $this->input->post('qty');

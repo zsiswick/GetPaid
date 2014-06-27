@@ -17,11 +17,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($clients as $invoice_item): ?>
+			<?php foreach ($clients as $client): ?>
 				<tr>
-					<td><?php echo $invoice_item['company'] ?></td>
-					<td><?php echo $invoice_item['contact'] ?></td>
-					<td><a href="mailto:<?php echo $invoice_item['email'] ?>"><?php echo $invoice_item['email'] ?></a></td>
+					<td><input type="hidden" value="<?php echo $client['id']?>" /><a href="<?php echo base_url(); ?>index.php/clients/edit/<?php echo $client['id']; ?>"><?php echo $client['company'] ?></a></td>
+					<td><?php echo $client['contact'] ?></td>
+					<td><a href="mailto:<?php echo $client['email'] ?>"><?php echo $client['email'] ?></a></td>
 				</tr>
 			<?php endforeach ?>
 		</tbody>

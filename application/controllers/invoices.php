@@ -83,7 +83,6 @@ class Invoices extends CI_Controller {
 		$uid = $session_data['uid'];
 		$data['item'] = $this->invoice_model->get_invoice($id);
 		
-				
 		if (empty($data['item'])) {
 				show_404();
 			
@@ -101,26 +100,6 @@ class Invoices extends CI_Controller {
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/invoices/view', $data);
 			$this->load->view('templates/footer');
-			/*
-			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|numeric');
-			$this->form_validation->set_rules('day', 'Day', 'required');
-			$this->form_validation->set_rules('month', 'Month', 'required');
-			$this->form_validation->set_rules('year', 'Year', 'required');
-			
-			if ( $data['item'][0]['uid'] === $uid ) {
-			
-				if ($this->form_validation->run() === FALSE) {
-					$this->load->view('templates/header', $data);
-					$this->load->view('pages/invoices/view', $data);
-					$this->load->view('templates/footer');
-				} else {
-					//submit payment to db
-					$this->invoice_model->add_payment($pdata);
-					redirect('/invoices/view/'.$common_id, 'refresh');
-				}
-			} else {
-				show_404();
-			}*/
 		}
 	}
 	

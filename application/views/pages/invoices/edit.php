@@ -67,7 +67,7 @@
 			<div class="row">
 				<div class="large-12 columns text-right">
 					<?php echo anchor('invoices/delete_invoice/'.$item[0]['iid'], 'Delete Invoice', 'class="button secondary"', 'id="'.$item[0]['iid'].'"'); ?>
-					<input type="submit" name="submit" value="Save invoice" class="button"/>
+					<input type="submit" name="submit" value="Save Changes" class="button"/>
 				</div>
 			</div>
 		</form>
