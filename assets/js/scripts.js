@@ -2,7 +2,7 @@ $(document).foundation();
 $( document ).ready(function() {
     
     // PREVENT INVALID CHARACTERS ENTERED INTO TXT FIELDS
-    $( "#invoiceCreate tbody" ).on( "keypress", "input.qty, input.sum", function(e) {
+    $( "#invoiceCreate tbody, #paymentModal" ).on( "keypress", "input.qty, input.sum, input.amt", function(e) {
       var chr = String.fromCharCode(e.which);
       if ("1234567890.".indexOf(chr) < 0) {
       	return false;

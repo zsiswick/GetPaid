@@ -20,7 +20,7 @@
 		<div class="columns large-12">
 			<div id="form-errors" class="alert-box alert round"></div>
 			<label for="payment_amount[]">Amount</label>
-			<input class="" type="text" id="pamount" name="pamount" value="<?php echo(number_format((float)($invoicAmount - $amount), 2, '.', '')); ?>"/>
+			<input type="text" id="pamount" name="pamount" class="amt" value="<?php echo(number_format((float)($invoicAmount - $amount), 2, '.', '')); ?>"/>
 		</div>
 			<div class="columns large-12">
 				<label>Date:</label>

@@ -21,6 +21,8 @@ class Settings extends CI_Controller {
 	 
 	public function __construct() {
 		parent::__construct();
+		$this->load->helper('form');
+		$this->load->library('form_validation');
 		$this->load->model('user_model');
 		$this->session_data = $this->session->userdata('logged_in');
 		$this->userdata = array(
@@ -31,12 +33,16 @@ class Settings extends CI_Controller {
 	
 	public function index() {
 		
-		//$data['settings'] = $this->user_model->get_settings();
+		$data['settings'] = $this->user_model->get_settings($this->userdata['uid']);
 		$data['first_name'] = $this->userdata['user_first_name'];
 		
-		$this->load->view('templates/header');
-		$this->load->view('pages/settings/index', $data);
-		$this->load->view('templates/footer');
+		$this->form_validation->set_rules('notes',  'Description', 'max_length[400]|alpha_numeric');
+		$this->form_validation->set_rules('due',  'Due', 'numeric');
+		if($this->form_validation->run()==false){
+			$this->load->view('templates/header');
+			$this->load->view('pages/settings/index', $data);
+			$this->load->view('templates/footer');
+		}
 	}
 }
 

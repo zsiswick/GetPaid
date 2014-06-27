@@ -118,7 +118,7 @@ class Invoices extends CI_Controller {
 		if (empty($data['item'])) {
 				show_404();
 		} else {
-			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|numeric');
+			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|callback_numeric_money');
 			$this->form_validation->set_rules('day', 'Day', 'required');
 			$this->form_validation->set_rules('month', 'Month', 'required');
 			$this->form_validation->set_rules('year', 'Year', 'required');
@@ -168,8 +168,9 @@ class Invoices extends CI_Controller {
 		$data['clients'] = $this->client_model->get_clients();
 		$data['title'] = 'Create an invoice';
 		
-		$this->form_validation->set_rules('description[]',  'Description', 'required');
+		$this->form_validation->set_rules('description[]',  'Description', 'alpha_numeric');
 		$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
+		$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
 	
 		// CHECK THE FORM TO SEE IF SUBMITTED VIA AJAX
 		if($this->input->is_ajax_request()){
@@ -221,7 +222,10 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_month'] = buildMonthDropdown('month', $datePieces[1]);
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $datePieces[0]);
 			
-			$this->form_validation->set_rules('qty[]', 'Quantity', 'numeric');	
+			$this->form_validation->set_rules('qty[]', 'Quantity', 'numeric');
+			$this->form_validation->set_rules('description[]',  'Description', 'alpha_numeric');
+			$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
+				
 			if ( $data['item'][0]['uid'] === $uid ) {
 			
 				if ($this->form_validation->run() === FALSE) {
@@ -316,6 +320,15 @@ class Invoices extends CI_Controller {
 	}
 	private function _format_date_string($year, $month, $day) {
 		return $year.'-'.$month.'-'.$day;
+	}
+	
+	function numeric_money ($str) {
+	    
+	    if (preg_match('/^[0-9]+(?:\.[0-9]+)?$/', $str)) {
+	        return true;
+	    } else {
+	        return false;
+	    }
 	}
 }
 
