@@ -2,11 +2,11 @@ $(document).foundation();
 $( document ).ready(function() {
     
     // PREVENT INVALID CHARACTERS ENTERED INTO TXT FIELDS
-    $("input.qty, input.sum").keypress( function(e) {
-        var chr = String.fromCharCode(e.which);
-        if ("1234567890.".indexOf(chr) < 0) {
-        	return false;
-        }
+    $( "#invoiceCreate tbody" ).on( "keypress", "input.qty, input.sum", function(e) {
+      var chr = String.fromCharCode(e.which);
+      if ("1234567890.".indexOf(chr) < 0) {
+      	return false;
+      }
     });
     
     function randomizer() {
