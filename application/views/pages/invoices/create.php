@@ -11,19 +11,22 @@
 			<div class="panel">
 				<label for="client">Client</label>
 				<?php 
-					
-					$clientList = array_map(function ($ar) {return $ar['company'];}, $clients);
-					$clientList = array_combine($clientList, $clientList);
-					echo form_dropdown('client', $clientList, 0);
-				
+					if ($clients) {
+						// Map select option values to the list of clients available
+						$clientList = array_map(function ($ar) {
+							return $ar['company'];
+						}, $clients);
+						$clientList = array_combine($clientList, $clientList);
+						echo form_dropdown('client', $clientList, 0);
+					} else {
+						echo anchor('clients/create', 'Add a Client', 'class="button"', 'id="addClient"');
+					}
 				?>
 				
 				<label>Date:</label>
-					
 				<?= $dob_dropdown_day ?>
 				<?= $dob_dropdown_month ?>
 				<?= $dob_dropdown_year ?>	
-				   
 			</div>
 			
 			<div class="table-container">
