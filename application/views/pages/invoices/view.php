@@ -4,6 +4,7 @@
 		$this->load->helper('dob');
 		$sumTotal = 0; 
 		$payment_amount = 0;
+		$amtLeft;
 		$hidden = array('iid' => $item[0]['iid']); 
 	?>
 	
@@ -70,8 +71,16 @@
 								<td class="text-right"><h5>Left:</h5></td>
 								<td class="text-right">
 									<h5>$<span id="amtLeft"><?php
-										echo(number_format((float)($sumTotal - $payment_amount), 2, '.', ','));
+										$amtLeft = number_format((float)($sumTotal - $payment_amount), 2, '.', ',');
+										echo($amtLeft);
 									?></span></h5>
+									<?php
+										if ($amtLeft == 0) {
+											echo('INVOICE PAID');
+										} else if ( $amtLeft > 0) {
+											echo('PARTIAL PAYMENT');
+										}
+									?>
 								</td>
 							</tr>
 						</table>
@@ -88,9 +97,6 @@
 </div>
 <div class="row">
 	<div class="large-4 columns large-centered">
-		<div id="paymentModal" class="reveal-modal small" data-reveal>
-		
-		
-		</div>
+		<div id="paymentModal" class="reveal-modal small" data-reveal></div>
 	</div>
 </div>

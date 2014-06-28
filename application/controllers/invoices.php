@@ -45,7 +45,7 @@ class Invoices extends CI_Controller {
 		
 		
 		$this->load->helper('form');
-		$this->load->helper('dateInput_helper');
+		$this->load->helper('date_input_helper');
 		$this->load->library('form_validation');
 		
 		$this->load->model('invoice_model');
@@ -96,6 +96,7 @@ class Invoices extends CI_Controller {
 			$data['dateMonth'] = $month[$datePieces[1]];
 			$data['dateYear'] = $datePieces[0];
 			$data['title'] = $data['item'][0]['client'];
+			var_dump($data['item']);
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/invoices/view', $data);
@@ -132,7 +133,6 @@ class Invoices extends CI_Controller {
 				  $respond['result'] = 'true';
 					$respond['errors'] = 'The payment was added!';
 					$this->invoice_model->add_payment($pdata);
-					//$respond['redirect'] = base_url().'/index.php/invoices/view/'.$id;
 					$respond['records'] = $pdata;
 				}
 				return $this->output->set_output(json_encode($respond));
@@ -297,6 +297,19 @@ class Invoices extends CI_Controller {
 	  } else {
 	  	show_404();
 	  }
+	}
+	public function send_email() {
+		$this->load->library('email');
+		
+		$this->email->from('zsiswick@gmail.com', 'Zachary Siswick');
+		$this->email->to('zsiswick@chromaloop.com'); 
+		
+		$this->email->subject('Email Test');
+		$this->email->message('Testing the email class.');	
+		
+		$this->email->send();
+		
+		echo $this->email->print_debugger();
 	}
 			
 	private function _check_user($id) {
