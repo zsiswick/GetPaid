@@ -311,6 +311,33 @@ class Invoices extends CI_Controller {
 		
 		echo $this->email->print_debugger();
 	}
+	
+	function pdf($data, $filename) {
+		
+		$session_data = $this->session->userdata('logged_in');
+		$data['first_name'] = $this->userdata['user_first_name'];
+		$uid = $this->userdata['uid'];
+		$data['invoices'] = $this->invoice_model->get_invoices($uid);
+		
+		$filename = "foshizzle";
+		// As PDF creation takes a bit of memory, we're saving the created file in /downloads/reports/
+		$pdfFilePath = FCPATH."downloads/reports/$filename.pdf";
+		$data['page_title'] = 'Hello world'; // pass data to the view
+		 
+		if (file_exists($pdfFilePath) == FALSE)
+		{
+		    ini_set('memory_limit','32M'); // boost the memory limit if it's low <img src="http://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley">
+		    $html = $this->load->view('pages/invoices/index', $data, true); // render the view into HTML
+		     
+		    $this->load->library('pdf');
+		    $pdf = $this->pdf->load();
+		    $pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date(DATE_RFC822)); // Add a footer for good measure <img src="http://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley">
+		    $pdf->WriteHTML($html); // write the HTML into the PDF
+		    $pdf->Output($pdfFilePath, 'F'); // save to file because we can
+		}
+		 
+		redirect("../downloads/reports/$filename.pdf");    
+	}
 			
 	private function _check_user($id) {
 		$data['item'] = $this->invoice_model->get_invoice($id);
