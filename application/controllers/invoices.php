@@ -51,7 +51,6 @@ class Invoices extends CI_Controller {
 	
 	public function index() {
 		
-		$session_data = $this->session->userdata('logged_in');
 		$data['first_name'] = $this->userdata['user_first_name'];
 		$uid = $this->userdata['uid'];
 		$data['invoices'] = $this->invoice_model->get_invoices($uid);
@@ -76,8 +75,6 @@ class Invoices extends CI_Controller {
 	
 	public function view($id = FALSE) {
 	
-		$session_data = $this->session->userdata('logged_in');
-		$uid = $session_data['uid'];
 		$data['item'] = $this->invoice_model->get_invoice($id);
 		if (empty($data['item'])) {
 				show_404();
@@ -97,6 +94,7 @@ class Invoices extends CI_Controller {
 	}
 	
 	public function add_payment($id) {
+	
 		$data['item'] = $this->invoice_model->get_invoice($id);
 		$common_id = $data['item'][0]['iid'];
 		$this->db->select('payments');
@@ -133,7 +131,7 @@ class Invoices extends CI_Controller {
 	}
 	
 	public function view_payments($id) {
-		$session_data = $this->session->userdata('logged_in');
+
 		$data['first_name'] = $this->userdata['user_first_name'];
 		$uid = $this->userdata['uid'];
 		$data['item'] = $this->invoice_model->get_invoice($id);
@@ -197,8 +195,7 @@ class Invoices extends CI_Controller {
 		$invoice_id = $this->uri->segment(3, 0);
 		$data['title'] = 'Edit this invoice';
 		
-		$session_data = $this->session->userdata('logged_in');
-		$uid = $session_data['uid'];
+		$uid = $this->userdata['uid'];
 		
 		$data['item'] = $this->invoice_model->get_invoice($id);
 		
