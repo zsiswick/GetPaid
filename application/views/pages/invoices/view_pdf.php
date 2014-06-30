@@ -1,14 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Get Paid!</title>
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.css" />
+	<!--<link rel="stylesheet" href="<?php $autoload['helper'] = array('url','utility'); ?>assets/css/company.css" />-->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" />
+	<script src="<?php echo base_url(); ?>assets/js/vendor/modernizr.js"></script>
+</head>
+<body>
+
 <div class="row">
 	<div class="large-12 columns">
 	<?php 
-		$this->load->helper('dob');
 		$sumTotal = 0; 
 		$payment_amount = 0;
 		$amtLeft;
 		$hidden = array('iid' => $item[0]['iid']); 
 	?>
 	
-		<?php echo validation_errors(); ?>
 		
 		<h2>Invoice #<?php echo($item[0]['iid']); ?></h2>
 			<div class="panel">
@@ -18,7 +28,7 @@
 				
 					$date = new DateTime($item[0]['date']);
 					$date->add(new DateInterval('P'.$item['settings'][0]['due'].'D'));
-					echo $date->format('F j, Y') . "\n" . '(' . $item['settings'][0]['due'] . ' Days)';
+					echo $date->format('F j, Y') . "\n";
 				
 				?></p>
 			</div>
@@ -84,7 +94,7 @@
 									<?php
 										if ($amtLeft == 0) {
 											echo('INVOICE PAID');
-										} else if ( $amtLeft > 0 && $amtLeft < $sumTotal ) {
+										} else if ( $amtLeft > 0) {
 											echo('PARTIAL PAYMENT');
 										}
 									?>
@@ -94,30 +104,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="large-12 columns">
-					<h4>Notes</h4>
-					<p><?php echo($item['settings'][0]['notes']) ?></p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns text-right">
-					
-					
-					
-					<?php echo anchor('invoices/edit/'.$item[0]['iid'], 'Edit Invoice', 'class="button"', 'id="'.$item[0]['iid'].'"'); ?>
-					
-					<ul class="button-group">
-						<li><?php echo anchor('invoices/send_invoice?iid='.$item[0]['iid'].'&client='.$item[0]['client'], 'Send Invoice', 'class="small button secondary"'); ?></li>
-						<li><?php echo anchor('invoices/pdf/'.$item[0]['iid'], 'Download PDF', 'class="small button secondary"'); ?></li>
-						<li><a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="small button secondary">Add Payment</a></li>
-					</ul>
-				</div>
-			</div>
 	</div>
 </div>
-<div class="row">
-	<div class="large-4 columns large-centered">
-		<div id="paymentModal" class="reveal-modal small" data-reveal></div>
-	</div>
-</div>
+</body>
+<script src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
+<script src="<?php echo base_url();?>assets/js/foundation.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/scripts.js"></script>
+</html>

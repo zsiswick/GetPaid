@@ -33,6 +33,7 @@ class Invoice_model extends CI_Model {
 	
 	public function get_invoice($id)
 	{
+		$session_data = $this->session->userdata('logged_in');
 		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
@@ -50,9 +51,15 @@ class Invoice_model extends CI_Model {
 		$this->db->order_by("pid", "asc");
 		$query3 = $this->db->get();
 		
+		$this->db->select('*', false);
+		$this->db->where('s.uid', $session_data['uid']);
+		$this->db->from('settings s');
+		$query4 = $this->db->get();
+		
 		$invoice = $query->result_array();
 		$invoice['items'] = $query2->result_array();
 		$invoice['payments'] = $query3->result_array();
+		$invoice['settings'] = $query4->result_array();
 		return $invoice;
 	}
 	

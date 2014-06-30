@@ -35,7 +35,9 @@ class Invoices extends CI_Controller {
 		
 		$this->userdata = array(
 	    'user_first_name' => $this->session_data['first_name'],
-	    'uid' => $this->session_data['uid']
+	    'user_last_name' => $this->session_data['last_name'],
+	    'uid' => $this->session_data['uid'],
+	    'email' =>$this->session_data['email']
 	  );
 		
 		$this->thisDay = date("j");
@@ -82,7 +84,6 @@ class Invoices extends CI_Controller {
 		$session_data = $this->session->userdata('logged_in');
 		$uid = $session_data['uid'];
 		$data['item'] = $this->invoice_model->get_invoice($id);
-		
 		if (empty($data['item'])) {
 				show_404();
 			
@@ -90,11 +91,7 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
 			$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
-		$month=array('01'=>'January','02'=>'February','03'=>'March','04'=>'April','05'=>'May','06'=>'June','07'=>'July','08'=>'August','09'=>'September','10'=>'October','11'=>'November','12'=>'December');
-			$datePieces = explode("-", $data['item'][0]['date']);		
-			$data['dateDay'] = $datePieces[2];
-			$data['dateMonth'] = $month[$datePieces[1]];
-			$data['dateYear'] = $datePieces[0];
+			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
 			$data['title'] = $data['item'][0]['client'];
 			var_dump($data['item']);
 			
@@ -222,7 +219,7 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_month'] = buildMonthDropdown('month', $datePieces[1]);
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $datePieces[0]);
 			
-			$this->form_validation->set_rules('qty[]', 'Quantity', 'numeric');
+			$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 			$this->form_validation->set_rules('description[]',  'Description', 'alpha_numeric');
 			$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
 				
@@ -298,7 +295,8 @@ class Invoices extends CI_Controller {
 	  	show_404();
 	  }
 	}
-	public function send_email() {
+	/*
+	public function send_invoice($company) {
 		$this->load->library('email');
 		
 		$this->email->from('zsiswick@gmail.com', 'Zachary Siswick');
@@ -310,30 +308,69 @@ class Invoices extends CI_Controller {
 		$this->email->send();
 		
 		echo $this->email->print_debugger();
+	}*/
+	
+	public function send_invoice() {
+		
+		$iid = $this->input->get('iid');
+		$client = $this->input->get('client');
+		
+		$data['client'] = $this->client_model->get_client($client);
+		$data['item'] = $this->invoice_model->get_invoice($iid);
+		
+		// Setup invoice PDF vars
+		$data['theDate'] = $this->_month_string($data['item'][0]['date']);
+		$filename = "invoice-".$data['item'][0]['iid'];
+		$pdfFilePath = FCPATH."downloads/reports/$filename.pdf";
+		if (file_exists($pdfFilePath) == FALSE) {
+		  ini_set('memory_limit','32M'); // boost the memory limit if it's low 
+		  $html = $this->load->view('pages/invoices/view_pdf', $data, true); // render the view into HTML
+		  $this->load->library('pdf');
+		  $pdf = $this->pdf->load();
+		  $pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date(DATE_RFC822)); // Add a footer for good measure 
+		  $pdf->WriteHTML($html); 
+		  $pdf->Output($pdfFilePath, 'F'); 
+		}
+		
+		
+		$this->load->library('email');
+		$config['wordwrap'] = TRUE;
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+		$this->email->attach($pdfFilePath);
+		
+		$this->email->from($this->userdata['email'], $this->userdata['user_first_name'] . ' ' . $this->userdata['user_last_name']);
+		$this->email->to($data['client'][0]['email']); 
+		
+		$this->email->subject('New Invoice for ' . $data['client'][0]['company']);
+		$this->email->message('Hello ' . $data['client'][0]['contact'] . ',<br/><br/>There is a new invoice #' . $data['item'][0]['iid'] . ' of ready for you to review');	
+		
+		$this->email->send();
+		
+		echo $this->email->print_debugger();
 	}
 	
-	function pdf($data, $filename) {
+	public function pdf($id) {
 		
 		$session_data = $this->session->userdata('logged_in');
 		$data['first_name'] = $this->userdata['user_first_name'];
 		$uid = $this->userdata['uid'];
-		$data['invoices'] = $this->invoice_model->get_invoices($uid);
+		$data['item'] = $this->invoice_model->get_invoice($id);
+		$data['theDate'] = $this->_month_string($data['item'][0]['date']);
 		
-		$filename = "foshizzle";
-		// As PDF creation takes a bit of memory, we're saving the created file in /downloads/reports/
+		$filename = "invoice-".$data['item'][0]['iid'];
 		$pdfFilePath = FCPATH."downloads/reports/$filename.pdf";
-		$data['page_title'] = 'Hello world'; // pass data to the view
 		 
 		if (file_exists($pdfFilePath) == FALSE)
 		{
-		    ini_set('memory_limit','32M'); // boost the memory limit if it's low <img src="http://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley">
-		    $html = $this->load->view('pages/invoices/index', $data, true); // render the view into HTML
-		     
-		    $this->load->library('pdf');
-		    $pdf = $this->pdf->load();
-		    $pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date(DATE_RFC822)); // Add a footer for good measure <img src="http://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley">
-		    $pdf->WriteHTML($html); // write the HTML into the PDF
-		    $pdf->Output($pdfFilePath, 'F'); // save to file because we can
+	    ini_set('memory_limit','32M'); // boost the memory limit if it's low <img src="http://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley">
+	    $html = $this->load->view('pages/invoices/view_pdf', $data, true); // render the view into HTML
+	     
+	    $this->load->library('pdf');
+	    $pdf = $this->pdf->load();
+	    $pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date(DATE_RFC822)); // Add a footer for good measure <img src="http://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley">
+	    $pdf->WriteHTML($html); 
+	    $pdf->Output($filename, 'D'); 
 		}
 		 
 		redirect("../downloads/reports/$filename.pdf");    
@@ -360,6 +397,17 @@ class Invoices extends CI_Controller {
 	}
 	private function _format_date_string($year, $month, $day) {
 		return $year.'-'.$month.'-'.$day;
+	}
+	
+	private function _month_string($date) {
+		$month=array('01'=>'January','02'=>'February','03'=>'March','04'=>'April','05'=>'May','06'=>'June','07'=>'July','08'=>'August','09'=>'September','10'=>'October','11'=>'November','12'=>'December');
+			$datePieces = explode("-", $date);		
+			
+			$day = $datePieces[2];
+			$month = $month[$datePieces[1]];
+			$year = $datePieces[0];
+			
+			return $humanDate = array('day'=>$day, 'month'=>$month, 'year'=>$year);
 	}
 	
 	function numeric_money ($str) {

@@ -23,27 +23,19 @@ class Client_model extends CI_Model {
 	
 	public function get_client($client_id = FALSE)
 	{
-		$data = array(
-			'uid' => $this->session_data['uid'],
-			'company' => $this->input->post('company'),
-			'contact' => $this->input->post('contact'),
-			'email' => $this->input->post('email'),
-			'address_1' => $this->input->post('address_1'),
-			'address_2' => $this->input->post('address_2'),
-			'zip' => $this->input->post('zip'),
-			'city' => $this->input->post('city'),
-			'state' => $this->input->post('state'),
-			'country' => $this->input->post('country'),
-			'tax_id' => $this->input->post('tax_id'),
-			'notes' => $this->input->post('notes')
-		);
-		$this->db->select('*');
-		$this->db->from('client');	
-		$this->db->where('id', $client_id);
-		$query = $this->db->get();
 		
-		return $query->result_array();
-			
+		if (is_numeric($client_id)) {
+			$this->db->select('*');
+			$this->db->from('client');	
+			$this->db->where('id', $client_id);
+		} else {
+			$company = str_replace("%20", " ", $client_id);
+			$this->db->select('*');
+			$this->db->from('client');	
+			$this->db->where('company', $company);
+		}
+			$query = $this->db->get();
+			return $query->result_array();
 	}
 	
 	public function set_client()
