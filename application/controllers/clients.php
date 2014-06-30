@@ -21,12 +21,22 @@ class Clients extends CI_Controller {
 	 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('client_model');
+		
+		//CHECK IF USER IS LOGGED IN
+		if ( ! $this->session->userdata('logged_in')){ 
+			redirect('login', 'refresh');
+		}
+		
 		$this->session_data = $this->session->userdata('logged_in');
+		
 		$this->userdata = array(
-		  'user_first_name' => $this->session_data['first_name'],
-		  'uid' => $this->session_data['uid']
+		'user_first_name' => $this->session_data['first_name'],
+		'user_last_name' => $this->session_data['last_name'],
+		'uid' => $this->session_data['uid'],
+		'email' =>$this->session_data['email']
 		);
+		
+		$this->load->model('client_model');
 	} 
 	
 	public function index() {
