@@ -14,3 +14,5 @@ GetPaid.esproj/Project.espressostorage
 *.espressostorage
 
 *.pdf
+
+application/config/database.php
