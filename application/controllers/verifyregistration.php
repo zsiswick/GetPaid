@@ -13,7 +13,7 @@ class Verifyregistration extends CI_Controller {
 
    $this->form_validation->set_rules('first_name', 'First name', 'trim|required|min_length[2]|max_length[24]|xss_clean');
    $this->form_validation->set_rules('last_name', 'Last name', 'trim|required|min_length[2]|max_length[24]|xss_clean');
-   $this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email');
+   $this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|xss_clean');
    $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]|xss_clean');
    $this->form_validation->set_rules('password', 'Password', 'trim|required|matches[password2]|xss_clean|callback_check_database');
    $this->form_validation->set_rules('password2', 'Confirm Password', 'trim|required|callback_check_pwdmatch');

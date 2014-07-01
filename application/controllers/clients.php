@@ -50,9 +50,17 @@ class Clients extends CI_Controller {
 		$this->load->library('form_validation');
 		
 		$data['title'] = 'Add a client';
-		$this->form_validation->set_rules('company', 'Company', 'required');
-		$this->form_validation->set_rules('contact', 'Contact Name', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
+		$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
+		$this->form_validation->set_rules('address_1', 'Address 1', 'xss_clean');
+		$this->form_validation->set_rules('address_2', 'Address 2', 'xss_clean');
+		$this->form_validation->set_rules('zip', 'Zip Code', 'alpha_dash|xss_clean');
+		$this->form_validation->set_rules('city', 'City', 'xss_clean');
+		$this->form_validation->set_rules('state', 'State', 'xss_clean');
+		$this->form_validation->set_rules('country', 'Country', 'xss_clean');
+		$this->form_validation->set_rules('tax_id', 'Tax ID', 'xss_clean');
+		$this->form_validation->set_rules('notes', 'Notes', 'xss_clean');
 	
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('templates/header', $data);
@@ -72,9 +80,17 @@ class Clients extends CI_Controller {
 		$this->load->library('form_validation');
 		
 		$data['title'] = 'Edit Client';
-		$this->form_validation->set_rules('company', 'Company', 'required');
-		$this->form_validation->set_rules('contact', 'Contact Name', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
+		$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
+		$this->form_validation->set_rules('address_1', 'Address 1', 'xss_clean');
+		$this->form_validation->set_rules('address_2', 'Address 2', 'xss_clean');
+		$this->form_validation->set_rules('zip', 'Zip Code', 'alpha_dash|xss_clean');
+		$this->form_validation->set_rules('city', 'City', 'xss_clean');
+		$this->form_validation->set_rules('state', 'State', 'xss_clean');
+		$this->form_validation->set_rules('country', 'Country', 'xss_clean');
+		$this->form_validation->set_rules('tax_id', 'Tax ID', 'xss_clean');
+		$this->form_validation->set_rules('notes', 'Notes', 'xss_clean');
 	
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('templates/header', $data);

@@ -2,21 +2,6 @@
 
 class Invoices extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	public $thisDay = 0 ;
 	public $thisMonth = 0 ;
 	public $thisYear = 0 ;
@@ -109,7 +94,7 @@ class Invoices extends CI_Controller {
 		if (empty($data['item'])) {
 				show_404();
 		} else {
-			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|callback_numeric_money');
+			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|callback_numeric_money|xss_clean');
 			$this->form_validation->set_rules('day', 'Day', 'required');
 			$this->form_validation->set_rules('month', 'Month', 'required');
 			$this->form_validation->set_rules('year', 'Year', 'required');
