@@ -137,7 +137,6 @@ class Invoice_model extends CI_Model {
 		$common_data = array('date' => $dateString, 'amount' => $sumTotal);
 		$this->db->where('id', $common_id);
 		$this->db->update('common', $common_data);
-		
 		// FILTER OUT ALL THE NEW ITEMS FROM EXISTING SO THEY CAN BE INSERTED INTO
 		// THE DATABASE PROPERLY
 		$new_items = array_filter($items, function($el) { return empty($el['id']); });
