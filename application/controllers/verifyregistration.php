@@ -19,7 +19,6 @@ class Verifyregistration extends CI_Controller {
    $this->form_validation->set_rules('password2', 'Confirm Password', 'trim|required|callback_check_pwdmatch');
 
    if($this->form_validation->run() === FALSE) {
-     //Field validation failed.  User redirected to login page     
      $this->load->helper(array('form'));
      $this->load->view('templates/header');
      $this->load->view('pages/user/register');
@@ -32,13 +31,12 @@ class Verifyregistration extends CI_Controller {
      //ADD NEW USER
      $this->user_model->register($username, $password, $random_hash);
      $result = $this->user_model->login($username, $password);
-     //SEND VERIFICATION EMAIL
-     $sess_array = array();
+     
+     $reslt_array = array();
      foreach($result as $row) {
-     	$sess_array = array('uid'=>$row->uid, 'username'=>$row->username, 'first_name'=>$row->first_name, 'last_name'=>$row->last_name, 'email'=>$row->email);
-     	$this->session->set_userdata('logged_in', $sess_array);
+     	$reslt_array = array('uid'=>$row->uid);
      }
-     $uid = $sess_array['uid'];
+     $uid = $reslt_array['uid'];
      $this->send_verification_email($random_hash, $uid, $email, $username);
      
      redirect('/login', 'refresh');
@@ -68,14 +66,9 @@ class Verifyregistration extends CI_Controller {
    //Field validation succeeded.  Validate against database
    $username = $this->input->post('username');
    $password = $this->input->post('password');
-   //query the database
    $result = $this->user_model->login($username, $password);
    
    if($result === FALSE) {
-   	$sess_array = array(
-   	  'username' => $username
-   	);
-   	$this->session->set_userdata('logged_in', $sess_array);
     return TRUE;
    } else {
      $this->form_validation->set_message('check_database', 'username or password already exists');
@@ -95,6 +88,7 @@ class Verifyregistration extends CI_Controller {
     }
   }
   function send_verification_email($random_hash, $uid, $email, $username) {
+  
   	$this->load->library('email');
   	$siteURL = base_url();
   	$config['wordwrap'] = TRUE;
