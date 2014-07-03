@@ -5,35 +5,21 @@ class Invoice_model extends CI_Model {
 	public function __construct()
 	{
 		$this->load->database();
-		
-		$this->statusFlags = array(
-			'0'=>'Draft',
-			'1'=>'Sent',
-			'2'=>'Due',
-			'3'=>'Partial',
-			'4'=>'Paid'
-		);
 	}
 	
-	public function get_invoices($uid)
+	public function get_invoices($id)
 	{		
 		$this->db->select("c.id as iid, c.uid, c.client, c.amount, c.status", false);
 		$this->db->select("DATE_FORMAT(c.date, '%M %d, %Y') AS pdate", false);
 		$this->db->from('common c');
-		$this->db->where('uid', $uid);
+		$this->db->where('uid', $id);
 		$this->db->order_by("date", "asc");
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 	
-	public function get_common($id) {
-		$query = $this->db->get_where('common', array('id' => $id));
-		return $query->result_array();
-	}
-	
-	public function get_invoice($id)
+	public function get_invoice($id, $uid)
 	{
-		$session_data = $this->session->userdata('logged_in');
 		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
@@ -52,7 +38,7 @@ class Invoice_model extends CI_Model {
 		$query3 = $this->db->get();
 		
 		$this->db->select('*', false);
-		$this->db->where('s.uid', $session_data['uid']);
+		$this->db->where('s.uid', $uid);
 		$this->db->from('settings s');
 		$query4 = $this->db->get();
 		
@@ -63,10 +49,9 @@ class Invoice_model extends CI_Model {
 		return $invoice;
 	}
 	
-	public function set_invoice()
+	public function set_invoice($uid)
 	{	
 		
-		$session_data = $this->session->userdata('logged_in');
 		//FORMAT THE DATE BEFORE PUTTING IN THE DATABASE
 		$dateString = $this->input->post('year').'-'.$this->input->post('month').'-'.$this->input->post('day'); 
 		$quantity = $this->input->post('qty');
@@ -76,12 +61,13 @@ class Invoice_model extends CI_Model {
 		$item_count = count($quantity);
 		$sumTotal = 0;
 		
-		$common_data = array('uid' => $session_data['uid'], 'client' => $this->input->post('client'), 'date' => $dateString);
+		$common_data = array('uid' => $uid, 'client' => $this->input->post('client'), 'date' => $dateString);
 		$this->db->insert('common', $common_data);
 		// Get the table id of the last row updated using insert_id() function
 		$common_id = $this->db->insert_id();
 		
-		for ( $i = 0; $i < $item_count; $i++ ) {
+		for ( $i = 0; $i < $item_count; $i++ ) 
+		{
 			$number = $quantity[$i] * $unit_cost[$i]; 
 			$sumTotal = $sumTotal + $number;
 			$items[] = array(
@@ -120,7 +106,8 @@ class Invoice_model extends CI_Model {
 		$item_count = count($quantity);
 		$sumTotal = 0;
 		
-		for ( $i = 0; $i < $item_count; $i++ ) {
+		for ( $i = 0; $i < $item_count; $i++ ) 
+		{
 		
 			$number = $quantity[$i] * $unit_cost[$i]; 
 			$sumTotal = $sumTotal + $number;
@@ -143,7 +130,8 @@ class Invoice_model extends CI_Model {
 		
 		$this->db->update_batch('item', $items, 'id');
 		
-		if (!empty($new_items)) {
+		if (!empty($new_items)) 
+		{
 			$this->db->insert_batch('item', $new_items);
 		}
 		return;
@@ -184,5 +172,4 @@ class Invoice_model extends CI_Model {
 	    }
 	    return $input;
 	}
-		
 }

@@ -4,14 +4,14 @@ class Client_model extends CI_Model {
 	public function __construct()
 	{
 		$this->load->database();
-		$this->session_data = $this->session->userdata('logged_in');;
+		//$this->session_data = $this->session->userdata('logged_in');;
 	}
 	
-	public function get_clients($client = FALSE)
+	public function get_clients($client = FALSE, $uid)
 	{
 		if ($client === FALSE)
 		{
-			$query = $this->db->get_where('client', array('uid' => $this->session_data['uid']));
+			$query = $this->db->get_where('client', array('uid' => $uid));
 			return $query->result_array();
 		}
 	
