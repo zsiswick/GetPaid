@@ -15,7 +15,7 @@
 	<nav class="top-bar" data-topbar>
 		<ul class="title-area">
 	    <li class="name">
-	      <h1><?php echo anchor('/home', 'Home'); ?></h1>
+	      <h1><?php echo anchor('/', 'Home'); ?></h1>
 	    </li>
 	    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 	  </ul>

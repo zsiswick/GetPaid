@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="large-12 columns">
 		<h2>New Invoice</h2>
-		<div id="form-errors" class="alert-box alert round"></div>
+		<?php echo validation_errors(); ?>
 		
 		<?php 
 			$attributes = array('class' => 'invoice-form', 'id' => 'createForm');

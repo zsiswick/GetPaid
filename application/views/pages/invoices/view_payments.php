@@ -1,6 +1,7 @@
 	<?php 
 		$this->load->helper('dob');
 		$invoicAmount = $item[0]['amount']; 
+		$sumTotal = 0;
 		$amount = 0;
 		$hidden = array('iid' => $item[0]['iid']); 
 	?>
@@ -13,29 +14,37 @@
 	?>
 
 	<?php
+		$sumTotal = max($invoicAmount - $amount,0);
 		$attributes = array('class' => 'invoice-form', 'id' => 'addPayment');
 		echo form_open('invoices/view/'.$item[0]['iid'], $attributes, $hidden); 
 	?>
 		<div class="row">
-		<div class="columns large-12">
-			<div id="form-errors" class="alert-box alert round"></div>
-			<label for="payment_amount[]">Amount</label>
-			<input type="text" id="pamount" name="pamount" class="amt" value="<?php echo(number_format((float)($invoicAmount - $amount), 2, '.', '')); ?>"/>
-		</div>
 			<div class="columns large-12">
-				<label>Date:</label>
+				<div id="form-errors" class="alert-box alert round"></div>
+				<label for="payment_amount[]">Amount</label>
+				<input type="text" id="pamount" name="pamount" class="amt" value="<?php echo(number_format((float)($sumTotal), 2, '.', '')); ?>"/>
 			</div>
-			<div class="columns large-3 small-3">
-				<?php echo $dob_dropdown_day; ?>
-			</div>
-			<div class="columns large-5 small-5">
-				<?php echo $dob_dropdown_month; ?>
-			</div>
-			<div class="columns large-4 small-4">
-				<?php echo$dob_dropdown_year; ?>
-			</div>
+		<?php if($sumTotal > 0) {?>
+			
+				<div class="columns large-12">
+					<label>Date:</label>
+				</div>
+				<div class="columns large-3 small-3">
+					<?php echo $dob_dropdown_day; ?>
+				</div>
+				<div class="columns large-5 small-5">
+					<?php echo $dob_dropdown_month; ?>
+				</div>
+				<div class="columns large-4 small-4">
+					<?php echo$dob_dropdown_year; ?>
+				</div>
+				<div class="columns large-4 small-4">
+					<input type="submit" name="submit" value="Add Payment" class="button"/>
+				</div>
+		<?php }?>
+		
 		<div class="columns large-12">
-			<input type="submit" name="submit" value="Add Payment" class="button"/>
+			
 		
 			<table id="invoicePayments" class="invoice-create">
 				<?php	

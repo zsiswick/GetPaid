@@ -39,9 +39,9 @@ class Settings extends CI_Controller {
 	} 
 	
 	public function index() {
-		
-		$data['settings'] = $this->user_model->get_settings($this->userdata['uid']);
-		$data['first_name'] = $this->userdata['user_first_name'];
+		$uid = $this->tank_auth_my->get_user_id();
+		$data['settings'] = $this->user_model->get_settings($uid);
+		$data['first_name'] = $this->tank_auth_my->get_username();
 		
 		$this->form_validation->set_rules('notes',  'Description', 'max_length[400]|alpha_numeric');
 		$this->form_validation->set_rules('due',  'Due', 'numeric');

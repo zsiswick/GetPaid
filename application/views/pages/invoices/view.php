@@ -39,6 +39,7 @@
 							 
 							$number = $invoice_item['quantity'] * $invoice_item['unit_cost']; 
 							$sumTotal = $sumTotal + $number;
+							//$total = number_format((float)$sumTotal, 2, '.', ',');
 						?>
 						<tr>
 							<td><?php echo $invoice_item['quantity'] ?></td>
@@ -59,7 +60,7 @@
 						<table id="payments" class="right">
 							<tr>
 								<td class="text-right"><h3>Total:</h3></td>
-								<td class="text-right"><h3>$<span id="invoiceTotal"></span><?php echo number_format((float)$sumTotal, 2, '.', ',');?></h3></td>
+								<td class="text-right"><h3>$<span id="invoiceTotal"></span><?php echo number_format((float)($sumTotal), 2, '.', ',');?></h3></td>
 							</tr>
 							<tr>
 								<td class="text-right"><h5>Paid:</h5></td>
@@ -78,13 +79,15 @@
 								<td class="text-right"><h5>Left:</h5></td>
 								<td class="text-right">
 									<h5>$<span id="amtLeft"><?php
-										$amtLeft = number_format((float)($sumTotal - $payment_amount), 2, '.', ',');
-										echo($amtLeft);
+										$amtLeft = max($sumTotal - $payment_amount,0);
+										echo(number_format((float)($amtLeft), 2, '.', ','));
 									?></span></h5>
 									<?php
-										if ($amtLeft == 0) {
+										if ($amtLeft <= 0) {
 											echo('INVOICE PAID');
-										} else if ( $amtLeft > 0 && $amtLeft < $sumTotal ) {
+										} else if ( $amtLeft == $sumTotal ) {
+											echo('INVOICE OPEN');
+										} else {
 											echo('PARTIAL PAYMENT');
 										}
 									?>
