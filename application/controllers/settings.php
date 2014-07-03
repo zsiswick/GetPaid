@@ -21,9 +21,10 @@ class Settings extends CI_Controller {
 	 
 	public function __construct() {
 		parent::__construct();
+		$this->load->library('tank_auth_my');	
 		//CHECK IF USER IS LOGGED IN
-		if ( ! $this->session->userdata('logged_in')){ 
-			redirect('login', 'refresh');
+		if (!$this->tank_auth_my->is_logged_in()) {
+			redirect('/auth/login/');
 		}
 		$this->session_data = $this->session->userdata('logged_in');
 		$this->userdata = array(

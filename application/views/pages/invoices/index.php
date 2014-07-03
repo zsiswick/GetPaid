@@ -1,6 +1,6 @@
 <?php setlocale(LC_MONETARY, 'en_US'); ?>
 <div class="row">
-  <div class="large-12 columns text-center"><h1><?php echo $first_name; ?>'s Invoices</h1></div>
+  <div class="large-12 columns text-center"><h1><?php echo $username; ?>'s Invoices</h1></div>
 </div>
 
 <?php

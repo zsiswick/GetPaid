@@ -21,21 +21,21 @@ class Clients extends CI_Controller {
 	 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('tank_auth');	
+		$this->load->library('tank_auth_my');	
 		$this->load->model('client_model');
 	} 
 	
 	public function index() {
 		
-		if (!$this->tank_auth->is_logged_in()) {
+		if (!$this->tank_auth_my->is_logged_in()) {
 			redirect('/auth/login/');
 		} 
 			else 
 		{
 			$client = FALSE;
-			$uid = $this->tank_auth->get_user_id();
+			$uid = $this->tank_auth_my->get_user_id();
 			$data['clients'] = $this->client_model->get_clients($client, $uid);
-			$data['first_name']	= $this->tank_auth->get_username();
+			$data['first_name']	= $this->tank_auth_my->get_username();
 			
 			$this->load->view('templates/header');
 			$this->load->view('pages/clients/index', $data);
