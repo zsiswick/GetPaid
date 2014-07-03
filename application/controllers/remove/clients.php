@@ -21,27 +21,28 @@ class Clients extends CI_Controller {
 	 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('tank_auth');	
+		//CHECK IF USER IS LOGGED IN
+		if ( ! $this->session->userdata('logged_in')){ 
+			redirect('login', 'refresh');
+		}
+		$this->session_data = $this->session->userdata('logged_in');
+		$this->userdata = array(
+		'user_first_name' => $this->session_data['first_name'],
+		'user_last_name' => $this->session_data['last_name'],
+		'uid' => $this->session_data['uid'],
+		'email' =>$this->session_data['email']
+		);
 		$this->load->model('client_model');
 	} 
 	
 	public function index() {
 		
-		if (!$this->tank_auth->is_logged_in()) {
-			redirect('/auth/login/');
-		} 
-			else 
-		{
-			$client = FALSE;
-			$uid = $this->tank_auth->get_user_id();
-			$data['clients'] = $this->client_model->get_clients($client, $uid);
-			$data['first_name']	= $this->tank_auth->get_username();
-			
-			$this->load->view('templates/header');
-			$this->load->view('pages/clients/index', $data);
-			$this->load->view('templates/footer');
-		}
+		$data['clients'] = $this->client_model->get_clients();
+		$data['first_name'] = $this->userdata['user_first_name'];
 		
+		$this->load->view('templates/header');
+		$this->load->view('pages/clients/index', $data);
+		$this->load->view('templates/footer');
 	}
 	
 	public function create() {
