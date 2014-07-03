@@ -2,7 +2,7 @@
   <div class="large-12 columns text-center"><h1><?php echo $first_name; ?>'s Clients</h1></div>
 </div>
 <div class="row">
-	<div class="large-12 columns text-right">
+	<div class="large-12 columns text-center">
 		<a href="<?php echo base_url(); ?>index.php/clients/create" class="button">Add New Client</a>
 	</div>
 </div>

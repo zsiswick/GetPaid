@@ -10,6 +10,9 @@ class Invoices extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('tank_auth_my');
+		if (!$this->tank_auth_my->is_logged_in()) {
+			redirect('/auth/login/');
+		} 
 		$this->thisDay = date("j");
 		$this->thisMonth = date("n");
 		$this->thisYear = date("Y");
@@ -24,49 +27,35 @@ class Invoices extends CI_Controller {
 	
 	public function index() 
 	{
-		if (!$this->tank_auth_my->is_logged_in()) {
-			redirect('/auth/login/');
-		} 
-			else 
-		{
-			$id = $this->tank_auth_my->get_user_id();
-			$data['invoices'] = $this->invoice_model->get_invoices($id);
-			$data['user_id']	= $this->tank_auth_my->get_user_id();
-			$data['username']	= $this->tank_auth_my->get_username();
-			$this->load->view('templates/header', $data);
-			$this->load->view('pages/invoices/index', $data);
-			$this->load->view('templates/footer');
-		}
-		
+		$id = $this->tank_auth_my->get_user_id();
+		$data['invoices'] = $this->invoice_model->get_invoices($id);
+		$data['user_id']	= $this->tank_auth_my->get_user_id();
+		$data['username']	= $this->tank_auth_my->get_username();
+		$this->load->view('templates/header', $data);
+		$this->load->view('pages/invoices/index', $data);
+		$this->load->view('templates/footer');
 	}
 	
 	public function view($id = FALSE) 
 	{
-	
-		if (!$this->tank_auth_my->is_logged_in()) {
-			redirect('/auth/login/');
+		$uid = $this->tank_auth_my->get_user_id();
+		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+		if (empty($data['item'])) 
+		{
+				show_404();
 		} 
 			else 
 		{
-			$uid = $this->tank_auth_my->get_user_id();
-			$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-			if (empty($data['item'])) 
-			{
-					show_404();
-			} 
-				else 
-			{
-				$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
-				$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
-				$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
-				$data['theDate'] = $this->_month_string($data['item'][0]['date']);
-				$data['title'] = $data['item'][0]['client'];
-				var_dump($data['item']);
-				
-				$this->load->view('templates/header', $data);
-				$this->load->view('pages/invoices/view', $data);
-				$this->load->view('templates/footer');
-			}
+			$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
+			$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
+			$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
+			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
+			$data['title'] = $data['item'][0]['client'];
+			var_dump($data['item']);
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('pages/invoices/view', $data);
+			$this->load->view('templates/footer');
 		}
 	}
 	

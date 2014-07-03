@@ -6,7 +6,7 @@
 <?php
 	if ($invoices) { ?>
 	 <div class="row">
-	 	<div class="large-12 columns text-right">
+	 	<div class="large-12 columns text-center">
 	 		<a href="<?php echo base_url(); ?>index.php/invoices/create" class="button">Create New Invoice</a>
 	 	</div>
 	 </div>
