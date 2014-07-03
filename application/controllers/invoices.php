@@ -369,7 +369,7 @@ class Invoices extends CI_Controller {
 		return $humanDate = array('day'=>$day, 'month'=>$month, 'year'=>$year);
 	}
 	
-	function numeric_money ($str) {
+	function numeric_money($str) {
 	    
 	    if (preg_match('/^[0-9]+(?:\.[0-9]+)?$/', $str)) {
 	        return true;
