@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8">
 		<title>Get Paid!</title>
+		<link href='http://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.css" />
 		<!--<link rel="stylesheet" href="<?php $autoload['helper'] = array('url','utility'); ?>assets/css/company.css" />-->
@@ -32,3 +33,4 @@
 			</ul>
 		</section>
 	</nav>
+	<section role="main" class="outer-wrap">

@@ -51,7 +51,6 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
 			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
 			$data['title'] = $data['item'][0]['client'];
-			var_dump($data['item']);
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/invoices/view', $data);
@@ -104,9 +103,7 @@ class Invoices extends CI_Controller {
 		
 		$invoice_id = $this->uri->segment(3, 0);
 		$data['title'] = 'Edit this invoice';
-		
 		$uid = $this->tank_auth_my->get_user_id();
-		
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		
 		if (empty($data['item'])) {
@@ -159,10 +156,12 @@ class Invoices extends CI_Controller {
 		if (empty($data['item'])) {
 				show_404();
 		} else {
-			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|callback_numeric_money|xss_clean');
-			$this->form_validation->set_rules('day', 'Day', 'required');
+		
+			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|callback_numeric_money|greater_than[0]|xss_clean');
+			$this->form_validation->set_rules('day', 'Day', 'required|greater_than[0]');
 			$this->form_validation->set_rules('month', 'Month', 'required');
 			$this->form_validation->set_rules('year', 'Year', 'required');
+			$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
 			// CHECK THE FORM TO SEE IF SUBMITTED VIA AJAX
 			if($this->input->is_ajax_request()){
 				$respond=array();
@@ -179,6 +178,31 @@ class Invoices extends CI_Controller {
 			}
 		}
 	}
+	
+	public function delete_row() 
+	{
+		$uid = $this->tank_auth_my->get_user_id();
+		$delete_id = $this->input->get('id');
+		$id = $this->input->get('common_id');
+		// invoice id
+		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+		// for security, check whether the id in URL matches the invoice ID
+		$checkInvoice = $this->_searchArray($data['item']['items'], 'id', $delete_id);
+		// make sure the id's given are whole numbers
+		if (is_numeric($id) && strpos( $id, '.' ) === false) {
+
+			if ($this->_check_user($id) === true && $checkInvoice) {
+				$this->invoice_model->row_delete($delete_id);
+				redirect($_SERVER['HTTP_REFERER']);
+
+			} else {
+				return show_404();
+			}
+		} else {
+			return show_404();
+		}
+	}
+	
 	public function delete_payment() 
 	{
 		$uid = $this->tank_auth_my->get_user_id();

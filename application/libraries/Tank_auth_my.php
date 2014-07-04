@@ -4,9 +4,9 @@ require 'Tank_auth.php';
 
 
 /**
- * Extends the Tank Auth library with minimal support for groups
+ * Extends the Tank Auth library with support to add user email to session
  *
- * @author John.Wright
+ * @author Zac.Siswick
  */
 class Tank_auth_my extends Tank_auth {
     
@@ -16,9 +16,6 @@ class Tank_auth_my extends Tank_auth {
 			parent::__construct();
 		
 		}
-    
-    
-    
     /**
      * Login user on the site. Return TRUE if login is successful
      * (user exists and activated, password is correct), otherwise FALSE.
@@ -42,19 +39,13 @@ class Tank_auth_my extends Tank_auth {
     	
     			if($loggedIn) 
     			{
-    				//$user = $this->ci->users->get_user_by_id($this->get_user_id());
-    				//$this->ci->session->set_userdata(array('group_id'	=> $user->group_id));
     				$user = $this->ci->users->$get_user_func($login);
     				$this->ci->session->set_userdata(array(
     						'email'	=> $user->email
     				));
     			}
-    					
     			return $loggedIn;
     }
-    	
-    	
-
     
     function get_email()
     {

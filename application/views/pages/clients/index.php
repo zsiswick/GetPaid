@@ -3,7 +3,7 @@
 </div>
 <div class="row">
 	<div class="large-12 columns text-center">
-		<a href="<?php echo base_url(); ?>index.php/clients/create" class="button">Add New Client</a>
+		<a href="<?php echo base_url(); ?>index.php/clients/create" class="button round">Add New Client</a>
 	</div>
 </div>
 <div class="row">

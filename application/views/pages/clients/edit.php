@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="large-6 columns large-centered">
-		<h2>Edit Client</h2>
+		<h1 class="text-center">Edit Client</h1>
 		<?php echo validation_errors(); ?>
 		
 		<?php echo form_open('clients/edit') ?>
@@ -38,7 +38,7 @@
 			<label for="notes">Notes</label>
 			<textarea name="notes" id="" cols="30" rows="10"><?php echo $client[0]['notes'] ?></textarea><br />
 		
-			<input type="submit" name="submit" value="Save Changes" class="button" />
+			<input type="submit" name="submit" value="Save Changes" class="button round" />
 		
 		</form>
 	</div>

@@ -20,7 +20,6 @@
 	?>
 		<div class="row">
 			<div class="columns large-12">
-				<div id="form-errors" class="alert-box alert round"></div>
 				<label for="payment_amount[]">Amount</label>
 				<input type="text" id="pamount" name="pamount" class="amt" value="<?php echo(number_format((float)($sumTotal), 2, '.', '')); ?>"/>
 			</div>
@@ -39,7 +38,7 @@
 					<?php echo$dob_dropdown_year; ?>
 				</div>
 				<div class="columns large-4 small-4">
-					<input type="submit" name="submit" value="Add Payment" class="button"/>
+					<input type="submit" name="submit" value="Add Payment" class="button round"/>
 				</div>
 		<?php }?>
 		

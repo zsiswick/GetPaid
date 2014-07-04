@@ -32,7 +32,7 @@ $captcha = array(
 );
 ?>
 <div class="row">
-	<div class="large-6 large-centered columns">
+	<div class="small-6 large-centered columns">
 		<?php echo form_open($this->uri->uri_string()); ?>
 		<table>
 			<tr>
@@ -91,16 +91,20 @@ $captcha = array(
 				</td>
 			</tr>
 		</table>
+		
+	</div>
+</div>	
+<div class="row">
+	<div class="columns small-6 small-centered text-center">
 		<?php 
 		$sdata = array(
-	    'name' => 'submit',
-	    'class' => 'button',
-	    'value' => 'Sign In',
-	    'type' => 'submit',
-	    'content' => 'Sign In'
+		  'name' => 'submit',
+		  'class' => 'button round',
+		  'value' => 'Sign In',
+		  'type' => 'submit',
+		  'content' => 'Sign In'
 		);
 		echo form_submit($sdata);?>
 		<?php echo form_close(); ?>
 	</div>
-</div>	
 </div>

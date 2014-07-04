@@ -19,7 +19,7 @@
 						$clientList = array_combine($clientList, $clientList);
 						echo form_dropdown('client', $clientList, 0);
 					} else {
-						echo anchor('clients/create', 'Add a Client', 'class="button"', 'id="addClient"');
+						echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
 					}
 				?>
 				

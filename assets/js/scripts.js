@@ -52,10 +52,10 @@ $( document ).ready(function() {
     });
     
     // CALCULATE THE ITEM ROWS ON EDIT INVOICE PAGE
-    $(document).on('change', ".sum", function(){
+    $(document).on('keyup', ".sum", function(){
       var $this = $(this);
       var unitCost = $this.parent().parent().find('.unitCost').val();
-    	var qty = $this.parent().parent().find('.qty').val();
+    	var qty = $this.parent().parent().find('input.qty').val();
     	var sumtotal = parseFloat((unitCost * qty).toFixed(2));
     	$this.parent().parent().find('.totalSum').text( '$'+(sumtotal).formatMoney(2, '.', ',') ).attr('data-totalsum', sumtotal);
     	
@@ -65,7 +65,7 @@ $( document ).ready(function() {
     
     
     $('#addItems').click(function() {
-    	$('#invoiceCreate tbody').append(' <tr><td><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></td><td><textarea name="description[]" cols="30" rows="3"></textarea></td><td><input type="text" name="unit_cost[]" class="unitCost sum"></td><td class="totalSum">$0.00</td><td><a class="delete-row">Remove</a></td></tr>');
+    	$('.edit-list-container').append(' <ul class="invoice-list clearfix"><li class="qty"><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></li><li class="description"><input type="text" name="description[]" /></li><li class="price"><input type="text" name="unit_cost[]" class="unitCost sum"></li><li class="totalSum">$0.00</li><li class="delete"><a class="delete-row">Remove</a></li></ul>');
     });
     
     
@@ -76,7 +76,7 @@ $( document ).ready(function() {
     function mycallback($records) {
     	var id = window.location.pathname.split('/').pop();
     	
-    	$( "#paymentModal" ).load( baseurl+"index.php/invoices/view_payments/"+id, function() {
+    	$( "#form-wrap" ).load( baseurl+"index.php/invoices/view_payments/"+id, function() {
     	  var sum = 0;
     	  
     	  
@@ -122,11 +122,11 @@ $( document ).ready(function() {
             	
             	var keys = Object.keys(respond);
             	
-            	$('#form-errors').html(respond.errors);
+            	$('#form-errors').html(respond.errors).addClass("alert").show();
             	
             } else {
             
-             $('#form-errors').html(respond.errors);
+             $('#form-errors').html(respond.errors).addClass("success").show();
              
              if(typeof respond.redirect != "undefined") window.location.href = respond.redirect;
              
@@ -151,7 +151,7 @@ $( document ).ready(function() {
     	ajaxRequest($this, "index.php/invoices/create", myothercallback);
     });
     
-    $( "#paymentModal" ).on( "submit", "#addPayment", function() {
+    $( "#form-wrap" ).on( "submit", "#addPayment", function() {
       var id = window.location.pathname.split('/').pop();
       $this = $(this);
       ajaxRequest($this, 'index.php/invoices/add_payment/'+id, mycallback);
@@ -160,7 +160,8 @@ $( document ).ready(function() {
     $("#addPaymentBtn").on("click", function() {
     	var id = window.location.pathname.split('/').pop();
     	$.get( baseurl+"index.php/invoices/view_payments/"+id, function( data ) {
-    	  $("#paymentModal").html( data );
+    	  $("#form-wrap").html( data );
+    	  $("#form-errors").hide();
     	});
     });
     

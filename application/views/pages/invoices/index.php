@@ -7,33 +7,32 @@
 	if ($invoices) { ?>
 	 <div class="row">
 	 	<div class="large-12 columns text-center">
-	 		<a href="<?php echo base_url(); ?>index.php/invoices/create" class="button">Create New Invoice</a>
+	 		<a href="<?php echo base_url(); ?>index.php/invoices/create" class="button round">Create New Invoice</a>
 	 	</div>
 	 </div>
 	 <div class="row">
 	 	<div class="large-12 columns">
-	 		<table class="invoice-list">
-	 		<thead>
-	 			<tr>
-	 				<th width="200"></th>
-	 				<th>Date</th>
-	 				<th width="150">Client</th>
-	 				<th width="150" class="text-right">Amount</th>
-	 				<th class="text-right">Status</th>
-	 			</tr>
-	 		</thead>
-	 		<tbody>
-	 			<?php foreach ($invoices as $invoice_item): ?>
-	 				<tr>
-	 					<td><a href="<?php echo base_url(); ?>index.php/invoices/view/<?php echo $invoice_item['iid']; ?>">#<?php echo $invoice_item['iid'];?></a></td>
-	 					<td><?php echo $invoice_item['pdate']; ?></td>
-	 					<td><?php echo $invoice_item['client']; ?></td>
-	 					<td class="text-right"><?php echo money_format('%.2n', $invoice_item['amount']); ?></td>
-	 					<td class="text-right"><?php echo $invoice_item['status']; ?></td>
-	 				</tr>
-	 			<?php endforeach ?>
-	 		</tbody>
-	 		</table>
+	 		<div class="invoice-list-wrap clearfix">
+	 			<div class="invoice-list-inner-wrap">
+	 				<ul class="list_header clearfix">
+	 					<li class="invoice-id">ID</li>
+	 					<li class="date">Date</li>
+	 					<li class="client">Client</li>
+	 					<li class="amount">Amount</li>
+	 					<li class="status">Status</li>
+	 				</ul>
+	 				<?php foreach ($invoices as $invoice_item): ?>
+	 			<ul class="invoice-list clearfix">
+	 				<li class="invoice-id"><a href="<?php echo base_url(); ?>index.php/invoices/view/<?php echo $invoice_item['iid']; ?>">#<?php echo $invoice_item['iid'];?></a></li>
+	 				<li class="date"><?php echo $invoice_item['pdate']; ?></li>
+	 				<li class="client"><?php echo $invoice_item['client']; ?></li>
+	 				<li class="amount"><?php echo money_format('%.2n', $invoice_item['amount']); ?></li>
+	 				<li class="status"><span class="round alert label">STATUS</span></li>
+	 			</ul>
+	 			<?php endforeach ?></div>
+	 		</div>
+	 		
+	 		
 	 	</div>
 	 </div>
 <?php	} else { ?>

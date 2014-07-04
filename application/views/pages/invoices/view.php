@@ -11,49 +11,45 @@
 		<?php echo validation_errors(); ?>
 		
 		<h2>Invoice #<?php echo($item[0]['iid']); ?></h2>
-			<div class="panel">
-				<p>To: <?php echo $item[0]['client']; ?></p>
-				<p>Date: <?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?></p>
-				<p>Payment Due: <?php 
-				
-					$date = new DateTime($item[0]['date']);
-					$date->add(new DateInterval('P'.$item['settings'][0]['due'].'D'));
-					echo $date->format('F j, Y') . "\n" . '(' . $item['settings'][0]['due'] . ' Days)';
-				
-				?></p>
-			</div>
+			
 			<div class="table-container">
-				<table id="invoiceCreate" class="invoice-create">
-				<thead>
-					<tr>
-						<th>Qty</th>
-						<th>Description</th>
-						<th class="text-right">Price</th>
-						<th class="text-right">Total</th>
-					</tr>
-				</thead>
-				<tbody>
+				<div class="panel">
+					<p>To: <?php echo $item[0]['client']; ?></p>
+					<p>Date: <?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?></p>
+					<p>Payment Due: <?php 
+					
+						$date = new DateTime($item[0]['date']);
+						$date->add(new DateInterval('P'.$item['settings'][0]['due'].'D'));
+						echo $date->format('F j, Y') . "\n" . '(' . $item['settings'][0]['due'] . ' Days)';
+					
+					?></p>
+				</div>
+				<ul id="invoiceCreate" class="invoice-create list_header clearfix">
+					<li class="qty">Qty</li>
+					<li class="description">Description</li>
+					<li class="price">Price</li>
+					<li class="totalSum">Total</li>
+				</ul>
+				
 					<?php 
-													
 							foreach ($item['items'] as $invoice_item): 
 							 
 							$number = $invoice_item['quantity'] * $invoice_item['unit_cost']; 
 							$sumTotal = $sumTotal + $number;
-							//$total = number_format((float)$sumTotal, 2, '.', ',');
 						?>
-						<tr>
-							<td><?php echo $invoice_item['quantity'] ?></td>
-							<td><?php echo $invoice_item['description'] ?></td>
-							<td class="text-right"><?php echo '$'.$invoice_item['unit_cost'] ?></td>
-							<td data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>" class="totalSum text-right">
-								$<?php 
-									echo number_format((float)$number, 2, '.', ','); 
-								?>
-							</td>
-						</tr>
+						
+						<ul class="invoice-list clearfix">
+							<li class="qty"><?php echo $invoice_item['quantity'] ?></li>
+							<li class="description"><?php echo $invoice_item['description'] ?></li>
+							<li class="price"><?php echo '$'.$invoice_item['unit_cost'] ?></li>
+							<li class="totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">$<?php 
+								echo number_format((float)$number, 2, '.', ','); 
+							?></li>
+						</ul>
+						
+						
 					<?php endforeach ?>	
-				</tbody>
-				</table>
+				
 				<div class="row">
 					<div class="large-12 columns text-right">
 						
@@ -108,12 +104,12 @@
 					
 					
 					
-					<?php echo anchor('invoices/edit/'.$item[0]['iid'], 'Edit Invoice', 'class="button"', 'id="'.$item[0]['iid'].'"'); ?>
+					<?php echo anchor('invoices/edit/'.$item[0]['iid'], 'Edit Invoice', 'class="button round"', 'id="'.$item[0]['iid'].'"'); ?>
 					
 					<ul class="button-group">
 						<li><?php echo anchor('invoices/send_invoice?iid='.$item[0]['iid'].'&client='.$item[0]['client'], 'Send Invoice', 'class="small button secondary"'); ?></li>
 						<li><?php echo anchor('invoices/pdf/'.$item[0]['iid'], 'Download PDF', 'class="small button secondary"'); ?></li>
-						<li><a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="small button secondary">Add Payment</a></li>
+						<li><a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="small button secondary">View Payments</a></li>
 					</ul>
 				</div>
 			</div>
@@ -121,6 +117,9 @@
 </div>
 <div class="row">
 	<div class="large-4 columns large-centered">
-		<div id="paymentModal" class="reveal-modal small" data-reveal></div>
+		<div id="paymentModal" class="reveal-modal small" data-reveal>
+			<div id="form-errors" class="alert-box round"></div>
+			<div id="form-wrap"></div>
+		</div>
 	</div>
 </div>
