@@ -1,17 +1,19 @@
+
 <div class="row">
 	<div class="large-8 columns large-centered">
 		<h2 class="text-center">Edit Invoice #<?php echo($item[0]['iid']);?></h2>
 		
 		<div id="form-errors" class="alert-box alert round"></div>
 		
-		<?php $this->load->helper('dob'); ?>
-		<?php $hidden = array('iid' => $item[0]['iid']);
-		echo form_open('invoices/edit/'.$item[0]['iid'], '', $hidden) ?>
-		<?php $sumTotal = 0 ?>
+		
 	</div>
 </div>
 <div class="row">
 	<div class="large-12 columns">
+		<?php $this->load->helper('dob'); ?>
+		<?php $hidden = array('iid' => $item[0]['iid']);
+		echo form_open('invoices/edit/'.$item[0]['iid'], '', $hidden) ?>
+		<?php $sumTotal = 0 ?>
 		<div class="table-container">
 			<div class="panel clearfix">
 				<div class="large-4 columns">

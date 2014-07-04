@@ -203,6 +203,15 @@ class Invoices extends CI_Controller {
 		}
 	}
 	
+	public function delete_invoice($id) {
+		  if ($this->_check_user($id) === true) {
+		  	$this->invoice_model->invoice_delete($id);
+		  	redirect('/invoices', 'refresh');
+		  } else {
+		  	show_404();
+		  }
+		}
+	
 	public function delete_payment() 
 	{
 		$uid = $this->tank_auth_my->get_user_id();
