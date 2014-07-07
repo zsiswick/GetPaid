@@ -20,10 +20,13 @@ class Invoice_model extends CI_Model {
 	
 	public function get_invoice($id, $uid)
 	{
+		
 		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
+		
+		$client = $query->result_array();
 		
 		$this->db->select('*', false);
 		$this->db->where('i.common_id', $id);
@@ -42,10 +45,16 @@ class Invoice_model extends CI_Model {
 		$this->db->from('settings s');
 		$query4 = $this->db->get();
 		
+		$this->db->select('cl.contact, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
+		$this->db->where('cl.company', $client[0]['client']);
+		$this->db->from('client cl');
+		$query5 = $this->db->get();
+		
 		$invoice = $query->result_array();
 		$invoice['items'] = $query2->result_array();
 		$invoice['payments'] = $query3->result_array();
 		$invoice['settings'] = $query4->result_array();
+		$invoice['client'] = $query5->result_array();
 		return $invoice;
 	}
 	

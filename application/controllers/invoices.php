@@ -42,7 +42,7 @@ class Invoices extends CI_Controller {
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		if (empty($data['item'])) 
 		{
-				show_404();
+			show_404();
 		} 
 			else 
 		{

@@ -6,30 +6,103 @@
 		$payment_amount = 0;
 		$amtLeft;
 		$hidden = array('iid' => $item[0]['iid']); 
+		$address_1 = $item['client'][0]['address_1'];
+		$address_2 = $item['client'][0]['address_2'];
+		$city = $item['client'][0]['city'];
+		$state = $item['client'][0]['state'];
+		$zip = $item['client'][0]['zip'];
 	?>
 	
-		<?php echo validation_errors(); ?>
-		
-		<h2>Invoice #<?php echo($item[0]['iid']); ?></h2>
-			
-			<div class="table-container">
-				<div class="panel">
-					<p>To: <?php echo $item[0]['client']; ?></p>
-					<p>Date: <?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?></p>
-					<p>Payment Due: <?php 
+		<?php echo validation_errors();?>
+		<div class="invoice-wrap">
+				<div class="invoice-inner-wrap">
+					<div class="row">
+						<div class="small-12 small-centered large-uncentered large-8 columns invoice-info">
+							<p>
+								Zachary Siswick (DBA Chromaloop)<br/>
+								Company Name<br/>
+								15 Apple D Or Road<br/>
+								Framingham, MA<br/>
+								01701
+							</p>
+						</div>
+						<div class="small-12 small-centered large-uncentered large-4 columns invoice-info">
+							<div class="row">
+								<div class="small-12 small-only-text-center large-3 columns">
+									<p>To:</p>
+								</div>
+								<div class="small-12 small-only-text-center large-9 columns">
+									<p>
+										<?php echo $item[0]['client']; ?><br/>
+										<?php echo $item['client'][0]['contact']; ?><br/>
+										<?php if(!empty($address_1)): echo $address_1.'<br/>'; endif ?>
+										<?php if(!empty($address_2)): echo $address_2.'<br/>'; endif ?>
+										<?php if(!empty($city)): echo $city.' '; endif ?>
+										<?php if(!empty($state)): echo $state.' '; endif ?>
+										<?php if(!empty($zip)): echo '<br/>'.$zip; endif ?>
+									</p>
+								</div>
+							</div>
+							<hr />
+							<div class="row">
+								<div class="small-3 hide-for-small-only small-only-text-left large-3 columns">
+									<p>Invoice:</p>
+								</div>
+								<div class="small-12 small-only-text-center large-9 columns">
+									<p><span><span class="show-for-small-only">Invoice: </span></span><?php echo($item[0]['iid']); ?></p>
+								</div>
+							</div>
+							<hr />
+							<div class="row">
+								<div class="small-6 hide-for-small-only small-only-text-center large-3 columns">
+									<p>Date:</p>
+								</div>
+								<div class="small-12 small-only-text-center large-9 columns">
+									<p><span><span class="show-for-small-only">Date: </span></span><?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?></p>
+								</div>
+							</div>
+							<hr />
+							<div class="row">
+								<div class="small-6 hide-for-small-only small-only-text-center large-3 columns">
+									<p>Due:</p>
+								</div>
+								<div class="small-12 small-only-text-center large-9 columns">
+									<p><span><span class="show-for-small-only">Due: </span></span>$<?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 small-only-text-center columns">
+							<p><span class="label round">
+									Payment Due By: <?php 
+								
+									$date = new DateTime($item[0]['date']);
+									$date->add(new DateInterval('P'.$item['settings'][0]['due'].'D'));
+									echo $date->format('F j, Y') . "\n" . '(' . $item['settings'][0]['due'] . ' Days)';
+								?>
+							</span></p>
+						</div>
+					</div>
 					
-						$date = new DateTime($item[0]['date']);
-						$date->add(new DateInterval('P'.$item['settings'][0]['due'].'D'));
-						echo $date->format('F j, Y') . "\n" . '(' . $item['settings'][0]['due'] . ' Days)';
+					<div id="invoiceCreate" class="row invoice-create list_header">
+						<div class="small-12 medium-2 large-2 columns">
+							Qty
+						</div>
+						<div class="small-12 medium-4 large-6 columns">
+							Description
+						</div>
+						<div class="small-12 medium-3 large-2 columns text-right">
+							Price
+						</div>
+						<div class="small-12 medium-3 large-2 columns text-right">
+							Total
+						</div>
+					</div>
 					
-					?></p>
-				</div>
-				<ul id="invoiceCreate" class="invoice-create list_header clearfix">
-					<li class="qty">Qty</li>
-					<li class="description">Description</li>
-					<li class="price">Price</li>
-					<li class="totalSum">Total</li>
-				</ul>
+					
+					
+					
 				
 					<?php 
 							foreach ($item['items'] as $invoice_item): 
@@ -38,81 +111,102 @@
 							$sumTotal = $sumTotal + $number;
 						?>
 						
-						<ul class="invoice-list clearfix">
-							<li class="qty"><?php echo $invoice_item['quantity'] ?></li>
-							<li class="description"><?php echo $invoice_item['description'] ?></li>
-							<li class="price"><?php echo '$'.$invoice_item['unit_cost'] ?></li>
-							<li class="totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">$<?php 
-								echo number_format((float)$number, 2, '.', ','); 
-							?></li>
-						</ul>
+						<div class="row invoice items list">
+							<div class="small-12 small-only-text-center medium-2 large-2 columns qty">
+								<?php echo $invoice_item['quantity'] ?>
+							</div>
+							<div class="small-12 small-only-text-center medium-4 large-6 columns description">
+								<?php echo $invoice_item['description'] ?>
+							</div>
+							<div class="small-12 small-only-text-center medium-3 large-2 columns text-right price">
+								<?php echo '$'.$invoice_item['unit_cost'] ?>
+							</div>
+							<div class="small-12 small-only-text-center medium-3 large-2 columns text-right totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">
+								$<?php 
+									echo number_format((float)$number, 2, '.', ','); 
+								?>
+							</div>
+						</div>
 						
 						
 					<?php endforeach ?>	
 				
-				<div class="row">
-					<div class="large-12 columns text-right">
+				<section id="payment-info" class="row">
+					<div class="large-7 columns">
+						<h3>Notes</h3>
+						<p><?php echo($item['settings'][0]['notes']) ?></p>
+					</div>
+					<div id="payments" class="large-5 columns">
 						
-						<table id="payments" class="right">
-							<tr>
-								<td class="text-right"><h3>Total:</h3></td>
-								<td class="text-right"><h3>$<span id="invoiceTotal"></span><?php echo number_format((float)($sumTotal), 2, '.', ',');?></h3></td>
-							</tr>
-							<tr>
-								<td class="text-right"><h5>Paid:</h5></td>
-								<td class="text-right">
-									<h5>$<span id="amtPaid"><?php 
+						<div class="row">
+							<div class="small-7 columns large-only-text-right">
+								<h3>Due:</h3>
+							</div>
+							<div class="small-5 columns text-right">
+								<h3>$<span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></h3>
+							</div>
+						</div>
+						<hr />
+						<div class="row">
+							<div class="small-7 columns large-only-text-right">
+								<h5>Paid:</h5>
+							</div>
+							<div class="small-5 columns text-right">
+								<h5>
+									$<span id="amtPaid"><?php 
 											foreach ($item['payments'] as $payment){
 												$number = $payment['payment_amount'] ; 
 												$payment_amount = $payment_amount + $number;
 											}
 											echo number_format((float)$payment_amount, 2, '.', ',');?>
 										</span>
-									</h5>
-								</td>
-							</tr>
-							<tr>
-								<td class="text-right"><h5>Left:</h5></td>
-								<td class="text-right">
-									<h5>$<span id="amtLeft"><?php
-										$amtLeft = max($sumTotal - $payment_amount,0);
-										echo(number_format((float)($amtLeft), 2, '.', ','));
-									?></span></h5>
-									<?php
-										if ($amtLeft <= 0) {
-											echo('INVOICE PAID');
-										} else if ( $amtLeft == $sumTotal ) {
-											echo('INVOICE OPEN');
-										} else {
-											echo('PARTIAL PAYMENT');
-										}
-									?>
-								</td>
-							</tr>
-						</table>
+								</h5>
+							</div>
+						</div>
+						<hr />
+						
+						<div class="row">
+							<div class="small-7 columns large-only-text-right">
+								<h5>Left:</h5>
+							</div>
+							<div class="small-5 columns text-right">
+								<h5>$<span id="amtLeft"><?php
+									$amtLeft = max($sumTotal - $payment_amount,0);
+									echo(number_format((float)($amtLeft), 2, '.', ','));
+								?></span></h5>
+								<?php
+									if ($amtLeft <= 0) {
+										echo('INVOICE PAID');
+									} else if ( $amtLeft == $sumTotal ) {
+										echo('INVOICE OPEN');
+									} else {
+										echo('PARTIAL PAYMENT');
+									}
+								?>
+							</div>
+						</div>
+						
+						
+						
+						
+						
 					</div>
-				</div>
+				</section>
 			</div>
 			<div class="row">
-				<div class="large-12 columns">
-					<h4>Notes</h4>
-					<p><?php echo($item['settings'][0]['notes']) ?></p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-12 columns text-right">
-					
-					
-					
-					<?php echo anchor('invoices/edit/'.$item[0]['iid'], 'Edit Invoice', 'class="button round"', 'id="'.$item[0]['iid'].'"'); ?>
-					
-					<ul class="button-group">
-						<li><?php echo anchor('invoices/send_invoice?iid='.$item[0]['iid'].'&client='.$item[0]['client'], 'Send Invoice', 'class="small button secondary"'); ?></li>
-						<li><?php echo anchor('invoices/pdf/'.$item[0]['iid'], 'Download PDF', 'class="small button secondary"'); ?></li>
-						<li><a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="small button secondary">View Payments</a></li>
+				<div class="small-12 small-only-text-center large-8 columns">
+					<ul class="button-group round">
+						<li><?php echo anchor('invoices/send_invoice?iid='.$item[0]['iid'].'&client='.$item[0]['client'], 'Send Invoice', 'class="tiny button secondary"'); ?></li>
+						<li><?php echo anchor('invoices/pdf/'.$item[0]['iid'], 'Download PDF', 'class="tiny button secondary"'); ?></li>
+						<li><a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="tiny button secondary">Payments</a></li>
 					</ul>
 				</div>
+				<div class="small-12 small-only-text-center large-4 columns text-right">
+					<?php echo anchor('invoices/edit/'.$item[0]['iid'], 'Edit Invoice', 'class="button round"', 'id="'.$item[0]['iid'].'"'); ?>
+				</div>
 			</div>
+		</div><!-- -->
+		
 	</div>
 </div>
 <div class="row">

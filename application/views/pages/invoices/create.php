@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="large-12 columns">
-		<h2>New Invoice</h2>
+		<h1 class="text-center">New Invoice</h1>
 		<?php echo validation_errors(); ?>
 		
 		<?php 
@@ -30,26 +30,23 @@
 			</div>
 			
 			<div class="table-container">
-				<table id="invoiceCreate" class="invoice-create">
-				<thead>
-					<tr>
-						<th>Qty</th>
-						<th>Description</th>
-						<th>Price</th>
-						<th>Total</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><input class="qty sum" type="text" name="qty[]" /></td>
-						<td><textarea name="description[]" cols="30" rows="3"></textarea></td>
-						<td><input class="unitCost sum" type="text" name="unit_cost[]" /></td>
-						<td class="totalSum">$0.00</td>
-						<td><a class="delete-row">Remove</a></td>
-					</tr>
-				</tbody>
-				</table>
+				
+				<ul class="list_header clearfix">
+					<li class="qty">Qty</li>
+					<li class="description">Description</li>
+					<li class="price">Price</li>
+					<li class="totalSum">Total</li>
+					<li class="delete">Remove</li>
+				</ul>
+				<div class="edit-list-container">
+					<ul id="invoiceCreate" class="invoice-create invoice-list clearfix">
+						<li class="qty"><input class="qty sum" type="text" name="qty[]" /></li>
+						<li class="description"><input type="text" name="description[]" /></li>
+						<li class="price"><input class="unitCost sum" type="text" name="unit_cost[]" /></li>
+						<li class="totalSum">$0.00</li>
+						<li class="delete"><a class="delete-row">Remove</a></li>
+					</ul>
+				</div>
 				<div class="row">
 					<div class="large-12 columns text-left">
 						<a id="addItems" class="button small secondary">Add more items</a>

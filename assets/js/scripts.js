@@ -2,7 +2,7 @@ $(document).foundation();
 $( document ).ready(function() {
     
     // PREVENT INVALID CHARACTERS ENTERED INTO TXT FIELDS
-    $( "#invoiceCreate tbody, #paymentModal" ).on( "keypress", "input.qty, input.sum, input.amt", function(e) {
+    $( "#invoiceCreate .edit-list-container, #paymentModal" ).on( "keypress", "input.qty, input.sum, input.amt", function(e) {
       var chr = String.fromCharCode(e.which);
       if ("1234567890.".indexOf(chr) < 0) {
       	return false;
@@ -65,7 +65,7 @@ $( document ).ready(function() {
     
     
     $('#addItems').click(function() {
-    	$('.edit-list-container').append(' <ul class="invoice-list clearfix"><li class="qty"><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></li><li class="description"><input type="text" name="description[]" /></li><li class="price"><input type="text" name="unit_cost[]" class="unitCost sum"></li><li class="totalSum">$0.00</li><li class="delete"><a class="delete-row">Remove</a></li></ul>');
+    	$('.edit-list-container').append(' <div class="row invoice items list"><div class="qty small-12 large-1 columns"><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></div><div class="description small-12 large-5 columns"><input type="text" name="description[]" /></div><div class="price small-12 large-2 columns"><input type="text" name="unit_cost[]" class="unitCost sum"></div><div class="totalSum small-12 large-2 large-only-text-right columns">$0.00</div><div class="delete small-12 large-2 columns"><a class="delete-row">Remove</a></div></div>');
     });
     
     

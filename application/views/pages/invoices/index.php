@@ -14,22 +14,46 @@
 	 	<div class="large-12 columns">
 	 		<div class="invoice-list-wrap clearfix">
 	 			<div class="invoice-list-inner-wrap">
-	 				<ul class="list_header clearfix">
-	 					<li class="invoice-id">ID</li>
-	 					<li class="date">Date</li>
-	 					<li class="client">Client</li>
-	 					<li class="amount">Amount</li>
-	 					<li class="status">Status</li>
-	 				</ul>
+	 				
+	 				<div id="invoiceCreate" class="row invoice-create list_header">
+	 					<div class="small-12 medium-1 large-1 columns invoice-id">
+	 						ID
+	 					</div>
+	 					<div class="small-12 medium-3 large-3 columns date">
+	 						Date
+	 					</div>
+	 					<div class="small-12 medium-4 large-4 columns client">
+	 						Client
+	 					</div>
+	 					<div class="small-12 medium-2 large-2 columns text-right amount">
+	 						Amount
+	 					</div>
+	 					<div class="small-12 medium-2 large-2 columns text-right status">
+	 						Status
+	 					</div>
+	 				</div>
+	 				
 	 				<?php foreach ($invoices as $invoice_item): ?>
-	 			<ul class="invoice-list clearfix">
-	 				<li class="invoice-id"><a href="<?php echo base_url(); ?>index.php/invoices/view/<?php echo $invoice_item['iid']; ?>">#<?php echo $invoice_item['iid'];?></a></li>
-	 				<li class="date"><?php echo $invoice_item['pdate']; ?></li>
-	 				<li class="client"><?php echo $invoice_item['client']; ?></li>
-	 				<li class="amount"><?php echo money_format('%.2n', $invoice_item['amount']); ?></li>
-	 				<li class="status"><span class="round alert label">STATUS</span></li>
-	 			</ul>
-	 			<?php endforeach ?></div>
+		 			
+		 			<div class="row invoice list">
+		 				<div class="small-12 small-only-text-center medium-1 large-1 columns invoice-id">
+		 					<a href="<?php echo base_url(); ?>index.php/invoices/view/<?php echo $invoice_item['iid']; ?>">#<?php echo $invoice_item['iid'];?></a>
+		 				</div>
+		 				<div class="small-12 small-only-text-center medium-3 large-3 columns date">
+		 					<?php echo $invoice_item['pdate']; ?>
+		 				</div>
+		 				<div class="small-12 small-only-text-center medium-4 large-4 columns client">
+		 					<?php echo $invoice_item['client']; ?>
+		 				</div>
+		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
+		 					<?php echo money_format('%.2n', $invoice_item['amount']); ?>
+		 				</div>
+		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
+		 					<span class="round alert label">STATUS</span>
+		 				</div>
+		 			</div>
+		 			
+		 		<?php endforeach ?></div>
 	 		</div>
 	 		
 	 		
