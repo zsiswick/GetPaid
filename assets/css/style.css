@@ -20,6 +20,33 @@
     font-style: normal;
 
 }
+.step {
+  display: inline-block;
+  line-height: 1;
+  width: 10%;
+}
+
+      
+.size-12 { font-size: 12px; }
+
+.size-14 { font-size: 14px; }
+
+.size-16 { font-size: 16px; }
+
+.size-18 { font-size: 18px; }
+
+.size-21 { font-size: 21px; }
+
+.size-24 { font-size: 24px; }
+
+.size-36 { font-size: 36px; }
+
+.size-48 { font-size: 48px; }
+
+.size-60 { font-size: 60px; }
+
+.size-72 { font-size: 72px; }
+
 .invoice-info p{
 	color: #999;
 	line-height: 1.2rem;
@@ -112,8 +139,9 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	border-bottom: 1px solid #eef0f0;
 }
 .invoice.list div {
-	padding: 10px;
+	//padding: 10px;
 	font-family: "Fenix";
+	margin: 10px 0;
 }
 .invoice.list.no-rules div {
 	border-bottom: none;
@@ -131,9 +159,10 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	font-family: "Fenix";
 }
 .delete {
-	text-align: right;
 }
-
+.edit-list-container {
+	margin-bottom: 1.25rem;
+}
 .edit-list-container li {
 	height: 3.7rem;
 }
@@ -153,7 +182,6 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 @media only screen and (max-width: 767px) {
     /* phones */
     .invoice.list {
-    	padding: 0 3rem;
     }
     .invoice.items.list {
     	border-bottom: 1px solid #505050;
@@ -168,7 +196,6 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 			border-bottom: none;
      }
      .invoice.list div {
-     	padding: .5rem 0rem;
      	border-bottom: 1px solid #dddddd;
      }
      .invoice.items.list div {
