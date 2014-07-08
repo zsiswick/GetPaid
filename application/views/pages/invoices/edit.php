@@ -77,7 +77,7 @@
 								<div class="totalSum small-12 medium-2 large-only-text-right columns" data-totalsum="<?php echo number_format((float)$number, 2, '.', ''); ?>">
 									$<?php echo number_format((float)$number, 2, '.', ','); ?>
 								</div>
-								<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
+								<div class="delete small-12 medium-1 columns small-text-center large-only-text-right">
 									<a href="<?php echo base_url(); ?>index.php/invoices/delete_row?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"]?>" id="remove-<?php echo $invoice_item["id"]; ?>"><i class="step fi-x size-21"></i></a>
 								</div>
 							</div>

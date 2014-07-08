@@ -65,8 +65,8 @@
 						</div>
 					</div>
 					
-					<div class="edit-list-container">
-						<div id="invoiceCreate" class="row invoice list no-rules">
+					<div id="invoiceCreate" class="edit-list-container">
+						<div class="row invoice list no-rules">
 							<div class="qty small-12 medium-2 columns">
 								<input class="qty sum" type="text" name="qty[]" />
 							</div>
@@ -79,7 +79,7 @@
 							<div class="totalSum small-12 medium-2 large-only-text-right columns" >
 								$0.00
 							</div>
-							<div class="delete small-12 medium-1 columns small-text-center">
+							<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
 								<a class="delete-row"><i class="step fi-x size-21"></i></a>
 							</div>
 						</div>
