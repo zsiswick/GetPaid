@@ -40,7 +40,6 @@ class Invoices extends CI_Controller {
 	{
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		//echo $this->invoice_model->get_set_invoice_status($id);
 		
 		//var_dump($data['payments']);
 		if (empty($data['item'])) 
@@ -175,7 +174,7 @@ class Invoices extends CI_Controller {
 				  $respond['result'] = 'true';
 					$respond['errors'] = 'The payment was added!';
 					$this->invoice_model->add_payment($pdata, $id);
-					$respond['records'] = $pdata;
+					$respond['records'] = array_merge($pdata, $data['item'][0]);
 				}
 				return $this->output->set_output(json_encode($respond));
 			}
@@ -316,6 +315,36 @@ class Invoices extends CI_Controller {
 		// UPDATE THE INVOICE SENT FLAG
 		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
 		
+		echo $this->email->print_debugger();
+	}
+	
+	public function view_invoice_email($id) {
+		$data['first_name']	= $this->tank_auth_my->get_username();
+		$uid = $this->tank_auth_my->get_user_id();
+		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+				
+		$this->load->view('pages/invoices/view_invoice_email', $data);
+	}
+	
+	public function send_invoice_email($id) {
+		$emailSubject = $this->input->post('emailSubject');
+		$emailMessage = $this->input->post('emailMessage');
+		$clientEmail = $this->input->post('client_email');
+		
+		$from_email = $this->tank_auth_my->get_email();
+		$this->load->library('email');
+		$config['wordwrap'] = TRUE;
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+		//$this->email->attach($pdfFilePath);
+		$this->email->from($from_email, $this->tank_auth_my->get_username());
+		$this->email->to($clientEmail); 
+		$this->email->subject($emailSubject);
+		$this->email->message($emailMessage);	
+		
+		$this->email->send();
+		// UPDATE THE INVOICE SENT FLAG
+		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
 		echo $this->email->print_debugger();
 	}
 	

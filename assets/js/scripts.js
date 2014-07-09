@@ -84,6 +84,18 @@ $( document ).ready(function() {
     	  	var $this = $(this);
     	  	// UPDATE THE PAYMENT TOTALS
     	  	//alert($this.val());
+    	  	
+    	  	
+    	  	Object.prototype.keys = function(obj){
+    	  	   var keys = [];
+    	  	   for(var key in obj){
+    	  	      keys.push(key);
+    	  	   }
+    	  	   return keys;
+    	  	}
+    	  	
+    	  	
+    	  	alert($records.status);
     	  	sum += parseFloat($this.val());
     	  	
     	  });
@@ -159,6 +171,14 @@ $( document ).ready(function() {
     $("#addPaymentBtn").on("click", function() {
     	var id = window.location.pathname.split('/').pop();
     	$.get( baseurl+"index.php/invoices/view_payments/"+id, function( data ) {
+    	  $("#form-wrap").html( data );
+    	  $("#form-errors").hide();
+    	});
+    });
+    
+    $("#sendInvoiceBtn").on("click", function() {
+    	var id = window.location.pathname.split('/').pop();
+    	$.get( baseurl+"index.php/invoices/view_invoice_email/"+id, function( data ) {
     	  $("#form-wrap").html( data );
     	  $("#form-errors").hide();
     	});

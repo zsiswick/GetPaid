@@ -5,7 +5,6 @@
 		$sumTotal = 0;
 		$amount = 0;
 		$hidden = array('iid' => $item[0]['iid']); 
-		$inv_status = 0;
 	?>
 	
 	<?php 
@@ -22,24 +21,8 @@
 	?>
 		<div class="row">
 			<div class="columns large-12">
-				
-				
-					
-					
 				<label for="payment_amount[]">Amount</label>
 				<input type="text" id="pamount" name="pamount" class="amt" value="<?php echo(number_format((float)($sumTotal), 2, '.', '')); ?>"/>
-				
-				<?php
-					if ($sumTotal <= 0) {
-						$inv_status = 3;
-					} else if ( $sumTotal == $invoicAmount ) {
-						$inv_status = 1;
-					} else {
-						$inv_status = 2;
-					}
-				?>
-				<input id="inv_status" type="hidden" name="inv_status" value="<?php echo $inv_status; ?>" />
-				
 			</div>
 		<?php if($sumTotal > 0) {?>
 			

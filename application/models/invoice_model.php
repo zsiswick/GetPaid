@@ -211,11 +211,11 @@ class Invoice_model extends CI_Model {
 		}
 		
 		if ($payment_amount >= $invoice_total) {
-			$inv_status = 3;
+			$inv_status = 3; // Paid in Full
 		} else if ( $payment_amount == 0 ) {
-			$inv_status = 1;
+			$inv_status = 1; // Invoice Open
 		} else {
-			$inv_status = 2;
+			$inv_status = 2; // Partial Payment
 		}
 		
 		$this->set_invoice_flag($id, 'status', $inv_status);

@@ -4,7 +4,6 @@
 		$this->load->helper('dob');
 		$sumTotal = 0; 
 		$payment_amount = 0;
-		$amtLeft;
 		$hidden = array('iid' => $item[0]['iid']); 
 		$address_1 = $item['client'][0]['address_1'];
 		$address_2 = $item['client'][0]['address_2'];
@@ -174,14 +173,11 @@
 									$amtLeft = max($sumTotal - $payment_amount,0);
 									echo(number_format((float)($amtLeft), 2, '.', ','));
 								?></span></h5>
+								
 								<?php
-									if ($amtLeft <= 0) {
-										echo('INVOICE PAID');
-									} else if ( $amtLeft == $sumTotal ) {
-										echo('INVOICE OPEN');
-									} else {
-										echo('PARTIAL PAYMENT');
-									}
+									/* MAPS INVOICE STATUS TO A STRING */
+									$status = array('0' => 'DRAFT', '1' => 'INVOICE OPEN', '2' => 'PARTIAL PAYMENT', '3' => 'INVOICE PAID');
+									echo($status[$item[0]['status']]);
 								?>
 							</div>
 						</div>
@@ -192,7 +188,8 @@
 				<div class="small-12 small-only-text-center large-8 columns">
 					<ul class="button-group round">
 						<li>
-							<a href="<?php echo base_url(); ?>index.php/invoices/send_invoice?iid=<?php echo$item[0]['iid'].'&client='.$item[0]['client']; ?>" class="tiny button secondary">Send Invoice <i class="step fi-check size-18"></i></a>
+							<!--<a href="<?php echo base_url(); ?>index.php/invoices/send_invoice?iid=<?php echo$item[0]['iid'].'&client='.$item[0]['client']; ?>" class="tiny button secondary">Send Invoice <i class="step fi-check size-18"></i></a> -->
+							<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="tiny button secondary">Send Invoice  <i class="step fi-check size-18"></i></a>
 							 
 						</li>
 						<li>
@@ -207,8 +204,7 @@
 					<?php echo anchor('invoices/edit/'.$item[0]['iid'], 'Edit Invoice', 'class="button round"', 'id="'.$item[0]['iid'].'"'); ?>
 				</div>
 			</div>
-		</div><!-- -->
-		
+		</div>
 	</div>
 </div>
 <div class="row">
