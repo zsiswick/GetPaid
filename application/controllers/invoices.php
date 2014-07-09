@@ -340,7 +340,7 @@ class Invoices extends CI_Controller {
 		$this->email->from($from_email, $this->tank_auth_my->get_username());
 		$this->email->to($clientEmail); 
 		$this->email->subject($emailSubject);
-		$this->email->message($emailMessage);	
+		$this->email->message(nl2br($emailMessage));	
 		
 		$this->email->send();
 		// UPDATE THE INVOICE SENT FLAG
