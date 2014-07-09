@@ -92,14 +92,14 @@
 					</div>
 					<hr />
 					<div class="row">
-						<div class="large-12 columns large-only-text-right small-text-center">
+						<div class="large-12 columns text-right small-only-text-center">
 							<h3>Total Due: <span id="invoiceTotal">$0.00</span></h3>
 						</div>
 					</div>
 			</div>
 			
 			<div class="row">
-				<div class="large-12 columns large-only-text-right small-text-center">
+				<div class="large-12 columns text-right small-only-text-center">
 					<input type="submit" name="submit" value="Create Invoice" class="button round" />
 				</div>
 			</div>

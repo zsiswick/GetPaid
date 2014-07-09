@@ -21,7 +21,7 @@ class Invoice_model extends CI_Model {
 	public function get_invoice($id, $uid)
 	{
 		
-		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status', false);
+		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status, c.inv_sent', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -162,16 +162,64 @@ class Invoice_model extends CI_Model {
 	   $this->db->delete('common');
 	}
 	
-	function add_payment($pdata){
+	function add_payment($pdata, $id)
+	{
 	  // Insert only the new payment, old payments can not be edited - deleted only
 	  $this->db->insert('payments', $pdata);
-	  // TO DO: Set the invoice status 
+	  // Update the invoice status
+	  $this->invoice_model->_get_set_invoice_status($id); 
 	}
 	
-	function payment_delete($delete_id){
+	function payment_delete($delete_id, $id)
+	{
 		$this->db->where('pid', $delete_id);
 		$this->db->limit(1);
 		$this->db->delete('payments');
+		// Update the invoice status
+		$this->invoice_model->_get_set_invoice_status($id);
+	}
+	
+	public function set_invoice_flag($id, $flagtype, $status) 
+	{
+		$data = array($flagtype => $status);
+		$this->db->where('id', $id);
+		$this->db->limit(1);
+		$this->db->update('common', $data);
+	}
+	
+	private function _get_set_invoice_status($id) 
+	{
+		// Compare amount in invoice with the total payments made
+		$this->db->select('c.amount', false);
+		$this->db->where('c.id', $id);
+		$this->db->from('common c');
+		$query = $this->db->get();
+		
+		$this->db->select('p.payment_amount', false);
+		$this->db->where('p.common_id', $id);
+		$this->db->from('payments p');
+		$query2 = $this->db->get();
+		
+		$invoice['invoice_total'] = $query->result_array();
+		$invoice['payments'] = $query2->result_array();
+		
+		$payment_amount = 0;
+		$invoice_total = $invoice['invoice_total'][0]['amount'];
+		foreach ($invoice['payments'] as $payment) {
+			$number = $payment['payment_amount']; 
+			$payment_amount = $payment_amount + $number;
+		}
+		
+		if ($payment_amount >= $invoice_total) {
+			$inv_status = 3;
+		} else if ( $payment_amount == 0 ) {
+			$inv_status = 1;
+		} else {
+			$inv_status = 2;
+		}
+		
+		$this->set_invoice_flag($id, 'status', $inv_status);
+		return $inv_status;
 	}
 	
 	private function _arrayUnique($array) {

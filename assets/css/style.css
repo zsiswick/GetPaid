@@ -26,6 +26,14 @@
   width: 10%;
 }
 
+.circle {
+    width: 200px;
+    height: 200px;
+    -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+    background: #4679BD;
+}
       
 .size-12 { font-size: 12px; }
 
@@ -66,7 +74,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: "Fenix";
 }
 h1, h2 {
-	color: #fff;
+
 }
 .button {
 	background: #333;
@@ -182,6 +190,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 @media only screen and (max-width: 767px) {
     /* phones */
     .invoice.list {
+    	border-bottom: 1px solid #999;
     }
     .invoice.items.list {
     	border-bottom: 1px solid #505050;
@@ -197,7 +206,13 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
      }
      .invoice.list div {
      	border-bottom: 1px solid #dddddd;
+     	padding-bottom: 1rem;
      }
+     .invoice.list div:last-child {
+     	border-bottom: none;
+     	padding-bottom: 0;
+     }
+     
      .invoice.items.list div {
      	border-bottom: 1px solid #505050;
      }
@@ -217,27 +232,29 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
      	margin-bottom: 12px;
      }
      .invoice-id:before {
-     	content: "ID: ";
+
      }
      
      .date:before {
-     	content: "Date: ";
+
      }
      
      .client:before {
-     	content: "Client: ";
+
      }
     
      .amount:before {
-     	content:  "Amount: ";
+
      }
-     
+     .delete a:after {
+     	content: "Remove";
+     }
      .qty:before {
         content: "Qty: ";
      }
      
      .description:before {
-        content: "Description: ";
+        //content: "Description: ";
      }
      
      .price:before {

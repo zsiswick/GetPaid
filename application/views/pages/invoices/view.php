@@ -26,7 +26,7 @@
 								01701
 							</p>
 						</div>
-						<div class="small-12 small-centered large-uncentered large-4 columns invoice-info">
+						<div class="small-12 small-centered large-uncentered large-4 columns invoice-info panel">
 							<div class="row">
 								<div class="small-12 small-only-text-center large-3 columns">
 									<p>To:</p>
@@ -111,7 +111,7 @@
 							$sumTotal = $sumTotal + $number;
 						?>
 						
-						<div class="row invoice items list">
+						<div class="row invoice list">
 							<div class="small-12 small-only-text-center medium-2 large-2 columns qty">
 								<?php echo $invoice_item['quantity'] ?>
 							</div>
@@ -185,20 +185,22 @@
 								?>
 							</div>
 						</div>
-						
-						
-						
-						
-						
 					</div>
 				</section>
 			</div>
 			<div class="row">
 				<div class="small-12 small-only-text-center large-8 columns">
 					<ul class="button-group round">
-						<li><?php echo anchor('invoices/send_invoice?iid='.$item[0]['iid'].'&client='.$item[0]['client'], 'Send Invoice', 'class="tiny button secondary"'); ?></li>
-						<li><?php echo anchor('invoices/pdf/'.$item[0]['iid'], 'Download PDF', 'class="tiny button secondary"'); ?></li>
-						<li><a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="tiny button secondary">Payments</a></li>
+						<li>
+							<a href="<?php echo base_url(); ?>index.php/invoices/send_invoice?iid=<?php echo$item[0]['iid'].'&client='.$item[0]['client']; ?>" class="tiny button secondary">Send Invoice <i class="step fi-check size-18"></i></a>
+							 
+						</li>
+						<li>
+							<a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="tiny button secondary">Download PDF <i class="step fi-download size-18"></i></a>
+						</li>
+						<li>
+							<a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="tiny button secondary">Payments <i class="step fi-dollar size-18"></i></a>
+						</li>
 					</ul>
 				</div>
 				<div class="small-12 small-only-text-center large-4 columns text-right">
@@ -210,7 +212,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="large-4 columns large-centered">
+	<div class="small-12 medium-12 large-4 columns large-centered">
 		<div id="paymentModal" class="reveal-modal small" data-reveal>
 			<div id="form-errors" class="alert-box round"></div>
 			<div id="form-wrap"></div>

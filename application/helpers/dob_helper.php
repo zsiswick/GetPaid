@@ -41,4 +41,3 @@ if ( ! function_exists('format_date'))
   return date('F j, Y',mktime(0,0,0,$parts[1],$parts[2],$parts[0]));
  }
 }
-?>

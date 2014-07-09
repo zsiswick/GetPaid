@@ -144,7 +144,6 @@ $( document ).ready(function() {
       // prevent default posting of form
       event.preventDefault();
     }
-  	
     
     $("#createForm").on("submit", function(event) {
     	$this = $(this);

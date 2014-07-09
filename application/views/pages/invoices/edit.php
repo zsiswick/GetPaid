@@ -7,7 +7,7 @@
 
 <div class="row">
 	<div class="large-12 columns">
-		<?php $this->load->helper('dob'); ?>
+		
 		<?php $hidden = array('iid' => $item[0]['iid']);
 		echo form_open('invoices/edit/'.$item[0]['iid'], '', $hidden) ?>
 		<?php $sumTotal = 0 ?>
@@ -93,7 +93,7 @@
 				
 				<hr />
 				<div class="row">
-					<div class="large-12 columns large-only-text-right small-text-center">
+					<div class="large-12 columns small-only-text-center text-right">
 						<h3>Total Due: <span id="invoiceTotal">$<?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>
 					</div>
 				</div>
@@ -101,10 +101,10 @@
 			</div>
 			
 			<div class="row actions">
-				<div class="large-12 columns large-only-text-right small-text-center">
+				<div class="large-12 columns text-right small-only-text-center">
 					<input type="submit" name="submit" value="Save Changes" class="button round"/>
 				</div>
-				<div class="large-12 columns large-only-text-right small-text-center">
+				<div class="large-12 columns text-right small-only-text-center">
 					<?php echo anchor('invoices/delete_invoice/'.$item[0]['iid'], 'Delete Invoice', 'class=""', 'id="'.$item[0]['iid'].'"'); ?>
 				</div>
 			</div>

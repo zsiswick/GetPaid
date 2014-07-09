@@ -1,9 +1,11 @@
 	<?php 
 		$this->load->helper('dob');
 		$invoicAmount = $item[0]['amount']; 
+		$payment_amount = 0;
 		$sumTotal = 0;
 		$amount = 0;
 		$hidden = array('iid' => $item[0]['iid']); 
+		$inv_status = 0;
 	?>
 	
 	<?php 
@@ -20,8 +22,24 @@
 	?>
 		<div class="row">
 			<div class="columns large-12">
+				
+				
+					
+					
 				<label for="payment_amount[]">Amount</label>
 				<input type="text" id="pamount" name="pamount" class="amt" value="<?php echo(number_format((float)($sumTotal), 2, '.', '')); ?>"/>
+				
+				<?php
+					if ($sumTotal <= 0) {
+						$inv_status = 3;
+					} else if ( $sumTotal == $invoicAmount ) {
+						$inv_status = 1;
+					} else {
+						$inv_status = 2;
+					}
+				?>
+				<input id="inv_status" type="hidden" name="inv_status" value="<?php echo $inv_status; ?>" />
+				
 			</div>
 		<?php if($sumTotal > 0) {?>
 			
@@ -37,40 +55,50 @@
 				<div class="columns large-4 small-4">
 					<?php echo$dob_dropdown_year; ?>
 				</div>
-				<div class="columns large-4 small-4">
+				<div class="columns small-12 text-center">
 					<input type="submit" name="submit" value="Add Payment" class="button round"/>
 				</div>
 		<?php }?>
 		
 		<div class="columns large-12">
 			
-		
-			<table id="invoicePayments" class="invoice-create">
+			
+				
+			<div id="invoicePayments" class="invoice-create">
 				<?php	
 						if (!empty($item['payments'])) {
 					?>
-						<thead>
-							<tr>
-								<th></th>
-								<th>Amount</th>
-								<th>Date</th>
-							</tr>
-						</thead>
-						<tbody>
+					<div class="row invoice-create list_header">
+						<div class="small-12 medium-2 columns small-only-text-center">
+							Amount
+						</div>
+						<div class="small-12 medium-10 columns small-only-text-center">
+							Date
+						</div>
+					</div>
+						
 						<?php
 							foreach ($item['payments'] as $payment){
 						?>
-							<tr>
-								<td><?php echo anchor('invoices/delete_payment?pid='.$payment["pid"].'&common_id='.$payment["common_id"], 'Remove', 'pid="'.$payment["pid"].'"'); ?></td>
-								<td><input type="hidden" name="payment_amount[]" class="amt" value="<?php echo $payment['payment_amount'] ?>" />$<?php echo $payment['payment_amount'] ?></td>
-								<td><?php echo $payment['pdate'] ?></td>
-							</tr>
+						
+						<div class="row invoice list">
+							<div class="small-12 medium-2 columns small-only-text-center">
+								<input type="hidden" name="payment_amount[]" class="amt" value="<?php echo $payment['payment_amount'] ?>" />$<?php echo $payment['payment_amount'] ?>
+							</div>
+							<div class="small-12 medium-8 columns small-only-text-center">
+								<?php echo $payment['pdate'] ?>
+							</div>
+							<div class="small-12 medium-2 columns small-only-text-center text-right">
+								<a href="<?php echo base_url(); ?>index.php/invoices/delete_payment?pid=<?php echo $payment["pid"].'&common_id='.$payment["common_id"]; ?>"><i class="step fi-x size-21"></i></a>
+							</div>
+						</div>
+							
+							
 						<?php			
 							}
 						} 
 					 ?>	
-				</tbody>
-			</table>
+			</div>
 		
 		</div>	
 		</div> 
