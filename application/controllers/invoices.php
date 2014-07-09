@@ -149,12 +149,7 @@ class Invoices extends CI_Controller {
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		$common_id = $data['item'][0]['iid'];
-		//$this->db->select('payments');
-		//$invoicAmount = $data['item'][0]['amount'];
-		//$amount = 0;
 		$pamount = $this->input->post('pamount');
-		
-		
 		$paymentDate = $this->_format_date_string($this->input->post('year'), $this->input->post('month'), $this->input->post('day'));
 		$pdata = array(
 			'payment_amount'=>$pamount,
@@ -322,23 +317,6 @@ class Invoices extends CI_Controller {
 		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
 		
 		echo $this->email->print_debugger();
-	}
-	
-	private function _get_invoice_status($data, $invoicAmount, $pamount) {
-		// Check all payments made, set invoice status accordingly...
-		foreach ($data['item']['payments'] as $payments){
-			$number = $payments['payment_amount'];	
-			$amount = $amount + $number;
-		}
-		$sumTotal = max(($invoicAmount - $amount) - $pamount, 0);
-		if ($sumTotal <= 0) {
-			$inv_status = 3;
-		} else if ( $sumTotal == $invoicAmount ) {
-			$inv_status = 1;
-		} else {
-			$inv_status = 2;
-		}
-		/////////////
 	}
 	
 	private function _check_user($id) 
