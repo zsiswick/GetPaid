@@ -70,10 +70,8 @@ class Invoice_model extends CI_Model {
 		$item_count = count($quantity);
 		$sumTotal = 0;
 		//
-		// Calculate the due date based on the invoice creation date, and the user's "due in" settings
-		$userSettings = $this->get_user_settings($uid);
-		$date = new DateTime($dateString);
-		$date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
+		//
+		$date = $this->_calc_due_date($uid, $dateString);
 		//
 		$common_data = array('uid' => $uid, 'client' => $this->input->post('client'), 'date' => $dateString, 'due_date'=>$date->format('Y-n-d'));
 		$this->db->insert('common', $common_data);
@@ -127,10 +125,8 @@ class Invoice_model extends CI_Model {
 				'common_id' => $common_id
 				);
 		}
-		// Calculate the due date based on the invoice creation date, and the user's "due in" settings
-		$userSettings = $this->get_user_settings($uid);
-		$date = new DateTime($dateString);
-		$date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
+		//
+		$date = $this->_calc_due_date($uid, $dateString);
 		//
 		$common_data = array('date' => $dateString, 'amount' => $sumTotal, 'due_date'=>$date->format('Y-n-d'));
 		$this->db->where('id', $common_id);
@@ -197,6 +193,14 @@ class Invoice_model extends CI_Model {
 		$query = $this->db->get();
 		
 		return $query->result_array();
+	}
+	private function _calc_due_date($uid, $dateString) {
+		// Calculate the due date based on the invoice creation date, and the user's "due in" settings
+		$userSettings = $this->get_user_settings($uid);
+		$date = new DateTime($dateString);
+		$date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
+		//
+		return $date;
 	}
 	
 	private function _get_set_invoice_status($id) 

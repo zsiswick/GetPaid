@@ -31,6 +31,7 @@ class Invoices extends CI_Controller {
 		$data['invoices'] = $this->invoice_model->get_invoices($id);
 		$data['user_id']	= $this->tank_auth_my->get_user_id();
 		$data['username']	= $this->tank_auth_my->get_username();
+		$data['status_flags'] = unserialize(STATUS_FLAGS);
 		$this->load->view('templates/header', $data);
 		$this->load->view('pages/invoices/index', $data);
 		$this->load->view('templates/footer');
@@ -40,8 +41,8 @@ class Invoices extends CI_Controller {
 	{
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		
-		//var_dump($data['payments']);
+		$data['status_flags'] = unserialize(STATUS_FLAGS);
+
 		if (empty($data['item'])) 
 		{
 			show_404();

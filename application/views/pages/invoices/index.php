@@ -1,4 +1,6 @@
-<?php setlocale(LC_MONETARY, 'en_US'); ?>
+<?php 
+	setlocale(LC_MONETARY, 'en_US'); 
+?>
 <div class="row">
   <div class="large-12 columns text-center"><h1><?php echo $username; ?>'s Invoices</h1></div>
 </div>
@@ -49,7 +51,7 @@
 		 					<?php echo money_format('%.2n', $invoice_item['amount']); ?>
 		 				</div>
 		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
-		 					<span class="round alert label">STATUS</span>
+		 					<span class="round alert label"><?php echo($status_flags[$invoice_item['status']]);?></span>
 		 				</div>
 		 			</div>
 		 			

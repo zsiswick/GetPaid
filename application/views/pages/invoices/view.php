@@ -187,11 +187,7 @@
 									echo(number_format((float)($amtLeft), 2, '.', ','));
 								?></span></h5>
 								
-								<?php
-									/* MAPS INVOICE STATUS TO A STRING */
-									$status = array('0' => 'DRAFT', '1' => 'INVOICE OPEN', '2' => 'PARTIAL PAYMENT', '3' => 'INVOICE PAID');
-									echo($status[$item[0]['status']]);
-								?>
+								<?php echo($status_flags[$item[0]['status']]);?>
 							</div>
 						</div>
 					</div>
