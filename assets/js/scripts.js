@@ -184,5 +184,9 @@ $( document ).ready(function() {
     	});
     });
     
+    $("#cancelDeleteBtn").on("click", function() {
+    	$('#editModal').foundation('reveal', 'close');
+    });
+    
        
 });

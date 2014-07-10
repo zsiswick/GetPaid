@@ -105,11 +105,27 @@
 					<input type="submit" name="submit" value="Save Changes" class="button round"/>
 				</div>
 				<div class="large-12 columns text-right small-only-text-center">
-					<?php echo anchor('invoices/delete_invoice/'.$item[0]['iid'], 'Delete Invoice', 'class=""', 'id="'.$item[0]['iid'].'"'); ?>
+					<a href="#" id="deleteInvoiceBtn" data-reveal-id="editModal">Delete Invoice</a>
 				</div>
 			</div>
 			
 		</form>
 	</div>
+	</div>
+</div>
+<div class="row">
+	<div class="small-12 medium-12 large-4 columns large-centered">
+		<div id="editModal" class="reveal-modal small" data-reveal>
+			<div class="row">
+				<div class="small-10 columns text-center small-centered">
+					<h3>Blimey!</h3>
+					<h5>Are you sure you want to delete this invoice?</h5>
+					<hr />
+					<a id="cancelDeleteBtn" href="#" class="button round secondary">Cancel</a>
+					<?php echo anchor('invoices/delete_invoice/'.$item[0]['iid'], 'Delete Invoice', 'class="button round"', 'id="delete-'.$item[0]['iid'].'"'); ?>
+				</div>
+			</div>
+			<a class="close-reveal-modal">&#215;</a>
+		</div>
 	</div>
 </div>
