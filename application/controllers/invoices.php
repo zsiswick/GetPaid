@@ -134,7 +134,7 @@ class Invoices extends CI_Controller {
 						$this->load->view('pages/invoices/edit', $data);
 						$this->load->view('templates/footer', $data);
 					} else {
-						$this->invoice_model->edit_invoice();
+						$this->invoice_model->edit_invoice($uid);
 						redirect('/invoices/view/'.$invoice_id, 'refresh');
 					}
 			} else {

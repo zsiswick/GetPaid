@@ -7,8 +7,10 @@
 			$attributes = array('class' => 'invoice-form', 'id' => 'sendInvoiceEmail');
 			echo form_open('invoices/send_invoice_email/'.$item[0]['iid'], $attributes, $hidden); 
 		?>
+		<label for="emailSubject">Subject</label>
 		<input type="text" name="emailSubject" value="New Invoice #<?php echo($item[0]['iid']);?> from <?php echo($first_name);?>" />
-		 <textarea name="emailMessage" id="" cols="30" rows="15">Hello <?php echo($item['client'][0]['contact']);?>,&#013;
+		<label for="emailMessage">Message</label>
+		<textarea name="emailMessage" id="" cols="30" rows="15">Hello <?php echo($item['client'][0]['contact']);?>,&#013;
 		 
 There is a new invoice ready for you for $<?php echo($item[0]['amount']);?>.&#013;
 You can view the invoice online at:&#013;

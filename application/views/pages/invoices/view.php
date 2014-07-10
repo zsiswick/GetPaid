@@ -73,14 +73,27 @@
 					</div>
 					<div class="row">
 						<div class="small-12 small-only-text-center columns">
-							<p><span class="label round">
-									Payment Due By: <?php 
+							<?php
 								
-									$date = new DateTime($item[0]['date']);
-									$date->add(new DateInterval('P'.$item['settings'][0]['due'].'D'));
-									echo $date->format('F j, Y') . "\n" . '(' . $item['settings'][0]['due'] . ' Days)';
-								?>
-							</span></p>
+								$today = new DateTime(date('F j, Y'));
+								$due = new DateTime($item[0]['due_date']);
+								// Calculate the difference between today's date, and the invoice due date
+								$diff = $today->diff($due);
+								
+								if ($today > $due) { ?>
+									<p><span class="label alert round"><?php printf('%d DAYS', $diff->d); ?> PAST DUE</span></p>
+								
+							<?php	} else { ?>
+								
+									<p><span class="label round">
+										Payment Due By: <?php 
+										
+										$date = new DateTime($item[0]['due_date']);
+										echo ($date->format('F j, Y')); ?>
+									</span></p>
+								
+							<?php	} ?>
+							
 						</div>
 					</div>
 					

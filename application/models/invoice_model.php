@@ -21,7 +21,7 @@ class Invoice_model extends CI_Model {
 	public function get_invoice($id, $uid)
 	{
 		
-		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status, c.inv_sent', false);
+		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status, c.inv_sent, c.due_date', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -66,11 +66,16 @@ class Invoice_model extends CI_Model {
 		$quantity = $this->input->post('qty');
 		$description = $this->input->post('description');
 		$unit_cost = $this->input->post('unit_cost');
-		
+		//
 		$item_count = count($quantity);
 		$sumTotal = 0;
-		
-		$common_data = array('uid' => $uid, 'client' => $this->input->post('client'), 'date' => $dateString);
+		//
+		// Calculate the due date based on the invoice creation date, and the user's "due in" settings
+		$userSettings = $this->get_user_settings($uid);
+		$date = new DateTime($dateString);
+		$date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
+		//
+		$common_data = array('uid' => $uid, 'client' => $this->input->post('client'), 'date' => $dateString, 'due_date'=>$date->format('Y-n-d'));
 		$this->db->insert('common', $common_data);
 		// Get the table id of the last row updated using insert_id() function
 		$common_id = $this->db->insert_id();
@@ -96,22 +101,15 @@ class Invoice_model extends CI_Model {
 		return;
 	}
 	
-	public function edit_invoice()
+	public function edit_invoice($uid)
 	{	
 		
-		/*
-		** ALL THIS COULD BE PASSED IN FROM THE CONTROLLER!
-		*/
 		$id = $this->input->post('item_id');
 		$quantity = $this->input->post('qty');
 		$description = $this->input->post('description');
 		$unit_cost = $this->input->post('unit_cost');
 		$common_id = $this->input->post('iid');
 		$dateString = $this->input->post('year').'-'.$this->input->post('month').'-'.$this->input->post('day'); 
-		/*
-		**
-		*/
-		
 		$item_count = count($quantity);
 		$sumTotal = 0;
 		
@@ -129,8 +127,12 @@ class Invoice_model extends CI_Model {
 				'common_id' => $common_id
 				);
 		}
-		
-		$common_data = array('date' => $dateString, 'amount' => $sumTotal);
+		// Calculate the due date based on the invoice creation date, and the user's "due in" settings
+		$userSettings = $this->get_user_settings($uid);
+		$date = new DateTime($dateString);
+		$date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
+		//
+		$common_data = array('date' => $dateString, 'amount' => $sumTotal, 'due_date'=>$date->format('Y-n-d'));
 		$this->db->where('id', $common_id);
 		$this->db->update('common', $common_data);
 		// FILTER OUT ALL THE NEW ITEMS FROM EXISTING SO THEY CAN BE INSERTED INTO
@@ -185,6 +187,16 @@ class Invoice_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->limit(1);
 		$this->db->update('common', $data);
+	}
+	
+	public function get_user_settings($uid) {
+		$this->db->select('*', false);
+		$this->db->where('s.uid', $uid);
+		$this->db->limit(1);
+		$this->db->from('settings s');
+		$query = $this->db->get();
+		
+		return $query->result_array();
 	}
 	
 	private function _get_set_invoice_status($id) 
