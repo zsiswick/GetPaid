@@ -2,7 +2,7 @@
 	setlocale(LC_MONETARY, 'en_US'); 
 ?>
 <div class="row">
-  <div class="large-12 columns text-center"><h1><?php echo $username; ?>'s Invoices</h1></div>
+  <div class="large-12 columns text-center"><h1>Invoices</h1></div>
 </div>
 
 <?php

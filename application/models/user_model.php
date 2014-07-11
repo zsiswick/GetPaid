@@ -68,6 +68,6 @@ class User_model extends CI_Model {
     $this->db->limit(1);
     $this->db->from('settings');
     $query = $this->db->get();
-    return $query->result();
+    return $query->result_array();
   } 
 }

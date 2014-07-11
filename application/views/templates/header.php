@@ -4,7 +4,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8">
-		<title>Get Paid!</title>
+		<title><?php echo($this->tank_auth_my->get_username());?> — get paid!</title>
 		<link href='http://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.css" />
@@ -17,7 +17,7 @@
 	<nav class="top-bar" data-topbar>
 		<ul class="title-area">
 	    <li class="name">
-	      <h1><?php echo anchor('/', 'Home'); ?></h1>
+	      <h1><a href="<?php echo base_url(); ?>"><?php echo($this->tank_auth_my->get_username()) ?></a></h1>
 	    </li>
 	    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 	  </ul>
