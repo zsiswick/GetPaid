@@ -75,13 +75,13 @@
 						<div class="small-12 small-only-text-center columns">
 							<?php
 								
-								$today = new DateTime(date('F j, Y'));
+								$today = new DateTime(date('Ymj'));
 								$due = new DateTime($item[0]['due_date']);
 								// Calculate the difference between today's date, and the invoice due date
 								$diff = $today->diff($due);
 								
 								if ($today > $due) { ?>
-									<p><span class="label alert round"><?php printf('%d DAYS', $diff->d); ?> PAST DUE</span></p>
+									<p><span class="label alert round"><?php echo $diff->format('%a DAYS'); ?> PAST DUE</span></p>
 								
 							<?php	} else { ?>
 								
