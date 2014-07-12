@@ -96,6 +96,7 @@ class Invoice_model extends CI_Model {
 		$amount = array('amount' => $sumTotal);
 		$this->db->update('common', $amount);
 		
+		$this->invoice_model->_get_set_invoice_status($common_id);
 		return;
 	}
 	
@@ -127,10 +128,13 @@ class Invoice_model extends CI_Model {
 		}
 		//
 		$date = $this->_calc_due_date($uid, $dateString);
+		
 		//
-		$common_data = array('date' => $dateString, 'amount' => $sumTotal, 'due_date'=>$date->format('Y-n-d'));
+		$common_data = array('date' => $dateString, 'amount' => $sumTotal, 'due_date'=>$date->format('Y-m-d'));
+		
 		$this->db->where('id', $common_id);
 		$this->db->update('common', $common_data);
+		
 		// FILTER OUT ALL THE NEW ITEMS FROM EXISTING SO THEY CAN BE INSERTED INTO
 		// THE DATABASE PROPERLY
 		$new_items = array_filter($items, function($el) { return empty($el['id']); });
@@ -141,6 +145,7 @@ class Invoice_model extends CI_Model {
 		{
 			$this->db->insert_batch('item', $new_items);
 		}
+		$this->invoice_model->_get_set_invoice_status($common_id);
 		return;
 	}
 	
@@ -206,7 +211,7 @@ class Invoice_model extends CI_Model {
 	private function _get_set_invoice_status($id) 
 	{
 		// Compare amount in invoice with the total payments made
-		$this->db->select('c.amount', false);
+		$this->db->select('c.amount, c.status, c.due_date', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -225,15 +230,28 @@ class Invoice_model extends CI_Model {
 			$number = $payment['payment_amount']; 
 			$payment_amount = $payment_amount + $number;
 		}
+		// Get invoice status stored in database
+		$inv_status;
 		
+		// Calculate whether invoice is due
+		$today = new DateTime(date('Y-m-d'));
+		$due = new DateTime($invoice['invoice_total'][0]['due_date']);
+		$diff = $today->diff($due);
+		
+		// If the invoice isn't already paid, set status as Open or Partial Payment
+		// Finally, check if the invoice is due and not paid in full
+		 
 		if ($payment_amount >= $invoice_total) {
-			$inv_status = 3; // Paid in Full
+			$inv_status = 3; // INVOICE IS PAID IN FULL
 		} else if ( $payment_amount == 0 ) {
-			$inv_status = 1; // Invoice Open
+				$inv_status = 1; // INVOICE IS OPEN
 		} else {
-			$inv_status = 2; // Partial Payment
+			$inv_status = 2; // PARTIAL PAYMENT
 		}
-		
+		if ($inv_status !== 3 && $today > $due) {
+			$inv_status = 4; // INVOICE IS DUE
+		}
+			
 		$this->set_invoice_flag($id, 'status', $inv_status);
 		return $inv_status;
 	}

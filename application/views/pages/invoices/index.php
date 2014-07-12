@@ -51,7 +51,15 @@
 		 					<?php echo money_format('%.2n', $invoice_item['amount']); ?>
 		 				</div>
 		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
-		 					<span class="round alert label"><?php echo($status_flags[$invoice_item['status']]);?></span>
+		 					<span class="round <?php 
+		 					if ($invoice_item['status'] == 4) {
+		 						echo('alert');
+		 					}	else if ($invoice_item['status'] == 3) {
+		 					echo('success');
+		 					} else {
+		 						echo('');
+		 					}
+		 					?> label"><?php echo($status_flags[$invoice_item['status']]);?></span>
 		 				</div>
 		 			</div>
 		 			

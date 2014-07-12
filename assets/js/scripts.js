@@ -79,23 +79,12 @@ $( document ).ready(function() {
     	$( "#form-wrap" ).load( baseurl+"index.php/invoices/view_payments/"+id, function() {
     	  var sum = 0;
     	  
-    	  
-    	 	$('#invoicePayments input.amt').each(function() {
+    	  $('#invoicePayments input.amt').each(function() {
     	  	var $this = $(this);
     	  	// UPDATE THE PAYMENT TOTALS
-    	  	//alert($this.val());
     	  	
+    	  	//$( "#invoiceContainer" ).load(baseurl+"index.php/invoices/view/"+id+"#container");
     	  	
-    	  	Object.prototype.keys = function(obj){
-    	  	   var keys = [];
-    	  	   for(var key in obj){
-    	  	      keys.push(key);
-    	  	   }
-    	  	   return keys;
-    	  	}
-    	  	
-    	  	
-    	  	alert($records.status);
     	  	sum += parseFloat($this.val());
     	  	
     	  });
@@ -162,11 +151,13 @@ $( document ).ready(function() {
     	ajaxRequest($this, "index.php/invoices/create", myothercallback);
     });
     
+    /*
     $( "#form-wrap" ).on( "submit", "#addPayment", function() {
       var id = window.location.pathname.split('/').pop();
       $this = $(this);
       ajaxRequest($this, 'index.php/invoices/add_payment/'+id, mycallback);
     });
+    */
     
     $("#addPaymentBtn").on("click", function() {
     	var id = window.location.pathname.split('/').pop();

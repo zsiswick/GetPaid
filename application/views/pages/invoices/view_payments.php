@@ -17,7 +17,7 @@
 	<?php
 		$sumTotal = max($invoicAmount - $amount,0);
 		$attributes = array('class' => 'invoice-form', 'id' => 'addPayment');
-		echo form_open('invoices/view/'.$item[0]['iid'], $attributes, $hidden); 
+		echo form_open('invoices/add_payment/'.$item[0]['iid'], $attributes, $hidden); 
 	?>
 		<div class="row">
 			<div class="columns large-12">
