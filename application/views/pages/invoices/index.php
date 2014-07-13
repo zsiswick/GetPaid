@@ -42,7 +42,6 @@
 		 				$path = explode(",", $invoice_item['ipayments']);
 		 				$exp = array_merge($path);
 		 				$sum = array_sum( $exp );
-		 				
 		 				$percent = ($sum / $invoice_item['amount']) * 100;
 		 			?>
 		 			<div class="row invoice list">
@@ -61,10 +60,10 @@
 		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
 		 				
 		 					<?php 
-		 					
+		 					// Display additional information for partial payment status
 		 					if ($invoice_item['status'] == 2) { ?>
 		 						<div class="progress round">
-		 							<span class="progress-label"><?php echo($status_flags[$invoice_item['status']]);?></span>
+		 							<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?>"><?php echo($status_flags[$invoice_item['status']]);?></span>
 		 						  <span class="meter" style="width:<?php echo(round($percent).'%');?>"></span>
 		 						</div>
 		 					<?php } else { ?>
@@ -74,10 +73,10 @@
 		 							echo('alert');
 		 						}	else if ($invoice_item['status'] == 3) {
 		 						echo('success');
-		 						} /*else {
-		 							echo(round($percent));
-		 						}*/
-		 						?> label"><?php echo($status_flags[$invoice_item['status']]);?></span>
+		 						} else if	($invoice_item['status'] == 1){
+		 							echo('secondary');
+		 						}?> 
+		 						label"><?php echo($status_flags[$invoice_item['status']]);?></span>
 		 					<?php } ?>
 		 				</div>
 		 			</div>
