@@ -3,7 +3,6 @@
 		<div class="row">
 			<div class="large-12 columns">
 			<?php 
-				$this->load->helper('dob');
 				$sumTotal = 0; 
 				$payment_amount = 0;
 				$hidden = array('iid' => $item[0]['iid']); 
