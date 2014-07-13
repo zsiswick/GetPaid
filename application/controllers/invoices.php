@@ -166,7 +166,6 @@ class Invoices extends CI_Controller {
 			$this->form_validation->set_rules('year', 'Year', 'required');
 			$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
 			// CHECK THE FORM TO SEE IF SUBMITTED VIA AJAX
-			
 			if($this->input->is_ajax_request()){
 				$respond=array();
 				if($this->form_validation->run()==false){
@@ -180,7 +179,7 @@ class Invoices extends CI_Controller {
 				}
 				return $this->output->set_output(json_encode($respond));
 			}
-			
+			// If NO AJAX, VALIDATE AND SUBMIT NORMALLY
 			if ($this->form_validation->run() === FALSE){
 				$this->load->view('templates/header', $data);
 				$this->load->view('pages/invoices/view', $data);

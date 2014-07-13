@@ -38,7 +38,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 
-define('STATUS_FLAGS', serialize (array('0' => 'DRAFT', '1' => 'OPEN', '2' => 'PARTIAL PAYMENT', '3' => 'PAID', '4' => 'DUE')));
+define('STATUS_FLAGS', serialize (array('0' => 'DRAFT', '1' => 'OPEN', '2' => 'PARTIAL', '3' => 'PAID', '4' => 'DUE')));
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
