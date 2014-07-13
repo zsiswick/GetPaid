@@ -70,6 +70,9 @@ class Invoices extends CI_Controller {
 		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['title'] = 'Create an invoice';
 		
+		$this->form_validation->set_rules('month', 'Month', 'numeric');
+		$this->form_validation->set_rules('day', 'Day', 'numeric');
+		$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 		$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
 		$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 		$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
@@ -122,6 +125,9 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_month'] = buildMonthDropdown('month', $datePieces[1]);
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $datePieces[0]);
 			
+			$this->form_validation->set_rules('month', 'Month', 'numeric');
+			$this->form_validation->set_rules('day', 'Day', 'numeric');
+			$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 			$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 			$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
 			$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
@@ -160,6 +166,10 @@ class Invoices extends CI_Controller {
 		if (empty($data['item'])) {
 				show_404();
 		} else {
+		
+			$this->form_validation->set_rules('month', 'Month', 'numeric');
+			$this->form_validation->set_rules('day', 'Day', 'numeric');
+			$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|callback_numeric_money|greater_than[0]|xss_clean');
 			$this->form_validation->set_rules('day', 'Day', 'required|greater_than[0]');
 			$this->form_validation->set_rules('month', 'Month', 'required');
@@ -393,6 +403,15 @@ class Invoices extends CI_Controller {
 		
 		return $humanDate = array('day'=>$day, 'month'=>$month, 'year'=>$year);
 	}
+	
+	function valid_date()
+	{
+    if (!checkdate($this->input->post('month'), $this->input->post('day'), $this->input->post('year')))
+    {
+      $this->validation->set_message('valid_date', 'The %s field is invalid.');
+      return FALSE;
+     }
+	} 
 	
 	function numeric_money($str) {
 	    

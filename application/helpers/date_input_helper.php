@@ -1,13 +1,19 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
     
-    function buildDayDropdown($name='',$value='')
+    function buildDayDropdown($prefix='',$value='',$time=null)
     {
-        $days='';
-        while ( $days <= '31'){
-            $day[]=$days;$days++;
+    		if(!$time)
+    		{
+    			$time = time();
+    		}
+    		
+        $days = array();
+        for($day = 1; $day <=31; $day++ ) {
+        	$days[$day] = $day;
         }
-        return form_dropdown($name, $day, $value);
+        
+        return form_dropdown($prefix, $days, $value);
     }
     
     function buildYearDropdown($name='',$value='')

@@ -4,7 +4,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="large-6 columns large-centered">
+	<div class="large-8 columns large-centered">
 		<div class="invoice-list-wrap clearfix">
 			<div class="invoice-list-inner-wrap">
 				<?php echo validation_errors(); ?>
@@ -43,9 +43,12 @@
 					
 					<label for="notes">Notes</label>
 					<textarea name="notes" id="" cols="30" rows="10"><?php echo $client[0]['notes'] ?></textarea><br />
-				
-					<input type="submit" name="submit" value="Save Changes" class="button round" />
-				
+					
+					<div class="row">
+						<div class="large-6 columns small-only-text-center">
+							<input type="submit" name="submit" value="Save Changes" class="button round" />
+						</div>	
+					</div>
 				</form>
 			</div>
 		</div>		

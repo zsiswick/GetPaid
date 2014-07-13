@@ -145,12 +145,12 @@ $( document ).ready(function() {
       // prevent default posting of form
       event.preventDefault();
     }
-    
+    /*
     $("#createForm").on("submit", function(event) {
     	$this = $(this);
     	ajaxRequest($this, "index.php/invoices/create", myothercallback);
     });
-    
+    */
     /*
     $( "#form-wrap" ).on( "submit", "#addPayment", function() {
       var id = window.location.pathname.split('/').pop();

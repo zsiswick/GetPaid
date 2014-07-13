@@ -4,7 +4,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="large-6 columns large-centered">
+	<div class="large-8 columns large-centered">
 		<div class="invoice-list-wrap clearfix">
 			<div class="invoice-list-inner-wrap">
 				<?php echo validation_errors(); ?>
