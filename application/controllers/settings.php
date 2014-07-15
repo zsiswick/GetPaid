@@ -43,6 +43,7 @@ class Settings extends CI_Controller {
 		$config['max_size']	= '100';
 		$config['max_width']  = '150';
 		$config['max_height']  = '150';
+		$filename = $data['settings'][0]['logo'];
 		
 		$this->form_validation->set_rules('notes',  'Payment Terms', 'trim|xss_clean');
 		$this->form_validation->set_rules('due',  'Due', 'numeric');
@@ -72,7 +73,7 @@ class Settings extends CI_Controller {
 			    $udata = array('upload_data' => $this->upload->data());
 			}
 			if(!isset($udata)) {
-				$udata['upload_data']['file_name'] = '';
+				$udata['upload_data']['file_name'] = $filename;
 			}
 			$this->user_model->set_settings($udata);
 			$this->load->view('templates/header');

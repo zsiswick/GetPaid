@@ -11,6 +11,15 @@
 				$city = $item['client'][0]['city'];
 				$state = $item['client'][0]['state'];
 				$zip = $item['client'][0]['zip'];
+				//////////////////////////////////
+				$logo = $item['settings'][0]['logo'];
+				$company_name = $item['settings'][0]['company_name'];
+				$p_address_1 = $item['settings'][0]['address_1'];
+				$p_address_2 = $item['settings'][0]['address_2'];
+				$p_city = $item['settings'][0]['city'];
+				$p_state = $item['settings'][0]['state'];
+				$p_zip = $item['settings'][0]['zip'];
+				
 			?>
 			
 				<?php echo validation_errors();?>
@@ -18,12 +27,14 @@
 						<div class="invoice-inner-wrap">
 							<div class="row">
 								<div class="small-12 small-centered large-uncentered large-8 columns invoice-info">
+										<?php if(!empty($company_name)): echo'<img src="'.base_url().'uploads/logo/'.$logo.'" />'; endif ?>
 									<p>
-										Zachary Siswick (DBA Chromaloop)<br/>
-										Company Name<br/>
-										15 Apple D Or Road<br/>
-										Framingham, MA<br/>
-										01701
+										<?php if(!empty($company_name)): echo $company_name.'<br/>'; endif ?>
+										<?php if(!empty($p_address_1)): echo $p_address_1.'<br/>'; endif ?>
+										<?php if(!empty($p_address_2)): echo $p_address_2.'<br/>'; endif ?>
+										<?php if(!empty($p_city)): echo $p_city.' '; endif ?>
+										<?php if(!empty($p_state)): echo $p_state.' '; endif ?>
+										<?php if(!empty($p_zip)): echo '<br/>'.$p_zip; endif ?>
 									</p>
 								</div>
 								<div class="small-12 small-centered large-uncentered large-4 columns invoice-info panel">
