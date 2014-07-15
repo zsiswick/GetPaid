@@ -18,3 +18,7 @@ GetPaid.esproj/Project.espressostorage
 application/config/database.php
 
 *.espressostorage
+
+uploads/logo/logo.jpg
+
+uploads/logo/logo1.jpg

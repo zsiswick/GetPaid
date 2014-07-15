@@ -1,68 +1,9 @@
 <?php
 class User_model extends CI_Model {
 
- function login($username, $password) {
-   $this->db->select('uid, username, password, first_name, last_name, email');
-   $this->db->from('users');
-   $this->db->where('username', $username);
-   $this->db->where('password', sha1($password));
-   $this->db->limit(1);
-
-   $query = $this->db->get();
-
-   if($query->num_rows() == 1) {
-     return $query->result();
-   } else {
-     return false;
-   }
- }
- function register($username, $password, $random_hash) {
-    $user = array(
-    	'first_name' => $this->input->post('first_name'),
-    	'last_name' => $this->input->post('last_name'),
-    	'email' => $this->input->post('email'),
-    	'username' => $username, 
-    	'password' => sha1($password),
-    	'verification_code' => $random_hash
-    );
-    return $this->db->insert('users', $user);
-  }
- function verify_email($uid, $random_hash) {
-    $this->db->select('uid, verification_code');
-    $this->db->from('users');
-    $this->db->where('uid', $uid);
-    $this->db->where('verification_code', $random_hash);
-    $this->db->limit(1);
  
-    $query = $this->db->get();
- 
-    if($query->num_rows() == 1) {
-      return $query->result_array();
-    } else {
-      return false;
-    }
-  }
-	function activate_account($uid, $random_hash) {
-		$u_data = array('user_group' => 'active');
-		$this->db->where('uid', $uid);
-		$this->db->where('verification_code', $random_hash);
-		$this->db->update('users', $u_data);
-		
-		$this->db->select('uid, username, password, first_name, last_name, email');
-		$this->db->from('users');
-		$this->db->where('uid', $uid);
-		$this->db->where('verification_code', $random_hash);
-		$this->db->limit(1);
-		
-		$query = $this->db->get();
-		
-		if($query->num_rows() == 1) {
-		  return $query->result();
-		} else {
-		  return false;
-		}
-	}
- function get_settings($uid) {
+ function get_settings($uid) 
+ {
     $this->db->select('*', false);
     $this->db->where('settings.uid', $uid);
     $this->db->limit(1);
@@ -70,4 +11,27 @@ class User_model extends CI_Model {
     $query = $this->db->get();
     return $query->result_array();
   } 
+  public function set_settings()
+  {	
+  	$uid = $this->tank_auth_my->get_user_id();
+  	$data = array(
+  		'uid' => $uid,
+  		'full_name' => $this->input->post('full_name'),
+  		'company_name' => $this->input->post('company_name'),
+  		'logo' => $this->input->post('logo'),
+  		'email' => $this->input->post('email'),
+  		'address_1' => $this->input->post('address_1'),
+  		'address_2' => $this->input->post('address_2'),
+  		'zip' => $this->input->post('zip'),
+  		'city' => $this->input->post('city'),
+  		'state' => $this->input->post('state'),
+  		'country' => $this->input->post('country'),
+  		'due' => $this->input->post('due'),
+  		'notes' => $this->input->post('notes')
+  	);
+  	$this->db->where('uid', $uid);
+  	$this->db->update('settings', $data);
+  	return; 
+  }
+  
 }

@@ -27,13 +27,8 @@ class Settings extends CI_Controller {
 			redirect('/auth/login/');
 		}
 		$this->session_data = $this->session->userdata('logged_in');
-		$this->userdata = array(
-		'user_first_name' => $this->session_data['first_name'],
-		'user_last_name' => $this->session_data['last_name'],
-		'uid' => $this->session_data['uid'],
-		'email' =>$this->session_data['email']
-		);
-		$this->load->helper('form');
+		
+		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		$this->load->model('user_model');
 	} 
@@ -42,10 +37,43 @@ class Settings extends CI_Controller {
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['settings'] = $this->user_model->get_settings($uid);
 		$data['first_name'] = $this->tank_auth_my->get_username();
+		// File Upload Config
+		$config['upload_path'] = './uploads/logo/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '100';
+		$config['max_width']  = '150';
+		$config['max_height']  = '150';
 		
-		$this->form_validation->set_rules('notes',  'Description', 'max_length[400]|alpha_numeric');
+		
+		$this->form_validation->set_rules('notes',  'Payment Terms', 'trim|xss_clean');
 		$this->form_validation->set_rules('due',  'Due', 'numeric');
 		if($this->form_validation->run()==false){
+			$this->load->view('templates/header');
+			$this->load->view('pages/settings/index', $data);
+			$this->load->view('templates/footer');
+		} else {
+			
+			$this->load->library('upload', $config);  
+			if (!$this->upload->do_upload()) {
+				
+				// Our upload failed, but before we throw an error, learn why  
+		    if ("You did not select a file to upload." != $this->upload->display_errors('','')) {
+		    	// in here we know they DID provide a file  
+	        // but it failed upload, display error  
+	        $data['upload_error'] = $this->upload->display_errors();  
+    	    $this->load->view("pages/settings/index", $data);
+		    } else {  
+	        // here we failed b/c they did not provide a file to upload  
+	        // fail silently, or message user, up to you  
+	        //$data['upload_error'] = 'No file was provided';
+        }
+			} else {  
+			    // in here is where things went according to plan.   
+			    //file is uploaded, people are happy  
+			    $udata = array('upload_data' => $this->upload->data());
+			}
+			
+			$this->user_model->set_settings();
 			$this->load->view('templates/header');
 			$this->load->view('pages/settings/index', $data);
 			$this->load->view('templates/footer');
