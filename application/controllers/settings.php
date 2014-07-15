@@ -44,7 +44,6 @@ class Settings extends CI_Controller {
 		$config['max_width']  = '150';
 		$config['max_height']  = '150';
 		
-		
 		$this->form_validation->set_rules('notes',  'Payment Terms', 'trim|xss_clean');
 		$this->form_validation->set_rules('due',  'Due', 'numeric');
 		if($this->form_validation->run()==false){
@@ -72,8 +71,10 @@ class Settings extends CI_Controller {
 			    //file is uploaded, people are happy  
 			    $udata = array('upload_data' => $this->upload->data());
 			}
-			
-			$this->user_model->set_settings();
+			if(!isset($udata)) {
+				$udata['upload_data']['file_name'] = '';
+			}
+			$this->user_model->set_settings($udata);
 			$this->load->view('templates/header');
 			$this->load->view('pages/settings/index', $data);
 			$this->load->view('templates/footer');

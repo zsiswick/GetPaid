@@ -11,14 +11,15 @@ class User_model extends CI_Model {
     $query = $this->db->get();
     return $query->result_array();
   } 
-  public function set_settings()
+  public function set_settings($udata)
   {	
   	$uid = $this->tank_auth_my->get_user_id();
+  	$file_name = $udata['upload_data']['file_name'];
   	$data = array(
   		'uid' => $uid,
   		'full_name' => $this->input->post('full_name'),
   		'company_name' => $this->input->post('company_name'),
-  		'logo' => $this->input->post('logo'),
+  		'logo' => $file_name,
   		'email' => $this->input->post('email'),
   		'address_1' => $this->input->post('address_1'),
   		'address_2' => $this->input->post('address_2'),
