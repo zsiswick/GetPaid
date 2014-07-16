@@ -169,8 +169,6 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	box-shadow: 0 1px 5px 1px #D9D9D9;
 	font-family: "Fenix";
 }
-.delete {
-}
 .edit-list-container {
 	margin-bottom: 1.25rem;
 }
@@ -262,6 +260,13 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	color: #fff;
 	border: none;
 }
+.logo.thumb {
+	border: 3px solid #ccc;
+	padding: .5rem;
+	margin: 1rem;
+	margin-left: 0;
+	width: 75px;
+}
 @media only screen and (min-width: 768px) {
     /* tablets and desktop */
 }
@@ -291,7 +296,6 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
      	border-bottom: none;
      	padding-bottom: 0;
      }
-     
      .invoice.items.list div {
      	border-bottom: 1px solid #505050;
      }
@@ -310,36 +314,15 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
      .edit-list-container li {
      	margin-bottom: 12px;
      }
-     .invoice-id:before {
-
-     }
-     
-     .date:before {
-
-     }
-     
-     .client:before {
-
-     }
-    
-     .amount:before {
-
-     }
      .delete a:after {
      	content: "Remove";
      }
      .qty:before {
         content: "Qty: ";
      }
-     
-     .description:before {
-        //content: "Description: ";
-     }
-     
      .price:before {
         content: "Price: ";
      }
-     
      .totalSum:before {
         content: "Total: ";
      }

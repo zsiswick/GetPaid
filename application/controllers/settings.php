@@ -44,6 +44,7 @@ class Settings extends CI_Controller {
 		$config['max_width']  = '150';
 		$config['max_height']  = '150';
 		$filename = $data['settings'][0]['logo'];
+		$data['filename'] = $filename;
 		
 		$this->form_validation->set_rules('notes',  'Payment Terms', 'trim|xss_clean');
 		$this->form_validation->set_rules('due',  'Due', 'numeric');
@@ -56,9 +57,9 @@ class Settings extends CI_Controller {
 			$this->load->library('upload', $config);  
 			if (!$this->upload->do_upload()) {
 				
-				// Our upload failed, but before we throw an error, learn why  
+			// Our upload failed, but before we throw an error, learn why  
 		    if ("You did not select a file to upload." != $this->upload->display_errors('','')) {
-		    	// in here we know they DID provide a file  
+		    // in here we know they DID provide a file  
 	        // but it failed upload, display error  
 	        $data['upload_error'] = $this->upload->display_errors();  
     	    $this->load->view("pages/settings/index", $data);

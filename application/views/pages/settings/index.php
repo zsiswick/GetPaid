@@ -7,13 +7,23 @@
 	<div class="large-8 columns large-centered">
 		<div class="invoice-list-wrap clearfix">
 			<div class="invoice-list-inner-wrap">
-				<?php if (isset($upload_error)) {
-					echo($upload_error);
-				}?>
+				<?php 
+					if (isset($upload_error)) 
+					{
+						echo($upload_error);
+					}
+				?>
 				<?php echo validation_errors(); ?>
 				<?php echo form_open_multipart('settings') ?>
 					<label for="companyName">Company Name</label>
 					<input type="text" name="company_name" value="<?php echo($settings[0]['company_name']) ?>" />
+					
+					<?php 
+						if (isset($filename)) 
+						{
+							echo('<img src="'.base_url().'uploads/logo/'.$filename.'" class="logo thumb" />');
+						}
+					?>
 					
 					<label for="userfile">Upload a Logo</label>
 					<input type="file" name="userfile" size="20" />
@@ -43,7 +53,7 @@
 					<input type="text" name="country" value="<?php echo $settings[0]['country'] ?>" /><br />
 					
 					<input type="hidden" name="sid" value="" />
-					<label for="due">Invoice Due</label>
+					<label for="due">Invoice Due In</label>
 					
 					<select name="due">
 						<option value="15">15 Days</option>
