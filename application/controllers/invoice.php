@@ -27,12 +27,12 @@ class Invoice extends CI_Controller {
 		// Do Something
 	}
 	
-	public function view($id = FALSE, $uid) 
+	public function view($id = FALSE, $uid = FALSE) 
 	{
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		$data['status_flags'] = unserialize(STATUS_FLAGS);
 
-		if (empty($data['item'])) 
+		if (empty($data['item']['client'])) 
 		{
 			show_404();
 		} 

@@ -38,36 +38,51 @@ class Invoice_model extends CI_Model {
 		$this->db->from('common c');
 		$query = $this->db->get();
 		
-		$client = $query->result_array();
-		
-		$this->db->select('*', false);
-		$this->db->where('i.common_id', $id);
-		$this->db->from('item i');
-		$this->db->order_by("id", "asc");
-		$query2 = $this->db->get();
-		
-		$this->db->select('*', false);
-		$this->db->where('p.common_id', $id);
-		$this->db->from('payments p');
-		$this->db->order_by("pid", "asc");
-		$query3 = $this->db->get();
-		
-		$this->db->select('*', false);
-		$this->db->where('s.uid', $uid);
-		$this->db->from('settings s');
-		$query4 = $this->db->get();
-		
-		$this->db->select('cl.contact, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
-		$this->db->where('cl.company', $client[0]['client']);
-		$this->db->from('client cl');
-		$query5 = $this->db->get();
-		
-		$invoice = $query->result_array();
-		$invoice['items'] = $query2->result_array();
-		$invoice['payments'] = $query3->result_array();
-		$invoice['settings'] = $query4->result_array();
-		$invoice['client'] = $query5->result_array();
-		return $invoice;
+		if ($query->num_rows() > 0) 
+		{
+		    // the query returned results
+		    $client = $query->result_array();
+		    
+		    $this->db->select('*', false);
+		    $this->db->where('i.common_id', $id);
+		    $this->db->from('item i');
+		    $this->db->order_by("id", "asc");
+		    $query2 = $this->db->get();
+		    
+		    $this->db->select('*', false);
+		    $this->db->where('p.common_id', $id);
+		    $this->db->from('payments p');
+		    $this->db->order_by("pid", "asc");
+		    $query3 = $this->db->get();
+		    
+		    $this->db->select('*', false);
+		    $this->db->where('s.uid', $uid);
+		    $this->db->from('settings s');
+		    $query4 = $this->db->get();
+		    
+		    	if ($query4->num_rows() > 0) 
+		    	{
+		    		// the query returned results
+		    		$this->db->select('cl.contact, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
+		    		$this->db->where('cl.company', $client[0]['client']);
+		    		$this->db->from('client cl');
+		    		$query5 = $this->db->get();
+		    		
+		    		$invoice = $query->result_array();
+		    		$invoice['items'] = $query2->result_array();
+		    		$invoice['payments'] = $query3->result_array();
+		    		$invoice['settings'] = $query4->result_array();
+		    		$invoice['client'] = $query5->result_array();
+		    		return $invoice;
+		    		
+		    	} else {
+		    		// query returned no results
+		    		return;
+		    	}
+		} else {
+		    // query returned no results
+		    return;
+		}
 	}
 	
 	public function set_invoice($uid)
