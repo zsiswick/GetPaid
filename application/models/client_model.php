@@ -38,10 +38,11 @@ class Client_model extends CI_Model {
 			return $query->result_array();
 	}
 	
-	public function set_client()
+	public function set_client($uid)
 	{	
 		$data = array(
-			'uid' => $this->session_data['uid'],
+			'uid' => $uid,
+			'key' => substr(str_shuffle(MD5(microtime())), 0, 5), // 6c468
 			'company' => $this->input->post('company'),
 			'contact' => $this->input->post('contact'),
 			'email' => $this->input->post('email'),
@@ -62,7 +63,6 @@ class Client_model extends CI_Model {
 	{	
 		$cdata = array(
 			'id' => $this->input->post('cid'),
-			'uid' => $this->session_data['uid'],
 			'company' => $this->input->post('company'),
 			'contact' => $this->input->post('contact'),
 			'email' => $this->input->post('email'),

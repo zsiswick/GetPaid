@@ -15,7 +15,7 @@
 There is a new invoice ready for you for $<?php echo($item[0]['amount']);?>.&#013;
 You can view the invoice online at:&#013;
 
-<?php echo base_url(); ?>index.php/invoices/view/<?php echo $item[0]['iid']?>&#013;
+<?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']."/".$item['client'][0]['key']?>&#013;
 
 Best regards,&#013; 
 

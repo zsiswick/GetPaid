@@ -63,7 +63,7 @@ class Invoice_model extends CI_Model {
 		    	if ($query4->num_rows() > 0) 
 		    	{
 		    		// the query returned results
-		    		$this->db->select('cl.contact, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
+		    		$this->db->select('cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
 		    		$this->db->where('cl.company', $client[0]['client']);
 		    		$this->db->from('client cl');
 		    		$query5 = $this->db->get();

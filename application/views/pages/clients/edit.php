@@ -39,7 +39,7 @@
 					<input type="text" name="country" value="<?php echo $client[0]['country'] ?>" /><br />
 					
 					<label for="tax_id">Tax Id</label>
-					<input type="text" name="tax_id" value="<?php echo $client[0]['company'] ?>"/><br />
+					<input type="text" name="tax_id" value="<?php echo $client[0]['tax_id'] ?>"/><br />
 					
 					<label for="notes">Notes</label>
 					<textarea name="notes" id="" cols="30" rows="10"><?php echo $client[0]['notes'] ?></textarea><br />

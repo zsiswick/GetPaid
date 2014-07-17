@@ -48,6 +48,7 @@ class Clients extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		
+		$uid = $this->tank_auth_my->get_user_id();
 		$data['title'] = 'Add a client';
 		$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
 		$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
@@ -66,7 +67,7 @@ class Clients extends CI_Controller {
 			$this->load->view('pages/clients/create');
 			$this->load->view('templates/footer');
 		} else {
-			$this->client_model->set_client();
+			$this->client_model->set_client($uid);
 			redirect('/clients', 'refresh');
 			
 		}
@@ -96,7 +97,7 @@ class Clients extends CI_Controller {
 			$this->load->view('pages/clients/edit', $data);
 			$this->load->view('templates/footer', $data);
 		} else {
-			$this->client_model->update_client($client_id);
+			$this->client_model->update_client();
 			redirect('/clients', 'refresh');
 			
 		}

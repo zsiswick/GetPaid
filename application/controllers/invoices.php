@@ -344,7 +344,7 @@ class Invoices extends CI_Controller {
 		$data['first_name']	= $this->tank_auth_my->get_username();
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-				
+		var_dump($data['item']);		
 		$this->load->view('pages/invoices/view_invoice_email', $data);
 	}
 	
