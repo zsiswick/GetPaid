@@ -27,9 +27,9 @@ class Invoice extends CI_Controller {
 		// Do Something
 	}
 	
-	public function view($id = FALSE, $uid = FALSE) 
+	public function view($id = FALSE, $key = FALSE) 
 	{
-		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+		$data['item'] = $this->invoice_model->get_client_invoice($id, $key);
 		$data['status_flags'] = unserialize(STATUS_FLAGS);
 
 		if (empty($data['item']['client'])) 
