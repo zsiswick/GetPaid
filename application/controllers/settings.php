@@ -62,7 +62,9 @@ class Settings extends CI_Controller {
 		    // in here we know they DID provide a file  
 	        // but it failed upload, display error  
 	        $data['upload_error'] = $this->upload->display_errors();  
+    	    $this->load->view('templates/header');
     	    $this->load->view("pages/settings/index", $data);
+    	    $this->load->view('templates/footer');
 		    } else {  
 	        // here we failed b/c they did not provide a file to upload  
 	        // fail silently, or message user, up to you  
@@ -77,9 +79,7 @@ class Settings extends CI_Controller {
 				$udata['upload_data']['file_name'] = $filename;
 			}
 			$this->user_model->set_settings($udata);
-			$this->load->view('templates/header');
-			$this->load->view('pages/settings/index', $data);
-			$this->load->view('templates/footer');
+			redirect('/settings', 'refresh');
 		}
 	}
 }
