@@ -73,7 +73,7 @@
 		 							echo('alert');
 		 						}	else if ($invoice_item['status'] == 3) {
 		 						echo('success');
-		 						} else if	($invoice_item['status'] == 1){
+		 						} else if	($invoice_item['status'] == 0){
 		 							echo('secondary');
 		 						}?> 
 		 						label"><?php echo($status_flags[$invoice_item['status']]);?></span>

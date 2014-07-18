@@ -366,6 +366,7 @@ class Invoices extends CI_Controller {
 		$this->email->send();
 		// UPDATE THE INVOICE SENT FLAG
 		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
+		$this->invoice_model->get_set_invoice_status($id);
 		echo $this->email->print_debugger();
 	}
 	

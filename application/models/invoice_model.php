@@ -185,7 +185,7 @@ class Invoice_model extends CI_Model {
 		$amount = array('amount' => $sumTotal);
 		$this->db->update('common', $amount);
 		
-		$this->invoice_model->_get_set_invoice_status($common_id);
+		$this->invoice_model->get_set_invoice_status($common_id);
 		return;
 	}
 	
@@ -234,7 +234,7 @@ class Invoice_model extends CI_Model {
 		{
 			$this->db->insert_batch('item', $new_items);
 		}
-		$this->invoice_model->_get_set_invoice_status($common_id);
+		$this->invoice_model->get_set_invoice_status($common_id);
 		return;
 	}
 	
@@ -259,7 +259,7 @@ class Invoice_model extends CI_Model {
 	  // Insert only the new payment, old payments can not be edited - deleted only
 	  $this->db->insert('payments', $pdata);
 	  // Update the invoice status
-	  $this->invoice_model->_get_set_invoice_status($id); 
+	  $this->invoice_model->get_set_invoice_status($id); 
 	}
 	
 	function payment_delete($delete_id, $id)
@@ -268,7 +268,7 @@ class Invoice_model extends CI_Model {
 		$this->db->limit(1);
 		$this->db->delete('payments');
 		// Update the invoice status
-		$this->invoice_model->_get_set_invoice_status($id);
+		$this->invoice_model->get_set_invoice_status($id);
 	}
 	
 	public function set_invoice_flag($id, $flagtype, $status) 
@@ -297,10 +297,10 @@ class Invoice_model extends CI_Model {
 		return $date;
 	}
 	
-	private function _get_set_invoice_status($id) 
+	public function get_set_invoice_status($id) 
 	{
 		// Compare amount in invoice with the total payments made
-		$this->db->select('c.amount, c.status, c.due_date', false);
+		$this->db->select('c.amount, c.status, c.due_date, c.inv_sent', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -315,6 +315,7 @@ class Invoice_model extends CI_Model {
 		
 		$payment_amount = 0;
 		$invoice_total = $invoice['invoice_total'][0]['amount'];
+		
 		foreach ($invoice['payments'] as $payment) {
 			$number = $payment['payment_amount']; 
 			$payment_amount = $payment_amount + $number;
@@ -329,17 +330,22 @@ class Invoice_model extends CI_Model {
 		
 		// If the invoice isn't already paid, set status as Open or Partial Payment
 		// Finally, check if the invoice is due and not paid in full
-		 
-		if ($payment_amount >= $invoice_total) {
-			$inv_status = 3; // INVOICE IS PAID IN FULL
-		} else if ( $payment_amount == 0 ) {
-				$inv_status = 1; // INVOICE IS OPEN
+		if ( $invoice['invoice_total'][0]['inv_sent'] == 0) {
+			$inv_status = 0;
 		} else {
-			$inv_status = 2; // PARTIAL PAYMENT
-		}
-		if ($inv_status !== 3 && $today > $due) {
-			$inv_status = 4; // INVOICE IS DUE
-		}
+		
+			if ($payment_amount >= $invoice_total) {
+				$inv_status = 3; // INVOICE IS PAID IN FULL
+			} else if ( $payment_amount == 0 ) {
+					$inv_status = 1; // INVOICE IS OPEN
+			} else {
+				$inv_status = 2; // PARTIAL PAYMENT
+			}
+			if ($inv_status !== 3 && $today > $due) {
+				$inv_status = 4; // INVOICE IS DUE
+			}
+		} 
+		
 			
 		$this->set_invoice_flag($id, 'status', $inv_status);
 		return $inv_status;
