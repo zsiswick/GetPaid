@@ -101,7 +101,7 @@ $captcha = array(
 										</div>
 										
 										<div class="row">
-											<div class="columns large-12small-centered text-center">
+											<div class="columns large-12 small-centered text-center">
 												<?php 
 												$sdata = array(
 												  'name' => 'submit',
