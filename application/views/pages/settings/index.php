@@ -19,7 +19,7 @@
 					<input type="text" name="company_name" value="<?php echo($settings[0]['company_name']) ?>" />
 					
 					<?php 
-						if (isset($filename)) 
+						if (!empty($filename)) 
 						{
 							echo('<img src="'.base_url().'uploads/logo/'.$filename.'" class="logo thumb" />');
 						}
