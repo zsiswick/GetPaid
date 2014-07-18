@@ -19,15 +19,57 @@
 				$p_city = $item['settings'][0]['city'];
 				$p_state = $item['settings'][0]['state'];
 				$p_zip = $item['settings'][0]['zip'];
+				$invoice_sent = $item[0]['inv_sent'];
 				
 			?>
 			
 				<?php echo validation_errors();?>
+				
 				<div class="invoice-wrap">
+					<div class="row">
+						<div class="small-12 small-only-text-center columns">
+							
+							
+							<div class="icon-bar four-up">
+							  
+							  <?php
+							  	
+							  	if ($invoice_sent == true) { ?>
+							  	
+								  	<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="item">
+								  	  <i class="fi-checkbox size-21"></i>
+								  	  <label>Remind</label>
+								  	</a>
+							  		
+							  <?php	} else { ?>
+							  	
+								  	<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="item">
+								  	  <i class="fi-mail size-21"></i>
+								  	  <label>Send</label>
+								  	</a>
+							  
+							  <?php } ?>
+							  
+							  
+							  <a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="item">
+							    <i class="fi-download size-21"></i>
+							    <label>Download</label>
+							  </a>
+							  <a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="item">
+							    <i class="fi-dollar-bill size-21"></i>
+							    <label>Payments</label>
+							  </a>
+							  <a href="<?php echo base_url()?>index.php/invoices/edit/<?php echo $item[0]['iid']?>" class="item">
+							    <i class="fi-pencil size-21"></i>
+							    <label>Edit</label>
+							  </a>
+							</div>
+						</div>
+					</div>
 						<div class="invoice-inner-wrap">
 							<div class="row">
 								<div class="small-12 small-centered large-uncentered large-8 columns invoice-info">
-										<?php if(!empty($logo)): echo'<img src="'.base_url().'uploads/logo/'.$logo.'" />'; endif ?>
+										<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$logo.'" />'; endif ?>
 									<p>
 										<?php if(!empty($company_name)): echo $company_name.'<br/>'; endif ?>
 										<?php if(!empty($p_address_1)): echo $p_address_1.'<br/>'; endif ?>
@@ -210,23 +252,40 @@
 						</section>
 					</div>
 					<div class="row">
-						<div class="small-12 small-only-text-center large-8 columns">
-							<ul class="button-group round">
-								<li>
-									<!--<a href="<?php echo base_url(); ?>index.php/invoices/send_invoice?iid=<?php echo$item[0]['iid'].'&client='.$item[0]['client']; ?>" class="tiny button secondary">Send Invoice <i class="step fi-check size-18"></i></a> -->
-									<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="tiny button secondary">Send Invoice  <i class="step fi-check size-18"></i></a>
-									 
-								</li>
-								<li>
-									<a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="tiny button secondary">Download PDF <i class="step fi-download size-18"></i></a>
-								</li>
-								<li>
-									<a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="tiny button secondary">Payments <i class="step fi-dollar size-18"></i></a>
-								</li>
-							</ul>
-						</div>
-						<div class="small-12 small-only-text-center large-4 columns text-right">
-							<?php echo anchor('invoices/edit/'.$item[0]['iid'], 'Edit Invoice', 'class="button round"', 'id="'.$item[0]['iid'].'"'); ?>
+						<div class="small-12 small-only-text-center columns">
+							
+							
+							<div class="icon-bar four-up">
+							  <?php
+							  	
+							  	if ($invoice_sent == true) { ?>
+							  	
+							    	<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="item">
+							    	  <i class="fi-checkbox size-21"></i>
+							    	  <label>Remind</label>
+							    	</a>
+							  		
+							  <?php	} else { ?>
+							  	
+							    	<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="item">
+							    	  <i class="fi-mail size-21"></i>
+							    	  <label>Send</label>
+							    	</a>
+							  
+							  <?php } ?>
+							  <a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="item">
+							    <i class="fi-download size-21"></i>
+							    <label>Download</label>
+							  </a>
+							  <a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="item">
+							    <i class="fi-dollar-bill size-21"></i>
+							    <label>Payments</label>
+							  </a>
+							  <a href="<?php echo base_url()?>index.php/invoices/edit/<?php echo $item[0]['iid']?>" class="item">
+							    <i class="fi-pencil size-21"></i>
+							    <label>Edit</label>
+							  </a>
+							</div>
 						</div>
 					</div>
 				</div>

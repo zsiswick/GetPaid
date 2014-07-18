@@ -4618,6 +4618,84 @@ textarea.error {
 label.error {
   color: #f04124; }
 
+.icon-bar {
+  width: 100%;
+  font-size: 0;
+  display: inline-block;
+  background: #333; }
+  .icon-bar > * {
+    text-align: center;
+    font-size: 1rem;
+    width: 25%;
+    margin: 0 auto;
+    display: block;
+    padding: 1.25rem;
+    float: left; }
+    .icon-bar > * i, .icon-bar > * img {
+      display: block;
+      margin: 0 auto; }
+      .icon-bar > * i + label, .icon-bar > * img + label {
+        margin-top: 0.0625rem; }
+    .icon-bar > * i {
+      font-size: 1.875rem;
+      vertical-align: middle; }
+    .icon-bar > * img {
+      width: 1.875rem;
+      height: 1.875rem; }
+  .icon-bar.label-right > * i, .icon-bar.label-right > * img {
+    margin: 0 0.0625rem 0 0;
+    display: inline-block; }
+    .icon-bar.label-right > * i + label, .icon-bar.label-right > * img + label {
+      margin-top: 0; }
+  .icon-bar.label-right > * label {
+    display: inline-block; }
+  .icon-bar.vertical.label-right > * {
+    text-align: left; }
+  .icon-bar.vertical {
+    height: 100%;
+    width: auto; }
+    .icon-bar.vertical .item {
+      width: auto;
+      margin: auto;
+      float: none; }
+  .icon-bar > * {
+    font-size: 1rem;
+    padding: 1.25rem; }
+    .icon-bar > * i + label, .icon-bar > * img + label {
+      margin-top: 0.0625rem; }
+    .icon-bar > * i {
+      font-size: 1.875rem; }
+    .icon-bar > * img {
+      width: 1.875rem;
+      height: 1.875rem; }
+  .icon-bar > *:hover {
+    background: #008CBA; }
+  .icon-bar > * label {
+    color: #fff; }
+  .icon-bar > * i {
+    color: #fff; }
+
+.icon-bar.two-up .item {
+  width: 50%; }
+.icon-bar.two-up.vertical .item {
+  width: auto; }
+.icon-bar.three-up .item {
+  width: 33.3333%; }
+.icon-bar.three-up.vertical .item {
+  width: auto; }
+.icon-bar.four-up .item {
+  width: 25%; }
+.icon-bar.four-up.vertical .item {
+  width: auto; }
+.icon-bar.five-up .item {
+  width: 20%; }
+.icon-bar.five-up.vertical .item {
+  width: auto; }
+.icon-bar.six-up .item {
+  width: 16.66667%; }
+.icon-bar.six-up.vertical .item {
+  width: auto; }
+
 .range-slider {
   display: block;
   position: relative;

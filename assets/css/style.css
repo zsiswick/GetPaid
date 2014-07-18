@@ -267,6 +267,9 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	margin-left: 0;
 	width: 75px;
 }
+.company-logo {
+	margin-bottom: 2rem;
+}
 @media only screen and (min-width: 768px) {
     /* tablets and desktop */
 }
