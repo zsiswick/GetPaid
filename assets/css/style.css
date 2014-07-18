@@ -164,7 +164,6 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 .invoice-list-inner-wrap, .invoice-inner-wrap, .form-inner-wrap {
 	padding: 3rem;
 	background: #fff;
-	margin-bottom: 2rem;
 	-webkit-box-shadow: 0 1px 5px 1px #D9D9D9;
 	box-shadow: 0 1px 5px 1px #D9D9D9;
 	font-family: "Fenix";
@@ -286,7 +285,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
     	background: #7C7C7C;
     }
     .invoice.items.list:nth-of-type(even) {
-        background: #666;
+      background: #666;
     }
      .invoice.list div:last-child, .list_header div:last-child {
 			border-bottom: none;
@@ -306,7 +305,8 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
      	color: #ddd;
      }
      .invoice-list-wrap, .invoice-wrap {
-     	padding: 0px;
+     	padding: 2rem 0rem 2rem;
+     	background: #D1D1D1;
      }
      .invoice-list-inner-wrap {
      	padding: 2rem;
@@ -334,6 +334,15 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
      }
      .button.secondary {
 			padding: 12px;
+     }
+     .icon-bar a {
+     	padding: .7rem;
+     }
+     .icon-bar > * i {
+     	font-size: 1.2rem;
+     }
+     .icon-bar label {
+     	font-size: .7rem;
      }
 }
 

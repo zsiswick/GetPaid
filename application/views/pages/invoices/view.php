@@ -36,14 +36,14 @@
 							  	
 							  	if ($invoice_sent == true) { ?>
 							  	
-								  	<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="item">
+								  	<a href="#" id="sendInvoiceRemind2Btn" data-reveal-id="paymentModal" class="item">
 								  	  <i class="fi-checkbox size-21"></i>
 								  	  <label>Remind</label>
 								  	</a>
 							  		
 							  <?php	} else { ?>
 							  	
-								  	<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="item">
+								  	<a href="#" id="sendInvoice2Btn" data-reveal-id="paymentModal" class="item">
 								  	  <i class="fi-mail size-21"></i>
 								  	  <label>Send</label>
 								  	</a>
@@ -55,7 +55,7 @@
 							    <i class="fi-download size-21"></i>
 							    <label>Download</label>
 							  </a>
-							  <a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="item">
+							  <a href="#" id="addPayment2Btn" data-reveal-id="paymentModal" class="item">
 							    <i class="fi-dollar-bill size-21"></i>
 							    <label>Payments</label>
 							  </a>
@@ -260,7 +260,7 @@
 							  	
 							  	if ($invoice_sent == true) { ?>
 							  	
-							    	<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="item">
+							    	<a href="#" id="sendInvoiceRemindBtn" data-reveal-id="paymentModal" class="item">
 							    	  <i class="fi-checkbox size-21"></i>
 							    	  <label>Remind</label>
 							    	</a>

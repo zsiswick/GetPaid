@@ -159,7 +159,7 @@ $( document ).ready(function() {
     });
     */
     
-    $("#addPaymentBtn").on("click", function() {
+    $("#addPaymentBtn, #addPayment2Btn").on("click", function() {
     	var id = window.location.pathname.split('/').pop();
     	$.get( baseurl+"index.php/invoices/view_payments/"+id, function( data ) {
     	  $("#form-wrap").html( data );
@@ -167,7 +167,7 @@ $( document ).ready(function() {
     	});
     });
     
-    $("#sendInvoiceBtn").on("click", function() {
+    $("#sendInvoiceBtn, #sendInvoice2Btn, #sendInvoiceRemindBtn, #sendInvoiceRemind2Btn").on("click", function() {
     	var id = window.location.pathname.split('/').pop();
     	$.get( baseurl+"index.php/invoices/view_invoice_email/"+id, function( data ) {
     	  $("#form-wrap").html( data );
