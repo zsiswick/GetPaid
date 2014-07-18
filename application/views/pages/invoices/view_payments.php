@@ -1,5 +1,4 @@
 	<?php 
-		$this->load->helper('dob');
 		$invoicAmount = $item[0]['amount']; 
 		$payment_amount = 0;
 		$sumTotal = 0;
