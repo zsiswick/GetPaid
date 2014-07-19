@@ -86,7 +86,7 @@
 													<p>Date:</p>
 											</td>
 											<td style="width: 60%;">
-													<p><span><span class="show-for-small-only">Date: </span></span><?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?></p>
+													<p><?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?></p>
 											</td>
 										</tr>
 										<tr>
@@ -99,7 +99,7 @@
 													<p>Due:</p>
 											</td>
 											<td style="width: 60%;">
-													<p><span><span class="show-for-small-only">Due: </span></span>$<?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></p>
+													<p>$<?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></p>
 											</td>
 										</tr>
 									</table>
@@ -113,38 +113,7 @@
 								
 							</td>
 						</tr>
-					</table>
-
-					<div class="row">
-						<div class="small-12 small-only-text-center columns">
-							<?php
-								
-								$today = new DateTime(date('Ymj'));
-								$due = new DateTime($item[0]['due_date']);
-								// Calculate the difference between today's date, and the invoice due date
-								$diff = $today->diff($due);
-								
-								if ($item[0]['status'] == 3){ ?>
-									<p><span id="status" class="label success round">INVOICE PAID</span></p>
-								<?php }
-								
-								else if ($item[0]['status'] == 4) { ?>
-									<p><span id="status" class="label alert round"><?php echo $diff->format('%a DAYS'); ?> PAST DUE</span></p>
-								
-							<?php	} else { ?>
-								
-									<p><span id="status" class="label round">
-										Payment Due By: <?php 
-										
-										$date = new DateTime($item[0]['due_date']);
-										echo ($date->format('F j, Y')); ?>
-									</span></p>
-								
-							<?php	} ?>
-							
-						</div>
-					</div>
-					
+					</table>					
 					
 					<table style="width: 100%; border-collapse: collapse;" cellpadding="0" cellspacing="0">
 						<tr style="background: #333; color: #fff;">
@@ -154,9 +123,6 @@
 							<td style="width: 20%; color: #fff; text-align: right; border-collapse: collapse;">Total</td>
 						</tr>
 					</table>
-					
-					
-					
 					
 					<table style="width: 100%;">
 					<?php 
