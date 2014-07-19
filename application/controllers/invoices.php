@@ -278,7 +278,7 @@ class Invoices extends CI_Controller {
 	
 	public function pdf($id) 
 	{
-		
+		$data['status_flags'] = unserialize(STATUS_FLAGS);
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		$data['theDate'] = $this->_month_string($data['item'][0]['date']);
@@ -340,11 +340,13 @@ class Invoices extends CI_Controller {
 		echo $this->email->print_debugger();
 	}
 	
-	public function view_invoice_email($id) {
+	public function view_invoice_email($id, $type) {
 		$data['first_name']	= $this->tank_auth_my->get_username();
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		$this->load->view('pages/invoices/view_invoice_email', $data);
+		$emailType = array('0'=>'pages/invoices/view_invoice_email', '1'=>'pages/invoices/view_invoice_reminder_email');
+		
+		$this->load->view($emailType[$type], $data);
 	}
 	
 	public function send_invoice_email($id) {

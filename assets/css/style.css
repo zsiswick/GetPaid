@@ -20,6 +20,40 @@
     font-style: normal;
 
 }
+@font-face {
+    font-family: 'robotoregular';
+    src: url('fonts/roboto/roboto-regular-webfont.eot');
+    src: url('fonts/roboto/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto-regular-webfont.woff') format('woff'),
+         url('fonts/roboto/roboto-regular-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto-regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'robotolight';
+    src: url('fonts/roboto/roboto-light-webfont.eot');
+    src: url('fonts/roboto/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto-light-webfont.woff') format('woff'),
+         url('fonts/roboto/roboto-light-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto-light-webfont.svg#robotolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'robotomedium';
+    src: url('fonts/roboto/roboto-medium-webfont.eot');
+    src: url('fonts/roboto/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto-medium-webfont.woff') format('woff'),
+         url('fonts/roboto/roboto-medium-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto-medium-webfont.svg#robotomedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 .step {
   display: inline-block;
   line-height: 1;
@@ -55,6 +89,15 @@
 
 .size-72 { font-size: 72px; }
 
+.top-bar {
+	//background: #2383FF;
+}
+.top-bar ul li > a, .top-bar-section li:not(.has-form) a:not(.button) {
+	//background: #2383FF;
+}
+.panel {
+	border-width: 3px;
+}
 .invoice-info p{
 	color: #999;
 	line-height: 1.2rem;
@@ -68,23 +111,22 @@
 }
 body{
 	background: #D1D1D1;
-	font-family: "Helvetica Neue";
+	font-family: "robotoregular";
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: "Fenix";
+	font-family: "robotoregular";
 }
 h1, h2 {
-
+	font-family: "robotolight";
 }
 .button {
 	background: #333;
-	font-size: 23px;
-	font-weight: 300;
-	-webkit-font-smoothing: antialiased;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: .8rem;
+	font-family: 'robotomedium', Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
 }
 .button:hover {
-	background: #f25d55;
+	background: #2383FF;
 }
 .button.secondary {
 	background: #ccc;
@@ -133,7 +175,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 .invoice.list {
 	margin-bottom: 0px;
 	padding: 10px 0;
-	font-family: "Fenix";
+	font-family: "robotoregular";
 }
 .invoice.list .label {
 	width: 100%;
@@ -151,7 +193,6 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 }
 .invoice.list div {
 	//padding: 10px;
-	font-family: "Fenix";
 	margin: 10px 0;
 }
 .invoice.list.no-rules div {
@@ -166,7 +207,6 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	background: #fff;
 	-webkit-box-shadow: 0 1px 5px 1px #D9D9D9;
 	box-shadow: 0 1px 5px 1px #D9D9D9;
-	font-family: "Fenix";
 }
 .edit-list-container {
 	margin-bottom: 1.25rem;
@@ -269,6 +309,16 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 .company-logo {
 	margin-bottom: 2rem;
 }
+.icon-bar > *:hover {
+	background: #2383FF;
+}
+a {
+	color: #2383FF;
+}
+a:hover, a:focus {
+	color: #2383FF;
+}
+
 @media only screen and (min-width: 768px) {
     /* tablets and desktop */
 }
@@ -344,6 +394,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
      .icon-bar label {
      	font-size: .7rem;
      }
+     
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {

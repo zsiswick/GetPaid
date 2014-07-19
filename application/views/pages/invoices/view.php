@@ -37,7 +37,7 @@
 							  	if ($invoice_sent == true) { ?>
 							  	
 								  	<a href="#" id="sendInvoiceRemind2Btn" data-reveal-id="paymentModal" class="item">
-								  	  <i class="fi-checkbox size-21"></i>
+								  	  <i class="fi-alert size-21"></i>
 								  	  <label>Remind</label>
 								  	</a>
 							  		
@@ -261,7 +261,7 @@
 							  	if ($invoice_sent == true) { ?>
 							  	
 							    	<a href="#" id="sendInvoiceRemindBtn" data-reveal-id="paymentModal" class="item">
-							    	  <i class="fi-checkbox size-21"></i>
+							    	  <i class="fi-alert size-21"></i>
 							    	  <label>Remind</label>
 							    	</a>
 							  		

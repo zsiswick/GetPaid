@@ -1,33 +1,37 @@
+<?php 
+	$sumTotal = 0; 
+	$payment_amount = 0;
+	$hidden = array('iid' => $item[0]['iid']); 
+	$address_1 = $item['client'][0]['address_1'];
+	$address_2 = $item['client'][0]['address_2'];
+	$city = $item['client'][0]['city'];
+	$state = $item['client'][0]['state'];
+	$zip = $item['client'][0]['zip'];
+	//////////////////////////////////
+	$logo = $item['settings'][0]['logo'];
+	$company_name = $item['settings'][0]['company_name'];
+	$p_address_1 = $item['settings'][0]['address_1'];
+	$p_address_2 = $item['settings'][0]['address_2'];
+	$p_city = $item['settings'][0]['city'];
+	$p_state = $item['settings'][0]['state'];
+	$p_zip = $item['settings'][0]['zip'];
+?>
+
 <div id="invoiceContainer">
 	<div id="container">
 		<div class="row">
 			<div class="large-12 columns">
-			<?php 
-				$sumTotal = 0; 
-				$payment_amount = 0;
-				$hidden = array('iid' => $item[0]['iid']); 
-				$address_1 = $item['client'][0]['address_1'];
-				$address_2 = $item['client'][0]['address_2'];
-				$city = $item['client'][0]['city'];
-				$state = $item['client'][0]['state'];
-				$zip = $item['client'][0]['zip'];
-				//////////////////////////////////
-				$logo = $item['settings'][0]['logo'];
-				$company_name = $item['settings'][0]['company_name'];
-				$p_address_1 = $item['settings'][0]['address_1'];
-				$p_address_2 = $item['settings'][0]['address_2'];
-				$p_city = $item['settings'][0]['city'];
-				$p_state = $item['settings'][0]['state'];
-				$p_zip = $item['settings'][0]['zip'];
-				
-			?>
-			
 				<?php echo validation_errors();?>
 				<div class="invoice-wrap">
+					<div class="row">
+						<div class="small-12 columns text-center">
+							<a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="button round">Download PDF</a>
+						</div>
+					</div>
 						<div class="invoice-inner-wrap">
 							<div class="row">
 								<div class="small-12 small-centered large-uncentered large-8 columns invoice-info">
-										<?php if(!empty($logo)): echo'<img src="'.base_url().'uploads/logo/'.$logo.'" />'; endif ?>
+										<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$logo.'" />'; endif ?>
 									<p>
 										<?php if(!empty($company_name)): echo $company_name.'<br/>'; endif ?>
 										<?php if(!empty($p_address_1)): echo $p_address_1.'<br/>'; endif ?>
@@ -128,10 +132,6 @@
 								</div>
 							</div>
 							
-							
-							
-							
-						
 							<?php 
 									foreach ($item['items'] as $invoice_item): 
 									 
@@ -155,8 +155,7 @@
 										?>
 									</div>
 								</div>
-								
-								
+							
 							<?php endforeach ?>	
 						
 						<section id="payment-info" class="row">
@@ -212,9 +211,7 @@
 			</div>
 		</div>
 	</div>
-	
 </div>
-
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
 		<div id="paymentModal" class="reveal-modal small" data-reveal>

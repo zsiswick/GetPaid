@@ -167,9 +167,17 @@ $( document ).ready(function() {
     	});
     });
     
-    $("#sendInvoiceBtn, #sendInvoice2Btn, #sendInvoiceRemindBtn, #sendInvoiceRemind2Btn").on("click", function() {
+    $("#sendInvoiceBtn, #sendInvoice2Btn").on("click", function() {
     	var id = window.location.pathname.split('/').pop();
-    	$.get( baseurl+"index.php/invoices/view_invoice_email/"+id, function( data ) {
+    	$.get( baseurl+"index.php/invoices/view_invoice_email/"+id+"/0", function( data ) {
+    	  $("#form-wrap").html( data );
+    	  $("#form-errors").hide();
+    	});
+    });
+    
+    $("#sendInvoiceRemindBtn, #sendInvoiceRemind2Btn").on("click", function() {
+    	var id = window.location.pathname.split('/').pop();
+    	$.get( baseurl+"index.php/invoices/view_invoice_email/"+id+"/1", function( data ) {
     	  $("#form-wrap").html( data );
     	  $("#form-errors").hide();
     	});
