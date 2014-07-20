@@ -31,7 +31,7 @@
 						<div class="invoice-inner-wrap">
 							<div class="row">
 								<div class="small-12 small-centered large-uncentered large-8 columns invoice-info">
-										<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$logo.'" />'; endif ?>
+										<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$item[0]['uid']."/".$logo.'" />'; endif ?>
 									<p>
 										<?php if(!empty($company_name)): echo $company_name.'<br/>'; endif ?>
 										<?php if(!empty($p_address_1)): echo $p_address_1.'<br/>'; endif ?>
