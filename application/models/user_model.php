@@ -35,4 +35,11 @@ class User_model extends CI_Model {
   	return; 
   }
   
+  public function delete_logo($uid) {
+  	$data = array('logo' => '');
+  	$this->db->where('uid', $uid);
+  	$this->db->limit(1);
+  	$this->db->update('settings', $data);
+  }
+  
 }

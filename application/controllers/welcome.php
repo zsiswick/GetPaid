@@ -7,18 +7,13 @@ class Welcome extends CI_Controller
 		parent::__construct();
 
 		$this->load->helper('url');
-		$this->load->library('tank_auth_my');
 	}
 
 	function index()
 	{
-		if (!$this->tank_auth_my->is_logged_in()) {
-			redirect('/auth/login/');
-		} else {
-			$data['user_id']	= $this->tank_auth_my->get_user_id();
-			$data['username']	= $this->tank_auth_my->get_username();
-			$this->load->view('welcome', $data);
-		}
+			$this->load->view('templates/client/header');
+			$this->load->view('welcome');
+			$this->load->view('templates/client/footer');
 	}
 }
 

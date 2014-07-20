@@ -373,6 +373,9 @@ a:hover, a:focus {
      .qty:before {
         content: "Qty: ";
      }
+     .description:before {
+        content: "Description: ";
+     }
      .price:before {
         content: "Price: ";
      }

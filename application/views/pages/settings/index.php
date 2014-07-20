@@ -1,3 +1,6 @@
+<?php
+	$uid = $this->tank_auth_my->get_user_id();
+?>
 <div class="row">
 	<div class="large-6 columns large-centered">
 		<h1 class="text-center">Settings</h1>
@@ -21,7 +24,8 @@
 					<?php 
 						if (!empty($filename)) 
 						{
-							echo('<img src="'.base_url().'uploads/logo/'.$filename.'" class="logo thumb" />');
+							echo('<img src="'.base_url().'uploads/logo/'.$uid."/".$filename.'" class="logo thumb" />');
+							echo('<a href="'.base_url().'index.php/settings/remove_logo/'.$uid.'">Remove</a>');
 						}
 					?>
 					

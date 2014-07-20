@@ -37,10 +37,19 @@ class Settings extends CI_Controller {
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['settings'] = $this->user_model->get_settings($uid);
 		$data['first_name'] = $this->tank_auth_my->get_username();
+		$upload_path = './uploads/logo/';
+		
+		
+		if ( ! file_exists($upload_path.$uid) )
+    {
+        mkdir($upload_path . $uid, 0777);
+    }
+		
 		// File Upload Config
-		$config['upload_path'] = './uploads/logo/';
+		$config['upload_path'] = $upload_path.$uid.'/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '100';
+		$config['overwrite'] = true;
 		$config['max_width']  = '150';
 		$config['max_height']  = '150';
 		$filename = $data['settings'][0]['logo'];
@@ -59,7 +68,7 @@ class Settings extends CI_Controller {
 				
 			// Our upload failed, but before we throw an error, learn why  
 		    if ("You did not select a file to upload." != $this->upload->display_errors('','')) {
-		    // in here we know they DID provide a file  
+		    	// in here we know they DID provide a file  
 	        // but it failed upload, display error  
 	        $data['upload_error'] = $this->upload->display_errors();  
     	    $this->load->view('templates/header');
@@ -72,7 +81,8 @@ class Settings extends CI_Controller {
         }
 			} else {  
 			    // in here is where things went according to plan.   
-			    //file is uploaded, people are happy  
+			    //file is uploaded, people are happy
+			      
 			    $udata = array('upload_data' => $this->upload->data());
 			}
 			if(!isset($udata)) {
@@ -81,6 +91,14 @@ class Settings extends CI_Controller {
 			$this->user_model->set_settings($udata);
 			redirect('/settings', 'refresh');
 		}
+	}
+	
+	public function remove_logo($uid) {
+		$this->load->helper('file');
+		
+		delete_files('./uploads/logo/'.$uid);
+		$this->user_model->delete_logo($uid);
+		redirect('/settings', 'refresh');
 	}
 }
 
