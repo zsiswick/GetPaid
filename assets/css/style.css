@@ -68,7 +68,13 @@
     border-radius: 50%;
     background: #4679BD;
 }
-      
+.row {
+	max-width: 68rem;
+}
+.big-p{
+	font-family: 'robotolight';
+	font-size: 1.5rem;
+}      
 .size-12 { font-size: 12px; }
 
 .size-14 { font-size: 14px; }
@@ -94,6 +100,29 @@
 }
 .top-bar ul li > a, .top-bar-section li:not(.has-form) a:not(.button) {
 	//background: #2383FF;
+}
+
+/*
+** Marketing Section
+*/
+
+section.content {
+	padding: 5rem 0 2rem;
+}
+section.blue {
+	background: #1db5fc;
+}
+section.gray {
+	background: #efefef;
+}
+section.white {
+	background: #fff;
+}
+section.blue * {
+	color: #fff;
+}
+section.blue h1, .bg-blue h4 {
+	color: #fff;
 }
 .panel {
 	border-width: 3px;
@@ -121,7 +150,7 @@ h1, h2 {
 }
 .button {
 	background: #333;
-	font-size: .8rem;
+	font-size: 1rem;
 	font-family: 'robotomedium', Helvetica, Arial, sans-serif;
 	text-transform: uppercase;
 }

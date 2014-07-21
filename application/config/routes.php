@@ -47,7 +47,7 @@ $route['invoices/delete_invoice/(:any)'] = "invoices/delete_invoice/$1";
 $route['invoices'] = 'invoices';
 $route['invoices/create'] = 'invoices/create';
 
-$route['default_controller'] = "invoices";
+$route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
 
