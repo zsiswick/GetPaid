@@ -354,6 +354,9 @@ a:hover, a:focus {
 
 @media only screen and (max-width: 767px) {
     /* phones */
+    .form-wrap {
+    	padding: 0px;
+    }
     .invoice.list {
     	border-bottom: 1px solid #999;
     }

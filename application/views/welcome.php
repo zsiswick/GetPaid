@@ -43,8 +43,8 @@
 			<div class="panel"></div>
 		</div>
 		<div class="columns large-6">
-			<h2>Who is it For?</h2>
-			<p class="big-p">GetPaid! was created for small business owners, entrepreneurs, freelancers and the like. If you are looking to save time on billing, and appreciate simple-to-use software, GetPaid! is the right solution for you.</p>
+			<h2>Who its For</h2>
+			<p class="big-p">GetPaid! was created for small business owners, freelancers, and the like. If you are looking to save time on billing, and appreciate simple-to-use software, GetPaid! is the right solution for you.</p>
 		</div>
 	</div>
 </section>
