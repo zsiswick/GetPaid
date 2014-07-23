@@ -163,7 +163,7 @@ class Invoice_model extends CI_Model {
 		//
 		$date = $this->_calc_due_date($uid, $dateString);
 		//
-		$common_data = array('uid' => $uid, 'client' => $this->input->post('client'), 'date' => $dateString, 'due_date'=>$date->format('Y-n-d'));
+		$common_data = array('uid' => $uid, 'cid' => $this->input->post('client'), 'date' => $dateString, 'due_date'=>$date->format('Y-n-d'));
 		$this->db->insert('common', $common_data);
 		// Get the table id of the last row updated using insert_id() function
 		$common_id = $this->db->insert_id();

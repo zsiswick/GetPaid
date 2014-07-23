@@ -33,7 +33,9 @@
 			<p class="big-p">Ruby Invoice makes invoicing a snap, with a simple interface and tools to help streamline your experience, so you can get back to work!</p>
 		</div>
 		<div class="columns large-6">
-			<div class="panel"></div>
+			<div class="panel">
+				<img src="<?php echo base_url(); ?>assets/images/invoice-view2.png" alt="sample invoice view" />
+			</div>
 		</div>
 	</div>
 </section>
