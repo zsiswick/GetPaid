@@ -59,11 +59,19 @@
 					<input type="hidden" name="sid" value="" />
 					<label for="due">Invoice Due In</label>
 					
-					<select name="due">
-						<option value="15">15 Days</option>
-						<option value="30">30 Days</option>
-						<option value="45">45 Days</option>
-					</select><br />
+					
+					<?php
+						$options = array(
+				                  '15'  => '15 Days',
+				                  '30'    => '30 Days',
+				                  '45'   => '45 Days',
+				                );
+						
+						
+						echo form_dropdown('due', $options, $settings[0]['due']);
+					?>
+					
+					<br />
 					   
 					<label for="notes">Payment Terms</label>
 					<textarea placeholder="Please remit full payment 15 days from receipt of invoice. Make check payable to John Smith" name="notes" cols="30" rows="10"><?php echo($settings[0]['notes']) ?></textarea><br />

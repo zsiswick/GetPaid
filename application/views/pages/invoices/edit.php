@@ -86,7 +86,7 @@
 				</section>
 				
 				<div class="row">
-					<div class="large-12 columns text-left">
+					<div class="large-12 columns text-left small-only-text-center">
 						<a id="addItems" class="button small secondary round">Add Another Item</a>
 					</div>
 				</div>

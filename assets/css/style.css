@@ -1,26 +1,4 @@
 @font-face {
-    font-family: 'Baron-Regular';
-    src: url('fonts/baron/baron_neue-webfont.eot');
-    src: url('fonts/baron/baron_neue-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/baron/baron_neue-webfont.woff') format('woff'),
-         url('fonts/baron/baron_neue-webfont.ttf') format('truetype'),
-         url('fonts/baron/baron_neue-webfont.svg#baron_neueregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'droid-serif-regular';
-    src: url('fonts/droid-serif/DroidSerif-webfont.eot');
-    src: url('fonts/droid-serif/DroidSerif-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/droid-serif/DroidSerif-webfont.woff') format('woff'),
-         url('fonts/droid-serif/DroidSerif-webfont.ttf') format('truetype'),
-         url('fonts/droid-serif/DroidSerif-webfont.svg#droid_serifregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
     font-family: 'robotoregular';
     src: url('fonts/roboto/roboto-regular-webfont.eot');
     src: url('fonts/roboto/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
@@ -185,6 +163,11 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	padding: 3rem;
 	background-color: #fff;
 }
+
+/*
+** Invoice
+*/
+
 .list_header {
 	background: #333;
 	padding: .8rem 0px;
@@ -320,6 +303,9 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	width: 100%;
 	padding-left: 1rem;
 	font-weight: bold;
+}
+.row.actions {
+	margin-top: 2rem;
 }
 .has-tip {
 	border-bottom: none;

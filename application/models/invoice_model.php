@@ -89,7 +89,7 @@ class Invoice_model extends CI_Model {
 	public function get_client_invoice($id, $key)
 	{
 		
-		$this->db->select('c.id as iid, c.date, c.uid, c.client, c.amount, c.status, c.inv_sent, c.due_date', false);
+		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.inv_sent, c.due_date', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -119,8 +119,8 @@ class Invoice_model extends CI_Model {
 		    	if ($query4->num_rows() > 0) 
 		    	{
 		    		// the query returned results
-		    		$this->db->select('cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
-		    		$this->db->where('cl.company', $common[0]['client']);
+		    		$this->db->select('cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
+		    		$this->db->where('cl.id', $common[0]['cid']);
 		    		$this->db->where('cl.key', $key);
 		    		$this->db->from('client cl');
 		    		$query5 = $this->db->get();

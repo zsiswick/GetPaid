@@ -337,7 +337,8 @@ class Invoices extends CI_Controller {
 		// UPDATE THE INVOICE SENT FLAG
 		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
 		
-		echo $this->email->print_debugger();
+		//echo $this->email->print_debugger();
+		redirect('/invoices/view/'.$id, 'refresh');
 	}
 	
 	public function view_invoice_email($id, $type) {
