@@ -40,7 +40,9 @@
 <section class="content white">
 	<div class="row">
 		<div class="columns large-6">
-			<div class="panel"></div>
+			<div class="panel">
+				<img src="<?php echo base_url(); ?>assets/images/invoice-view1.png" alt="sample invoice view" />
+			</div>
 		</div>
 		<div class="columns large-6">
 			<h2>Who its For</h2>

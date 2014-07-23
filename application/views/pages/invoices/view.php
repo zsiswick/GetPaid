@@ -249,7 +249,7 @@
 											echo(number_format((float)($amtLeft), 2, '.', ','));
 										?></span></h5>
 										
-										<?php echo($status_flags[$item[0]['status']]);?>
+										<!--<?php echo($status_flags[$item[0]['status']]);?>-->
 									</div>
 								</div>
 							</div>

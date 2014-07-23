@@ -19,7 +19,10 @@
 											$clientList = array_map(function ($ar) {
 												return $ar['company'];
 											}, $clients);
-											$clientList = array_combine($clientList, $clientList);
+											$clientID = array_map(function ($ar) {
+												return $ar['id'];
+											}, $clients);
+											$clientList = array_combine($clientID, $clientList);
 											echo form_dropdown('client', $clientList, 0);
 										} else {
 											echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
