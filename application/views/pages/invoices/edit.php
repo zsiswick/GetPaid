@@ -18,7 +18,7 @@
 				<div class="row">
 					<div class="medium-4 large-4 columns">
 						<label for="client">Client:</label>
-						<p><?php echo $item[0]['client']; ?></p>
+						<p><?php echo $item['client'][0]['company']; ?></p>
 					</div>
 					<div class="medium-8 large-8 columns">
 						<div class="row">
