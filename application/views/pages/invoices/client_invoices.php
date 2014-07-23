@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="large-12 columns text-center"><h1>Welcome to Get Paid!</h1><h4>( simple invoicing for designers )</h4></div>
+  <div class="large-12 columns text-center"><h1>Welcome to Ruby Invoice</h1><h4>( simple invoicing for designers )</h4></div>
 </div>
 <div class="row">
 	<div class="large-12 columns text-right">

@@ -52,7 +52,7 @@
 		 					<?php echo $invoice_item['pdate']; ?>
 		 				</div>
 		 				<div class="small-12 small-only-text-center medium-4 large-4 columns client">
-		 					<?php echo $invoice_item['client']; ?>
+		 					<?php echo $invoice_item['company']; ?>
 		 				</div>
 		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
 		 					<?php echo money_format('%.2n', $invoice_item['amount']); ?>

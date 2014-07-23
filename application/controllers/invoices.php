@@ -53,7 +53,7 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
 			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
-			$data['title'] = $data['item'][0]['client'];
+			$data['title'] = $data['item']['client'][0]['company'];
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/invoices/view', $data);

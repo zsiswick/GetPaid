@@ -7,7 +7,7 @@
 | These details are used in emails sent by authentication library.
 |--------------------------------------------------------------------------
 */
-$config['website_name'] = 'Get Paid';
+$config['website_name'] = 'Ruby Invoice';
 $config['webmaster_email'] = 'zsiswick@gmail.com';
 
 /*

@@ -90,7 +90,7 @@
 										</div>
 										<div class="small-12 small-only-text-center large-9 columns">
 											<p>
-												<?php echo $item[0]['client']; ?><br/>
+												<?php echo $item['client'][0]['company']; ?><br/>
 												<?php echo $item['client'][0]['contact']; ?><br/>
 												<?php if(!empty($address_1)): echo $address_1.'<br/>'; endif ?>
 												<?php if(!empty($address_2)): echo $address_2.'<br/>'; endif ?>

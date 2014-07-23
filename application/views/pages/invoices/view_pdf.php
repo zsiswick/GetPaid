@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Get Paid!</title>
+	<title>Ruby Invoice</title>
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.css" />
 	<!--<link rel="stylesheet" href="<?php $autoload['helper'] = array('url','utility'); ?>assets/css/company.css" />-->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" />

@@ -69,7 +69,7 @@ $( document ).ready(function() {
     });
     
     
-    var baseurl = window.location.protocol + "//" + window.location.host + "/" + "getpaid/";
+    var baseurl = window.location.protocol + "//" + window.location.host + "/" + "rubyinvoice/";
     // variable to hold request
     var request;
     
