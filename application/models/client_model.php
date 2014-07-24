@@ -38,6 +38,27 @@ class Client_model extends CI_Model {
 			return $query->result_array();
 	}
 	
+	public function set_sample_client($uid)
+	{	
+		$data = array(
+			'uid' => $uid,
+			'key' => substr(str_shuffle(MD5(microtime())), 0, 5), // 6c468
+			'company' => 'Sample Company',
+			'contact' => 'Sample Contact',
+			'email' => 'sample@rubyinvoice.com',
+			'address_1' => '123 Ruby Street',
+			'address_2' => '',
+			'zip' => '01234',
+			'city' => 'Rubyville',
+			'state' => 'MA',
+			'country' => 'USA',
+			'tax_id' => '',
+			'notes' => 'VIP Client'
+		);
+		
+		return $this->db->insert('client', $data);
+	}
+	
 	public function set_client($uid)
 	{	
 		$data = array(

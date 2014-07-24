@@ -241,11 +241,13 @@ class Auth extends CI_Controller
 	 */
 	function activate()
 	{
+		$this->load->model('client_model');
 		$user_id		= $this->uri->segment(3);
 		$new_email_key	= $this->uri->segment(4);
 
 		// Activate user
 		if ($this->tank_auth_my->activate_user($user_id, $new_email_key)) {		// success
+			$this->client_model->set_sample_client($user_id);
 			$this->tank_auth_my->logout();
 			$this->session->sess_create();
 			$this->_show_message($this->lang->line('auth_message_activation_completed').' '.anchor('/auth/login/', 'Login'));

@@ -90,8 +90,8 @@
 <?php	} else { ?>
 	<div class="row">
 		<div class="large-12 columns text-center">
-			<h5>Hey! Looks like you're new here...</h5>
-			<a href="<?php echo base_url(); ?>index.php/invoices/create" class="button">Create New Invoice</a>
+			<h5>Looks like you're new around town...</h5>
+			<a href="<?php echo base_url(); ?>index.php/invoices/create" class="button round">Create New Invoice</a>
 		</div>
 	</div>	
 <?php	}

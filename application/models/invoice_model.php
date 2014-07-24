@@ -212,7 +212,7 @@ class Invoice_model extends CI_Model {
 		$date = $this->_calc_due_date($uid, $dateString);
 		
 		//
-		$common_data = array('date' => $dateString, 'amount' => $sumTotal, 'due_date'=>$date->format('Y-m-d'));
+		$common_data = array('date' => $dateString, 'cid' => $this->input->post('client'), 'amount' => $sumTotal, 'due_date'=>$date->format('Y-m-d'));
 		
 		$this->db->where('id', $common_id);
 		$this->db->update('common', $common_data);

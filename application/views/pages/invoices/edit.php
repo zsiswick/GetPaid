@@ -18,7 +18,21 @@
 				<div class="row">
 					<div class="medium-4 large-4 columns">
 						<label for="client">Client:</label>
-						<p><?php echo $item['client'][0]['company']; ?></p>
+						<?php 
+							if ($clients) {
+								// Map select option values to the list of clients available
+								$clientList = array_map(function ($ar) {
+									return $ar['company'];
+								}, $clients);
+								$clientID = array_map(function ($ar) {
+									return $ar['id'];
+								}, $clients);
+								$clientList = array_combine($clientID, $clientList);
+								echo form_dropdown('client', $clientList, $item[0]['cid']);
+							} else {
+								echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
+							}
+						?>
 					</div>
 					<div class="medium-8 large-8 columns">
 						<div class="row">

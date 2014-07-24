@@ -71,6 +71,7 @@ class Invoices extends CI_Controller {
 		$data['title'] = 'Create an invoice';
 		
 		$this->form_validation->set_rules('month', 'Month', 'numeric');
+		$this->form_validation->set_rules('client', 'Client', 'required|xss_clean');
 		$this->form_validation->set_rules('day', 'Day', 'numeric');
 		$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 		$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
@@ -111,6 +112,7 @@ class Invoices extends CI_Controller {
 		$invoice_id = $this->uri->segment(3, 0);
 		$data['title'] = 'Edit this invoice';
 		$uid = $this->tank_auth_my->get_user_id();
+		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		
 		if (empty($data['item'])) {
