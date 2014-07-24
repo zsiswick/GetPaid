@@ -59,7 +59,7 @@ $captcha = array(
 							</div>
 						</div>
 						<div class="row">
-							<div class="class="large-12 small-centered columns"">
+							<div class="large-12 small-centered columns">
 								<?php echo form_label('Password', $password['id']); ?>
 								<?php echo form_password($password); ?>
 								<?php echo form_error($password['name']); ?>

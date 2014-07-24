@@ -19,14 +19,6 @@ class Invoice_model extends CI_Model {
 		$this->db->order_by("date", "desc");
 		$query = $this->db->get();
 				
-		// Loop through the invoice array and get common_ids to build payments query
-		
-		/*
-		$this->db->select('p.pid, p.common_id, p.payment_amount', false);
-		$this->db->where('p.pid', $id);
-		$this->db->from('payments p');
-		$query2 = $this->db->get();
-		*/
 		return $query->result_array();
 	}
 	
