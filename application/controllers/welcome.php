@@ -11,9 +11,15 @@ class Welcome extends CI_Controller
 
 	function index()
 	{
+		$this->load->library('tank_auth_my');
+		if (!$this->tank_auth_my->is_logged_in()) {
 			$this->load->view('templates/client/header');
 			$this->load->view('welcome');
 			$this->load->view('templates/client/footer');
+		} else {
+			redirect('/invoices', 'refresh');
+		}
+			
 	}
 }
 

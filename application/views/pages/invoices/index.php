@@ -63,7 +63,7 @@
 		 					// Display additional information for partial payment status
 		 					if ($invoice_item['status'] == 2) { ?>
 		 						<div class="progress round">
-		 							<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?>"><?php echo($status_flags[$invoice_item['status']]);?></span>
+		 							<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?> Paid"><?php echo($status_flags[$invoice_item['status']]);?></span>
 		 						  <span class="meter" style="width:<?php echo(round($percent).'%');?>"></span>
 		 						</div>
 		 					<?php } else { ?>

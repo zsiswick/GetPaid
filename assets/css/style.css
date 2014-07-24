@@ -50,7 +50,7 @@
 	max-width: 68rem;
 }
 .big-p{
-	font-family: 'robotolight';
+	font-family: 'robotolight', Helvetica, Arial, sans-serif;
 	font-size: 1.5rem;
 }      
 .size-12 { font-size: 12px; }
@@ -118,13 +118,13 @@ section.blue h1, .bg-blue h4 {
 }
 body{
 	background: #D1D1D1;
-	font-family: "robotoregular";
+	font-family: "robotoregular", Helvetica, Arial, sans-serif;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: "robotoregular";
+	font-family: "robotoregular", Helvetica, Arial, sans-serif;
 }
 h1, h2 {
-	font-family: "robotolight";
+	font-family: "robotolight", Helvetica, Arial, sans-serif;
 }
 .button {
 	background: #333;
@@ -187,7 +187,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 .invoice.list {
 	margin-bottom: 0px;
 	padding: 10px 0;
-	font-family: "robotoregular";
+	font-family: "robotoregular", Helvetica, Arial, sans-serif;
 }
 .invoice.list .label {
 	width: 100%;

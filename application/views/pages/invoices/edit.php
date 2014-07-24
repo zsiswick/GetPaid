@@ -121,8 +121,8 @@
 					<h3>Blimey!</h3>
 					<h5>Are you sure you want to delete this invoice?</h5>
 					<hr />
-					<a id="cancelDeleteBtn" href="#" class="button round secondary">Cancel</a>
-					<?php echo anchor('invoices/delete_invoice/'.$item[0]['iid'], 'Delete Invoice', 'class="button round"', 'id="delete-'.$item[0]['iid'].'"'); ?>
+					<a id="cancelDeleteBtn" href="#" class="button round secondary">No Thanks</a>
+					<?php echo anchor('invoices/delete_invoice/'.$item[0]['iid'], 'Delete It', 'class="button round"', 'id="delete-'.$item[0]['iid'].'"'); ?>
 				</div>
 			</div>
 			<a class="close-reveal-modal">&#215;</a>

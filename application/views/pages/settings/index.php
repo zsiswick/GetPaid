@@ -77,7 +77,7 @@
 					<textarea placeholder="Please remit full payment 15 days from receipt of invoice. Make check payable to John Smith" name="notes" cols="30" rows="10"><?php echo($settings[0]['notes']) ?></textarea><br />
 					
 					<div class="row">
-						<div class="large-6 columns small-only-text-center">
+						<div class="large-12 columns text-right small-only-text-center">
 							<input type="submit" name="submit" value="Save Changes" class="button round" />
 						</div>
 					</div>		

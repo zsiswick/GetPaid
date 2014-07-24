@@ -101,7 +101,7 @@
 					</div>
 			</div>
 			
-			<div class="row">
+			<div class="row actions">
 				<div class="large-12 columns text-right small-only-text-center">
 					<input type="submit" name="submit" value="Create Invoice" class="button round" />
 				</div>
