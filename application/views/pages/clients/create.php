@@ -45,7 +45,7 @@
 					<textarea name="notes" id="" cols="30" rows="10"></textarea><br />
 					
 					<div class="row">
-						<div class="large-6 columns small-only-text-center">
+						<div class="large-12 columns text-right small-only-text-center">
 							<input type="submit" name="submit" value="Add Client" class="button round" />
 						</div>
 					</div>	

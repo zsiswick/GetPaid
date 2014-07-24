@@ -78,6 +78,34 @@ class Client_model extends CI_Model {
 		$this->db->where('id', $cdata['id']);
 		$this->db->update('client', $cdata);
 		
+		return;
+	}
+	
+	public function delete_client($id)
+	{	
+		$uid = $this->tank_auth_my->get_user_id();
+		
+		$this->db->start_cache();
+		$this->db->select('*', false);
+		$this->db->where('cid', $id);
+		$this->db->where('uid', $uid);
+		$this->db->from('common');
+		$this->db->stop_cache();
+		
+		$query = $this->db->get();
+		$common = $query->result_array();
+		$this->db->delete('common'); 
+		$this->db->flush_cache();
+		
+		foreach ($common as $invoice_id) {
+			$this->db->where_in('common_id', $invoice_id['id']);
+			$this->db->delete('item');
+		}
+		
+		$this->db->where('id', $id);
+		$this->db->where('uid', $uid);
+		$this->db->limit(1);
+		$this->db->delete('client');
 		
 		return;
 	}

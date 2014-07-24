@@ -102,6 +102,15 @@ class Clients extends CI_Controller {
 			
 		}
 	}
+	public function delete($id) 
+	{
+	  
+		$this->client_model->delete_client($id);
+		redirect('/clients', 'refresh');
+	  
+	}
+	
+	
 }
 
 /* End of file welcome.php */

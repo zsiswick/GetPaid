@@ -45,8 +45,13 @@
 					<textarea name="notes" id="" cols="30" rows="10"><?php echo $client[0]['notes'] ?></textarea><br />
 					
 					<div class="row">
-						<div class="large-6 columns small-only-text-center">
+						<div class="large-12 columns text-right small-only-text-center">
 							<input type="submit" name="submit" value="Save Changes" class="button round" />
+						</div>	
+					</div>
+					<div class="row">
+						<div class="large-12 columns text-right small-only-text-center">
+							<a href="#" id="deleteClientBtn" data-reveal-id="editModal">Delete Client</a>
 						</div>	
 					</div>
 				</form>
@@ -54,3 +59,22 @@
 		</div>		
 	</div>
 </div>
+
+<div class="row">
+	<div class="small-12 medium-12 large-4 columns large-centered">
+		<div id="editModal" class="reveal-modal small" data-reveal>
+			<div class="row">
+				<div class="small-10 columns text-center small-centered">
+					<h3>Careful Now!</h3>
+					<h5>Are you sure you want to delete this client?</h5>
+					<p>When you delete clients, all of the invoices created for that client are deleted as well.</p>
+					<hr />
+					<a id="cancelDeleteBtn" href="#" class="button round secondary">No Thanks</a>
+					<?php echo anchor('clients/delete/'.$client[0]['id'], 'Delete Client', 'class="button round"', 'id="delete-'.$client[0]['id'].'"'); ?>
+				</div>
+			</div>
+			<a class="close-reveal-modal">&#215;</a>
+		</div>
+	</div>
+</div>
+
