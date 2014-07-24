@@ -218,7 +218,7 @@ class Invoices extends CI_Controller {
 
 		if (is_numeric($id) && strpos( $id, '.' ) === false) {
 
-			if ($this->_check_user($id) === true && $checkInvoice) {
+			if ($this->_check_user($id, $uid, $data) === true && $checkInvoice) {
 				$this->invoice_model->payment_delete($delete_id, $id);
 				redirect($_SERVER['HTTP_REFERER']);
 
@@ -242,7 +242,7 @@ class Invoices extends CI_Controller {
 		// make sure the id's given are whole numbers
 		if (is_numeric($id) && strpos( $id, '.' ) === false) {
 
-			if ($this->_check_user($id) === true && $checkInvoice) {
+			if ($this->_check_user($id, $uid, $data) === true && $checkInvoice) {
 				$this->invoice_model->row_delete($delete_id);
 				redirect($_SERVER['HTTP_REFERER']);
 
@@ -256,12 +256,8 @@ class Invoices extends CI_Controller {
 	
 	public function delete_invoice($id) 
 	{
-	  if ($this->_check_user($id) === true) {
-	  	$this->invoice_model->invoice_delete($id);
-	  	redirect('/invoices', 'refresh');
-	  } else {
-	  	show_404();
-	  }
+		$this->invoice_model->invoice_delete($id);
+		redirect('/invoices', 'refresh');
 	}
 	
 	public function view_payments($id) 
@@ -375,10 +371,10 @@ class Invoices extends CI_Controller {
 		echo $this->email->print_debugger();
 	}
 	
-	private function _check_user($id) 
+	private function _check_user($id, $uid, $data) 
 	{
-		$uid = $this->tank_auth_my->get_user_id();
-		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+		//$uid = $this->tank_auth_my->get_user_id();
+		//$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		
 		if ( $data['item'][0]['uid'] === $uid ) {
 			return true;

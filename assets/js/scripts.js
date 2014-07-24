@@ -9,6 +9,8 @@ $( document ).ready(function() {
       }
     });
     
+    
+    
     function randomizer() {
     
     	var txtString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';

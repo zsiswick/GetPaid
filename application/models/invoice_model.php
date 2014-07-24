@@ -240,11 +240,30 @@ class Invoice_model extends CI_Model {
 	
 	function invoice_delete($id)
 	{  
-	   $this->db->where_in('common_id', $id);
-	   $this->db->delete('item'); 
-	   $this->db->where('id', $id);
-	   $this->db->limit(1);
-	   $this->db->delete('common');
+		$uid = $this->tank_auth_my->get_user_id();
+		
+		$this->db->start_cache();
+		$this->db->select('*', false);
+		$this->db->where('id', $id);
+		$this->db->where('uid', $uid);
+		$this->db->from('common');
+		$this->db->limit(1);
+		$this->db->stop_cache();
+		
+		$query = $this->db->get();
+		$this->db->delete('common');
+		$this->db->flush_cache();
+		
+		if ($query->num_rows() > 0) 
+		{
+			// Delete all associated invoice items
+			$this->db->where('common_id', $id);
+			$this->db->delete('item'); 
+			
+			// Delete all associated invoice payments
+			$this->db->where('common_id', $id);
+			$this->db->delete('payments');
+		}
 	}
 	
 	function add_payment($pdata, $id)

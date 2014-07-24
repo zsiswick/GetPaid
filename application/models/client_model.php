@@ -4,7 +4,6 @@ class Client_model extends CI_Model {
 	public function __construct()
 	{
 		$this->load->database();
-		//$this->session_data = $this->session->userdata('logged_in');;
 	}
 	
 	public function get_clients($client = FALSE, $uid)
@@ -119,8 +118,13 @@ class Client_model extends CI_Model {
 		$this->db->flush_cache();
 		
 		foreach ($common as $invoice_id) {
+			// Delete all associated items
 			$this->db->where_in('common_id', $invoice_id['id']);
 			$this->db->delete('item');
+			
+			// Delete all associated invoice payments
+			$this->db->where_in('common_id', $invoice_id['id']);
+			$this->db->delete('payments');
 		}
 		
 		$this->db->where('id', $id);
