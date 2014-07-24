@@ -8,7 +8,7 @@
 |--------------------------------------------------------------------------
 */
 $config['website_name'] = 'Ruby Invoice';
-$config['webmaster_email'] = 'zsiswick@gmail.com';
+$config['webmaster_email'] = 'hello@rubyinvoice.com';
 
 /*
 |--------------------------------------------------------------------------
