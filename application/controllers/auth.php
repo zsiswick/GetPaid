@@ -162,6 +162,8 @@ class Auth extends CI_Controller
 						$data['activation_period'] = $this->config->item('email_activation_expire', 'tank_auth') / 3600;
 
 						$this->_send_email('activate', $data['email'], $data);
+						
+						$this->_send_email('new_customer', $this->config->item('webmaster_email', 'tank_auth'), $data); // send an email to the site admin
 
 						unset($data['password']); // Clear password (just for any case)
 
