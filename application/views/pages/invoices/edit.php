@@ -92,7 +92,7 @@
 									$<?php echo number_format((float)$number, 2, '.', ','); ?>
 								</div>
 								<div class="delete small-12 medium-1 columns small-text-center large-only-text-right">
-									<a href="<?php echo base_url(); ?>index.php/invoices/delete_row?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"]?>" id="remove-<?php echo $invoice_item["id"]; ?>"><i class="step fi-x size-21"></i></a>
+									<a href="<?php echo base_url(); ?>index.php/invoices/item_delete?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"].'&iuid='.$item[0]['uid'];?>" id="remove-<?php echo $invoice_item["id"]; ?>"><i class="step fi-x size-21"></i></a>
 								</div>
 							</div>
 						<?php endforeach ?>	

@@ -209,16 +209,12 @@ class Invoices extends CI_Controller {
 	{
 		$uid = $this->tank_auth_my->get_user_id();
 		$delete_id = $this->input->get('pid');
+		$iuid = $this->input->get('iuid');
 		$id = $this->input->get('common_id');
-		// invoice id
-		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		// for security, check whether the id in URL matches the invoice ID
-		$checkInvoice = $this->_searchArray($data['item']['payments'], 'pid', $delete_id);
-		// make sure the id's given are whole numbers
 
 		if (is_numeric($id) && strpos( $id, '.' ) === false) {
 
-			if ($this->_check_user($id, $uid, $data) === true && $checkInvoice) {
+			if ($uid === $iuid) {
 				$this->invoice_model->payment_delete($delete_id, $id);
 				redirect($_SERVER['HTTP_REFERER']);
 
@@ -230,20 +226,17 @@ class Invoices extends CI_Controller {
 		}
 	}
 	
-	public function delete_row() 
+	public function item_delete() 
 	{
 		$uid = $this->tank_auth_my->get_user_id();
 		$delete_id = $this->input->get('id');
+		$iuid = $this->input->get('iuid');
 		$id = $this->input->get('common_id');
-		// invoice id
-		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		// for security, check whether the id in URL matches the invoice ID
-		$checkInvoice = $this->_searchArray($data['item']['items'], 'id', $delete_id);
-		// make sure the id's given are whole numbers
+		
 		if (is_numeric($id) && strpos( $id, '.' ) === false) {
 
-			if ($this->_check_user($id, $uid, $data) === true && $checkInvoice) {
-				$this->invoice_model->row_delete($delete_id);
+			if ($uid === $iuid) {
+				$this->invoice_model->item_delete($delete_id, $id);
 				redirect($_SERVER['HTTP_REFERER']);
 
 			} else {
@@ -371,17 +364,6 @@ class Invoices extends CI_Controller {
 		echo $this->email->print_debugger();
 	}
 	
-	private function _check_user($id, $uid, $data) 
-	{
-		//$uid = $this->tank_auth_my->get_user_id();
-		//$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		
-		if ( $data['item'][0]['uid'] === $uid ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	private function _searchArray($items, $searchKey, $val) {
 	   foreach($items as $key => $product)
 	   {

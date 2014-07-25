@@ -71,7 +71,7 @@
 								<?php echo $payment['pdate'] ?>
 							</div>
 							<div class="small-12 medium-2 columns small-only-text-center text-right">
-								<a href="<?php echo base_url(); ?>index.php/invoices/delete_payment?pid=<?php echo $payment["pid"].'&common_id='.$payment["common_id"]; ?>"><i class="step fi-x size-21"></i></a>
+								<a href="<?php echo base_url(); ?>index.php/invoices/delete_payment?pid=<?php echo $payment["pid"].'&common_id='.$payment["common_id"].'&iuid='.$item[0]['uid']; ?>"><i class="step fi-x size-21"></i></a>
 							</div>
 						</div>
 							

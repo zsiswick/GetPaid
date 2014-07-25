@@ -231,9 +231,10 @@ class Invoice_model extends CI_Model {
 		return;
 	}
 	
-	function row_delete($delete_id)
+	function item_delete($delete_id, $id)
 	{
 	   $this->db->where('id', $delete_id);
+	   $this->db->where('common_id', $id);
 	   $this->db->limit(1);
 	   $this->db->delete('item'); 
 	}
@@ -277,6 +278,7 @@ class Invoice_model extends CI_Model {
 	function payment_delete($delete_id, $id)
 	{
 		$this->db->where('pid', $delete_id);
+		$this->db->where('common_id', $id);
 		$this->db->limit(1);
 		$this->db->delete('payments');
 		// Update the invoice status
@@ -322,11 +324,11 @@ class Invoice_model extends CI_Model {
 		$this->db->from('payments p');
 		$query2 = $this->db->get();
 		
-		$invoice['invoice_total'] = $query->result_array();
+		$invoice['data'] = $query->result_array();
 		$invoice['payments'] = $query2->result_array();
 		
 		$payment_amount = 0;
-		$invoice_total = $invoice['invoice_total'][0]['amount'];
+		$invoice_total = $invoice['data'][0]['amount'];
 		
 		foreach ($invoice['payments'] as $payment) {
 			$number = $payment['payment_amount']; 
@@ -337,12 +339,12 @@ class Invoice_model extends CI_Model {
 		
 		// Calculate whether invoice is due
 		$today = new DateTime(date('Y-m-d'));
-		$due = new DateTime($invoice['invoice_total'][0]['due_date']);
+		$due = new DateTime($invoice['data'][0]['due_date']);
 		$diff = $today->diff($due);
 		
 		// If the invoice isn't already paid, set status as Open or Partial Payment
 		// Finally, check if the invoice is due and not paid in full
-		if ( $invoice['invoice_total'][0]['inv_sent'] == 0) {
+		if ( $invoice['data'][0]['inv_sent'] == 0) {
 			$inv_status = 0;
 		} else {
 		
