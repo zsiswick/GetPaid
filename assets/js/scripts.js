@@ -9,6 +9,11 @@ $(document).ready(function() {
       }
     });
     
+    $('#nav-container-mobile').click(function() {
+    	$('#main-menu-mobile').toggle(function() {
+    		$('#main-menu-mobile-toggle').toggleClass('open');
+    	});
+    });
     
     $("#nav-container", this).hoverIntent(function () { 
        $("#main-menu", this).slideDown();

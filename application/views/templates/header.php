@@ -20,23 +20,30 @@
 	<div class="main-nav">
 		<div class="row">
 			<div class="small-12 columns">
-			  	<div id="nav-container" class="text-center">
+			  	<div id="nav-container" class="text-center hide-for-small-only">
 			  		<a class="branding" href="<?php echo base_url(); ?>">Ruby Invoice</a>
 			  		<a href="#" id="main-menu-toggle">menu</a>
 			  		<nav class="menu-desktop">
 			  			<ul id="main-menu">
-			  				<li><?php echo anchor('invoices', 'Invoices'); ?></li>
-			  				<li><?php echo anchor('clients', 'Clients'); ?></li>
-			  				<li><?php echo anchor('settings', 'Settings'); ?></li>
+			  				<li><a href="<?php echo base_url(); ?>index.php/auth/login">Sign In</a></li>
+			  				<li><a href="<?php echo base_url(); ?>index.php/auth/register">Register</a></li>
 			  			</ul>
 			  		</nav>
+			  	</div>
+			  	<nav class="menu-mobile show-for-small-only">
+			  		<ul id="main-menu-mobile">
+			  			<li><?php echo anchor('invoices', 'Invoices'); ?></li>
+			  			<li><?php echo anchor('clients', 'Clients'); ?></li>
+			  			<li><?php echo anchor('settings', 'Settings'); ?></li>
+			  		</ul>
+			  	</nav>
+			  	<div id="nav-container-mobile" class="text-center show-for-small-only">
+			  		<a class="branding-mobile" href="#">Ruby Invoice</a>
+			  		<a href="#" id="main-menu-mobile-toggle">menu</a>
 			  	</div>
 			</div>
 		</div>
 	</div>
-	
-	
-	<section role="main" class="outer-wrap">
 	<!--
 	<section class="main-nav">
 		<div class="row">

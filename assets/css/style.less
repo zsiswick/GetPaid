@@ -32,6 +32,11 @@
 
 }
 
+@light-body-color: #D3E6E9;
+@nav-color: #4B011F;
+@dark-gray: #24000f;
+@brand-color: #F15959;
+
 .step {
   display: inline-block;
   line-height: 1;
@@ -79,7 +84,7 @@
 	z-index: 999;
 	width: 100%;
 }
-#nav-container {
+#nav-container, #nav-container-mobile {
 	width: 95px;
 	background: #24000f;
 	display: inline-block;
@@ -92,30 +97,66 @@
 	position: relative;
 	top: -8px;
 }
-#nav-container nav ul {
+#nav-container-mobile {
+	width: 50px;
+	border-radius: 0px;
+	padding-bottom: .5rem;
+}
+#main-menu-mobile {
+	width: 150px;
+	-webkit-box-shadow: 0 3px 0 1px rgba(75,1,31,.6);
+	box-shadow: 0 3px 0 1px rgba(75,1,31,.2);
+}
+.menu-mobile, #nav-container-mobile {
+	float: left;
+	top: -8px;
+	left: -16px;
+	position: relative;
+}
+#nav-container nav ul, #main-menu-mobile {
 	margin: 0px;
 }
-#nav-container nav ul li {
+#nav-container nav ul li, #main-menu-mobile li {
 	list-style: none;
 }
-#nav-container a {
-	font-size: .8rem;
-	color: #fff;
+#nav-container nav ul li, #main-menu-mobile li:last-child {
+	border-bottom: none;
+	padding-bottom: 0px;
 }
-#nav-container a:hover {
+#main-menu-mobile li {
+	
+}
+#nav-container a, #main-menu-mobile a, #nav-container-mobile a {
+	font-size: .8rem;
+	color: @light-body-color;
+}
+#main-menu-mobile a {
+	border-bottom: 1px solid #4b011f;
+	font-size: 1rem;
+	padding: .5rem 1rem;
+	display: block;
+}
+#nav-container a:hover, #main-menu-mobile a:hover, #nav-container-mobile a:hover {
 	color: @brand-color;
+}
+#main-menu-mobile a:hover {
+	background: #000;
 }
 #main-menu-toggle {
 	text-transform: uppercase;
 	font-size: .5rem !important;
 }
-#main-menu-toggle.open {
+#main-menu-toggle.open, #main-menu-mobile-toggle.open {
 	color: @brand-color;
 }
 #main-menu {
 	display: none;
 	overflow: hidden;
 	padding-top: 1rem;
+}
+#main-menu-mobile {
+	display: none;
+	background: #24000f;
 }
 .top-bar {
 	background: transparent;
@@ -127,7 +168,7 @@
 .top-bar-section li:not(.has-form) a:not(.button):hover {
 	background: #310A1B;
 }
-.branding {
+.branding, .branding-mobile {
 	width: 72px;
 	height: 70px;
 	top: .8rem;
@@ -136,15 +177,16 @@
 	background-size: 72px;
 	text-indent: -10000rem;
 }
+.branding-mobile {
+	width: 36px;
+	height: 36px;
+	background: transparent url(images/ruby-logo-mobile.png) top left no-repeat;
+	background-size: 36px;
+}
 
 /*
 ** Marketing Section
 */
-
-@light-body-color: #D3E6E9;
-@nav-color: #4B011F;
-@dark-gray: #333;
-@brand-color: #F15959;
 
 
 body{
@@ -158,29 +200,12 @@ section.content {
 section.content.top {
 	padding: 10rem 0 2rem;
 }
-section.blue {
-	background: #1db5fc;
-}
+
 section.gray {
 	background: #efefef;
 }
 section.white {
 	background: #fff;
-}
-section.blue * {
-	color: #fff;
-}
-section.blue h1, .bg-blue h4 {
-	color: #fff;
-}
-section.red {
-	background: #e7009e;
-}
-section.red * {
-	color: #fff;
-}
-section.yellow {
-	background: #f8ff36;
 }
 .content.purple .row {
 	border-bottom: 1px dotted @nav-color;
@@ -250,7 +275,7 @@ h1, h2 {
 	color: @brand-color;
 }
 .purple .button:hover {
-	background: #333;
+	background: @dark-gray;
 	color: @brand-color;
 }
 .button.secondary {
@@ -462,6 +487,7 @@ a:hover, a:focus {
 
 @media only screen and (max-width: 767px) {
     /* phones */
+    
     .form-wrap {
     	padding: 0px;
     }

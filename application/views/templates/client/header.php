@@ -27,8 +27,15 @@
 			  			</ul>
 			  		</nav>
 			  	</div>
-			  	<div id="nav-container-mobile" class="show-for-small-only">
-			  		TEST
+			  	<nav class="menu-mobile show-for-small-only">
+			  		<ul id="main-menu-mobile">
+			  			<li><a href="<?php echo base_url(); ?>index.php/auth/login">Sign In</a></li>
+			  			<li><a href="<?php echo base_url(); ?>index.php/auth/register">Register</a></li>
+			  		</ul>
+			  	</nav>
+			  	<div id="nav-container-mobile" class="text-center show-for-small-only">
+			  		<a class="branding-mobile" href="#">Ruby Invoice</a>
+			  		<a href="#" id="main-menu-mobile-toggle">menu</a>
 			  	</div>
 			</div>
 		</div>
