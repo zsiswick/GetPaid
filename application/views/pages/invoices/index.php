@@ -1,12 +1,15 @@
 <?php 
 	setlocale(LC_MONETARY, 'en_US'); 
 ?>
+
 <div class="row">
   <div class="large-12 columns text-center"><h1>Invoices</h1></div>
 </div>
 
 <?php
 	if ($invoices) { ?>
+	
+	
 	 <div class="row">
 	 	<div class="large-12 columns text-center">
 	 		<a href="<?php echo base_url(); ?>index.php/invoices/create" class="button round">Create New Invoice</a>
@@ -96,4 +99,3 @@
 	</div>	
 <?php	}
 ?>
-

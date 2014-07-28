@@ -1,5 +1,5 @@
 $(document).foundation();
-$( document ).ready(function() {
+$(document).ready(function() {
     
     // PREVENT INVALID CHARACTERS ENTERED INTO TXT FIELDS
     $( "#invoiceCreate, #paymentModal" ).on( "keypress", "input.qty, input.sum, input.amt", function(e) {
@@ -10,6 +10,13 @@ $( document ).ready(function() {
     });
     
     
+    $("#nav-container", this).hoverIntent(function () { 
+       $("#main-menu", this).slideDown();
+       $('#main-menu-toggle').toggleClass('open');
+    }, function() {
+    	$('#main-menu-toggle').toggleClass('open');
+       $("#main-menu", this).slideUp("fast"); 
+    });
     
     function randomizer() {
     

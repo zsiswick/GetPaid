@@ -33,6 +33,7 @@ class Invoices extends CI_Controller {
 		$data['username']	= $this->tank_auth_my->get_username();
 		$data['status_flags'] = unserialize(STATUS_FLAGS);
 		$this->load->view('templates/header', $data);
+		$this->load->view('widgets/invoice-dashboard', $data);
 		$this->load->view('pages/invoices/index', $data);
 		$this->load->view('templates/footer');
 	}

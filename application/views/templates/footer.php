@@ -2,6 +2,7 @@
 </body>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/foundation.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.hoverIntent.minified.js"></script>
 <? if (isset($js_to_load)) : ?>
 	<script type="text/javascript" src="<?php echo base_url();?>assets/js/<?=$js_to_load;?>"></script>
 <? endif;?>

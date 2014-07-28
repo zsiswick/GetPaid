@@ -1,54 +1,35 @@
-
-
-<nav class="top-bar" data-topbar>
-	<ul class="title-area">
-	  <li class="name">
-	    <h1><a href="<?php echo base_url(); ?>">Ruby Invoice</a></h1>
-	  </li>
-	  <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-	</ul>
-	<section class="top-bar-section">
-		<ul class="right">
-			<li><?php echo anchor('auth/login', 'Login'); ?></li>
-		</ul>
-	</section>
-</nav>
-<section class="content blue">
+<section class="content purple top">
 	<div class="row">
 		
 		<div class="large-push-6 large-6 small-text-center large-text-left columns">
-			<img style="width: 507px;" src="<?php echo base_url(); ?>assets/css/images/invoice-printer.png" alt="" />
+			<img class="marketing-hero" style="width: 507px;" src="<?php echo base_url(); ?>assets/css/images/invoice-printer.png" alt="" />
 		</div>
 		<div class="large-pull-6 large-6 small-text-center large-text-left columns">
 			<h1>Welcome to Ruby Invoice</h1>
 			<p class="big-p">The mobile-friendly billing service that helps you create professional looking invoices with neither muss, nor fuss.</p>
-			<a href="index.php/auth/register" class="button round">Sign Up Free</a> <a href="#" class="button round">View Pricing</a>
+			<a href="index.php/auth/login" class="button round">Sign Up Free</a>
 		</div>
 	</div>
 </section>
-<section class="content gray">
+<section class="content purple">
 	<div class="row">
+		<div class="columns large-5">
+			<img src="<?php echo base_url(); ?>assets/images/invoice-view2.png" alt="sample invoice view" />
+		</div>
 		<div class="columns large-6">
 			<h2>Why Use It?</h2>
-			<p class="big-p">Ruby Invoice makes invoicing a snap, with a simple interface and tools to help streamline your experience, so you can get back to work!</p>
-		</div>
-		<div class="columns large-6">
-			<div class="panel">
-				<img src="<?php echo base_url(); ?>assets/images/invoice-view2.png" alt="sample invoice view" />
-			</div>
+			<p class="big-p">Ruby Invoice makes billing a snap, with a simple interface and tools to help streamline your experience, so you can get back to doing what you really love!</p>
 		</div>
 	</div>
 </section>
-<section class="content white">
+<section class="content purple">
 	<div class="row">
-		<div class="columns large-6">
-			<div class="panel">
-				<img src="<?php echo base_url(); ?>assets/images/invoice-view1.png" alt="sample invoice view" />
-			</div>
-		</div>
 		<div class="columns large-6">
 			<h2>Who its For</h2>
 			<p class="big-p">Ruby Invoice was created for small business owners, freelancers, and the like. If you are looking to save time on billing, and appreciate simple-to-use software, Ruby Invoice is the right solution for you.</p>
+		</div>
+		<div class="columns large-5">
+			<img src="<?php echo base_url(); ?>assets/images/invoice-view1.png" alt="sample invoice view" />
 		</div>
 	</div>
 </section>
