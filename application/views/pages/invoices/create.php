@@ -77,7 +77,8 @@
 										    $(document).ready(function() {
 										    
 										    	var clientAddress = <?php echo json_encode($clients); ?>;
-										    	var client_num = $('[name="client"]').val();
+										    	var client_val = $('[name="client"]').val();
+										    	var count = 0;
 											    
 											    function update_address(count, client_val) 
 											    {
@@ -101,7 +102,7 @@
 													  update_address(count, client_val);
 													});
 													
-													//update_address(client_num);
+													update_address(count, client_val);
 												
 													
 										    			
