@@ -8,16 +8,19 @@
 			echo form_open('clients/create', $attributes) 
 		?>
 		
-			<label for="company">Company</label>
-			<input type="text" name="company" /><br />
-			   
-			<label for="contact">Contact Name</label>
-			<input type="text" name="contact" /><br />
+			<input type="text" name="company" placeholder="Company" />
+			<input type="text" name="contact" placeholder="Contact Name" />
+			<input type="text" name="email" placeholder="Email Address" />
 			
-			<label for="email">Email</label>
-			<input type="text" name="email" /><br />
+			<input type="text" name="address_1" placeholder="Address 1" />
+			<input type="text" name="address_2" placeholder="Address 2" />
+			<input type="text" name="city" placeholder="City"/>
+			<input type="text" name="state" placeholder="State"/>
+			<input type="text" name="zip" placeholder="zip"/>
+			<input type="text" name="country" placeholder="Country"/>
+			<input type="text" name="tax_id" placeholder="Tax ID" /><br />
 			
-					<input type="submit" name="submit" value="Add Client" class="button round" />
+			<input type="submit" name="submit" value="Add Client" class="button round" />
 		</form>
 	</div>
 </div>		
