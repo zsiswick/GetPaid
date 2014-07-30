@@ -15,14 +15,6 @@ $(document).ready(function() {
     	});
     });
     
-    $("#nav-container", this).hoverIntent(function () { 
-       $("#main-menu", this).slideDown();
-       $('#main-menu-toggle').toggleClass('open');
-    }, function() {
-    	$('#main-menu-toggle').toggleClass('open');
-       $("#main-menu", this).slideUp("fast"); 
-    });
-    
     function randomizer() {
     
     	var txtString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
@@ -79,7 +71,7 @@ $(document).ready(function() {
     
     
     $('#addItems').click(function() {
-    	$('.edit-list-container').append(' <div class="row invoice list no-rules"><div class="qty small-12 medium-2 columns"><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></div><div class="description small-12 medium-5 columns"><input type="text" name="description[]" /></div><div class="price small-12 medium-2 columns"><input type="text" name="unit_cost[]" class="unitCost sum"></div><div class="totalSum small-12 medium-2 large-only-text-right columns">$0.00</div><div class="delete small-12 medium-1 columns large-only-text-right small-text-center"><a class="delete-row"><i class="step fi-x size-21"></i></a></div></div>');
+    	$('.edit-list-container').append(' <div class="row tabbed list no-rules"><div class="qty small-12 medium-2 columns"><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></div><div class="description small-12 medium-5 columns"><input type="text" name="description[]" /></div><div class="price small-12 medium-2 columns"><input type="text" name="unit_cost[]" class="unitCost sum"></div><div class="totalSum small-12 medium-2 large-only-text-right columns">$0.00</div><div class="delete small-12 medium-1 columns large-only-text-right small-text-center"><a class="delete-row button round small">x</a></div></div>');
     });
     
     
@@ -179,6 +171,20 @@ $(document).ready(function() {
     	  $("#form-wrap").html( data );
     	  $("#form-errors").hide();
     	});
+    });
+    
+    $('[name="client"]').on("click", function() {
+    	
+    	if ( $(this).val() == "add_new_client") {
+    		$('#clientModal').foundation('reveal', 'open');
+    		
+    		var id = window.location.pathname.split('/').pop();
+    		$.get( baseurl+"index.php/clients/create_ajax", function( data ) {
+    		  $("#form-wrap").html( data );
+    		  $("#form-errors").hide();
+    		});
+    	}
+    	
     });
     
     $("#sendInvoiceBtn, #sendInvoice2Btn").on("click", function() {

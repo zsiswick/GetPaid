@@ -5,48 +5,141 @@
 			$attributes = array('class' => 'invoice-form', 'id' => 'createForm');
 			echo form_open('invoices/create', $attributes); 
 		?>
-		<div class="invoice-list-wrap">
+		<div id="invoiceCreate" class="invoice-list-wrap">
 			<div class="invoice-list-inner-wrap">
 				<?php echo validation_errors(); ?>
 					<div class="row">
-						<div class="medium-4 large-4 columns">
+						<div class="medium-5 columns">
 							<div class="row">
 								<div class="large-12 columns">
-									<label for="client">Client</label>
-									<?php 
-										if ($clients) {
-											// Map select option values to the list of clients available
-											$clientList = array_map(function ($ar) {
-												return $ar['company'];
-											}, $clients);
-											$clientID = array_map(function ($ar) {
-												return $ar['id'];
-											}, $clients);
-											$clientList = array_combine($clientID, $clientList);
-											echo form_dropdown('client', $clientList, 0);
-										} else {
-											echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
-										}
-									?>
+									<div class="customer-logo">
+										<svg height="125" width="125" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+											 viewBox="0 0 125 125" enable-background="new 0 0 125 125" xml:space="preserve">
+										<path fill-rule="evenodd" clip-rule="evenodd" fill="#4B011F" d="M57.4,59.5c0.4,0.6,0.6,1.5,0.6,2.7v0.5c0,1.2-0.2,2.1-0.6,2.7
+											s-1,0.9-1.8,0.9c-0.4,0-0.7-0.1-1.1-0.2c-0.3-0.2-0.6-0.4-0.8-0.7s-0.4-0.7-0.5-1.1c-0.1-0.5-0.2-1-0.2-1.6v-0.5
+											c0-1.2,0.2-2.1,0.6-2.7c0.4-0.6,1-0.9,1.8-0.9C56.4,58.6,57,58.9,57.4,59.5z M77.5,58.6c-0.8,0-1.4,0.3-1.8,0.9
+											c-0.4,0.6-0.6,1.5-0.6,2.7v0.5c0,0.6,0.1,1.1,0.2,1.6c0.1,0.5,0.3,0.8,0.5,1.1s0.5,0.5,0.8,0.7c0.3,0.2,0.7,0.2,1.1,0.2
+											c0.8,0,1.4-0.3,1.8-0.9S80,64,80,62.8v-0.5c0-1.2-0.2-2.1-0.6-2.7C78.9,58.9,78.3,58.6,77.5,58.6z M125,62.5C125,97,97,125,62.5,125
+											C28,125,0,97,0,62.5C0,28,28,0,62.5,0C97,0,125,28,125,62.5z M50.3,66.3h-5v-9.5h-2.3v11.4h7.3V66.3z M60.4,62.3
+											c0-0.9-0.1-1.6-0.4-2.3c-0.2-0.7-0.6-1.3-1-1.8c-0.4-0.5-0.9-0.9-1.5-1.1s-1.2-0.4-2-0.4c-0.7,0-1.4,0.1-2,0.4s-1.1,0.6-1.5,1.1
+											c-0.4,0.5-0.8,1.1-1,1.8c-0.2,0.7-0.4,1.5-0.4,2.3v0.5c0,0.9,0.1,1.6,0.4,2.3c0.2,0.7,0.6,1.3,1,1.8s0.9,0.8,1.5,1.1s1.2,0.4,2,0.4
+											c0.7,0,1.4-0.1,2-0.4s1.1-0.6,1.5-1.1c0.4-0.5,0.8-1.1,1-1.8s0.4-1.5,0.4-2.3V62.3z M64.2,62.8v-0.7c0-1.2,0.2-2.1,0.6-2.7
+											c0.4-0.6,1-0.9,1.8-0.9c0.3,0,0.6,0,0.9,0.1c0.3,0.1,0.5,0.2,0.6,0.4s0.3,0.4,0.4,0.6c0.1,0.2,0.2,0.5,0.2,0.8h2.3
+											c-0.1-0.6-0.2-1.1-0.4-1.5s-0.5-0.9-0.8-1.2c-0.4-0.3-0.8-0.6-1.4-0.8s-1.2-0.3-1.9-0.3c-0.7,0-1.4,0.1-2,0.4
+											c-0.6,0.2-1.1,0.6-1.5,1.1s-0.7,1-1,1.7s-0.3,1.5-0.3,2.3v0.7c0,0.9,0.1,1.7,0.4,2.3c0.2,0.7,0.6,1.3,1,1.7c0.4,0.5,1,0.8,1.6,1.1
+											c0.6,0.2,1.3,0.4,2,0.4c0.6,0,1.2-0.1,1.7-0.2c0.5-0.1,0.9-0.2,1.3-0.4c0.4-0.2,0.6-0.3,0.9-0.5s0.4-0.4,0.6-0.5v-4.5h-4.5v1.7h2.1
+											v2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.1,0.1-0.2,0.1-0.4,0.2s-0.3,0.1-0.5,0.1c-0.2,0-0.5,0.1-0.7,0.1c-0.9,0-1.5-0.3-2-0.9
+											S64.2,64,64.2,62.8z M82.4,62.3c0-0.9-0.1-1.6-0.4-2.3c-0.2-0.7-0.6-1.3-1-1.8c-0.4-0.5-0.9-0.9-1.5-1.1s-1.2-0.4-2-0.4
+											c-0.7,0-1.4,0.1-2,0.4s-1.1,0.6-1.5,1.1c-0.4,0.5-0.8,1.1-1,1.8c-0.2,0.7-0.4,1.5-0.4,2.3v0.5c0,0.9,0.1,1.6,0.4,2.3
+											c0.2,0.7,0.6,1.3,1,1.8s0.9,0.8,1.5,1.1s1.2,0.4,2,0.4c0.7,0,1.4-0.1,2-0.4s1.1-0.6,1.5-1.1c0.4-0.5,0.8-1.1,1-1.8s0.4-1.5,0.4-2.3
+											V62.3z"/>
+										</svg>
+									</div>
+									<h3>Zachary Siswick (DBA - Chromaloop)</h3>	
 								</div>
 							</div>
 						</div>
-						<div class="medium-8 large-8 columns">
+						<div class="medium-7 columns">
 							<div class="row">
-								<div class="large-12 columns">
-									<label>Date:</label>
-								</div>	
-								<div class="small-3 large-3 columns">
-									<?= $dob_dropdown_day ?>
+								<div class="large-12 columns text-right">
+									<h4 class="caps">Draft Invoice</h4>
 								</div>
-								<div class="small-5 large-5 columns">
-									<?= $dob_dropdown_month ?>
+								<div class="medium-6 columns">
+									<div class="ruled">
+										<h5 class="caps">
+												Billing Information
+											</h5>	
+										
+											<?php 
+												if ($clients) {
+													// Map select option values to the list of clients available
+													$clientList = array_map(function ($ar) {
+														return $ar['company'];
+													}, $clients);
+													$clientID = array_map(function ($ar) {
+														return $ar['id'];
+													}, $clients);
+													$clientList = array_combine($clientID, $clientList);
+													$clientList['add_new_client'] = 'Add New Client';
+													echo form_dropdown('client', $clientList, 1);
+												} else {
+													echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
+												}
+											?>
+												<div id="clientAddress" class="row">
+													<div class="small-12 columns"><input id="contactName" type="text" name="contact" placeholder="Contact Name"/></div>
+													<div class="small-12 columns"><input id="addressOne" type="text" name="address_1" placeholder="Address One"/></div>
+													<div class="small-12 columns"><input id="addressTwo" type="text" name="address_2" placeholder="Address Two"/></div>
+													<div class="small-12 columns"><input id="city" type="text" name="city" placeholder="City"/></div>
+													<div class="small-3 columns"><input id="state" type="text" name="state" placeholder="State"/></div>
+													<div class="small-4 columns end"><input id="zipCode" type="text" name="zip" placeholder="Zip Code" /></div>
+												</div>
+											
+											<script type="text/javascript">
+										    $(document).ready(function() {
+										    	var clientAddress = <?php echo json_encode($clients); ?>;
+										    	client = $('[name="client"]').val()-1;
+											    function update_address($a) 
+											    {
+											    	if($.isNumeric($a)) {
+											    		$('#contactName').val(clientAddress[$a]['contact']);
+											    		$('#addressOne').val(clientAddress[$a]['address_1']);
+											    		$('#addressTwo').val(clientAddress[$a]['address_2']);
+											    		$('#city').val(clientAddress[$a]['city']);
+											    		$('#state').val(clientAddress[$a]['state']);
+											    		$('#zipCode').val(clientAddress[$a]['zip']);
+											    	} else {
+											    		$('#contactName').val('');
+											    		$('#addressOne').val('');
+											    		$('#addressTwo').val('');
+											    		$('#city').val('');
+											    		$('#state').val('');
+											    		$('#zipCode').val('');
+											    	}
+											    	
+											    }
+												    
+													$('[name="client"]').on( "click", function() {
+													  $client =  $( this ).val()-1;
+													  update_address($client);
+													});
+													update_address(client);
+										    			
+										    });
+										    
+											    
+											</script>
+									</div>
 								</div>
-								<div class="small-4 large-4 columns">
-									<?= $dob_dropdown_year ?>
+								<div class="medium-6 columns">
+									<div class="ruled">
+										<h5 class="caps">
+											Invoice ID
+										</h5>
+										<div class="row">
+											<div class="small-4 columns"><input type="text" name="prefix" placeholder="Prefix"/></div>
+											<div class="small-8 columns"><input type="text" readonly="readonly" name="invoice_num" placeholder="123"/></div>
+										</div>
+									</div>
+									
+									
+									<h5 class="ruled caps">
+										Send Date
+									</h5>
+									<div class="row">
+										<div class="small-3 columns">
+											<?= $dob_dropdown_day ?>
+										</div>
+										<div class="small-5 columns">
+											<?= $dob_dropdown_month ?>
+										</div>
+										<div class="small-4 columns">
+											<?= $dob_dropdown_year ?>
+										</div>
+									</div>
+									
 								</div>
 							</div>
-								
 						</div>
 					</div>
 					
@@ -68,8 +161,8 @@
 						</div>
 					</div>
 					
-					<div id="invoiceCreate" class="edit-list-container">
-						<div class="row invoice list no-rules">
+					<div class="edit-list-container">
+						<div class="row tabbed list no-rules">
 							<div class="qty small-12 medium-2 columns">
 								<input class="qty sum" type="text" name="qty[]" />
 							</div>
@@ -83,17 +176,16 @@
 								$0.00
 							</div>
 							<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
-								<a class="delete-row"><i class="step fi-x size-21"></i></a>
+								<a class="delete-row button small round">x</a>
 							</div>
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="large-12 columns text-left small-only-text-center">
-							<a id="addItems" class="button small secondary round">Add Another Item</a>
+							<a id="addItems" class="button small round">Add Another Item</a>
 						</div>
 					</div>
-					<hr />
 					<div class="row">
 						<div class="large-12 columns text-right small-only-text-center">
 							<h3>Total Due: <span id="invoiceTotal">$0.00</span></h3>
@@ -110,5 +202,14 @@
 		</div>
 		
 		</form>
+	</div>
+</div>
+
+<div class="row">
+	<div class="small-12 medium-12 large-4 columns large-centered">
+		<div id="clientModal" class="reveal-modal small" data-reveal>
+			<div id="form-errors" class="alert-box round"></div>
+			<div id="form-wrap"></div>
+		</div>
 	</div>
 </div>

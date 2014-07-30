@@ -33,7 +33,7 @@ class Invoices extends CI_Controller {
 		$data['username']	= $this->tank_auth_my->get_username();
 		$data['status_flags'] = unserialize(STATUS_FLAGS);
 		$this->load->view('templates/header', $data);
-		$this->load->view('widgets/invoice-dashboard', $data);
+		//$this->load->view('widgets/invoice-dashboard', $data);
 		$this->load->view('pages/invoices/index', $data);
 		$this->load->view('templates/footer');
 	}
@@ -362,7 +362,7 @@ class Invoices extends CI_Controller {
 		// UPDATE THE INVOICE SENT FLAG
 		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
 		$this->invoice_model->get_set_invoice_status($id);
-		echo $this->email->print_debugger();
+		redirect('/invoices/view/'.$id, 'refresh');
 	}
 	
 	private function _searchArray($items, $searchKey, $val) {
