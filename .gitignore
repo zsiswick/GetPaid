@@ -22,3 +22,5 @@ application/config/database.php
 uploads/logo/logo.jpg
 
 uploads/logo/logo1.jpg
+
+*.less

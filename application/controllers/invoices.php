@@ -70,6 +70,7 @@ class Invoices extends CI_Controller {
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['title'] = 'Create an invoice';
+		var_dump($data['clients']);
 		
 		$this->form_validation->set_rules('month', 'Month', 'numeric');
 		$this->form_validation->set_rules('client', 'Client', 'required|xss_clean');

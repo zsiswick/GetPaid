@@ -66,44 +66,44 @@
 													echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
 												}
 											?>
-												<div id="clientAddress" class="row">
-													<div class="small-12 columns"><input id="contactName" type="text" name="contact" placeholder="Contact Name"/></div>
-													<div class="small-12 columns"><input id="addressOne" type="text" name="address_1" placeholder="Address One"/></div>
-													<div class="small-12 columns"><input id="addressTwo" type="text" name="address_2" placeholder="Address Two"/></div>
-													<div class="small-12 columns"><input id="city" type="text" name="city" placeholder="City"/></div>
-													<div class="small-3 columns"><input id="state" type="text" name="state" placeholder="State"/></div>
-													<div class="small-4 columns end"><input id="zipCode" type="text" name="zip" placeholder="Zip Code" /></div>
-												</div>
+												<ul id="clientAddress">
+													<li id="contactName"></li>
+													<li id="addressOne"></li>
+													<li id="addressTwo"></li>
+													<li id="cityStateZip"></li>
+												</ul>
 											
 											<script type="text/javascript">
 										    $(document).ready(function() {
+										    
 										    	var clientAddress = <?php echo json_encode($clients); ?>;
-										    	client = $('[name="client"]').val()-1;
-											    function update_address($a) 
+										    	var client_num = $('[name="client"]').val();
+											    
+											    function update_address(count, client_val) 
 											    {
-											    	if($.isNumeric($a)) {
-											    		$('#contactName').val(clientAddress[$a]['contact']);
-											    		$('#addressOne').val(clientAddress[$a]['address_1']);
-											    		$('#addressTwo').val(clientAddress[$a]['address_2']);
-											    		$('#city').val(clientAddress[$a]['city']);
-											    		$('#state').val(clientAddress[$a]['state']);
-											    		$('#zipCode').val(clientAddress[$a]['zip']);
+											    	if($.isNumeric(client_val)) {
+											    		$('#contactName').html( clientAddress[count]['contact'] );
+											    		$('#addressOne').html( clientAddress[count]['address_1'] );
+											    		$('#addressTwo').html( clientAddress[count]['address_2'] );
+											    		$('#cityStateZip').html( clientAddress[count]['city']+' '+clientAddress[count]['state']+' '+clientAddress[count]['zip'] );
 											    	} else {
-											    		$('#contactName').val('');
-											    		$('#addressOne').val('');
-											    		$('#addressTwo').val('');
-											    		$('#city').val('');
-											    		$('#state').val('');
-											    		$('#zipCode').val('');
+											    		$('#contactName').html('');
+											    		$('#addressOne').html('');
+											    		$('#addressTwo').html('');
+											    		$('#cityStateZip').html('');
 											    	}
-											    	
 											    }
 												    
-													$('[name="client"]').on( "click", function() {
-													  $client =  $( this ).val()-1;
-													  update_address($client);
+													$('[name="client"]').on( "change", function() {
+														var count = $(this)[0].selectedIndex;
+														
+													  client_val =  $( this ).val();
+													  update_address(count, client_val);
 													});
-													update_address(client);
+													
+													//update_address(client_num);
+												
+													
 										    			
 										    });
 										    
@@ -122,22 +122,22 @@
 										</div>
 									</div>
 									
-									
-									<h5 class="ruled caps">
-										Send Date
-									</h5>
-									<div class="row">
-										<div class="small-3 columns">
-											<?= $dob_dropdown_day ?>
-										</div>
-										<div class="small-5 columns">
-											<?= $dob_dropdown_month ?>
-										</div>
-										<div class="small-4 columns">
-											<?= $dob_dropdown_year ?>
+									<div class="ruled sans-top">
+										<h5 class="caps">
+											Send Date
+										</h5>
+										<div class="row">
+											<div class="small-3 columns">
+												<?= $dob_dropdown_day ?>
+											</div>
+											<div class="small-5 columns">
+												<?= $dob_dropdown_month ?>
+											</div>
+											<div class="small-4 columns">
+												<?= $dob_dropdown_year ?>
+											</div>
 										</div>
 									</div>
-									
 								</div>
 							</div>
 						</div>

@@ -57,6 +57,20 @@ class Clients extends CI_Controller {
 		$this->form_validation->set_rules('country', 'Country', 'xss_clean');
 		$this->form_validation->set_rules('tax_id', 'Tax ID', 'xss_clean');
 		$this->form_validation->set_rules('notes', 'Notes', 'xss_clean');
+		
+		if($this->input->is_ajax_request()){
+			$respond=array();
+			if($this->form_validation->run()==false){
+			   $respond['result'] = 'false';
+			   $respond['errors'] = validation_errors();
+			} else {
+			  $respond['result'] = 'true';
+				$respond['errors'] = 'The client was added!';
+				$this->client_model->set_client($uid);
+			}
+			return $this->output->set_output(json_encode($respond));
+		}
+		
 	
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('templates/header', $data);

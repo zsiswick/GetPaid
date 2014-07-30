@@ -164,6 +164,11 @@ $(document).ready(function() {
       ajaxRequest($this, 'index.php/invoices/add_payment/'+id, mycallback);
     });
     */
+    $( "#form-wrap" ).on( "submit", "#addClient", function(event) {
+      var id = window.location.pathname.split('/').pop();
+      $this = $(this);
+      ajaxRequest($this, 'index.php/clients/create');
+    });
     
     $("#addPaymentBtn, #addPayment2Btn").on("click", function() {
     	var id = window.location.pathname.split('/').pop();
@@ -173,7 +178,7 @@ $(document).ready(function() {
     	});
     });
     
-    $('[name="client"]').on("click", function() {
+    $('[name="client"]').on("change", function() {
     	
     	if ( $(this).val() == "add_new_client") {
     		$('#clientModal').foundation('reveal', 'open');

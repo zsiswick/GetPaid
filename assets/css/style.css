@@ -253,6 +253,12 @@ h5 {
   border-top: 1px solid #ca3f3f;
   border-bottom: 1px solid #ca3f3f;
 }
+.ruled.sans-top {
+  border-top: none;
+}
+.ruled.sans-bottom {
+  border-bottom: none;
+}
 .dashboard figure {
   margin: 0;
 }
