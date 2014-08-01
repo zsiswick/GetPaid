@@ -66,7 +66,7 @@
 													echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
 												}
 											?>
-												<ul id="clientAddress">
+												<ul id="client_data">
 													<li id="contactName"></li>
 													<li id="addressOne"></li>
 													<li id="addressTwo"></li>
@@ -76,18 +76,18 @@
 											<script type="text/javascript">
 										    $(document).ready(function() {
 										    
-										    	var clientAddress = <?php echo json_encode($clients); ?>;
+										    	var client_data = <?php echo json_encode($clients); ?>;
 										    	var client_val = $('[name="client"]').val();
 										    	var count = 0;
 											    
 											    function update_address(count, client_val) 
 											    {
 											    	if($.isNumeric(client_val)) {
-											    		$('#contactName').html( clientAddress[count]['contact'] );
-											    		$('#addressOne').html( clientAddress[count]['address_1'] );
-											    		$('#addressTwo').html( clientAddress[count]['address_2'] );
-											    		$('#cityStateZip').html( clientAddress[count]['city']+' '+clientAddress[count]['state']+' '+clientAddress[count]['zip'] );
-											    		$('input[name="prefix"]').val(clientAddress[count]['default_inv_prefix']);
+											    		$('#contactName').html( client_data[count]['contact'] );
+											    		$('#addressOne').html( client_data[count]['address_1'] );
+											    		$('#addressTwo').html( client_data[count]['address_2'] );
+											    		$('#cityStateZip').html( client_data[count]['city']+' '+client_data[count]['state']+' '+client_data[count]['zip'] );
+											    		$('input[name="prefix"]').val(client_data[count]['default_inv_prefix']);
 											    	} else {
 											    		$('#contactName').html('');
 											    		$('#addressOne').html('');
@@ -105,7 +105,7 @@
 													
 													update_address(count, client_val);
 													
-													$('input[name="prefix"]').val(clientAddress[count]['default_inv_prefix']);
+													$('input[name="prefix"]').val(client_data[count]['default_inv_prefix']);
 												
 												});
 										  </script>

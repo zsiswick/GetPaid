@@ -306,6 +306,16 @@ class Invoice_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	public function get_invoice_num($cid) { // Retrieves an invoice number stored for each client and increments it for the next invoice
+		$this->db->select('inv_num', false);
+		$this->db->where('i.cid', $cid);
+		$this->db->limit(1);
+		$this->db->from('invoice_nums i');
+		$query = $this->db->get();
+		
+		return $query->result_array();
+	}
+	
 	public function get_set_invoice_num($cid) { // Retrieves an invoice number stored for each client and increments it for the next invoice
 		$this->db->select('inv_num', false);
 		$this->db->where('i.cid', $cid);

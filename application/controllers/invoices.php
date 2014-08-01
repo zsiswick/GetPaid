@@ -396,15 +396,16 @@ class Invoices extends CI_Controller {
 			if($this->input->is_ajax_request()){
 					$respond=array();
 			   
-			   
-					$respond['result'] = 'true';
-					$respond['errors'] = $data['inv_num'][0]['inv_num'];
+			   	$data['inv_num'] = $this->invoice_model->get_invoice_num($cid);
+					$respond['cid'] = $cid;
+					//$respond['errors'] = $data['inv_num'][0]['inv_num'];
+					$respond['inv_num'] = $data['inv_num'][0]['inv_num'];
 			      
 					return $this->output->set_output(json_encode($respond));
 					
 			} else {
-				$data['inv_num'] = $this->invoice_model->get_set_invoice_num($cid);
-				//var_dump($data['inv_num']);
+				$data['inv_num'] = $this->invoice_model->get_invoice_num($cid);
+				
 				return $data['inv_num'];
 			}
 		}

@@ -77,7 +77,7 @@
 										}
 									?>
 									
-									<ul id="clientAddress">
+									<ul id="client_data">
 										<li id="contactName"><?php echo $item['client'][0]['contact']; ?></li>
 										<li id="addressOne"><?php if(!empty($address_1)): echo $address_1.'<br/>'; endif ?></li>
 										<li id="addressTwo"><?php if(!empty($address_2)): echo $address_2.'<br/>'; endif ?></li>
@@ -86,18 +86,26 @@
 									<script type="text/javascript">
 									  $(document).ready(function() {
 									  
-									  	var clientAddress = <?php echo json_encode($clients); ?>;
+									  	var baseurl = window.location.protocol + "//" + window.location.host + "/" + "rubyinvoice/";
+									  	var client_data = <?php echo json_encode($clients); ?>;
 									  	var client_val = $('[name="client"]').val();
 									  	var count = 0;
-									    
+									  	
 									    function update_address(count, client_val) 
 									    {
 									    	if($.isNumeric(client_val)) {
-									    		$('#contactName').html( clientAddress[count]['contact'] );
-									    		$('#addressOne').html( clientAddress[count]['address_1'] );
-									    		$('#addressTwo').html( clientAddress[count]['address_2'] );
-									    		$('#cityStateZip').html( clientAddress[count]['city']+' '+clientAddress[count]['state']+' '+clientAddress[count]['zip'] );
-									    		$('input[name="prefix"]').val(clientAddress[count]['default_inv_prefix']);
+									    		$('#contactName').html( client_data[count]['contact'] );
+									    		$('#addressOne').html( client_data[count]['address_1'] );
+									    		$('#addressTwo').html( client_data[count]['address_2'] );
+									    		$('#cityStateZip').html( client_data[count]['city']+' '+client_data[count]['state']+' '+client_data[count]['zip'] );
+									    		$('input[name="prefix"]').val(client_data[count]['default_inv_prefix']);
+									    		
+									    		$.get( baseurl+"index.php/invoices/get_invoice_number/"+client_data[count]['id'], function( data ) {
+										    		obj = JSON.parse(data);
+								    		    $('input[name="invoice_num"]').val(obj.inv_num);
+									    		});
+									    		
+									    		 
 									    	} else {
 									    		$('#contactName').html('');
 									    		$('#addressOne').html('');
@@ -105,6 +113,7 @@
 									    		$('#cityStateZip').html('');
 									    	}
 									    }
+									    
 										    
 											$('[name="client"]').on( "change", function() {
 												var count = $(this)[0].selectedIndex;
@@ -115,7 +124,10 @@
 											
 											update_address(count, client_val);
 											
-											$('input[name="prefix"]').val(clientAddress[count]['default_inv_prefix']);
+											$('input[name="prefix"]').val(client_data[count]['default_inv_prefix']);
+											
+											
+											
 										
 										});
 									</script>
