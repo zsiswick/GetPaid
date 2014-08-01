@@ -1,3 +1,4 @@
+<h1 class="text-center">View Invoice</h1>
 <div id="invoiceContainer">
 	<div id="container">
 		<div class="row">
@@ -27,50 +28,7 @@
 				<?php echo validation_errors();?>
 				
 				<div id="invoiceCreate" class="invoice-wrap">
-					<div class="row">
-						<div class="small-12 small-only-text-center columns">
-							
-							
-							<div class="icon-bar five-up">
-							  
-							  <?php
-							  	
-							  	if ($invoice_sent == true) { ?>
-							  	
-								  	<a href="#" id="sendInvoiceRemind2Btn" data-reveal-id="paymentModal" class="item">
-								  	  <i class="fi-alert size-21"></i>
-								  	  <label class="hide-for-small-only">Remind</label>
-								  	</a>
-							  		
-							  <?php	} else { ?>
-							  	
-								  	<a href="#" id="sendInvoice2Btn" data-reveal-id="paymentModal" class="item">
-								  	  <i class="fi-mail size-21"></i>
-								  	  <label class="hide-for-small-only">Send</label>
-								  	</a>
-							  
-							  <?php } ?>
-							  
-							  
-							  <a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="item">
-							    <i class="fi-download size-21"></i>
-							    <label class="hide-for-small-only">Download</label>
-							  </a>
-							  <a href="<?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']?>/<?php echo $item['client'][0]['key']?>" class="item">
-							    <i class="fi-link size-21"></i>
-							    <label class="hide-for-small-only">Permalink</label>
-							  </a>
-							  <a href="#" id="addPayment2Btn" data-reveal-id="paymentModal" class="item">
-							    <i class="fi-dollar-bill size-21"></i>
-							    <label class="hide-for-small-only">Payments</label>
-							  </a>
-							  <a href="<?php echo base_url()?>index.php/invoices/edit/<?php echo $item[0]['iid']?>" class="item">
-							    <i class="fi-pencil size-21"></i>
-							    <label class="hide-for-small-only">Edit</label>
-							  </a>
-							</div>
-						</div>
-					</div>
+					
 						<div class="invoice-inner-wrap">
 							<div class="row invoice-info">
 								<div class="medium-5 small-centered large-uncentered columns invoice-info">
@@ -252,48 +210,48 @@
 								</div>
 							</div>
 						</section>
-					</div>
-					<div class="row">
-						<div class="small-12 small-only-text-center columns">
-							
-							
-							<div class="icon-bar five-up">
-							  
-							  <?php
-							  	
-							  	if ($invoice_sent == true) { ?>
-							  	
-								  	<a href="#" id="sendInvoiceRemind2Btn" data-reveal-id="paymentModal" class="item">
-								  	  <i class="fi-alert size-21"></i>
-								  	  <label class="hide-for-small-only">Remind</label>
-								  	</a>
-							  		
-							  <?php	} else { ?>
-							  	
-								  	<a href="#" id="sendInvoice2Btn" data-reveal-id="paymentModal" class="item">
-								  	  <i class="fi-mail size-21"></i>
-								  	  <label class="hide-for-small-only">Send</label>
-								  	</a>
-							  
-							  <?php } ?>
-							  
-							  
-							  <a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="item">
-							    <i class="fi-download size-21"></i>
-							    <label class="hide-for-small-only">Download</label>
-							  </a>
-							  <a href="<?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']?>/<?php echo $item['client'][0]['key']?>" class="item">
-							    <i class="fi-link size-21"></i>
-							    <label class="hide-for-small-only">Permalink</label>
-							  </a>
-							  <a href="#" id="addPayment2Btn" data-reveal-id="paymentModal" class="item">
-							    <i class="fi-dollar-bill size-21"></i>
-							    <label class="hide-for-small-only">Payments</label>
-							  </a>
-							  <a href="<?php echo base_url()?>index.php/invoices/edit/<?php echo $item[0]['iid']?>" class="item">
-							    <i class="fi-pencil size-21"></i>
-							    <label class="hide-for-small-only">Edit</label>
-							  </a>
+						<div class="row">
+							<div class="small-12 small-only-text-center columns">
+								
+								
+								<div class="icon-bar five-up">
+								  
+								  <?php
+								  	
+								  	if ($invoice_sent == true) { ?>
+								  	
+									  	<a href="#" id="sendInvoiceRemind2Btn" data-reveal-id="paymentModal" class="item">
+									  	  <i class="fi-alert size-21"></i>
+									  	  <label class="hide-for-small-only">Remind</label>
+									  	</a>
+								  		
+								  <?php	} else { ?>
+								  	
+									  	<a href="#" id="sendInvoice2Btn" data-reveal-id="paymentModal" class="item">
+									  	  <i class="fi-mail size-21"></i>
+									  	  <label class="hide-for-small-only">Send</label>
+									  	</a>
+								  
+								  <?php } ?>
+								  
+								  
+								  <a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="item">
+								    <i class="fi-download size-21"></i>
+								    <label class="hide-for-small-only">Download</label>
+								  </a>
+								  <a href="<?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']?>/<?php echo $item['client'][0]['key']?>" class="item">
+								    <i class="fi-link size-21"></i>
+								    <label class="hide-for-small-only">Permalink</label>
+								  </a>
+								  <a href="#" id="addPayment2Btn" data-reveal-id="paymentModal" class="item">
+								    <i class="fi-dollar-bill size-21"></i>
+								    <label class="hide-for-small-only">Payments</label>
+								  </a>
+								  <a href="<?php echo base_url()?>index.php/invoices/edit/<?php echo $item[0]['iid']?>" class="item">
+								    <i class="fi-pencil size-21"></i>
+								    <label class="hide-for-small-only">Edit</label>
+								  </a>
+								</div>
 							</div>
 						</div>
 					</div>

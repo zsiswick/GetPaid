@@ -114,6 +114,7 @@ class Invoices extends CI_Controller {
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+		$data['status_flags'] = unserialize(STATUS_FLAGS);
 		
 		if (empty($data['item'])) {
 				show_404();
@@ -126,6 +127,7 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_day'] = buildDayDropdown('day', $datePieces[2]);
 			$data['dob_dropdown_month'] = buildMonthDropdown('month', $datePieces[1]);
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $datePieces[0]);
+			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
 			
 			$this->form_validation->set_rules('month', 'Month', 'numeric');
 			$this->form_validation->set_rules('day', 'Day', 'numeric');
