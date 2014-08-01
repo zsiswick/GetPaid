@@ -26,7 +26,7 @@ class Invoice_model extends CI_Model {
 	public function get_invoice($id, $uid)
 	{
 		
-		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.inv_sent, c.due_date', false);
+		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.prefix, c.inv_num, c.inv_sent, c.due_date', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -81,7 +81,7 @@ class Invoice_model extends CI_Model {
 	public function get_client_invoice($id, $key)
 	{
 		
-		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.inv_sent, c.due_date', false);
+		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.inv_sent, c.prefix, c.inv_num, c.due_date', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -142,7 +142,8 @@ class Invoice_model extends CI_Model {
 	
 	public function set_invoice($uid)
 	{	
-		
+		$cid = $this->input->post('client');
+		$inv_num = $this->invoice_model->get_set_invoice_num($cid);
 		//FORMAT THE DATE BEFORE PUTTING IN THE DATABASE
 		$dateString = $this->input->post('year').'-'.$this->input->post('month').'-'.$this->input->post('day'); 
 		$quantity = $this->input->post('qty');
@@ -155,7 +156,7 @@ class Invoice_model extends CI_Model {
 		//
 		$date = $this->_calc_due_date($uid, $dateString);
 		//
-		$common_data = array('uid' => $uid, 'cid' => $this->input->post('client'), 'date' => $dateString, 'due_date'=>$date->format('Y-n-d'));
+		$common_data = array('uid' => $uid, 'cid' => $cid, 'prefix' => $this->input->post('prefix'), 'date' => $dateString, 'due_date'=>$date->format('Y-n-d'), 'inv_num' => $inv_num[0]['inv_num']);
 		$client_data = array(); // Populate this with input fields from form...
 		$this->db->insert('common', $common_data);
 		// Get the table id of the last row updated using insert_id() function
@@ -180,6 +181,7 @@ class Invoice_model extends CI_Model {
 		$this->db->update('common', $amount);
 		
 		$this->invoice_model->get_set_invoice_status($common_id);
+		
 		return;
 	}
 	
@@ -213,7 +215,7 @@ class Invoice_model extends CI_Model {
 		$date = $this->_calc_due_date($uid, $dateString);
 		
 		//
-		$common_data = array('date' => $dateString, 'cid' => $this->input->post('client'), 'amount' => $sumTotal, 'due_date'=>$date->format('Y-m-d'));
+		$common_data = array('date' => $dateString, 'cid' => $this->input->post('client'), 'prefix' => $this->input->post('prefix'), 'amount' => $sumTotal, 'due_date'=>$date->format('Y-m-d'));
 		
 		$this->db->where('id', $common_id);
 		$this->db->update('common', $common_data);
@@ -303,13 +305,25 @@ class Invoice_model extends CI_Model {
 		
 		return $query->result_array();
 	}
-	private function _calc_due_date($uid, $dateString) {
-		// Calculate the due date based on the invoice creation date, and the user's "due in" settings
-		$userSettings = $this->get_user_settings($uid);
-		$date = new DateTime($dateString);
-		$date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
-		//
-		return $date;
+	
+	public function get_set_invoice_num($cid) { // Retrieves an invoice number stored for each client and increments it for the next invoice
+		$this->db->select('inv_num', false);
+		$this->db->where('i.cid', $cid);
+		$this->db->limit(1);
+		$this->db->from('invoice_nums i');
+		$query = $this->db->get();
+		
+		if ($query->num_rows() > 0) 
+		{
+			$data['num'] = $query->result_array();
+			$data['num'][0]['inv_num'] += 1;
+			
+			$this->db->where('cid', $cid);
+			$this->db->limit(1);
+			$this->db->update('invoice_nums', $data['num'][0]);
+		}
+		
+		return $query->result_array();
 	}
 	
 	public function get_set_invoice_status($id) 
@@ -361,9 +375,18 @@ class Invoice_model extends CI_Model {
 			}
 		} 
 		
-			
 		$this->set_invoice_flag($id, 'status', $inv_status);
 		return $inv_status;
+	}
+	
+	private function _calc_due_date($uid, $dateString) 
+	{
+		// Calculate the due date based on the invoice creation date, and the user's "due in" settings
+		$userSettings = $this->get_user_settings($uid);
+		$date = new DateTime($dateString);
+		$date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
+		//
+		return $date;
 	}
 	
 	private function _arrayUnique($array) {

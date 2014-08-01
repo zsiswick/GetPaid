@@ -70,7 +70,6 @@ class Invoices extends CI_Controller {
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['title'] = 'Create an invoice';
-		
 		$this->form_validation->set_rules('month', 'Month', 'numeric');
 		$this->form_validation->set_rules('client', 'Client', 'required|xss_clean');
 		$this->form_validation->set_rules('day', 'Day', 'numeric');
@@ -248,49 +247,61 @@ class Invoices extends CI_Controller {
 		}
 	}
 	
-	public function delete_invoice($id) 
+	public function delete_invoice($id = FALSE) 
 	{
-		$this->invoice_model->invoice_delete($id);
-		redirect('/invoices', 'refresh');
-	}
-	
-	public function view_payments($id) 
-	{
-		$data['first_name']	= $this->tank_auth_my->get_username();
-		$uid = $this->tank_auth_my->get_user_id();
-		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		
-		$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
-		$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
-		$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
-		$common_id = $data['item'][0]['iid'];
-		
-		$this->load->view('pages/invoices/view_payments', $data);
-	}
-	
-	public function pdf($id) 
-	{
-		$data['status_flags'] = unserialize(STATUS_FLAGS);
-		$uid = $this->tank_auth_my->get_user_id();
-		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		$data['theDate'] = $this->_month_string($data['item'][0]['date']);
-		
-		$filename = "invoice-".$data['item'][0]['iid'];
-		$pdfFilePath = FCPATH."downloads/reports/$filename.pdf";
-		 
-		if (file_exists($pdfFilePath) == FALSE)
-		{
-	    ini_set('memory_limit','32M'); // boost the memory limit if it's low 
-	    $html = $this->load->view('pages/invoices/view_pdf', $data, true); // render the view into HTML
-	     
-	    $this->load->library('pdf');
-	    $pdf = $this->pdf->load();
-	    $pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date(DATE_RFC822)); // Add a footer for good measure 
-	    $pdf->WriteHTML($html); 
-	    $pdf->Output($filename, 'D'); 
+		if ( $id === FALSE ) {
+				show_404();
+		} else {
+			$this->invoice_model->invoice_delete($id);
+			redirect('/invoices', 'refresh');
 		}
-		 
-		redirect("../downloads/reports/$filename.pdf");    
+	}
+	
+	public function view_payments($id = FALSE) 
+	{
+		if ( $id === FALSE ) {
+				show_404();
+		} else {
+			$data['first_name']	= $this->tank_auth_my->get_username();
+			$uid = $this->tank_auth_my->get_user_id();
+			$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+			
+			$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
+			$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
+			$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
+			$common_id = $data['item'][0]['iid'];
+			
+			$this->load->view('pages/invoices/view_payments', $data);
+		}
+	}
+	
+	public function pdf($id = FALSE) 
+	{
+		if ( $id === FALSE ) {
+				show_404();
+		} else {
+			$data['status_flags'] = unserialize(STATUS_FLAGS);
+			$uid = $this->tank_auth_my->get_user_id();
+			$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
+			
+			$filename = "invoice-".$data['item'][0]['iid'];
+			$pdfFilePath = FCPATH."downloads/reports/$filename.pdf";
+			 
+			if (file_exists($pdfFilePath) == FALSE)
+			{
+		    ini_set('memory_limit','32M'); // boost the memory limit if it's low 
+		    $html = $this->load->view('pages/invoices/view_pdf', $data, true); // render the view into HTML
+		     
+		    $this->load->library('pdf');
+		    $pdf = $this->pdf->load();
+		    $pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date(DATE_RFC822)); // Add a footer for good measure 
+		    $pdf->WriteHTML($html); 
+		    $pdf->Output($filename, 'D'); 
+			}
+			 
+			redirect("../downloads/reports/$filename.pdf");
+		}    
 	}
 	
 	public function send_invoice() {
@@ -333,36 +344,68 @@ class Invoices extends CI_Controller {
 		redirect('/invoices/view/'.$id, 'refresh');
 	}
 	
-	public function view_invoice_email($id, $type) {
-		$data['first_name']	= $this->tank_auth_my->get_username();
-		$uid = $this->tank_auth_my->get_user_id();
-		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-		$emailType = array('0'=>'pages/invoices/view_invoice_email', '1'=>'pages/invoices/view_invoice_reminder_email');
-		
-		$this->load->view($emailType[$type], $data);
+	public function view_invoice_email($id = FALSE, $type = FALSE) {
+	
+		if ( $id === FALSE || $type === FALSE ) {
+				show_404();
+		} else {
+			$data['first_name']	= $this->tank_auth_my->get_username();
+			$uid = $this->tank_auth_my->get_user_id();
+			$data['item'] = $this->invoice_model->get_invoice($id, $uid);
+			$emailType = array('0'=>'pages/invoices/view_invoice_email', '1'=>'pages/invoices/view_invoice_reminder_email');
+			
+			$this->load->view($emailType[$type], $data);
+		}
 	}
 	
-	public function send_invoice_email($id) {
-		$emailSubject = $this->input->post('emailSubject');
-		$emailMessage = $this->input->post('emailMessage');
-		$clientEmail = $this->input->post('client_email');
+	public function send_invoice_email($id = FALSE) {
 		
-		$from_email = $this->tank_auth_my->get_email();
-		$this->load->library('email');
-		$config['wordwrap'] = TRUE;
-		$config['mailtype'] = 'html';
-		$this->email->initialize($config);
-		//$this->email->attach($pdfFilePath);
-		$this->email->from($from_email, $this->tank_auth_my->get_username());
-		$this->email->to($clientEmail); 
-		$this->email->subject($emailSubject);
-		$this->email->message(nl2br($emailMessage));	
-		
-		$this->email->send();
-		// UPDATE THE INVOICE SENT FLAG
-		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
-		$this->invoice_model->get_set_invoice_status($id);
-		redirect('/invoices/view/'.$id, 'refresh');
+		if ( $id === FALSE ) {
+				show_404();
+		} else {
+			$emailSubject = $this->input->post('emailSubject');
+			$emailMessage = $this->input->post('emailMessage');
+			$clientEmail = $this->input->post('client_email');
+			
+			$from_email = $this->tank_auth_my->get_email();
+			$this->load->library('email');
+			$config['wordwrap'] = TRUE;
+			$config['mailtype'] = 'html';
+			$this->email->initialize($config);
+			//$this->email->attach($pdfFilePath);
+			$this->email->from($from_email, $this->tank_auth_my->get_username());
+			$this->email->to($clientEmail); 
+			$this->email->subject($emailSubject);
+			$this->email->message(nl2br($emailMessage));	
+			
+			$this->email->send();
+			// UPDATE THE INVOICE SENT FLAG
+			$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
+			$this->invoice_model->get_set_invoice_status($id);
+			redirect('/invoices/view/'.$id, 'refresh');
+		}
+	}
+	
+	public function get_invoice_number($cid = FALSE) {
+		if ( $cid === FALSE ) {
+				show_404();
+		} else {
+			// CHECK THE FORM TO SEE IF SUBMITTED VIA AJAX
+			if($this->input->is_ajax_request()){
+					$respond=array();
+			   
+			   
+					$respond['result'] = 'true';
+					$respond['errors'] = $data['inv_num'][0]['inv_num'];
+			      
+					return $this->output->set_output(json_encode($respond));
+					
+			} else {
+				$data['inv_num'] = $this->invoice_model->get_set_invoice_num($cid);
+				//var_dump($data['inv_num']);
+				return $data['inv_num'];
+			}
+		}
 	}
 	
 	private function _searchArray($items, $searchKey, $val) {

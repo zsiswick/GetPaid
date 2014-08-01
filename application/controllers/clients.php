@@ -110,44 +110,54 @@ class Clients extends CI_Controller {
 			}
 	}
 	
-	public function edit($id = FALSE) {
+	public function edit($id = false) {
+		
 		$client_id = $this->uri->segment(3, 0);
 		$data['client'] = $this->client_model->get_client($client_id);
-		$this->load->helper('form');
-		$this->load->library('form_validation');
-		
-		$data['title'] = 'Edit Client';
-		$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
-		$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
-		$this->form_validation->set_rules('address_1', 'Address 1', 'xss_clean');
-		$this->form_validation->set_rules('address_2', 'Address 2', 'xss_clean');
-		$this->form_validation->set_rules('zip', 'Zip Code', 'alpha_dash|xss_clean');
-		$this->form_validation->set_rules('city', 'City', 'xss_clean');
-		$this->form_validation->set_rules('state', 'State', 'xss_clean');
-		$this->form_validation->set_rules('country', 'Country', 'xss_clean');
-		$this->form_validation->set_rules('tax_id', 'Tax ID', 'xss_clean');
-		$this->form_validation->set_rules('notes', 'Notes', 'xss_clean');
-	
-		if ($this->form_validation->run() === FALSE) {
-			$this->load->view('templates/header', $data);
-			$this->load->view('pages/clients/edit', $data);
-			$this->load->view('templates/footer', $data);
-		} else {
-			$this->client_model->update_client();
-			redirect('/clients', 'refresh');
+		if (empty($data['client'])) 
+		{
+			show_404();
+		} 
+			else 
+		{
+			$this->load->helper('form');
+			$this->load->library('form_validation');
 			
-		}
+			$data['title'] = 'Edit Client';
+			$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
+			$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
+			$this->form_validation->set_rules('address_1', 'Address 1', 'xss_clean');
+			$this->form_validation->set_rules('address_2', 'Address 2', 'xss_clean');
+			$this->form_validation->set_rules('zip', 'Zip Code', 'alpha_dash|xss_clean');
+			$this->form_validation->set_rules('city', 'City', 'xss_clean');
+			$this->form_validation->set_rules('state', 'State', 'xss_clean');
+			$this->form_validation->set_rules('country', 'Country', 'xss_clean');
+			$this->form_validation->set_rules('tax_id', 'Tax ID', 'xss_clean');
+			$this->form_validation->set_rules('notes', 'Notes', 'xss_clean');
+		
+			if ($this->form_validation->run() === FALSE) {
+				$this->load->view('templates/header', $data);
+				$this->load->view('pages/clients/edit', $data);
+				$this->load->view('templates/footer', $data);
+			} else {
+				$this->client_model->update_client();
+				redirect('/clients/', 'refresh');
+			}
+		}	
 	}
-	public function delete($id) 
+	public function delete($id = FALSE) 
 	{
+	
+		if ( $id === FALSE ) {
+				show_404();
+		} else {
 	  
-		$this->client_model->delete_client($id);
-		redirect('/clients', 'refresh');
+			$this->client_model->delete_client($id);
+			redirect('/clients', 'refresh');
+		}
 	  
 	}
-	
-	
 }
 
 /* End of file welcome.php */

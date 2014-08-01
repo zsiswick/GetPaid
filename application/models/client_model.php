@@ -66,6 +66,7 @@ class Client_model extends CI_Model {
 			'company' => $this->input->post('company'),
 			'contact' => $this->input->post('contact'),
 			'email' => $this->input->post('email'),
+			'phone' => $this->input->post('phone'),
 			'address_1' => $this->input->post('address_1'),
 			'address_2' => $this->input->post('address_2'),
 			'zip' => $this->input->post('zip'),
@@ -73,6 +74,7 @@ class Client_model extends CI_Model {
 			'state' => $this->input->post('state'),
 			'country' => $this->input->post('country'),
 			'tax_id' => $this->input->post('tax_id'),
+			'default_inv_prefix' => $this->input->post('default_inv_prefix'),
 			'notes' => $this->input->post('notes')
 		);
 		
@@ -86,6 +88,7 @@ class Client_model extends CI_Model {
 			'company' => $this->input->post('company'),
 			'contact' => $this->input->post('contact'),
 			'email' => $this->input->post('email'),
+			'phone' => $this->input->post('phone'),
 			'address_1' => $this->input->post('address_1'),
 			'address_2' => $this->input->post('address_2'),
 			'zip' => $this->input->post('zip'),
@@ -93,6 +96,7 @@ class Client_model extends CI_Model {
 			'state' => $this->input->post('state'),
 			'country' => $this->input->post('country'),
 			'tax_id' => $this->input->post('tax_id'),
+			'default_inv_prefix' => $this->input->post('default_inv_prefix'),
 			'notes' => $this->input->post('notes')
 		);
 		$this->db->where('id', $cdata['id']);

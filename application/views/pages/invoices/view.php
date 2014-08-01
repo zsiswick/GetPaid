@@ -11,6 +11,7 @@
 				$city = $item['client'][0]['city'];
 				$state = $item['client'][0]['state'];
 				$zip = $item['client'][0]['zip'];
+				$inv_num = $item[0]['prefix'].'-'.$item[0]['inv_num'];
 				//////////////////////////////////
 				$logo = $item['settings'][0]['logo'];
 				$company_name = $item['settings'][0]['company_name'];
@@ -25,7 +26,7 @@
 			
 				<?php echo validation_errors();?>
 				
-				<div class="invoice-wrap">
+				<div id="invoiceCreate" class="invoice-wrap">
 					<div class="row">
 						<div class="small-12 small-only-text-center columns">
 							
@@ -71,95 +72,94 @@
 						</div>
 					</div>
 						<div class="invoice-inner-wrap">
-							<div class="row">
-								<div class="small-12 small-centered large-uncentered large-8 columns invoice-info">
+							<div class="row invoice-info">
+								<div class="medium-5 small-centered large-uncentered columns invoice-info">
 										<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$logo.'" />'; endif ?>
 									<p>
-										<?php if(!empty($company_name)): echo $company_name.'<br/>'; endif ?>
+										<?php if(!empty($company_name)): echo '<h3>'.$company_name.'<h3/>'; endif ?>
+										<!--
 										<?php if(!empty($p_address_1)): echo $p_address_1.'<br/>'; endif ?>
 										<?php if(!empty($p_address_2)): echo $p_address_2.'<br/>'; endif ?>
 										<?php if(!empty($p_city)): echo $p_city.' '; endif ?>
 										<?php if(!empty($p_state)): echo $p_state.' '; endif ?>
-										<?php if(!empty($p_zip)): echo '<br/>'.$p_zip; endif ?>
+										<?php if(!empty($p_zip)): echo '<br/>'.$p_zip; endif ?>-->
 									</p>
 								</div>
-								<div class="small-12 small-centered large-uncentered large-4 columns invoice-info panel">
+								<div class="large-7 small-centered large-uncentered columns">
 									<div class="row">
-										<div class="small-12 small-only-text-center large-3 columns">
-											<p>To:</p>
+									
+										<div class="large-12 columns text-right">
+											<h4 class="caps">Invoice <?php echo($status_flags[$item[0]['status']]);?></h4>
 										</div>
-										<div class="small-12 small-only-text-center large-9 columns">
-											<p>
-												<?php echo $item['client'][0]['company']; ?><br/>
-												<?php echo $item['client'][0]['contact']; ?><br/>
-												<?php if(!empty($address_1)): echo $address_1.'<br/>'; endif ?>
-												<?php if(!empty($address_2)): echo $address_2.'<br/>'; endif ?>
-												<?php if(!empty($city)): echo $city.' '; endif ?>
-												<?php if(!empty($state)): echo $state.' '; endif ?>
-												<?php if(!empty($zip)): echo '<br/>'.$zip; endif ?>
-											</p>
+										
+										<div class="medium-6 columns">
+											<div class="ruled on-paper">
+												<h5 class="caps">
+														Billing Information
+												</h5>
+													<ul id="clientAddress">
+														<li><?php echo $item['client'][0]['company']; ?></li>
+														<li><?php echo $item['client'][0]['contact']; ?></li>
+														<li><?php if(!empty($address_1)): echo $address_1.'<br/>'; endif ?></li>
+														<li><?php if(!empty($address_2)): echo $address_2.'<br/>'; endif ?></li>
+														<li><?php if(!empty($city)): echo $city.' '; endif ?> <?php if(!empty($state)): echo $state.' '; endif ?> <?php if(!empty($zip)): echo $zip; endif ?></li>
+													</ul>
+											</div>
+										</div>		
+										
+										<div class="medium-6 columns">
+											<div class="ruled on-paper">
+												<h5 class="caps">
+														Invoice Num
+												</h5>
+												<p><?php echo($inv_num); ?></p>
+											</div>
+											
+											<div class="ruled on-paper sans-top">
+												<h5 class="caps">
+														Send Date
+												</h5>
+												<p><span><span class="show-for-small-only">Date: </span></span><?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?></p>
+											</div>
+											
+											<div class="ruled on-paper sans-top">
+												<h5 class="caps">
+														Due Date
+												</h5>
+												<?php
+													
+													$today = new DateTime(date('Ymj'));
+													$due = new DateTime($item[0]['due_date']);
+													// Calculate the difference between today's date, and the invoice due date
+													$diff = $today->diff($due);
+													
+													if ($item[0]['status'] == 3){ ?>
+														<p>INVOICE PAID</p>
+													<?php }
+													
+													else if ($item[0]['status'] == 4) { ?>
+														<p><?php echo $diff->format('%a DAYS'); ?> PAST DUE</p>
+													
+												<?php	} else { ?>
+													
+														<p><?php 
+															
+															$date = new DateTime($item[0]['due_date']);
+															echo ($date->format('F j, Y')); ?>
+														</p>
+													
+												<?php	} ?>
+											</div>
 										</div>
+										
+										
 									</div>
-									<hr />
-									<div class="row">
-										<div class="small-3 hide-for-small-only small-only-text-left large-3 columns">
-											<p>Invoice:</p>
-										</div>
-										<div class="small-12 small-only-text-center large-9 columns">
-											<p><span><span class="show-for-small-only">Invoice: </span></span><?php echo($item[0]['iid']); ?></p>
-										</div>
-									</div>
-									<hr />
-									<div class="row">
-										<div class="small-6 hide-for-small-only small-only-text-center large-3 columns">
-											<p>Date:</p>
-										</div>
-										<div class="small-12 small-only-text-center large-9 columns">
-											<p><span><span class="show-for-small-only">Date: </span></span><?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?></p>
-										</div>
-									</div>
-									<hr />
-									<div class="row">
-										<div class="small-6 hide-for-small-only small-only-text-center large-3 columns">
-											<p>Due:</p>
-										</div>
-										<div class="small-12 small-only-text-center large-9 columns">
-											<p><span><span class="show-for-small-only">Due: </span></span>$<?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="small-12 small-only-text-center columns">
-									<?php
-										
-										$today = new DateTime(date('Ymj'));
-										$due = new DateTime($item[0]['due_date']);
-										// Calculate the difference between today's date, and the invoice due date
-										$diff = $today->diff($due);
-										
-										if ($item[0]['status'] == 3){ ?>
-											<p><span id="status" class="label success round">INVOICE PAID</span></p>
-										<?php }
-										
-										else if ($item[0]['status'] == 4) { ?>
-											<p><span id="status" class="label alert round"><?php echo $diff->format('%a DAYS'); ?> PAST DUE</span></p>
-										
-									<?php	} else { ?>
-										
-											<p><span id="status" class="label round">
-												Payment Due By: <?php 
-												
-												$date = new DateTime($item[0]['due_date']);
-												echo ($date->format('F j, Y')); ?>
-											</span></p>
-										
-									<?php	} ?>
+									
 									
 								</div>
 							</div>
 							
-							<div id="invoiceCreate" class="row invoice-create list_header">
+							<div id="" class="row invoice-create list_header">
 								<div class="small-12 medium-2 large-2 columns">
 									Qty
 								</div>
@@ -185,7 +185,7 @@
 									$sumTotal = $sumTotal + $number;
 								?>
 								
-								<div class="row invoice list">
+								<div class="row tabbed list">
 									<div class="small-12 small-only-text-center medium-2 large-2 columns qty">
 										<?php echo $invoice_item['quantity'] ?>
 									</div>
@@ -248,8 +248,6 @@
 											$amtLeft = max($sumTotal - $payment_amount,0);
 											echo(number_format((float)($amtLeft), 2, '.', ','));
 										?></span></h5>
-										
-										<!--<?php echo($status_flags[$item[0]['status']]);?>-->
 									</div>
 								</div>
 							</div>

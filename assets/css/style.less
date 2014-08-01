@@ -37,6 +37,7 @@
 @dark-red: #4b011f;
 @brand-color: #F15959;
 @pale-red: #ca3f3f;
+@paper-color: #f8acac;
 
 .step {
   display: inline-block;
@@ -201,6 +202,12 @@ body{
 	font-family: "robotoregular", Helvetica, Arial, sans-serif;
 	color: @dark-red;
 }
+a {
+	color: #2383FF;
+}
+a:hover, a:focus {
+	color: #2383FF;
+}
 section.content {
 	padding: 5rem 0 2rem;
 }
@@ -261,6 +268,10 @@ h5 {
 	border-top: 1px solid @pale-red;
 	border-bottom: 1px solid @pale-red;
 }
+.ruled.on-paper {
+	border-top: 1px solid #D98E8E;
+	border-bottom: 1px solid #D98E8E;
+}
 .ruled.sans-top {
 	border-top: none;
 }
@@ -277,16 +288,9 @@ h5 {
 .panel {
 	border-width: 3px;
 }
-.invoice-info p{
-	color: #999;
-	line-height: 1.2rem;
-	font-size: .9rem;
-}
+
 hr {
 	border-color: @dark-red;
-}
-.invoice-info hr {
-	margin: 0rem 0 1.1875rem;
 }
 #form-errors {
 	display: none;
@@ -368,7 +372,16 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 /*
 ** Invoice
 */
-
+.invoice-info {
+	margin-bottom: 4rem !important;
+}
+.invoice-info p{
+	line-height: 1.2rem;
+	font-size: .9rem;
+}
+.invoice-info hr {
+	margin: 0rem 0 1.1875rem;
+}
 .invoice-form {
 	margin-top: 3rem;
 	color: @dark-red !important;
@@ -433,7 +446,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 }
 .invoice-list-inner-wrap, .invoice-inner-wrap, .form-inner-wrap {
 	padding: 3rem;
-	background: #f8acac;
+	background: @paper-color;
 	//-webkit-box-shadow: 0 1px 5px 1px #D9D9D9;
 	//box-shadow: 0 1px 5px 1px #D9D9D9;
 	border-radius: 6px;
@@ -527,11 +540,8 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 .icon-bar > *:hover {
 	background: #2383FF;
 }
-a {
-	color: #2383FF;
-}
-a:hover, a:focus {
-	color: #2383FF;
+#moreFields {
+	display: none;
 }
 
 /*
@@ -588,6 +598,16 @@ select:hover, input[type="text"]:hover {
 	box-shadow: none;
 	-moz-box-shadow: none;
 }
+.reveal-modal {
+	background: @body-color;
+}
+.reveal-modal select, .reveal-modal input[type="text"] {
+	background: #fff;
+	padding-top: 4px !important;
+	padding-bottom: 4px !important;
+	height: 2rem;
+	margin: .5rem;
+}
 ::-webkit-input-placeholder {
    color: #9C6E81;
 }
@@ -615,6 +635,12 @@ select:hover, input[type="text"]:hover {
     }
     .tabbed.list {
     	border-bottom: 1px solid @dark-red;
+    }
+    #invoiceCreate .tabbed.list div{
+    	border-bottom: 1px solid #D98E8E;
+    }
+    #invoiceCreate .tabbed.list div:last-child{
+    	border-bottom: none;
     }
     .tabbed.items.list {
     	border-bottom: 1px solid #505050;

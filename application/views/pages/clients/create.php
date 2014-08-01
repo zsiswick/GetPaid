@@ -20,6 +20,9 @@
 					<label for="email">Email</label>
 					<input type="text" name="email" /><br />
 					
+					<label for="phone">Phone</label>
+					<input type="text" name="phone" /><br />
+					
 					<label for="address_1">Address 1</label>
 					<input type="text" name="address_1" /><br />
 					
@@ -40,6 +43,14 @@
 					
 					<label for="tax_id">Tax Id</label>
 					<input type="text" name="tax_id" /><br />
+					
+					<div class="row">
+						<div  class="small-4 columns">
+							<label for="default_inv_prefix">Invoice Prefix</label>
+							<input type="text" name="default_inv_prefix" maxlength="6"/>
+						</div>
+					</div>
+					
 					
 					<label for="notes">Notes</label>
 					<textarea name="notes" id="" cols="30" rows="10"></textarea><br />

@@ -9,7 +9,7 @@
 			<div class="invoice-list-inner-wrap">
 				<?php echo validation_errors(); ?>
 				
-				<?php echo form_open('clients/edit') ?>
+				<?php echo form_open('clients/edit/'.$client[0]['id']) ?>
 					<input type="hidden" name="cid" value="<?php echo $client[0]['id'] ?>" />
 					<label for="company">Company</label>
 					<input type="text" name="company" value="<?php echo $client[0]['company'] ?>"/><br />
@@ -19,6 +19,9 @@
 					
 					<label for="email">Email</label>
 					<input type="text" name="email" value="<?php echo $client[0]['email'] ?>" /><br />
+					
+					<label for="phone">Phone</label>
+					<input type="text" name="phone" value="<?php echo $client[0]['phone'] ?>" /><br />
 					
 					<label for="address_1">Address 1</label>
 					<input type="text" name="address_1" value="<?php echo $client[0]['address_1'] ?>"/><br />
@@ -40,6 +43,9 @@
 					
 					<label for="tax_id">Tax Id</label>
 					<input type="text" name="tax_id" value="<?php echo $client[0]['tax_id'] ?>"/><br />
+					
+					<label for="default_inv_prefix">Invoice Prefix</label>
+					<input type="text" name="default_inv_prefix" value="<?php echo $client[0]['default_inv_prefix'] ?>"/><br />
 					
 					<label for="notes">Notes</label>
 					<textarea name="notes" id="" cols="30" rows="10"><?php echo $client[0]['notes'] ?></textarea><br />

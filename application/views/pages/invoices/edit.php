@@ -78,7 +78,7 @@
 								$number = $invoice_item['quantity'] * $invoice_item['unit_cost']; 
 								$sumTotal = $sumTotal + $number;
 							?>
-							<div class="row invoice list no-rules">
+							<div class="row tabbed list no-rules">
 								<div class="qty small-12 medium-2 columns">
 									<input type="hidden" name="item_id[]" value="<?php echo $invoice_item['id'] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $invoice_item['quantity'] ?>" />
 								</div>
@@ -92,7 +92,7 @@
 									$<?php echo number_format((float)$number, 2, '.', ','); ?>
 								</div>
 								<div class="delete small-12 medium-1 columns small-text-center large-only-text-right">
-									<a href="<?php echo base_url(); ?>index.php/invoices/item_delete?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"].'&iuid='.$item[0]['uid'];?>" id="remove-<?php echo $invoice_item["id"]; ?>"><i class="step fi-x size-21"></i></a>
+									<a href="<?php echo base_url(); ?>index.php/invoices/item_delete?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"].'&iuid='.$item[0]['uid'];?>" id="remove-<?php echo $invoice_item["id"]; ?>" class="button small round">x</a>
 								</div>
 							</div>
 						<?php endforeach ?>	
@@ -101,7 +101,7 @@
 				
 				<div class="row">
 					<div class="large-12 columns text-left small-only-text-center">
-						<a id="addItems" class="button small secondary round">Add Another Item</a>
+						<a id="addItems" class="button small round">Add Another Item</a>
 					</div>
 				</div>
 				

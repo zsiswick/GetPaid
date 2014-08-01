@@ -8,7 +8,7 @@
 		<div id="invoiceCreate" class="invoice-list-wrap">
 			<div class="invoice-list-inner-wrap">
 				<?php echo validation_errors(); ?>
-					<div class="row">
+					<div class="row invoice-info">
 						<div class="medium-5 columns">
 							<div class="row">
 								<div class="large-12 columns">
@@ -45,7 +45,7 @@
 									<h4 class="caps">Draft Invoice</h4>
 								</div>
 								<div class="medium-6 columns">
-									<div class="ruled">
+									<div class="ruled on-paper">
 										<h5 class="caps">
 												Billing Information
 											</h5>	
@@ -87,6 +87,7 @@
 											    		$('#addressOne').html( clientAddress[count]['address_1'] );
 											    		$('#addressTwo').html( clientAddress[count]['address_2'] );
 											    		$('#cityStateZip').html( clientAddress[count]['city']+' '+clientAddress[count]['state']+' '+clientAddress[count]['zip'] );
+											    		$('input[name="prefix"]').val(clientAddress[count]['default_inv_prefix']);
 											    	} else {
 											    		$('#contactName').html('');
 											    		$('#addressOne').html('');
@@ -103,29 +104,43 @@
 													});
 													
 													update_address(count, client_val);
-												
 													
-										    			
-										    });
-										    
-											    
-											</script>
+													$('input[name="prefix"]').val(clientAddress[count]['default_inv_prefix']);
+												
+												});
+										  </script>
 									</div>
 								</div>
 								<div class="medium-6 columns">
-									<div class="ruled">
+									<div class="ruled on-paper">
 										<h5 class="caps">
 											Invoice ID
 										</h5>
 										<div class="row">
-											<div class="small-4 columns"><input type="text" name="prefix" placeholder="Prefix"/></div>
-											<div class="small-8 columns"><input type="text" readonly="readonly" name="invoice_num" placeholder="123"/></div>
+											<div class="small-4 columns"><input type="text" name="prefix" placeholder="Prefix" maxlength="6"/></div>
+											<div class="small-8 columns"><input type="text" readonly="readonly" name="invoice_num" placeholder="Invoice Number" /></div>
 										</div>
 									</div>
 									
-									<div class="ruled sans-top">
+									<div class="ruled sans-top on-paper">
 										<h5 class="caps">
 											Send Date
+										</h5>
+										<div class="row">
+											<div class="small-3 columns">
+												<?= $dob_dropdown_day ?>
+											</div>
+											<div class="small-5 columns">
+												<?= $dob_dropdown_month ?>
+											</div>
+											<div class="small-4 columns">
+												<?= $dob_dropdown_year ?>
+											</div>
+										</div>
+									</div>
+									<div class="ruled sans-top on-paper">
+										<h5 class="caps">
+											Due Date
 										</h5>
 										<div class="row">
 											<div class="small-3 columns">
