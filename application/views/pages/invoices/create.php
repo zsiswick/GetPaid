@@ -87,7 +87,7 @@
 											    		$('#addressOne').html( client_data[count]['address_1'] );
 											    		$('#addressTwo').html( client_data[count]['address_2'] );
 											    		$('#cityStateZip').html( client_data[count]['city']+' '+client_data[count]['state']+' '+client_data[count]['zip'] );
-											    		$('input[name="prefix"]').val(client_data[count]['default_inv_prefix']);
+											    		$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
 											    	} else {
 											    		$('#contactName').html('');
 											    		$('#addressOne').html('');
@@ -105,7 +105,7 @@
 													
 													update_address(count, client_val);
 													
-													$('input[name="prefix"]').val(client_data[count]['default_inv_prefix']);
+													$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
 												
 												});
 										  </script>

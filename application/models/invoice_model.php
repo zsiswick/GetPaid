@@ -187,7 +187,11 @@ class Invoice_model extends CI_Model {
 	
 	public function edit_invoice($uid)
 	{	
-		
+		$cid = $this->input->post('client');
+		$new_client = $this->input->post('new_client');
+		if ($new_client == 1) {
+			$inv_num = $this->invoice_model->get_set_invoice_num($cid);
+		}
 		$id = $this->input->post('item_id');
 		$quantity = $this->input->post('qty');
 		$description = $this->input->post('description');
@@ -213,9 +217,8 @@ class Invoice_model extends CI_Model {
 		}
 		//
 		$date = $this->_calc_due_date($uid, $dateString);
-		
 		//
-		$common_data = array('date' => $dateString, 'cid' => $this->input->post('client'), 'prefix' => $this->input->post('prefix'), 'amount' => $sumTotal, 'due_date'=>$date->format('Y-m-d'));
+		$common_data = array('date' => $dateString, 'cid' => $this->input->post('client'), 'prefix' => $this->input->post('prefix'), 'inv_num' => $this->input->post('invoice_num'), 'amount' => $sumTotal, 'due_date'=>$date->format('Y-m-d'));
 		
 		$this->db->where('id', $common_id);
 		$this->db->update('common', $common_data);

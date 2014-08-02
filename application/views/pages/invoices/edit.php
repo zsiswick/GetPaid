@@ -1,5 +1,7 @@
 <?php 
 	 
+	$id = $item['client'][0]['id'];
+	$company = $item['client'][0]['company'];
 	$address_1 = $item['client'][0]['address_1'];
 	$address_2 = $item['client'][0]['address_2'];
 	$city = $item['client'][0]['city'];
@@ -7,6 +9,7 @@
 	$zip = $item['client'][0]['zip'];
 	$prefix = $item[0]['prefix'];
 	$inv_num = $item[0]['inv_num'];
+	
 	//////////////////////////////////
 	$logo = $item['settings'][0]['logo'];
 	$company_name = $item['settings'][0]['company_name'];
@@ -30,7 +33,7 @@
 		
 		<?php 
 			$attributes = array('class' => 'invoice-form');
-			$hidden = array('iid' => $item[0]['iid']);
+			$hidden = array('iid' => $item[0]['iid'], 'new_client' => 0);
 			echo form_open('invoices/edit/'.$item[0]['iid'], $attributes, $hidden);
 			
 		?>
@@ -71,7 +74,7 @@
 											}, $clients);
 											$clientList = array_combine($clientID, $clientList);
 											$clientList['add_new_client'] = 'Add New Client';
-											echo form_dropdown('client', $clientList, 1);
+											echo form_dropdown('client', $clientList, $id);
 										} else {
 											echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
 										}
@@ -90,19 +93,30 @@
 									  	var client_data = <?php echo json_encode($clients); ?>;
 									  	var client_val = $('[name="client"]').val();
 									  	var count = 0;
+									  	var invoice_num = "<?php echo($inv_num); ?>";
 									  	
-									    function update_address(count, client_val) 
+									  	function update_address(count, client_val) 
 									    {
+									    	//alert(client_data[client_val]['contact']);
+									    	
 									    	if($.isNumeric(client_val)) {
 									    		$('#contactName').html( client_data[count]['contact'] );
 									    		$('#addressOne').html( client_data[count]['address_1'] );
 									    		$('#addressTwo').html( client_data[count]['address_2'] );
 									    		$('#cityStateZip').html( client_data[count]['city']+' '+client_data[count]['state']+' '+client_data[count]['zip'] );
-									    		$('input[name="prefix"]').val(client_data[count]['default_inv_prefix']);
+									    		$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
+									    		
 									    		
 									    		$.get( baseurl+"index.php/invoices/get_invoice_number/"+client_data[count]['id'], function( data ) {
 										    		obj = JSON.parse(data);
-								    		    $('input[name="invoice_num"]').val(obj.inv_num);
+										    		
+										    		if (<?php echo($id)?> == client_data[count]['id']) { // first check if the client selected is the original one assigned to the invoice so a new invoice number isn't used. That would be confusing.
+								    		    	$('input[name="invoice_num"]').attr('value', invoice_num);
+								    		    	$('input[name="new_client"]').attr('value', 0);
+								    		    } else {
+								    		    	$('input[name="invoice_num"]').attr('value', obj.inv_num);
+								    		    	$('input[name="new_client"]').attr('value', 1);
+								    		    }
 									    		});
 									    		
 									    		 
@@ -122,13 +136,6 @@
 											  update_address(count, client_val);
 											});
 											
-											update_address(count, client_val);
-											
-											$('input[name="prefix"]').val(client_data[count]['default_inv_prefix']);
-											
-											
-											
-										
 										});
 									</script>
 									
