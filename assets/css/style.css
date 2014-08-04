@@ -253,7 +253,7 @@ h3.top-rule {
 h5 {
   padding: 0;
   color: #4b011f;
-  font-size: .8rem;
+  font-size: .7rem;
   font-family: "robotomedium";
 }
 .ruled {
@@ -370,7 +370,7 @@ table tr:nth-of-type(even) {
 ** Invoice
 */
 .invoice-info {
-  margin-bottom: 4rem !important;
+  margin-bottom: 3rem !important;
 }
 .invoice-info p {
   line-height: 1.2rem;
@@ -385,7 +385,6 @@ table tr:nth-of-type(even) {
 }
 #invoiceCreate .tabbed.list {
   color: #4b011f !important;
-  border-bottom: 1px solid #D98E8E;
 }
 #invoiceCreate hr {
   border-color: #D98E8E;
@@ -434,16 +433,15 @@ table tr:nth-of-type(even) {
 .tabbed.list {
   border-bottom: 1px solid #4b011f;
 }
-.tabbed.list div {
-  margin: 10px 0;
+.tabbed.list {
+  padding: 1.5rem 0;
 }
-.tabbed.list.no-rules div {
+.tabbed.list.no-rules {
   border-bottom: none !important;
 }
 .tabbed.list div:last-child,
 .tabbed.items.list div:last-child,
 .list_header div:last-child {
-  padding-right: 12px;
   border-bottom: none;
 }
 .invoice-list-inner-wrap,
@@ -546,6 +544,13 @@ table tr:nth-of-type(even) {
 #moreFields {
   display: none;
 }
+.info-block {
+  padding: .8rem 0rem 1rem;
+}
+.info-block.last {
+  border-bottom: 1px solid #d98e8e;
+  padding-bottom: 1.5rem;
+}
 /*
 ** Forms
 */
@@ -575,6 +580,9 @@ label {
 }
 .button.light:hover {
   background: #4b011f;
+  color: #f15959;
+}
+.button label {
   color: #f15959;
 }
 select,
@@ -641,6 +649,15 @@ isindex:hover {
 ::-webkit-input-placeholder {
   color: #9C6E81;
 }
+div.switch label {
+  background: #ca3f3f;
+}
+div.switch input:checked + label {
+  background: #4b011f;
+}
+div.switch label::after {
+  background: #d3e6e9;
+}
 @media only screen and (min-width: 768px) {
   /* tablets and desktop */
 }
@@ -649,17 +666,8 @@ isindex:hover {
   .form-wrap {
     padding: 0px;
   }
-  .tabbed.list {
-    border-bottom: 1px solid #4b011f;
-  }
-  #invoiceCreate .tabbed.list div {
-    border-bottom: 1px solid #D98E8E;
-  }
   #invoiceCreate .tabbed.list div:last-child {
     border-bottom: none;
-  }
-  .tabbed.items.list {
-    border-bottom: 1px solid #505050;
   }
   .tabbed.items.list {
     background: #7C7C7C;
@@ -672,7 +680,6 @@ isindex:hover {
     border-bottom: none;
   }
   .tabbed.list div {
-    border-bottom: 1px solid #ca3f3f;
     padding-bottom: 1rem;
   }
   .tabbed.list div:last-child {
@@ -685,7 +692,8 @@ isindex:hover {
   .tabbed.items.list div {
     color: #ddd;
   }
-  .invoice-list-inner-wrap {
+  .invoice-list-inner-wrap,
+  .invoice-inner-wrap {
     padding: 2rem;
   }
   .list_header {
@@ -732,6 +740,10 @@ isindex:hover {
     border-bottom: none;
     padding-bottom: 0rem;
     margin-bottom: 1rem;
+  }
+  .info-block.last {
+    border-bottom: none;
+    padding-bottom: 1.5rem;
   }
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {

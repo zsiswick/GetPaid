@@ -38,10 +38,10 @@
 	 		
 	 		<div class="invoice-create list_header clearfix">
 	 			
-	 				<div class="small-12 medium-1 large-1 columns invoice-id">
+	 				<div class="small-12 medium-2 columns invoice-id">
 	 					ID
 	 				</div>
-	 				<div class="small-12 medium-3 large-3 columns date">
+	 				<div class="small-12 medium-2 columns date">
 	 					Date
 	 				</div>
 	 				<div class="small-12 medium-4 large-4 columns client">
@@ -68,10 +68,10 @@
 		 				$percent = ($sum / $invoice_item['amount']) * 100;
 		 			?>
 		 			<div class="tabbed list clearfix">
-		 				<div class="small-12 small-only-text-center medium-1 large-1 columns invoice-id">
+		 				<div class="small-12 small-only-text-center medium-2 large-2 columns invoice-id">
 		 					<a href="<?php echo base_url(); ?>index.php/invoices/view/<?php echo $invoice_item['iid']; ?>" class="button round small light">#<?php echo $invoice_item['iid'];?></a>
 		 				</div>
-		 				<div class="small-12 small-only-text-center medium-3 large-3 columns date">
+		 				<div class="small-12 small-only-text-center medium-2 large-2 columns date">
 		 					<?php echo $invoice_item['pdate']; ?>
 		 				</div>
 		 				<div class="small-12 small-only-text-center medium-4 large-4 columns client">

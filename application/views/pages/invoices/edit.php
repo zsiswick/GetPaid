@@ -27,7 +27,6 @@
 		<div id="form-errors" class="alert-box alert round"></div>
 	</div>
 </div>
-
 <div class="row">
 	<div class="large-12 columns">
 		
@@ -53,16 +52,16 @@
 					<div class="large-7 small-centered large-uncentered columns">
 						<div class="row">
 						
-							<div class="large-12 columns text-right">
+							<div class="large-12 columns text-right small-only-text-center">
 								<h4 class="caps">Invoice <?php echo($status_flags[$item[0]['status']]);?></h4>
 							</div>
 							
 							<div class="medium-6 columns">
-								<div class="ruled on-paper">
-									<h5 class="caps">
+								
+									<h5 class="caps ruled on-paper">
 											Billing Information
 									</h5>
-									
+									<div class="info-block last">
 									<?php 
 										if ($clients) {
 											// Map select option values to the list of clients available
@@ -143,20 +142,22 @@
 							</div>		
 							
 							<div class="medium-6 columns">
-								<div class="ruled on-paper">
-									<h5 class="caps">
+								
+									<h5 class="caps ruled on-paper">
 											Invoice Num
 									</h5>
+									<div class="info-block">
 									<div class="row">
 										<div class="small-4 columns"><input type="text" name="prefix" placeholder="Prefix" maxlength="6" value="<?php echo($prefix); ?>"/></div>
 										<div class="small-8 columns"><input type="text" name="invoice_num" placeholder="Invoice Number" value="<?php echo($inv_num); ?>"/></div>
 									</div>
 								</div>
 								
-								<div class="ruled on-paper sans-top">
-									<h5 class="caps">
+								
+									<h5 class="caps ruled on-paper">
 											Send Date
 									</h5>
+									<div class="info-block">
 									<div class="row">
 										<div class="small-3 columns">
 											<?= $dob_dropdown_day ?>
@@ -171,10 +172,11 @@
 									
 								</div>
 								
-								<div class="ruled on-paper sans-top">
-									<h5 class="caps">
+								
+									<h5 class="caps ruled on-paper">
 											Due Date
 									</h5>
+									<div class="info-block last">
 									<?php
 										
 										$today = new DateTime(date('Ymj'));
@@ -183,19 +185,19 @@
 										$diff = $today->diff($due);
 										
 										if ($item[0]['status'] == 3){ ?>
-											<p>INVOICE PAID</p>
+											INVOICE PAID
 										<?php }
 										
 										else if ($item[0]['status'] == 4) { ?>
-											<p><?php echo $diff->format('%a DAYS'); ?> PAST DUE</p>
+											<?php echo $diff->format('%a DAYS'); ?> PAST DUE
 										
 									<?php	} else { ?>
 										
-											<p><?php 
+											<?php 
 												
 												$date = new DateTime($item[0]['due_date']);
 												echo ($date->format('F j, Y')); ?>
-											</p>
+											
 										
 									<?php	} ?>
 								</div>
@@ -207,38 +209,41 @@
 						
 					</div>
 				</div>
-				
+				<h3 class="small-only-text-center top-rule">Invoice Items</h3>
 				<section id="invoiceCreate">
 					
-					<div class="list_header row">
-						<div class="small-12 medium-2 columns qty">
-							Qty
+					<div class="list_header clearfix">
+						<div class="row">
+							<div class="small-12 medium-2 columns qty">
+								Qty
+							</div>
+							<div class="small-12 medium-4 columns description">
+								Description
+							</div>
+							<div class="small-12 medium-2 columns price">
+								Price
+							</div>
+							<div class="small-12 medium-2 large-only-text-right columns totalSum">
+								Total
+							</div>
+							<div class="small-12 medium-2 large-only-text-right columns remove">
+								
+							</div>
 						</div>
-						<div class="small-12 medium-5 columns description">
-							Description
-						</div>
-						<div class="small-12 medium-2 columns price">
-							Price
-						</div>
-						<div class="small-12 medium-2 large-only-text-right columns totalSum">
-							Total
-						</div>
-						<div class="small-12 medium-1 large-only-text-right columns remove">
-							
-						</div>
+						
 					</div>
 					
-					<div class="edit-list-container">
+					<div class="edit-list-container tabbed list no-rules">
 						<?php foreach ($item['items'] as $invoice_item): ?>
 							<?php 
 								$number = $invoice_item['quantity'] * $invoice_item['unit_cost']; 
 								$sumTotal = $sumTotal + $number;
 							?>
-							<div class="row tabbed list no-rules">
+							<div class="row">
 								<div class="qty small-12 medium-2 columns">
 									<input type="hidden" name="item_id[]" value="<?php echo $invoice_item['id'] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $invoice_item['quantity'] ?>" />
 								</div>
-								<div class="description small-12 medium-5 columns">
+								<div class="description small-12 medium-4 columns">
 									<input type="text" name="description[]" value="<?php echo $invoice_item['description'] ?>" />
 								</div>
 								<div class="price small-12 medium-2 columns">
@@ -247,9 +252,10 @@
 								<div class="totalSum small-12 medium-2 large-only-text-right columns" data-totalsum="<?php echo number_format((float)$number, 2, '.', ''); ?>">
 									$<?php echo number_format((float)$number, 2, '.', ','); ?>
 								</div>
-								<div class="delete small-12 medium-1 columns small-text-center large-only-text-right">
+								<div class="delete small-12 medium-2 columns small-text-center large-only-text-right">
 									<a href="<?php echo base_url(); ?>index.php/invoices/item_delete?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"].'&iuid='.$item[0]['uid'];?>" id="remove-<?php echo $invoice_item["id"]; ?>" class="button small round">x</a>
 								</div>
+								<div class="small-12 columns"><hr /></div>
 							</div>
 						<?php endforeach ?>	
 					</div>

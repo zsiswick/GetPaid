@@ -10,7 +10,7 @@ class Invoice_model extends CI_Model {
 	public function get_invoices($id)
 	{		
 		$this->db->select("c.id as iid, c.uid, c.cid, c.amount, c.status, client.company, GROUP_CONCAT(payments.payment_amount) AS ipayments", false);
-		$this->db->select("DATE_FORMAT(c.date, '%M %d, %Y') AS pdate", false);
+		$this->db->select("DATE_FORMAT(c.date, '%b %d, %Y') AS pdate", false);
 		$this->db->from('common c');
 		$this->db->join('payments', 'payments.common_id = c.id', 'left');
 		$this->db->join('client', 'client.id = c.cid', 'left');
