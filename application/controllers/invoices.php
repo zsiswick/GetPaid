@@ -43,6 +43,7 @@ class Invoices extends CI_Controller {
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		$data['status_flags'] = unserialize(STATUS_FLAGS);
+		//print("<pre>".print_r($data['item'],true)."</pre>");
 
 		if (empty($data['item'])) 
 		{
@@ -409,6 +410,18 @@ class Invoices extends CI_Controller {
 				return $data['inv_num'];
 			}
 		}
+	}
+	
+	public function set_auto_reminder($id, $checked) 
+	{
+		if($this->input->is_ajax_request())
+		{
+				$respond=array();
+				$respond['result'] = 'true';
+				$respond['errors'] = 'Auto-reminder has been set';
+				$this->invoice_model->set_auto_reminder($id, $checked);
+			}
+			return $this->output->set_output(json_encode($respond));		
 	}
 	
 	private function _searchArray($items, $searchKey, $val) {

@@ -35,8 +35,8 @@
 					Auto-reminder
 				</h5>
 				<div class="switch round info-block">
-				  <input id="exampleCheckboxSwitch" type="checkbox">
-				  <label for="exampleCheckboxSwitch"></label>
+				  <input id="auto_reminder" name="auto_reminder" type="checkbox" <?php if( $item[0]['auto_reminder'] == 1) {?> checked="checked" <?php } ?>>
+				  <label for="auto_reminder"></label>
 				</div>
 			</div>
 			<div class="medium-4 columns">

@@ -208,6 +208,25 @@ $(document).ready(function() {
     	});
     });
     
+    $("#auto_reminder").on("click", function() {
+    	var id = window.location.pathname.split('/').pop();
+    	var checked = 0;
+    	$this = $(this);
+    	
+    	if ($('#auto_reminder').is(':checked')) {
+    		checked = 1;
+    	}
+    	
+    	$.ajax({
+    	    type: 'POST',
+    	    url: baseurl+"index.php/invoices/set_auto_reminder/"+id+"/"+checked,
+    	    success: function(msg) {
+    	    
+    	    }
+    	  });
+    	
+    });
+    
     $("#cancelDeleteBtn").on("click", function() {
     	$('#editModal').foundation('reveal', 'close');
     });

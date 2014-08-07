@@ -5,7 +5,7 @@
 			<img class="marketing-hero" style="width: 507px;" src="<?php echo base_url(); ?>assets/css/images/invoice-printer.png" alt="" />
 		</div>
 		<div class="large-pull-6 large-6 small-text-center large-text-left columns">
-			<h1>Welcome to Ruby Invoice</h1>
+			<h1>Ruby Invoice</h1>
 			<p class="big-p">The mobile-friendly billing service that helps you create professional looking invoices with neither muss, nor fuss.</p>
 			<a href="index.php/auth/login" class="button round">Sign Up Free</a>
 		</div>

@@ -25,7 +25,7 @@
 				<div class="invoice-wrap">
 					<div class="row">
 						<div class="small-12 columns text-center">
-							<a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="button round">Download PDF</a>
+							<p></p><a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="button round light">Download PDF</a>
 						</div>
 					</div>
 					

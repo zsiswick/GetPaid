@@ -8,7 +8,7 @@
 </div>
 <div class="row">
 	<div class="large-8 columns large-centered">
-		<div class="invoice-list-wrap clearfix">
+		<div class="invoice-list-wrap invoice-form clearfix">
 			<div class="invoice-list-inner-wrap">
 				<?php 
 					if (isset($upload_error)) 
@@ -18,43 +18,69 @@
 				?>
 				<?php echo validation_errors(); ?>
 				<?php echo form_open_multipart('settings') ?>
-					<label for="companyName">Company Name</label>
-					<input type="text" name="company_name" value="<?php echo($settings[0]['company_name']) ?>" />
 					
-					<?php 
-						if (!empty($filename)) 
-						{
-							echo('<img src="'.base_url().'uploads/logo/'.$uid."/".$filename.'" class="logo thumb" />');
-							echo('<a href="'.base_url().'index.php/settings/remove_logo/'.$uid.'">Remove</a>');
-						}
-					?>
 					
-					<label for="userfile">Upload a Logo</label>
-					<input type="file" name="userfile" size="20" />
+					<div class="row">
+						<div class="small-6 columns">
+							<label for="companyName">Company Name</label>
+							<input type="text" name="company_name" value="<?php echo($settings[0]['company_name']) ?>" />
+						</div>
+						<div class="small-6 columns">
+							<?php 
+								if (!empty($filename)) 
+								{
+									echo('<img src="'.base_url().'uploads/logo/'.$uid."/".$filename.'" class="logo thumb" />');
+									echo('<a href="'.base_url().'index.php/settings/remove_logo/'.$uid.'">Remove</a>');
+								}
+							?>
+							
+							<label for="userfile">Upload a Logo</label>
+							<input type="file" name="userfile" size="20" />
+						</div>
+					</div>
 					
-					<label for="fullname">Full Name</label>
-					<input type="text" name="full_name" value="<?php echo($settings[0]['full_name']) ?>" />
 					
-					<label for="email">Email</label>
-					<input type="text" name="email" value="<?php echo $settings[0]['email'] ?>" /><br />
 					
-					<label for="address_1">Address 1</label>
-					<input type="text" name="address_1" value="<?php echo $settings[0]['address_1'] ?>"/><br />
 					
-					<label for="address_2">Address 2</label>
-					<input type="text" name="address_2" value="<?php echo $settings[0]['address_2'] ?>"/><br />
+					<div class="row">
+						<div class="small-6 columns">
+							<label for="fullname">Full Name</label>
+							<input type="text" name="full_name" value="<?php echo($settings[0]['full_name']) ?>" />
+						</div>
+						<div class="small-6 columns">
+							<label for="email">Email</label>
+							<input type="text" name="email" value="<?php echo $settings[0]['email'] ?>" />
+						</div>
+					</div>
 					
-					<label for="city">City</label>
-					<input type="text" name="city" value="<?php echo $settings[0]['city'] ?>"/><br />
+					<div class="row">
+						<div class="small-6 columns">
+							<label for="address_1">Address 1</label>
+							<input type="text" name="address_1" value="<?php echo $settings[0]['address_1'] ?>"/>
+						</div>
+						<div class="small-6 columns">
+							<label for="address_2">Address 2</label>
+							<input type="text" name="address_2" value="<?php echo $settings[0]['address_2'] ?>"/>
+						</div>
+					</div>
 					
-					<label for="state">State</label>
-					<input type="text" name="state" value="<?php echo $settings[0]['state'] ?>" /><br />
-					
-					<label for="zip">Zip</label>
-					<input type="text" name="zip" value="<?php echo $settings[0]['zip'] ?>"/><br />
+					<div class="row">
+						<div class="small-6 columns">
+							<label for="city">City</label>
+							<input type="text" name="city" value="<?php echo $settings[0]['city'] ?>"/>
+						</div>
+						<div class="small-3 columns">
+							<label for="state">State</label>
+							<input type="text" name="state" value="<?php echo $settings[0]['state'] ?>" />
+						</div>
+						<div class="small-3 columns">
+							<label for="zip">Zip</label>
+							<input type="text" name="zip" value="<?php echo $settings[0]['zip'] ?>"/>
+						</div>
+					</div>
 					
 					<label for="country">Country</label>
-					<input type="text" name="country" value="<?php echo $settings[0]['country'] ?>" /><br />
+					<input type="text" name="country" value="<?php echo $settings[0]['country'] ?>" />
 					
 					<input type="hidden" name="sid" value="" />
 					<label for="due">Invoice Due In</label>

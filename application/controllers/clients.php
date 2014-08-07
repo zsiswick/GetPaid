@@ -82,6 +82,7 @@ class Clients extends CI_Controller {
 			
 		}
 	}
+	
 	public function create_ajax() 
 	{
 		$this->load->helper('form');

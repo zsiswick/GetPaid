@@ -39,7 +39,7 @@ $captcha = array(
 <?php echo form_open($this->uri->uri_string()); ?>
 	<div class="row">
 		<div class="large-6 medium-10 small-centered columns">
-			<div class="form-wrap">
+			<div class="form-wrap invoice-form">
 				<div class="form-inner-wrap">
 		
 						<?php if ($use_username) { ?>

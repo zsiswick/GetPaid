@@ -86,21 +86,26 @@
 		 					// Display additional information for partial payment status
 		 					if ($invoice_item['status'] == 2) { ?>
 		 						<div class="progress round">
-		 							<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?> Paid"><?php echo($status_flags[$invoice_item['status']]);?></span>
+		 							<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?> Paid"><?php echo(round($percent).'%');?></span>
 		 						  <span class="meter" style="width:<?php echo(round($percent).'%');?>"></span>
 		 						</div>
 		 					<?php } else { ?>
 		 						
-		 						<span class="round <?php 
-		 						if ($invoice_item['status'] == 4) {
-		 							echo('alert');
-		 						}	else if ($invoice_item['status'] == 3) {
-		 						echo('success');
-		 						} else if	($invoice_item['status'] == 0){
-		 							echo('secondary');
-		 						}?> 
-		 						label"><?php echo($status_flags[$invoice_item['status']]);?></span>
-		 					<?php } ?>
+		 						<?php 
+			 						if ($invoice_item['status'] == 4) {
+			 							echo('<span class="round alert label">'.$status_flags[$invoice_item['status']].'</span>');
+			 						}	else if ($invoice_item['status'] == 3) {?>
+			 						
+				 						<div class="progress round">
+				 							<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?> Paid"><?php echo($status_flags[$invoice_item['status']]);?></span>
+				 						  <span class="meter complete" style="width:<?php echo(round($percent).'%');?>"></span>
+				 						</div>
+			 						<?php
+			 						} else if	($invoice_item['status'] == 0){
+			 							echo('<span class="round secondary label">'.$status_flags[$invoice_item['status']].'</span>');
+			 						} 
+		 						
+		 					 	} ?>
 		 				</div>
 		 			</div>
 		 			

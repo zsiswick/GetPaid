@@ -34,7 +34,7 @@ $captcha = array(
 		
 				<div class="row">
 					<div class="large-6 medium-10 small-centered columns">
-						<div class="form-wrap">
+						<div class="form-wrap invoice-form">
 									<div class="form-inner-wrap">
 										
 										<div class="row">

@@ -26,7 +26,7 @@ class Invoice_model extends CI_Model {
 	public function get_invoice($id, $uid)
 	{
 		
-		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.prefix, c.inv_num, c.inv_sent, c.due_date', false);
+		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.prefix, c.inv_num, c.auto_reminder, c.inv_sent, c.due_date', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -390,6 +390,29 @@ class Invoice_model extends CI_Model {
 		
 		$this->set_invoice_flag($id, 'status', $inv_status);
 		return $inv_status;
+	}
+	
+	public function get_auto_reminder_invoices() 
+	{
+		$this->db->select('*', false);
+		$this->db->select('client.email AS client_email', FALSE);
+		$this->db->select('settings.email AS user_email', FALSE);
+		$this->db->where('c.auto_reminder', 1);
+		$this->db->where('c.due_date <=', date('Y-m-d'));
+		$this->db->from('common c');
+		$this->db->join('client', 'client.id = c.cid', 'left');
+		$this->db->join('settings', 'settings.uid = c.uid', 'left');
+		
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+	
+	public function set_auto_reminder($id, $checked) 
+	{
+		$data = array('id' => $id, 'auto_reminder' => $checked);
+		$this->db->where('id', $data['id']);
+		$this->db->limit(1);
+		$this->db->update('common', $data);
 	}
 	
 	private function _calc_due_date($uid, $dateString) 
