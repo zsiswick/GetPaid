@@ -37,7 +37,7 @@ class Cron extends CI_Controller {
 	public function send_reminder_email() 
 	{
 		$data['invoices'] = $this->invoice_model->get_auto_reminder_invoices();
-		print("<pre>".print_r($data['invoices'],true)."</pre>");
+		//print("<pre>".print_r($data['invoices'],true)."</pre>");
 		
 
 		foreach ($data['invoices'] as $invoice) {
@@ -59,7 +59,11 @@ class Cron extends CI_Controller {
 		}
 				
 	}
-
+	
+	public function set_due_invoices() 
+		{
+			$this->invoice_model->get_set_due_invoices();
+		}
 }
 
 /* End of file cron.php */

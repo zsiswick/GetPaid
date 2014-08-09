@@ -9,6 +9,8 @@
 	$zip = $item['client'][0]['zip'];
 	$prefix = $item[0]['prefix'];
 	$inv_num = $item[0]['inv_num'];
+	$date = $item[0]['date'];
+	$due_date = $item[0]['due_date'];
 	
 	//////////////////////////////////
 	$logo = $item['settings'][0]['logo'];
@@ -135,6 +137,15 @@
 											  update_address(count, client_val);
 											});
 											
+											$('#send-date, #due-date').pickadate({
+											    formatSubmit: 'yyyy-mm-dd',
+											    hiddenName: true,
+											    today: 'today',
+											    clear: 'Clear selection'
+											});
+											
+											
+											
 										});
 									</script>
 									
@@ -155,18 +166,12 @@
 								
 								
 									<h5 class="caps ruled on-paper">
-											Send Date
+											Creation Date
 									</h5>
 									<div class="info-block">
 									<div class="row">
-										<div class="small-3 columns">
-											<?= $dob_dropdown_day ?>
-										</div>
-										<div class="small-5 columns">
-											<?= $dob_dropdown_month ?>
-										</div>
-										<div class="small-4 columns">
-											<?= $dob_dropdown_year ?>
+										<div class="small-12 columns">
+											<input type="text" id="send-date" name="send-date" data-value="<?php echo($date) ?>" />
 										</div>
 									</div>
 									
@@ -177,30 +182,12 @@
 											Due Date
 									</h5>
 									<div class="info-block last">
-									<?php
-										
-										$today = new DateTime(date('Ymj'));
-										$due = new DateTime($item[0]['due_date']);
-										// Calculate the difference between today's date, and the invoice due date
-										$diff = $today->diff($due);
-										
-										if ($item[0]['status'] == 3){ ?>
-											INVOICE PAID
-										<?php }
-										
-										else if ($item[0]['status'] == 4) { ?>
-											<?php echo $diff->format('%a DAYS'); ?> PAST DUE
-										
-									<?php	} else { ?>
-										
-											<?php 
-												
-												$date = new DateTime($item[0]['due_date']);
-												echo ($date->format('F j, Y')); ?>
-											
-										
-									<?php	} ?>
-								</div>
+										<div class="row">
+											<div class="small-12 columns">
+												<input type="text" id="due-date" name="due-date" data-value="<?php echo($due_date) ?>" />
+											</div>
+										</div>
+									</div>
 							</div>
 							
 							

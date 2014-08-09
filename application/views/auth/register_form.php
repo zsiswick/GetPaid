@@ -40,7 +40,7 @@ $captcha = array(
 	<div class="row">
 		<div class="large-6 medium-10 small-centered columns">
 			<div class="form-wrap invoice-form">
-				<div class="form-inner-wrap">
+				<div class="">
 		
 						<?php if ($use_username) { ?>
 						<div class="row">
@@ -117,7 +117,7 @@ $captcha = array(
 								<?php 
 									$sdata = array(
 									  'name' => 'register',
-									  'class' => 'button round text-centered',
+									  'class' => 'button round text-centered light',
 									  'value' => 'Register',
 									  'type' => 'submit',
 									  'content' => 'Register'

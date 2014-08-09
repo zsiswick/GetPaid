@@ -6,7 +6,7 @@
 <div class="row">
 	<div class="large-8 columns large-centered">
 		<div class="invoice-list-wrap invoice-form clearfix">
-			<div class="invoice-list-inner-wrap">
+			<div class="">
 				<?php echo validation_errors(); ?>
 				
 				<?php echo form_open('clients/create') ?>
@@ -25,11 +25,11 @@
 					<div class="row">
 						<div class="small-6 columns">
 							<label for="email">Email</label>
-							<input type="text" name="email" />	
+							<input type="email" name="email" />	
 						</div>
 						<div class="small-6 columns">
 							<label for="phone">Phone</label>
-							<input type="text" name="phone" />	
+							<input type="tel" name="phone" />	
 						</div>
 					</div>   
 					
@@ -51,7 +51,7 @@
 						</div>
 						<div class="small-3 columns">
 							<label for="state">State</label>
-							<input type="text" name="state" />
+							<input type="text" name="state" max="2" />
 						</div>
 						<div class="small-3 columns">
 							<label for="zip">Zip</label>

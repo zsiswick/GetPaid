@@ -6,7 +6,7 @@
 <div class="row">
 	<div class="large-8 columns large-centered">
 		<div class="invoice-list-wrap clearfix">
-			<div class="invoice-list-inner-wrap">
+			<div class="">
 				<?php echo validation_errors(); ?>
 				
 				<?php echo form_open('clients/edit/'.$client[0]['id']) ?>
@@ -18,10 +18,10 @@
 					<input type="text" name="contact" value="<?php echo $client[0]['contact'] ?>"/><br />
 					
 					<label for="email">Email</label>
-					<input type="text" name="email" value="<?php echo $client[0]['email'] ?>" /><br />
+					<input type="email" name="email" value="<?php echo $client[0]['email'] ?>" /><br />
 					
 					<label for="phone">Phone</label>
-					<input type="text" name="phone" value="<?php echo $client[0]['phone'] ?>" /><br />
+					<input type="tel" name="phone" value="<?php echo $client[0]['phone'] ?>" /><br />
 					
 					<label for="address_1">Address 1</label>
 					<input type="text" name="address_1" value="<?php echo $client[0]['address_1'] ?>"/><br />
@@ -33,7 +33,7 @@
 					<input type="text" name="city" value="<?php echo $client[0]['city'] ?>"/><br />
 					
 					<label for="state">State</label>
-					<input type="text" name="state" value="<?php echo $client[0]['state'] ?>" /><br />
+					<input type="text" name="state" max="2" value="<?php echo $client[0]['state'] ?>" /><br />
 					
 					<label for="zip">Zip</label>
 					<input type="text" name="zip" value="<?php echo $client[0]['zip'] ?>"/><br />

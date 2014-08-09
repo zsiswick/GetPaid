@@ -42,7 +42,7 @@
 	 					ID
 	 				</div>
 	 				<div class="small-12 medium-2 columns date">
-	 					Date
+	 					Created
 	 				</div>
 	 				<div class="small-12 medium-4 large-4 columns client">
 	 					Client
@@ -92,18 +92,23 @@
 		 					<?php } else { ?>
 		 						
 		 						<?php 
-			 						if ($invoice_item['status'] == 4) {
+			 						if ($invoice_item['status'] == 4) { // Invoice Due
 			 							echo('<span class="round alert label">'.$status_flags[$invoice_item['status']].'</span>');
-			 						}	else if ($invoice_item['status'] == 3) {?>
+			 						}	else if ($invoice_item['status'] == 3) {?> 
 			 						
 				 						<div class="progress round">
 				 							<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?> Paid"><?php echo($status_flags[$invoice_item['status']]);?></span>
 				 						  <span class="meter complete" style="width:<?php echo(round($percent).'%');?>"></span>
 				 						</div>
 			 						<?php
-			 						} else if	($invoice_item['status'] == 0){
+			 						} else if	($invoice_item['status'] == 0){ // Invoice Draft
 			 							echo('<span class="round secondary label">'.$status_flags[$invoice_item['status']].'</span>');
-			 						} 
+			 						} else if ($invoice_item['status'] == 1) { ?>
+			 								<div class="progress round">
+			 									<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?> Paid"><?php echo($status_flags[$invoice_item['status']]);?></span>
+			 								  <span class="meter complete" style="width: 0%;"></span>
+			 								</div>
+			 						<?php }  
 		 						
 		 					 	} ?>
 		 				</div>

@@ -106,7 +106,14 @@
 													update_address(count, client_val);
 													
 													$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
-												
+													
+													$('#send-date, #due-date').pickadate({
+													    formatSubmit: 'yyyy-mm-dd',
+													    hiddenName: true
+													});
+													
+													
+													
 												});
 										  </script>
 									</div>
@@ -124,10 +131,10 @@
 									
 									<div class="ruled sans-top on-paper">
 										<h5 class="caps">
-											Send Date
+											Creation Date
 										</h5>
 										<div class="row">
-											<div class="small-3 columns">
+											<!--<div class="small-3 columns">
 												<?= $dob_dropdown_day ?>
 											</div>
 											<div class="small-5 columns">
@@ -135,7 +142,10 @@
 											</div>
 											<div class="small-4 columns">
 												<?= $dob_dropdown_year ?>
-											</div>
+											</div>-->
+											<div class="small-12 columns">
+												<input type="text" id="send-date" name="send-date" data-value="<?php echo( date('Y-m-d')); ?>" />
+											</div>	
 										</div>
 									</div>
 									<div class="ruled sans-top on-paper">
@@ -143,7 +153,7 @@
 											Due Date
 										</h5>
 										<div class="row">
-											<div class="small-3 columns">
+											<!--<div class="small-3 columns">
 												<?= $dob_dropdown_day ?>
 											</div>
 											<div class="small-5 columns">
@@ -151,6 +161,9 @@
 											</div>
 											<div class="small-4 columns">
 												<?= $dob_dropdown_year ?>
+											</div>-->
+											<div class="small-12 columns">
+												<input type="text" id="due-date" name="due-date" value=""/>
 											</div>
 										</div>
 									</div>

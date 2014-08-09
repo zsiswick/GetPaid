@@ -39,6 +39,7 @@
 @pale-red: #ca3f3f;
 @paper-color: #f8acac;
 @paper-rule: #D98E8E;
+@input-bg: #B93939;
 
 .step {
   display: inline-block;
@@ -204,10 +205,10 @@ body{
 	color: @dark-red;
 }
 a {
-	color: #2383FF;
+	color: @body-color;
 }
 a:hover, a:focus {
-	color: #2383FF;
+	color: @dark-red;
 }
 section.content {
 	padding: 5rem 0 2rem;
@@ -469,12 +470,11 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 }
 .progress {
 	background-color: @dark-red;
-	height: 22px;
 	padding: 0;
 	margin: 0 !important; 
 	position: relative;
 	border: none;
-	padding: .3rem;
+	height: 21px;
 }
 .progress .meter {
 	-webkit-border-radius: 999px 0 0 999px !important;
@@ -511,7 +511,7 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	text-align: center;
 	position: absolute;
 	text-decoration: none;
-	line-height: 4px;
+	line-height: 12px;
 	white-space: nowrap;
 	position: relative;
 	margin-bottom: inherit;
@@ -522,7 +522,6 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	float: left;
 	background: none !important;
 	width: 100%;
-	padding-left: 1rem;
 }
 .row.actions {
 	margin-top: 2rem;
@@ -597,7 +596,7 @@ label {
 .button label {
 	color: @brand-color;
 }
-select, input[type="text"], input[type="password"], textarea {
+select, input[type="text"], input[type="email"], input[type="tel"], input[type="password"], textarea {
 	box-shadow: none;
 	-moz-box-shadow: none;
 	background-color: #fff;
@@ -608,13 +607,13 @@ select:hover, input[type="text"]:hover {
 	background-color: #ddd;
 	border: none;
 }
-.invoice-form select, .invoice-form input[type="text"], input, input[type="password"], input[type="search"], .invoice-form textarea, isindex {
+.invoice-form select, .invoice-form input[type="text"], input, input[type="password"], input[type="email"], input[type="tel"], input[type="search"], .invoice-form textarea, isindex {
 	background-color: #ED9D9D;
 	box-shadow: none;
 	-moz-box-shadow: none;
 	color: @dark-red;
 }
-.invoice-form select:hover, .invoice-form input[type="text"]:hover, input:hover, input[type="password"]:hover, input[type="search"]:hover, .invoice-form textarea:hover, isindex:hover {
+.invoice-form select:hover, .invoice-form input[type="text"]:hover, input:hover, .invoice-form input[type="email"]:hover, .invoice-form input[type="tel"]:hover, input[type="password"]:hover, input[type="search"]:hover, .invoice-form textarea:hover, isindex:hover {
 	background-color: #E99090;
 	box-shadow: none;
 	-moz-box-shadow: none;
@@ -646,6 +645,9 @@ input[type="file"] {
 
 :-ms-input-placeholder, ::-moz-placeholder, :-moz-placeholder, ::-webkit-input-placeholder  {  
    color: #9C6E81;  
+}
+input:-webkit-autofill {
+    color: #fff !important;
 }
 div.switch label {
 	background: @pale-red;
@@ -756,6 +758,33 @@ div.switch label::after {
      .info-block.last {
      	border-bottom: none;
      	padding-bottom: 1.5rem;
+     }
+     
+     /*
+     ** FORMS
+     */
+     
+     select, input[type="text"], input[type="password"], input[type="email"], input[type="tel"], textarea {
+     	box-shadow: none;
+     	-moz-box-shadow: none;
+     	//background-color: #fff;
+     	border: none;
+     	color: @dark-red;
+     }
+     select:hover, input[type="text"]:hover {
+     	//background-color: #ddd;
+     	border: none;
+     }
+     .invoice-form select, .invoice-form input[type="text"], input, input[type="password"], .invoice-form input[type="tel"], .invoice-form input[type="email"], input[type="search"], .invoice-form textarea, isindex {
+     	//background-color: rgb(228, 231, 229);
+     	box-shadow: none;
+     	-moz-box-shadow: none;
+     	//color: @brand-color;
+     }
+     .invoice-form select:hover, .invoice-form input[type="text"]:hover, input:hover, input[type="password"]:hover, .invoice-form input[type="tel"]:hover, .invoice-form input[type="email"]:hover, input[type="search"]:hover, .invoice-form textarea:hover, isindex:hover {
+     	//background-color: rgb(228, 231, 229);
+     	box-shadow: none;
+     	-moz-box-shadow: none;
      }
 }
 

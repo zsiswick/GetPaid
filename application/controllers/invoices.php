@@ -71,10 +71,10 @@ class Invoices extends CI_Controller {
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['title'] = 'Create an invoice';
-		$this->form_validation->set_rules('month', 'Month', 'numeric');
 		$this->form_validation->set_rules('client', 'Client', 'required|xss_clean');
-		$this->form_validation->set_rules('day', 'Day', 'numeric');
-		$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
+		//$this->form_validation->set_rules('month', 'Month', 'numeric');
+		//$this->form_validation->set_rules('day', 'Day', 'numeric');
+		//$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 		$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
 		$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 		$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
@@ -97,7 +97,11 @@ class Invoices extends CI_Controller {
 		}
 		
 		if ($this->form_validation->run() === FALSE){
-	    $data['js_to_load']='jquery.calculation.min.js';
+	    
+	    $jsfiles = array('picker.js', 'picker.date.js');
+	    $cssfiles = array('default.css', 'default.date.css');
+	    $data['css_to_load'] = $cssfiles;
+	    $data['js_to_load'] = $jsfiles;
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/invoices/create', $data);
 			$this->load->view('templates/footer', $data);
@@ -130,9 +134,9 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $datePieces[0]);
 			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
 			
-			$this->form_validation->set_rules('month', 'Month', 'numeric');
-			$this->form_validation->set_rules('day', 'Day', 'numeric');
-			$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
+			//$this->form_validation->set_rules('month', 'Month', 'numeric');
+			//$this->form_validation->set_rules('day', 'Day', 'numeric');
+			//$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 			$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 			$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
 			$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
@@ -141,7 +145,10 @@ class Invoices extends CI_Controller {
 			if ( $data['item'][0]['uid'] === $uid ) {
 			
 				if ($this->form_validation->run() === FALSE) {
-						$data['js_to_load']='jquery.calculation.min.js';
+						$jsfiles = array('picker.js', 'picker.date.js');
+						$cssfiles = array('default.css', 'default.date.css');
+						$data['css_to_load'] = $cssfiles;
+						$data['js_to_load'] = $jsfiles;
 						$this->load->view('templates/header', $data);
 						$this->load->view('pages/invoices/edit', $data);
 						$this->load->view('templates/footer', $data);

@@ -124,7 +124,7 @@
 											</div>
 											
 											<h5 class="caps ruled on-paper">
-													Send Date
+													Creation Date
 											</h5>
 											<div class="info-block">	
 												<?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?>
@@ -136,7 +136,7 @@
 												<div class="info-block last">
 													<?php
 														
-														$today = new DateTime(date('Ymj'));
+														$today = new DateTime(date('Ymd'));
 														$due = new DateTime($item[0]['due_date']);
 														// Calculate the difference between today's date, and the invoice due date
 														$diff = $today->diff($due);
@@ -231,7 +231,7 @@
 								<div id="payments" class="large-push-7 large-5 columns">
 									
 									<div class="row">
-										<div class="small-5 columns large-only-text-right">
+										<div class="small-5 columns">
 											<h3>Due:</h3>
 										</div>
 										<div class="small-7 columns text-right">
@@ -240,7 +240,7 @@
 										<div class="small-12 columns"><hr /></div>
 									</div>
 									<div class="row">
-										<div class="small-5 columns large-only-text-right">
+										<div class="small-5 columns">
 											<h4>Paid:</h4>
 										</div>
 										<div class="small-7 columns text-right">
@@ -258,7 +258,7 @@
 									</div>
 									
 									<div class="row">
-										<div class="small-5 columns large-only-text-right">
+										<div class="small-5 columns">
 											<h4>Left:</h4>
 										</div>
 										<div class="small-7 columns text-right">

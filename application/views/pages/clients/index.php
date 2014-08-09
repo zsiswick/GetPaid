@@ -46,7 +46,7 @@
 										<?php echo $client['contact'] ?>
 									</div>
 									<div class="small-12 small-only-text-center medium-4 large-4 columns">
-										<a href="mailto:<?php echo $client['email'] ?>" class="button round small light"><?php echo $client['email'] ?></a>
+										<a href="mailto:<?php echo $client['email'] ?>" class=""><?php echo $client['email'] ?></a>
 									</div>
 								</div>
 							<?php endforeach ?>

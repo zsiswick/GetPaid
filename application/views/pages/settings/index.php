@@ -9,7 +9,7 @@
 <div class="row">
 	<div class="large-8 columns large-centered">
 		<div class="invoice-list-wrap invoice-form clearfix">
-			<div class="invoice-list-inner-wrap">
+			<div class="">
 				<?php 
 					if (isset($upload_error)) 
 					{
@@ -49,7 +49,7 @@
 						</div>
 						<div class="small-6 columns">
 							<label for="email">Email</label>
-							<input type="text" name="email" value="<?php echo $settings[0]['email'] ?>" />
+							<input type="email" name="email" value="<?php echo $settings[0]['email'] ?>" />
 						</div>
 					</div>
 					

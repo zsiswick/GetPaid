@@ -66,7 +66,7 @@
 												</div>
 												
 												<h5 class="caps ruled on-paper">
-														Send Date
+														Creation Date
 												</h5>
 												<div class="info-block">	
 													<?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?>
@@ -78,7 +78,7 @@
 													<div class="info-block last">
 														<?php
 															
-															$today = new DateTime(date('Ymj'));
+															$today = new DateTime(date('Ymd'));
 															$due = new DateTime($item[0]['due_date']);
 															// Calculate the difference between today's date, and the invoice due date
 															$diff = $today->diff($due);
