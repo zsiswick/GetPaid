@@ -134,15 +134,6 @@
 											Creation Date
 										</h5>
 										<div class="row">
-											<!--<div class="small-3 columns">
-												<?= $dob_dropdown_day ?>
-											</div>
-											<div class="small-5 columns">
-												<?= $dob_dropdown_month ?>
-											</div>
-											<div class="small-4 columns">
-												<?= $dob_dropdown_year ?>
-											</div>-->
 											<div class="small-12 columns">
 												<input type="text" id="send-date" name="send-date" data-value="<?php echo( date('Y-m-d')); ?>" />
 											</div>	
@@ -153,15 +144,6 @@
 											Due Date
 										</h5>
 										<div class="row">
-											<!--<div class="small-3 columns">
-												<?= $dob_dropdown_day ?>
-											</div>
-											<div class="small-5 columns">
-												<?= $dob_dropdown_month ?>
-											</div>
-											<div class="small-4 columns">
-												<?= $dob_dropdown_year ?>
-											</div>-->
 											<div class="small-12 columns">
 												<input type="text" id="due-date" name="due-date" value=""/>
 											</div>
@@ -193,13 +175,13 @@
 					<div class="edit-list-container">
 						<div class="row tabbed list no-rules">
 							<div class="qty small-12 medium-2 columns">
-								<input class="qty sum" type="text" name="qty[]" />
+								<input class="qty sum" type="text" name="qty[]" value="<?php echo set_value('qty[]'); ?>"/>
 							</div>
 							<div class="description small-12 medium-5 columns">
-								<input type="text" name="description[]" />
+								<input type="text" name="description[]" value="<?php echo set_value('description[]'); ?>"/>
 							</div>
 							<div class="price small-12 medium-2 columns">
-								<input class="unitCost sum" type="text" name="unit_cost[]" />
+								<input class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>"/>
 							</div>
 							<div class="totalSum small-12 medium-2 large-only-text-right columns" >
 								$0.00
