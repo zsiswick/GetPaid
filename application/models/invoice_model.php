@@ -419,6 +419,29 @@ class Invoice_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	public function get_auto_reminder_invoices_int() 
+	{
+		$this->db->select('*', false);
+		$this->db->select('client.email AS client_email', FALSE);
+		$this->db->select('settings.email AS user_email', FALSE);
+		$this->db->where('c.auto_reminder', 1); // filter out invoices that aren't set to auto-remind
+		$this->db->where('c.status !=', 3); // filter out paid invoices
+		$this->db->where('c.due_date <=', date('Y-m-d'));
+		
+		$this->db->from('common c');
+		$this->db->join('client', 'client.id = c.cid', 'left');
+		$this->db->join('settings', 'settings.uid = c.uid', 'left');
+		
+		$query = $this->db->get();
+		
+		//$this->db->where('(CURDATE() - INTERVAL 15 day) = c.due_date');
+		//$invoices = $query->result_array();
+		
+		//$this->db->update_batch('common', $invoices, 'id');
+		
+		return $query->result_array();
+	}
+	
 	public function set_auto_reminder($id, $checked) 
 	{
 		$data = array('id' => $id, 'auto_reminder' => $checked);

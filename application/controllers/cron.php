@@ -61,9 +61,14 @@ class Cron extends CI_Controller {
 	}
 	
 	public function set_due_invoices() 
-		{
-			$this->invoice_model->get_set_due_invoices();
-		}
+	{
+		$this->invoice_model->get_set_due_invoices();
+	}
+	
+	public function get_auto_reminder_invoices_int() {
+		$data['invoices'] = $this->invoice_model->get_auto_reminder_invoices_int();
+		print("<pre>".print_r($data['invoices'],true)."</pre>");
+	}
 }
 
 /* End of file cron.php */
