@@ -425,8 +425,8 @@ class Invoice_model extends CI_Model {
 		$reminders[] = array();
 		$a = 0;
 		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.prefix, c.inv_num, c.auto_reminder, c.inv_sent, c.due_date, c.remind_date', false);
-		$this->db->select('client.email AS client_email', FALSE);
-		$this->db->select('settings.email AS user_email, settings.due', FALSE);
+		$this->db->select('client.email AS client_email, client.key', FALSE);
+		$this->db->select('settings.email AS user_email, settings.due, settings.full_name, settings.company_name', FALSE);
 		$this->db->where('c.auto_reminder', 1); // filter out invoices that aren't set to auto-remind
 		$this->db->where('c.status !=', 3); // filter out paid invoices
 		$this->db->where('c.status !=', 0); // filter out draft invoices
@@ -437,19 +437,21 @@ class Invoice_model extends CI_Model {
 		$this->db->join('settings', 'settings.uid = c.uid', 'left');
 		
 		$query = $this->db->get();
+		$invoices = $query->result_array();
 		
-		$invoices = $query->result_array();  
-		
-		
-		foreach ($invoices as &$invoice) {
+		if ($query->num_rows() > 0) 
+		{
+			  
+			foreach ($invoices as &$invoice) {
+				
+				$reminders[$a]['remind_date'] = date('Y-m-d', strtotime($invoice['remind_date']. ' + '.$invoice['due'].' days'));
+				$invoice['remind_date'] = date('Y-m-d', strtotime($invoice['remind_date']. ' + '.$invoice['due'].' days'));
+				$reminders[$a]['id'] = $invoice['iid'];
+				$a+=1;
+			}
 			
-			$reminders[$a]['remind_date'] = date('Y-m-d', strtotime($invoice['remind_date']. ' + '.$invoice['due'].' days'));
-			$invoice['remind_date'] = date('Y-m-d', strtotime($invoice['remind_date']. ' + '.$invoice['due'].' days'));
-			$reminders[$a]['id'] = $invoice['iid'];
-			$a+=1;
+			$this->db->update_batch('common', $reminders, 'id'); // update the next remind date 
 		}
-		
-		$this->db->update_batch('common', $reminders, 'id'); // update the next remind date 
 		
 		return $invoices;
 	}

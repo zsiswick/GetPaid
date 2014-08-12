@@ -40,9 +40,10 @@ class Cron extends CI_Controller {
 		//print("<pre>".print_r($data['invoices'],true)."</pre>");
 		
 
+		
 		foreach ($data['invoices'] as $invoice) {
 			$emailSubject = 'Reminder: Invoice #'.$invoice['inv_num'].' from'.$invoice['full_name'];
-			$emailMessage = 'Just a reminder that invoice #'.$invoice['inv_num'].' was due on '.$invoice['due_date'].'<br/> Please make a payment of $'.$invoice['amount'].' as soon as possible.<br/><br/> You can view the invoice online at:<br/>'.base_url().'index.php/invoice/view/'.$invoice['id'].'/'.$invoice['key'].'<br/><br/>Best regards,<br/><br/>'.$invoice['full_name'];
+			$emailMessage = 'Just a reminder that invoice #'.$invoice['inv_num'].' was due on '.$invoice['due_date'].'<br/> Please make a payment of $'.$invoice['amount'].' as soon as possible.<br/><br/> You can view the invoice online at:<br/>'.base_url().'index.php/invoice/view/'.$invoice['iid'].'/'.$invoice['key'].'<br/><br/>Best regards,<br/><br/>'.$invoice['full_name'];
 			
 			$clientEmail = $invoice['client_email'];
 			$from_email = $invoice['user_email'];
