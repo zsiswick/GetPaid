@@ -182,7 +182,7 @@ svg {
   padding: .125rem 1.5rem;
 }
 .menu-desktop {
-  border-bottom: 1px solid #4b011f;
+  border-bottom: 1px solid #ffffff;
   padding: 1rem 0;
 }
 .menu-desktop a:hover {
@@ -256,6 +256,15 @@ section.white {
   border-bottom: none;
 }
 #invoice-view {
+  margin-bottom: 1rem;
+  padding-bottom: 65%;
+}
+#artist-tools {
+  padding-bottom: 75%;
+  margin-bottom: 1rem;
+}
+#why-use-it {
+  padding-bottom: 75%;
   margin-bottom: 1rem;
 }
 .dashboard {
@@ -714,6 +723,10 @@ input:-moz-placeholder {
 .reveal-modal {
   background: #ffffff;
 }
+#login,
+#password {
+  background: #f15959 !important;
+}
 ::-webkit-input-placeholder {
   color: #9C6E81;
 }
@@ -749,14 +762,14 @@ div.switch label::after {
 footer {
   margin-top: 0rem;
 }
+footer > div {
+  color: #ffffff;
+}
 @media only screen and (min-width: 768px) {
   /* tablets and desktop */
 }
 @media only screen and (max-width: 767px) {
   /* phones */
-  .form-wrap {
-    padding: 0px;
-  }
   #invoiceCreate .tabbed.list div:last-child {
     border-bottom: none;
   }

@@ -187,7 +187,7 @@ svg {
 	padding: .125rem 1.5rem;
 }
 .menu-desktop {
-	border-bottom: 1px solid @dark-color;
+	border-bottom: 1px solid @body-color;
 	padding: 1rem 0;
 }
 .menu-desktop a:hover {
@@ -267,9 +267,16 @@ section.white {
 }
 #invoice-view {
 	margin-bottom: 1rem;
+	padding-bottom: 65%;
 }
-
-
+#artist-tools {
+	padding-bottom: 75%;
+	margin-bottom: 1rem;
+}
+#why-use-it {
+	padding-bottom: 75%;
+	margin-bottom: 1rem;
+}
 
 .dashboard {
 	margin-bottom: 1rem;
@@ -689,9 +696,8 @@ input:-moz-placeholder {
 .reveal-modal {
 	background: @body-color;
 }
-.reveal-modal select, .reveal-modal input[type="text"] {
-	//background: #fff;
-
+#login, #password {
+	background: @brand-color !important;
 }
 ::-webkit-input-placeholder {
    color: #9C6E81;
@@ -729,6 +735,10 @@ footer {
 	margin-top: 0rem;
 }
 
+footer > div {
+	color: @body-color;
+}
+
 @media only screen and (min-width: 768px) {
     /* tablets and desktop */
 }
@@ -736,9 +746,7 @@ footer {
 @media only screen and (max-width: 767px) {
     /* phones */
     
-    .form-wrap {
-    	padding: 0px;
-    }
+    
     .tabbed.list {
     	//border-bottom: 1px solid @brand-color;
     }

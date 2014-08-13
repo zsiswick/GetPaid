@@ -1,14 +1,10 @@
 	</section>
 <footer>
 	<div class="row">
-		<div class="small-12 columns">
-			<hr />
-		</div>
-	</div>
-	<div class="row">
 		<div class="small-6 small-centered columns text-center">
 		
-			<p>Copyright <?php echo(date('Y'))?> Ruby Invoice</p>
+			<p>&#169; <?php echo(date('Y'))?> Ruby Invoice</p>
+			<p>Made by <a href="http://www.chromaloop.com">Chromaloop</a></p>
 		</div>
 	</div>
 </footer>		
