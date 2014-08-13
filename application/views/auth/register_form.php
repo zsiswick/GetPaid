@@ -39,9 +39,8 @@ $captcha = array(
 <?php echo form_open($this->uri->uri_string()); ?>
 	<div class="row">
 		<div class="large-6 medium-10 small-centered columns">
-			<div class="form-wrap invoice-form">
-				<div class="">
-		
+			<div class="form-wrap invoice-form light-bg">
+						<h1 class="text-center">Register</h1>
 						<?php if ($use_username) { ?>
 						<div class="row">
 							<div class="large-12 small-centered columns">
@@ -114,10 +113,11 @@ $captcha = array(
 						} ?>
 						<div class="row">
 							<div class="columns large-12 small-centered text-center">
+							<hr />
 								<?php 
 									$sdata = array(
 									  'name' => 'register',
-									  'class' => 'button round text-centered light',
+									  'class' => 'button round text-centered',
 									  'value' => 'Register',
 									  'type' => 'submit',
 									  'content' => 'Register'
@@ -126,7 +126,6 @@ $captcha = array(
 							</div>
 						</div>
 					
-				</div>
 			</div>
 		</div>
 	</div>

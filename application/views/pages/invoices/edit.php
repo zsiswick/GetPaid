@@ -41,7 +41,7 @@
 		<?php $sumTotal = 0 ?>
 		
 		<div class="invoice-list-wrap">
-			<div class="invoice-list-inner-wrap clearfix">
+			<div class="light-bg clearfix">
 				
 				<div class="row invoice-info">
 					<div class="medium-5 small-centered large-uncentered columns invoice-info">
@@ -204,7 +204,7 @@
 							<div class="small-12 medium-2 columns qty">
 								Qty
 							</div>
-							<div class="small-12 medium-4 columns description">
+							<div class="small-12 medium-5 columns description">
 								Description
 							</div>
 							<div class="small-12 medium-2 columns price">
@@ -213,38 +213,41 @@
 							<div class="small-12 medium-2 large-only-text-right columns totalSum">
 								Total
 							</div>
-							<div class="small-12 medium-2 large-only-text-right columns remove">
+							<div class="small-12 medium-1 large-only-text-right columns remove">
 								
 							</div>
 						</div>
 						
 					</div>
 					
-					<div class="edit-list-container tabbed list no-rules">
-						<?php foreach ($item['items'] as $invoice_item): ?>
-							<?php 
-								$number = $invoice_item['quantity'] * $invoice_item['unit_cost']; 
-								$sumTotal = $sumTotal + $number;
-							?>
-							<div class="row">
-								<div class="qty small-12 medium-2 columns">
-									<input type="hidden" name="item_id[]" value="<?php echo $invoice_item['id'] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $invoice_item['quantity'] ?>" />
+					<div class="edit-list-container">
+						<div class="tabbed list no-rules">
+							<?php foreach ($item['items'] as $invoice_item): ?>
+								<?php 
+									$number = $invoice_item['quantity'] * $invoice_item['unit_cost']; 
+									$sumTotal = $sumTotal + $number;
+								?>
+								<div class="row">
+									<div class="qty small-12 medium-2 columns">
+										<input type="hidden" name="item_id[]" value="<?php echo $invoice_item['id'] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $invoice_item['quantity'] ?>" />
+									</div>
+									<div class="description small-12 medium-5 columns">
+										<input type="text" name="description[]" value="<?php echo $invoice_item['description'] ?>" />
+									</div>
+									<div class="price small-12 medium-2 columns">
+										<input type="text" class="unitCost sum" name="unit_cost[]" value="<?php echo $invoice_item['unit_cost'] ?>" />
+									</div>
+									<div class="totalSum small-12 medium-2 large-only-text-right columns" data-totalsum="<?php echo number_format((float)$number, 2, '.', ''); ?>">
+										$<?php echo number_format((float)$number, 2, '.', ','); ?>
+									</div>
+									<div class="delete small-12 medium-1 columns small-text-center large-only-text-right">
+										<a href="<?php echo base_url(); ?>index.php/invoices/item_delete?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"].'&iuid='.$item[0]['uid'];?>" id="remove-<?php echo $invoice_item["id"]; ?>" class="button small round">x</a>
+									</div>
+									<div class="small-12 columns"><hr /></div>
 								</div>
-								<div class="description small-12 medium-4 columns">
-									<input type="text" name="description[]" value="<?php echo $invoice_item['description'] ?>" />
-								</div>
-								<div class="price small-12 medium-2 columns">
-									<input type="text" class="unitCost sum" name="unit_cost[]" value="<?php echo $invoice_item['unit_cost'] ?>" />
-								</div>
-								<div class="totalSum small-12 medium-2 large-only-text-right columns" data-totalsum="<?php echo number_format((float)$number, 2, '.', ''); ?>">
-									$<?php echo number_format((float)$number, 2, '.', ','); ?>
-								</div>
-								<div class="delete small-12 medium-2 columns small-text-center large-only-text-right">
-									<a href="<?php echo base_url(); ?>index.php/invoices/item_delete?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"].'&iuid='.$item[0]['uid'];?>" id="remove-<?php echo $invoice_item["id"]; ?>" class="button small round">x</a>
-								</div>
-								<div class="small-12 columns"><hr /></div>
-							</div>
-						<?php endforeach ?>	
+							<?php endforeach ?>	
+						</div>
+						
 					</div>
 				</section>
 				
@@ -265,7 +268,7 @@
 			
 			<div class="row actions">
 				<div class="large-12 columns text-right small-only-text-center">
-					<input type="submit" name="submit" value="Save Changes" class="button round"/>
+					<input type="submit" name="submit" value="Save Changes" class="button round light"/>
 				</div>
 				<div class="large-12 columns text-right small-only-text-center">
 					<a href="#" id="deleteInvoiceBtn" data-reveal-id="editModal">Delete Invoice</a>

@@ -1,4 +1,5 @@
 <?php
+$attributes = array('autocomplete'=>'off');
 $login = array(
 	'name'	=> 'login',
 	'id'	=> 'login',
@@ -30,94 +31,93 @@ $captcha = array(
 );
 ?>
 
-		<?php echo form_open($this->uri->uri_string()); ?>
+		<?php echo form_open($this->uri->uri_string(), $attributes); ?>
 		
 				<div class="row">
 					<div class="large-6 medium-10 small-centered columns">
-						<div class="form-wrap invoice-form">
-									<div class="">
-										
-										<div class="row">
-													<div class="large-12 small-centered columns">
-														<?php echo form_label($login_label, $login['id']); ?>
-														<?php echo form_input($login); ?> <br />
-														<?php echo form_error($login['name']); ?><?php echo isset($errors[$login['name']])?$errors[$login['name']]:''; ?>
-													</div>
-												</div>
-												
-										<div class="row">
-											<div class="large-12 small-centered columns">
-												<?php echo form_label('Password', $password['id']); ?>
-												<?php echo form_password($password); ?> <br/>
-												<?php echo form_error($password['name']); ?><?php echo isset($errors[$password['name']])?$errors[$password['name']]:''; ?>
-											</div>
+						<div class="form-wrap invoice-form light-bg">
+							
+							<h1 class="text-center">Sign In</h1>
+							<div class="row">
+										<div class="large-12 small-centered columns">
+											<?php echo form_label($login_label, $login['id']); ?>
+											<?php echo form_input($login); ?>
+											<?php echo form_error($login['name']); ?><?php echo isset($errors[$login['name']])?$errors[$login['name']]:''; ?>
 										</div>
-										
-										<?php if ($show_captcha) {
-											if ($use_recaptcha) { ?>
-											
-										<div class="row">
-											<div class="large-12 small-centered columns">
-												<div id="recaptcha_image"></div>
-												<a href="javascript:Recaptcha.reload()">Get another CAPTCHA</a>
-												<div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio')">Get an audio CAPTCHA</a></div>
-												<div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')">Get an image CAPTCHA</a></div>	
-											</div>
-										</div>
-										<div class="row">
-											<div class="large-12 small-centered columns">
-												<div class="recaptcha_only_if_image">Enter the words above</div>
-												<div class="recaptcha_only_if_audio">Enter the numbers you hear</div>
-												<input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
-												<?php echo form_error('recaptcha_response_field'); ?>
-											</div>
-										</div>
-										
-										<?php } else { ?>
-										
-										<div class="row">
-											<div class="large-12 small-centered columns">
-												<p>Enter the code exactly as it appears:</p>
-												<?php echo $captcha_html; ?>
-											</div>
-										</div>
-										<div class="row">
-											<div class="large-12 small-centered columns">
-													<?php echo form_label('Confirmation Code', $captcha['id']); ?>
-													<?php echo form_input($captcha); ?></td>
-													<?php echo form_error($captcha['name']); ?>
-											</div>
-										</div>
-										
-										<?php }
-										} ?>
-										
-										<div class="row">
-											<div class="large-12 small-centered columns">
-												<?php echo form_checkbox($remember); ?>
-												<?php echo form_label('Remember me', $remember['id']); ?>
-												<hr />
-											</div>
-										</div>
-										
-										<div class="row">
-											<div class="columns large-12 small-centered text-center">
-												<?php 
-												$sdata = array(
-												  'name' => 'submit',
-												  'class' => 'button round light',
-												  'value' => 'Sign In',
-												  'type' => 'submit',
-												  'content' => 'Sign In'
-												);
-												echo form_submit($sdata);?> <br />
-												<?php echo anchor('/auth/forgot_password/', 'Forgot Password'); ?> &nbsp;|&nbsp; 
-												<?php if ($this->config->item('allow_registration', 'tank_auth')) echo anchor('/auth/register/', 'Register'); ?>
-											</div>
-										</div>
-												
-												
+									</div>
+									
+							<div class="row">
+								<div class="large-12 small-centered columns">
+									<?php echo form_label('Password', $password['id']); ?>
+									<?php echo form_password($password); ?>
+									<?php echo form_error($password['name']); ?><?php echo isset($errors[$password['name']])?$errors[$password['name']]:''; ?>
+								</div>
 							</div>
+							
+							<?php if ($show_captcha) {
+								if ($use_recaptcha) { ?>
+								
+							<div class="row">
+								<div class="large-12 small-centered columns">
+									<div id="recaptcha_image"></div>
+									<a href="javascript:Recaptcha.reload()">Get another CAPTCHA</a>
+									<div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio')">Get an audio CAPTCHA</a></div>
+									<div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')">Get an image CAPTCHA</a></div>	
+								</div>
+							</div>
+							<div class="row">
+								<div class="large-12 small-centered columns">
+									<div class="recaptcha_only_if_image">Enter the words above</div>
+									<div class="recaptcha_only_if_audio">Enter the numbers you hear</div>
+									<input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
+									<?php echo form_error('recaptcha_response_field'); ?>
+								</div>
+							</div>
+							
+							<?php } else { ?>
+							
+							<div class="row">
+								<div class="large-12 small-centered columns">
+									<p>Enter the code exactly as it appears:</p>
+									<?php echo $captcha_html; ?>
+								</div>
+							</div>
+							<div class="row">
+								<div class="large-12 small-centered columns">
+										<?php echo form_label('Confirmation Code', $captcha['id']); ?>
+										<?php echo form_input($captcha); ?></td>
+										<?php echo form_error($captcha['name']); ?>
+								</div>
+							</div>
+							
+							<?php }
+							} ?>
+							
+							<div class="row">
+								<div class="large-12 small-centered columns">
+									<?php echo form_checkbox($remember); ?>
+									<?php echo form_label('Remember me', $remember['id']); ?>
+									<hr />
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="columns large-12 small-centered text-center">
+									<?php 
+									$sdata = array(
+									  'name' => 'submit',
+									  'class' => 'button round',
+									  'value' => 'Sign In',
+									  'type' => 'submit',
+									  'content' => 'Sign In'
+									);
+									echo form_submit($sdata);?> <br />
+									<?php echo anchor('/auth/forgot_password/', 'Forgot Password'); ?> &nbsp;|&nbsp; 
+									<?php if ($this->config->item('allow_registration', 'tank_auth')) echo anchor('/auth/register/', 'Register'); ?>
+								</div>
+							</div>
+												
+												
 						</div>
 					</div>
 				</div>

@@ -5,50 +5,77 @@
 </div>
 <div class="row">
 	<div class="large-8 columns large-centered">
-		<div class="invoice-list-wrap clearfix">
+		<div class="invoice-list-wrap invoice-form light-bg clearfix">
 			<div class="">
 				<?php echo validation_errors(); ?>
 				
 				<?php echo form_open('clients/edit/'.$client[0]['id']) ?>
-					<input type="hidden" name="cid" value="<?php echo $client[0]['id'] ?>" />
-					<label for="company">Company</label>
-					<input type="text" name="company" value="<?php echo $client[0]['company'] ?>"/><br />
-					   
-					<label for="contact">Contact Name</label>
-					<input type="text" name="contact" value="<?php echo $client[0]['contact'] ?>"/><br />
+					<div class="row">
+						<div class="small-6 columns">
+							<input type="hidden" name="cid" value="<?php echo $client[0]['id'] ?>" />
+							<label for="company">Company</label>
+							<input type="text" name="company" value="<?php echo $client[0]['company'] ?>"/>	
+						</div>
+						<div class="small-6 columns">
+							<label for="contact">Contact Name</label>
+							<input type="text" name="contact" value="<?php echo $client[0]['contact'] ?>"/>	
+						</div>
+					</div>
 					
-					<label for="email">Email</label>
-					<input type="email" name="email" value="<?php echo $client[0]['email'] ?>" /><br />
+					<div class="row">
+						<div class="small-6 columns">
+							<label for="email">Email</label>
+							<input type="email" name="email" value="<?php echo $client[0]['email'] ?>" />	
+						</div>
+						<div class="small-6 columns">
+							<label for="phone">Phone</label>
+							<input type="tel" name="phone" value="<?php echo $client[0]['phone'] ?>" />	
+						</div>
+					</div>   
 					
-					<label for="phone">Phone</label>
-					<input type="tel" name="phone" value="<?php echo $client[0]['phone'] ?>" /><br />
+					<div class="row">
+						<div class="small-6 columns">
+							<label for="address_1">Address 1</label>
+							<input type="text" name="address_1" value="<?php echo $client[0]['address_1'] ?>"/>	
+						</div>
+						<div class="small-6 columns">
+							<label for="address_2">Address 2</label>
+							<input type="text" name="address_2" value="<?php echo $client[0]['address_2'] ?>"/>
+						</div>
+					</div>
 					
-					<label for="address_1">Address 1</label>
-					<input type="text" name="address_1" value="<?php echo $client[0]['address_1'] ?>"/><br />
-					
-					<label for="address_2">Address 2</label>
-					<input type="text" name="address_2" value="<?php echo $client[0]['address_2'] ?>"/><br />
-					
-					<label for="city">City</label>
-					<input type="text" name="city" value="<?php echo $client[0]['city'] ?>"/><br />
-					
-					<label for="state">State</label>
-					<input type="text" name="state" max="2" value="<?php echo $client[0]['state'] ?>" /><br />
-					
-					<label for="zip">Zip</label>
-					<input type="text" name="zip" value="<?php echo $client[0]['zip'] ?>"/><br />
+					<div class="row">
+						<div class="small-6 columns">
+							<label for="city">City</label>
+							<input type="text" name="city" value="<?php echo $client[0]['city'] ?>"/>	
+						</div>
+						<div class="small-3 columns">
+							<label for="state">State</label>
+							<input type="text" name="state" max="2" value="<?php echo $client[0]['state'] ?>" />
+						</div>
+						<div class="small-3 columns">
+							<label for="zip">Zip</label>
+							<input type="text" name="zip" value="<?php echo $client[0]['zip'] ?>"/>
+						</div>
+					</div>
 					
 					<label for="country">Country</label>
-					<input type="text" name="country" value="<?php echo $client[0]['country'] ?>" /><br />
+					<input type="text" name="country" value="<?php echo $client[0]['country'] ?>" />
 					
-					<label for="tax_id">Tax Id</label>
-					<input type="text" name="tax_id" value="<?php echo $client[0]['tax_id'] ?>"/><br />
-					
-					<label for="default_inv_prefix">Invoice Prefix</label>
-					<input type="text" name="default_inv_prefix" value="<?php echo $client[0]['default_inv_prefix'] ?>"/><br />
+					<div class="row">
+						<div  class="small-7 columns">
+							<label for="tax_id">Tax Id</label>
+							<input type="text" name="tax_id" value="<?php echo $client[0]['tax_id'] ?>"/>
+						</div>
+						<div  class="small-5 columns">
+							<label for="default_inv_prefix">Invoice Prefix</label>
+							<input type="text" name="default_inv_prefix" value="<?php echo $client[0]['default_inv_prefix'] ?>"/>
+						</div>
+					</div>
 					
 					<label for="notes">Notes</label>
-					<textarea name="notes" id="" cols="30" rows="10"><?php echo $client[0]['notes'] ?></textarea><br />
+					<textarea name="notes" id="" cols="30" rows="10"><?php echo $client[0]['notes'] ?></textarea>
+					
 					
 					<div class="row">
 						<div class="large-12 columns text-right small-only-text-center">

@@ -58,9 +58,9 @@
 			  	</a>
 			  	<nav>
 			  		<ul id="main-menu">
-			  			<li><?php echo anchor('invoices', 'Invoices', 'class="button round"'); ?></li>
-			  			<li><?php echo anchor('clients', 'Clients', 'class="button round"'); ?></li>
-			  			<li><?php echo anchor('settings', 'Settings', 'class="button round"'); ?></li>
+			  			<li><?php echo anchor('invoices', 'Invoices', 'class="button round light"'); ?></li>
+			  			<li><?php echo anchor('clients', 'Clients', 'class="button round light"'); ?></li>
+			  			<li><?php echo anchor('settings', 'Settings', 'class="button round light"'); ?></li>
 			  		</ul>
 			  	</nav>
 			  </div>	

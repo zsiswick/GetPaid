@@ -47,8 +47,8 @@
 			  		</a>
 			  		<nav class="menu-desktop">
 			  			<ul id="main-menu">
-			  				<li><a href="<?php echo base_url(); ?>index.php/auth/login" class="button round">Sign In</a></li>
-			  				<li><a href="<?php echo base_url(); ?>index.php/auth/register" class="button round">Register</a></li>
+			  				<li><a href="<?php echo base_url(); ?>index.php/auth/login" class="button round light">Sign In</a></li>
+			  				<li><a href="<?php echo base_url(); ?>index.php/auth/register" class="button round light">Register</a></li>
 			  			</ul>
 			  		</nav>
 			  	</div>

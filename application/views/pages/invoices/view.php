@@ -80,7 +80,7 @@
 		</div>
 	</div>	
 </div><!---->
-<div id="invoiceContainer">
+<div id="invoiceContainer" class="">
 		<div class="row">
 			<div class="large-12 columns">
 			
@@ -89,7 +89,7 @@
 				
 				<div id="invoiceCreate" class="invoice-wrap">
 					
-						<div class="invoice-inner-wrap">
+						<div class="light-bg">
 							<div class="row invoice-info">
 								<div class="medium-5 small-centered large-uncentered columns invoice-info">
 										<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$logo.'" />'; endif ?>
@@ -103,8 +103,8 @@
 										</div>
 										
 										<div class="medium-6 columns">
-											<h5 class="caps ruled on-paper">Billing Information</h5>
-												<div class="info-block">
+											<h5 class="caps ruled">Billing Information</h5>
+												<div class="info-block ">
 													<ul id="clientAddress">
 														<li><?php echo $item['client'][0]['company']; ?></li>
 														<li><?php echo $item['client'][0]['contact']; ?></li>
@@ -116,24 +116,24 @@
 										</div>		
 										
 										<div class="medium-6 columns">
-											<h5 class="caps ruled on-paper">
+											<h5 class="caps ruled">
 													Invoice Num
 											</h5>
-											<div class="info-block">	
+											<div class="info-block ">	
 												<?php echo($inv_num); ?>
 											</div>
 											
-											<h5 class="caps ruled on-paper">
+											<h5 class="caps ruled ">
 													Creation Date
 											</h5>
-											<div class="info-block">	
+											<div class="info-block ">	
 												<?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?>
 											</div>
 											
-												<h5 class="caps ruled on-paper">
+												<h5 class="caps ruled ">
 														Due Date
 												</h5>
-												<div class="info-block last">
+												<div class="info-block  last">
 													<?php
 														
 														$today = new DateTime(date('Ymd'));
@@ -228,7 +228,7 @@
 						
 						<section id="payment-info">
 							<div class="row">
-								<div id="payments" class="large-push-7 large-5 columns">
+								<div id="payments" class="large-push-7 large-5 columns ">
 									
 									<div class="row">
 										<div class="small-5 columns">
@@ -270,7 +270,7 @@
 										<div class="small-12 columns"><hr /></div>
 									</div>
 								</div>
-								<div class="large-pull-5 large-7 columns">
+								<div class="large-pull-5 large-7 columns ">
 									<h3>Notes</h3>
 									<p><?php echo($item['settings'][0]['notes']) ?></p>
 								</div>

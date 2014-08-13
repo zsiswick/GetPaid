@@ -5,7 +5,7 @@
 </div>
 <div class="row">
 	<div class="large-8 columns large-centered">
-		<div class="invoice-list-wrap invoice-form clearfix">
+		<div class="invoice-list-wrap invoice-form light-bg clearfix">
 			<div class="">
 				<?php echo validation_errors(); ?>
 				

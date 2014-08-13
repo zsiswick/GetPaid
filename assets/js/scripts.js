@@ -71,7 +71,7 @@ $(document).ready(function() {
     
     
     $('#addItems').click(function() {
-    	$('.edit-list-container').append(' <div class="row tabbed list no-rules"><div class="qty small-12 medium-2 columns"><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></div><div class="description small-12 medium-5 columns"><input type="text" name="description[]" /></div><div class="price small-12 medium-2 columns"><input type="text" name="unit_cost[]" class="unitCost sum"></div><div class="totalSum small-12 medium-2 large-only-text-right columns">$0.00</div><div class="delete small-12 medium-1 columns large-only-text-right small-text-center"><a class="delete-row button round small">x</a></div></div>');
+    	$('.edit-list-container div.tabbed.list').append(' <div class="row"><div class="qty small-12 medium-2 columns"><input type="hidden" name="item_id[]"><input type="text" name="qty[]" class="qty sum"></div><div class="description small-12 medium-5 columns"><input type="text" name="description[]" /></div><div class="price small-12 medium-2 columns"><input type="text" name="unit_cost[]" class="unitCost sum"></div><div class="totalSum small-12 medium-2 large-only-text-right columns">$0.00</div><div class="delete small-12 medium-1 columns large-only-text-right small-text-center"><a class="delete-row button round small">x</a></div><div class="small-12 columns"><hr /></div></div>');
     });
     
     

@@ -72,14 +72,13 @@ class Invoices extends CI_Controller {
 		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['title'] = 'Create an invoice';
 		$this->form_validation->set_rules('client', 'Client', 'required|xss_clean');
-		//$this->form_validation->set_rules('month', 'Month', 'numeric');
-		//$this->form_validation->set_rules('day', 'Day', 'numeric');
-		//$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 		$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
 		$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 		$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
 		$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
-	
+		$this->form_validation->set_message('due-date', 'Please enter a due date', 'valid_date');
+		$this->form_validation->set_message('send-date', 'Please enter a creation date', 'valid_date');
+		
 		// CHECK THE FORM TO SEE IF SUBMITTED VIA AJAX
 		if($this->input->is_ajax_request()){
 		   $respond=array();
@@ -133,14 +132,12 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_month'] = buildMonthDropdown('month', $datePieces[1]);
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $datePieces[0]);
 			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
-			
-			//$this->form_validation->set_rules('month', 'Month', 'numeric');
-			//$this->form_validation->set_rules('day', 'Day', 'numeric');
-			//$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 			$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 			$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
 			$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
 			$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
+			$this->form_validation->set_message('due-date', 'Please enter a due date', 'valid_date');
+			$this->form_validation->set_message('send-date', 'Please enter a creation date', 'valid_date');
 				
 			if ( $data['item'][0]['uid'] === $uid ) {
 			
