@@ -237,7 +237,7 @@
 	<div class="row">
 		<div class="columns large-6">
 			<h2>Who its For</h2>
-			<p class="big-p light">Ruby Invoice was created for small business owners, freelancers, and the like. If you are looking to save time on billing, and appreciate simple-to-use software, Ruby Invoice is the right solution for you.</p>
+			<p class="big-p light">Ruby Invoice was created for independent artists, designers, and the like. Heck, it was designed by a freelancer, so if you are looking to save time on invoicing, and have an appreciation for simple-to-use software, Ruby Invoice is here to help.</p>
 		</div>
 		<div class="columns large-5">
 			<img src="<?php echo base_url(); ?>assets/images/invoice-view1.png" alt="sample invoice view" />

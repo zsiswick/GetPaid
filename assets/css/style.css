@@ -681,14 +681,35 @@ isindex:focus {
 input[type="text"][readonly] {
   color: #fff;
 }
+input[readonly="readonly"],
+input[readonly] {
+  color: #fff;
+}
 input[type="file"] {
   background: none;
 }
-#login,
-#password,
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #f15959 inset !important;
-  color: fff !important;
+/* all */
+::-webkit-input-placeholder {
+  color: #ca3f3f;
+}
+::-moz-placeholder {
+  color: #ca3f3f;
+}
+/* firefox 19+ */
+:-ms-input-placeholder {
+  color: #ca3f3f;
+}
+/* ie */
+input:-moz-placeholder {
+  color: #ca3f3f;
+}
+input::-webkit-input-placeholder {
+  color: #ca3f3f;
+  font-style: italic;
+}
+input:-moz-placeholder {
+  color: #ca3f3f;
+  font-style: italic;
 }
 .reveal-modal {
   background: #ffffff;

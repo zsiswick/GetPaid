@@ -666,13 +666,25 @@ select:focus {
 input[type="text"][readonly] {
 	color: #fff;
 }
+input[readonly="readonly"], input[readonly] {
+  color: #fff;
+}
 input[type="file"] {
 	background: none;
 }
+/* all */
+::-webkit-input-placeholder { color:@pale-red; }
+::-moz-placeholder { color:@pale-red; } /* firefox 19+ */
+:-ms-input-placeholder { color:@pale-red; } /* ie */
+input:-moz-placeholder { color:@pale-red; }
 
-#login, #password, input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px @brand-color inset !important;
-    color: fff !important;
+input::-webkit-input-placeholder{
+    color:@pale-red;
+    font-style: italic;
+}
+input:-moz-placeholder {
+    color:@pale-red;
+    font-style: italic;
 }
 .reveal-modal {
 	background: @body-color;
