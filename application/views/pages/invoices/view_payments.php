@@ -15,7 +15,7 @@
 
 	<?php
 		$sumTotal = max($invoicAmount - $amount,0);
-		$attributes = array('class' => 'invoice-form', 'id' => 'addPayment');
+		$attributes = array('class' => 'light-bg', 'id' => 'addPayment');
 		echo form_open('invoices/add_payment/'.$item[0]['iid'], $attributes, $hidden); 
 	?>
 		<div class="row">
@@ -37,6 +37,9 @@
 				<div class="columns large-4 small-4">
 					<?php echo$dob_dropdown_year; ?>
 				</div>
+				<div class="small-12 columns">
+					<hr />
+				</div>
 				<div class="columns small-12 text-center">
 					<input type="submit" name="submit" value="Add Payment" class="button round"/>
 				</div>
@@ -50,36 +53,40 @@
 				<?php	
 						if (!empty($item['payments'])) {
 					?>
-					<div class="row invoice-create list_header">
-						<div class="small-12 medium-2 columns small-only-text-center">
-							Amount
+					<div class="invoice-create list_header">
+						<div class="row">
+							<div class="small-12 medium-2 columns small-only-text-center">
+								Amount
+							</div>
+							<div class="small-12 medium-10 columns small-only-text-center">
+								Date
+							</div>
 						</div>
-						<div class="small-12 medium-10 columns small-only-text-center">
-							Date
-						</div>
+						
 					</div>
 						
+						<div class="tabbed list no-rules">
 						<?php
 							foreach ($item['payments'] as $payment){
 						?>
 						
-						<div class="row invoice list">
-							<div class="small-12 medium-2 columns small-only-text-center">
-								<input type="hidden" name="payment_amount[]" class="amt" value="<?php echo $payment['payment_amount'] ?>" />$<?php echo $payment['payment_amount'] ?>
+						
+							<div class="row">
+								<div class="small-12 medium-2 columns small-only-text-center">
+									<input type="hidden" name="payment_amount[]" class="amt" value="<?php echo $payment['payment_amount'] ?>" />$<?php echo $payment['payment_amount'] ?>
+								</div>
+								<div class="small-12 medium-8 columns small-only-text-center">
+									<?php echo $payment['pdate'] ?>
+								</div>
+								<div class="small-12 medium-2 columns small-only-text-center text-right">
+									<a href="<?php echo base_url(); ?>index.php/invoices/delete_payment?pid=<?php echo $payment["pid"].'&common_id='.$payment["common_id"].'&iuid='.$item[0]['uid']; ?>" class="button small round">x</a>
+								</div>
+								<div class="small-12 columns"><hr /></div>
 							</div>
-							<div class="small-12 medium-8 columns small-only-text-center">
-								<?php echo $payment['pdate'] ?>
-							</div>
-							<div class="small-12 medium-2 columns small-only-text-center text-right">
-								<a href="<?php echo base_url(); ?>index.php/invoices/delete_payment?pid=<?php echo $payment["pid"].'&common_id='.$payment["common_id"].'&iuid='.$item[0]['uid']; ?>"><i class="step fi-x size-21"></i></a>
-							</div>
+							
+						<?php	} ?>
 						</div>
-							
-							
-						<?php			
-							}
-						} 
-					 ?>	
+				<?php } ?>	
 			</div>
 		
 		</div>	

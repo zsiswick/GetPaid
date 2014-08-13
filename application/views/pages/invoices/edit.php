@@ -33,7 +33,7 @@
 	<div class="large-12 columns">
 		
 		<?php 
-			$attributes = array('class' => 'invoice-form');
+			$attributes = array('class' => 'invoice-form light-bg');
 			$hidden = array('iid' => $item[0]['iid'], 'new_client' => 0);
 			echo form_open('invoices/edit/'.$item[0]['iid'], $attributes, $hidden);
 			
@@ -41,7 +41,7 @@
 		<?php $sumTotal = 0 ?>
 		
 		<div class="invoice-list-wrap">
-			<div class="light-bg clearfix">
+			<div class="clearfix">
 				
 				<div class="row invoice-info">
 					<div class="medium-5 small-centered large-uncentered columns invoice-info">
@@ -268,7 +268,7 @@
 			
 			<div class="row actions">
 				<div class="large-12 columns text-right small-only-text-center">
-					<input type="submit" name="submit" value="Save Changes" class="button round light"/>
+					<input type="submit" name="submit" value="Save Changes" class="button round"/>
 				</div>
 				<div class="large-12 columns text-right small-only-text-center">
 					<a href="#" id="deleteInvoiceBtn" data-reveal-id="editModal">Delete Invoice</a>

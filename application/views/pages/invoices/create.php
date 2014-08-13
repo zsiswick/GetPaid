@@ -2,11 +2,11 @@
 	<div class="large-12 columns">
 		<h1 class="text-center">New Invoice</h1>
 		<?php 
-			$attributes = array('class' => 'invoice-form', 'id' => 'createForm');
+			$attributes = array('class' => 'invoice-form light-bg', 'id' => 'createForm');
 			echo form_open('invoices/create', $attributes); 
 		?>
 		<div id="invoiceCreate" class="invoice-list-wrap">
-			<div class="light-bg">
+			<div class="">
 				<?php echo validation_errors(); ?>
 					<div class="row invoice-info">
 						<div class="medium-5 columns">
@@ -192,6 +192,7 @@
 							<a id="addItems" class="button small round">Add Another Item</a>
 						</div>
 					</div>
+					<hr />
 					<div class="row">
 						<div class="large-12 columns text-right small-only-text-center">
 							<h3>Total Due: <span id="invoiceTotal">$0.00</span></h3>
@@ -201,7 +202,7 @@
 			
 			<div class="row actions">
 				<div class="large-12 columns text-right small-only-text-center">
-					<input type="submit" name="submit" value="Create Invoice" class="button round light" />
+					<input type="submit" name="submit" value="Create Invoice" class="button round" />
 				</div>
 			</div>
 				

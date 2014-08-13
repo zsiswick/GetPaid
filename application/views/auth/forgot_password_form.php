@@ -15,7 +15,7 @@ if ($this->config->item('use_username', 'tank_auth')) {
 <?php echo form_open($this->uri->uri_string()); ?>
 <div class="row">
 	<div class="large-6 medium-10 small-centered columns">
-		<div class="form-wrap invoice-form">
+		<div class="form-wrap invoice-form light-bg">
 				<div class="row">
 					<div class="large-12 small-centered columns">
 						<h1 class="text-center">Forgot Password</h1>
@@ -30,7 +30,7 @@ if ($this->config->item('use_username', 'tank_auth')) {
 						<?php 
 							$sdata = array(
 							  'name' => 'reset',
-							  'class' => 'button round light',
+							  'class' => 'button round',
 							  'value' => 'Request password',
 							  'type' => 'submit',
 							  'content' => 'Request password'

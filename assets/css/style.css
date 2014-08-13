@@ -53,6 +53,9 @@ svg {
 .row {
   max-width: 68rem;
 }
+.pad-top {
+  padding-top: 2rem;
+}
 .big-p {
   font-family: 'robotolight', Helvetica, Arial, sans-serif;
   font-size: 1.5rem;
@@ -216,13 +219,22 @@ a {
 }
 a:hover,
 a:focus {
-  color: #f15959;
+  color: #4b011f;
 }
 .light {
   color: #ffffff;
 }
+.light-bg a {
+  color: #f15959;
+}
+.light-bg a:hover {
+  color: #4b011f;
+}
+hr.light-bg {
+  border-bottom: 1px solid #fff;
+}
 section.content {
-  padding: 5rem 0 2rem;
+  padding: 4rem 0 2rem;
 }
 section.content.top {
   padding: 10rem 0 2rem;
@@ -243,12 +255,15 @@ section.white {
 .content.purple:last-child .row {
   border-bottom: none;
 }
+#invoice-view {
+  margin-bottom: 1rem;
+}
 .dashboard {
   margin-bottom: 1rem;
   padding: 1rem 0;
 }
 .dashb-item {
-  border-bottom: 1px solid #ca3f3f;
+  border-bottom: 1px solid #ffffff;
   padding-bottom: 2rem;
   margin-bottom: 1.5rem;
 }
@@ -258,7 +273,6 @@ section.white {
 h3.top-rule {
   font-size: 1.5rem;
   text-transform: uppercase;
-  color: #4b011f;
   border-top: 1px solid #f15959;
   padding-top: 1rem;
 }
@@ -272,9 +286,6 @@ h5 {
   font-size: .7rem;
   font-family: "robotomedium";
 }
-h5.ruled {
-  color: #4b011f;
-}
 .light-bg h1,
 .light-bg h2,
 .light-bg h3,
@@ -284,12 +295,12 @@ h5.ruled {
   color: #f15959;
 }
 .ruled {
-  border-top: 1px solid #ca3f3f;
-  border-bottom: 1px solid #ca3f3f;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
 }
 .light-bg .ruled {
-  border-top: 1px solid #D98E8E;
-  border-bottom: 1px solid #D98E8E;
+  border-top: 1px solid #f15959;
+  border-bottom: 1px solid #f15959;
 }
 .ruled.sans-top {
   border-top: none;
@@ -320,16 +331,12 @@ h4,
 h5,
 h6 {
   font-family: "robotoregular", Helvetica, Arial, sans-serif;
-  color: #4b011f;
+  color: #ffffff;
 }
 h1,
 h2 {
   font-family: "robotolight", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
-}
-h1,
-h2 {
-  color: #ffffff;
 }
 ul {
   margin: 0;
@@ -403,22 +410,11 @@ table tr:nth-of-type(even) {
   margin-top: 3rem;
   color: #f15959 !important;
 }
-.invoice-form h1,
-.invoice-form h2,
-.invoice-form h3,
-.invoice-form h4,
-.invoice-form h5,
-.invoice-form a {
-  color: #f15959;
-}
 #invoiceCreate .tabbed.list {
   color: #f15959 !important;
 }
-#invoiceCreate hr {
-  border-color: #D98E8E;
-}
-#invoiceCreate .list_header {
-  border-color: #D98E8E;
+.list_header > div {
+  color: #ffffff;
 }
 #invoiceList .tabbed.list {
   color: #ffffff;
@@ -435,7 +431,6 @@ table tr:nth-of-type(even) {
 .list_header {
   padding: .8rem 0px;
   margin: 0;
-  color: #f15959;
   border-top: 1px solid #f15959;
   border-bottom: 1px solid #f15959;
   text-transform: uppercase;
@@ -455,8 +450,8 @@ table tr:nth-of-type(even) {
   list-style: none;
   float: left;
 }
-.list_header li {
-  color: #fff;
+.light-bg .list_header div {
+  color: #f15959;
 }
 .tabbed.list {
   border-bottom: 1px solid #f15959;
@@ -475,14 +470,16 @@ table tr:nth-of-type(even) {
 .list_header div:last-child {
   border-bottom: none;
 }
-.light-bg,
+.light-bg {
+  background: #ffffff;
+  color: #f15959;
+}
+.invoice-form,
 .invoice-inner-wrap,
 .form-inner-wrap {
   padding: 3rem;
-  background: #ffffff;
   border-radius: 6px;
   -webkit-border-radius: 6px;
-  color: #f15959;
 }
 .edit-list-container li {
   height: 3.7rem;
@@ -600,7 +597,8 @@ input.button {
   padding: .5rem 3rem;
   color: #ffffff;
 }
-.button:hover {
+a.button:hover,
+input.button:hover {
   background: #4b011f;
   color: #ffffff;
 }
@@ -627,7 +625,6 @@ input[type="password"],
 textarea {
   box-shadow: none !important;
   -moz-box-shadow: none !important;
-  background-color: #fff;
   border: none;
   color: #f15959;
 }
@@ -639,8 +636,8 @@ input[type="text"]:hover {
 select:focus {
   outline: none;
 }
-.invoice-form select,
-.invoice-form input[type="text"],
+.light-bg select,
+.light-bg input[type="text"],
 input,
 input[type="password"],
 input[type="password"]:focus,
@@ -659,22 +656,22 @@ isindex {
   -o-transition: background 300ms ease-in-out;
   transition: background 300ms ease-in-out;
 }
-.invoice-form select:hover,
-.invoice-form select:focus,
-.invoice-form input[type="text"]:hover,
-.invoice-form input[type="text"]:focus,
+.light-bg select:hover,
+.light-bg select:focus,
+.light-bg input[type="text"]:hover,
+.light-bg input[type="text"]:focus,
 input:hover,
 input:focus,
-.invoice-form input[type="email"]:hover,
-.invoice-form input[type="email"]:focus,
-.invoice-form input[type="tel"]:hover,
-.invoice-form input[type="tel"]:focus,
+.light-bg input[type="email"]:hover,
+.light-bg input[type="email"]:focus,
+.light-bg input[type="tel"]:hover,
+.light-bg input[type="tel"]:focus,
 input[type="password"]:hover,
 input[type="password"]:focus,
 input[type="search"]:hover,
 input[type="search"]:focus,
-.invoice-form textarea:hover,
-.invoice-form textarea:focus,
+.light-bg textarea:hover,
+.light-bg textarea:focus,
 isindex:hover,
 isindex:focus {
   background-color: #E99090;
@@ -695,14 +692,6 @@ input:-webkit-autofill {
 }
 .reveal-modal {
   background: #ffffff;
-}
-.reveal-modal select,
-.reveal-modal input[type="text"] {
-  background: #fff;
-  padding-top: 4px !important;
-  padding-bottom: 4px !important;
-  height: 2rem;
-  margin: .5rem;
 }
 ::-webkit-input-placeholder {
   color: #9C6E81;
@@ -773,7 +762,6 @@ footer {
   .tabbed.items.list div {
     color: #ddd;
   }
-  .light-bg,
   .invoice-inner-wrap {
     padding: 2rem;
   }
@@ -825,6 +813,9 @@ footer {
   .info-block.last {
     border-bottom: none;
     padding-bottom: 1.5rem;
+  }
+  section.content {
+    padding: 3rem 0 1.5rem;
   }
   /*
      ** FORMS

@@ -87,9 +87,9 @@
 			
 				<?php echo validation_errors();?>
 				
-				<div id="invoiceCreate" class="invoice-wrap">
+				<div id="invoiceCreate" class="invoice-form light-bg">
 					
-						<div class="light-bg">
+						<div class="">
 							<div class="row invoice-info">
 								<div class="medium-5 small-centered large-uncentered columns invoice-info">
 										<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$logo.'" />'; endif ?>

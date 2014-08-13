@@ -53,7 +53,7 @@
 					<figure>
 						<svg height="75" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 61 75" enable-background="new 0 0 61 75" xml:space="preserve">
-						<path fill="#4B011F" d="M57,75H4c-2.2,0-4-1.8-4-4V4c0-2.2,1.8-4,4-4h53c2.2,0,4,1.8,4,4v67C61,73.2,59.2,75,57,75z M4,2
+						<path fill="#fff" d="M57,75H4c-2.2,0-4-1.8-4-4V4c0-2.2,1.8-4,4-4h53c2.2,0,4,1.8,4,4v67C61,73.2,59.2,75,57,75z M4,2
 							C2.9,2,2,2.9,2,4v67c0,1.1,0.9,2,2,2h53c1.1,0,2-0.9,2-2V4c0-1.1-0.9-2-2-2H4z M22.5,13.5h-15v2h15V13.5z M7.5,18.5h18v-2h-18V18.5z
 							 M23.5,10.5h-16v2h16V10.5z M7.5,7.5v2h18v-2H7.5z M9.9,42.5v-10h2.9c0.7,0,1.3,0.1,1.8,0.3c0.5,0.2,1,0.5,1.4,1
 							c0.4,0.4,0.7,0.9,0.9,1.5c0.2,0.6,0.3,1.2,0.3,2v0.5c0,0.7-0.1,1.4-0.3,2c-0.2,0.6-0.5,1.1-0.9,1.5c-0.4,0.4-0.9,0.7-1.4,1
@@ -80,7 +80,7 @@
 					<figure>
 						<svg height="75" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 76 76" enable-background="new 0 0 76 76" xml:space="preserve">
-						<path fill="#4B011F" d="M38,76C17,76,0,59,0,38S17,0,38,0s38,17,38,38S59,76,38,76z M38,3C18.7,3,3,18.7,3,38s15.7,35,35,35
+						<path fill="#fff" d="M38,76C17,76,0,59,0,38S17,0,38,0s38,17,38,38S59,76,38,76z M38,3C18.7,3,3,18.7,3,38s15.7,35,35,35
 							s35-15.7,35-35S57.3,3,38,3z M38.5,37.5v-28h-2v30h21v-2H38.5z M6,38.5v-1h5v1H6z M65,38.5v-1h5v1H65z M15,15.7l0.7-0.7l3.5,3.5
 							l-0.7,0.7L15,15.7z M56.7,57.4l0.7-0.7l3.5,3.5L60.3,61L56.7,57.4z M15.7,61L15,60.3l3.5-3.5l0.7,0.7L15.7,61z M57.4,19.3l-0.7-0.7
 							l3.5-3.5l0.7,0.7L57.4,19.3z M38.5,70h-1v-5h1V70z"/>
@@ -100,7 +100,7 @@
 					<figure>
 						<svg height="75" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 36 73" enable-background="new 0 0 36 73" xml:space="preserve">
-						<path fill-rule="evenodd" clip-rule="evenodd" fill="#4B011F" d="M25,65v8h-3v-8h-8v8h-3v-8H0v-3h11V39H0v-1v-2V12v-2V9h11V0h3v9h8
+						<path fill-rule="evenodd" clip-rule="evenodd" fill="#fff" d="M25,65v8h-3v-8h-8v8h-3v-8H0v-3h11V39H0v-1v-2V12v-2V9h11V0h3v9h8
 							V0h3v9h11v3H25v24h11v3v23v2v1H25z M11,12H3v24h8V12z M22,12h-8v24h8V12z M22,39h-8v23h8V39z M33,39h-8v23h8V39z"/>
 						</svg>
 					</figure>

@@ -1,9 +1,9 @@
-<section class="content purple top">
+<section class="content">
 	<div class="row">
 		
 		<div class="large-push-6 large-6 small-text-center large-text-left columns">
 			
-			<div class="svg-container">
+			<div id="invoice-view" class="svg-container">
 				<svg version="1.1" viewBox="0 0 460.3 284.7" class="svg-content">
 				<g>
 					<path fill="#FFFFFF" d="M15.3,14c2.4,0,4.4-2,4.4-4.4s-2-4.4-4.4-4.4s-4.4,2-4.4,4.4S12.8,14,15.3,14z M15.3,6.6
@@ -218,6 +218,7 @@
 			<p class="big-p light">The mobile-friendly billing service that helps you create professional looking invoices with neither muss, nor fuss.</p>
 			<a href="<?php echo base_url(); ?>index.php/auth/login" class="button round light">Sign Up Free</a>
 		</div>
+		<div class="small-12 columns pad-top"><hr class="light-bg" /></div>
 	</div>
 </section>
 <section class="content">
@@ -229,6 +230,7 @@
 			<h2>Why Use It?</h2>
 			<p class="big-p light">Ruby Invoice makes billing a snap, with a simple interface and tools to help streamline your experience, so you can get back to doing what you really love!</p>
 		</div>
+		<div class="small-12 columns pad-top"><hr class="light-bg"/></div>
 	</div>
 </section>
 <section class="content purple">

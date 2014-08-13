@@ -77,6 +77,9 @@ svg {
 .row {
 	max-width: 68rem;
 }
+.pad-top {
+	padding-top: 2rem;
+}
 .big-p{
 	font-family: 'robotolight', Helvetica, Arial, sans-serif;
 	font-size: 1.5rem;
@@ -226,13 +229,22 @@ a {
 	color: @body-color;
 }
 a:hover, a:focus {
-	color: @brand-color;
+	color: @dark-color;
 }
 .light {
 	color: @body-color;
 }
+.light-bg a {
+	color: @brand-color;
+}
+.light-bg a:hover {
+	color: @dark-color;
+}
+hr.light-bg {
+	border-bottom: 1px solid #fff;
+}
 section.content {
-	padding: 5rem 0 2rem;
+	padding: 4rem 0 2rem;
 }
 section.content.top {
 	padding: 10rem 0 2rem;
@@ -253,13 +265,18 @@ section.white {
 .content.purple:last-child .row {
 	border-bottom: none;
 }
+#invoice-view {
+	margin-bottom: 1rem;
+}
+
+
 
 .dashboard {
 	margin-bottom: 1rem;
 	padding: 1rem 0;
 }
 .dashb-item {
-	border-bottom: 1px solid @pale-red;
+	border-bottom: 1px solid @body-color;
 	padding-bottom: 2rem;
 	margin-bottom: 1.5rem;
 }
@@ -269,7 +286,6 @@ section.white {
 h3.top-rule {
 	font-size: 1.5rem;
 	text-transform: uppercase;
-	color: @dark-color;
 	border-top: 1px solid @brand-color;
 	padding-top: 1rem;
 }
@@ -283,19 +299,17 @@ h5 {
 	font-size: .7rem;
 	font-family: "robotomedium";
 }
-h5.ruled {
-	color: @dark-color;
-}
+
 .light-bg h1, .light-bg h2, .light-bg h3, .light-bg h4, .light-bg h5, .light-bg h5.ruled {
 	color: @brand-color;
 }
 .ruled {
-	border-top: 1px solid @pale-red;
-	border-bottom: 1px solid @pale-red;
+	border-top: 1px solid @body-color;
+	border-bottom: 1px solid @body-color;
 }
 .light-bg .ruled {
-	border-top: 1px solid #D98E8E;
-	border-bottom: 1px solid #D98E8E;
+	border-top: 1px solid @brand-color;
+	border-bottom: 1px solid @brand-color;
 }
 .ruled.sans-top {
 	border-top: none;
@@ -323,14 +337,14 @@ hr {
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: "robotoregular", Helvetica, Arial, sans-serif;
-	color: @dark-color;
+	color: @body-color;
 }
 h1, h2 {
 	font-family: "robotolight", Helvetica, Arial, sans-serif;
 	text-transform: uppercase;
 }
 h1, h2 {
-	color: @body-color;
+	
 }
 ul {
 	margin: 0;
@@ -406,18 +420,15 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	margin-top: 3rem;
 	color: @brand-color !important;
 }
-.invoice-form h1, .invoice-form h2, .invoice-form h3, .invoice-form h4, .invoice-form h5, .invoice-form a {
-	color: @brand-color;
-}
+
 #invoiceCreate .tabbed.list {
 	color: @brand-color !important;
 	//border-bottom: 1px solid #D98E8E;
 }
-#invoiceCreate hr {
-	border-color: #D98E8E;
-}
-#invoiceCreate .list_header {
-	border-color: #D98E8E;
+
+
+.list_header > div{
+	color: @body-color;
 }
 #invoiceList .tabbed.list {
 	color: @body-color;
@@ -433,14 +444,15 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 .list_header {
 	padding: .8rem 0px;
 	margin: 0;
-	color: @brand-color;
 	border-top: 1px solid @brand-color;
 	border-bottom: 1px solid @brand-color;
 	text-transform: uppercase;
 	font-size: .8rem;
 	font-family: "robotomedium";
 }
-
+.light-bg .list_header {
+	
+}
 .tabbed.list {
 	margin-bottom: 0px;
 	padding: 10px 0;
@@ -453,8 +465,9 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 	list-style: none;
 	float: left;
 }
-.list_header li {
-	color: #fff;
+
+.light-bg .list_header div {
+	color: @brand-color;
 }
 .tabbed.list {
 	border-bottom: 1px solid @brand-color;
@@ -471,12 +484,14 @@ table tr.even, table tr.alt, table tr:nth-of-type(even) {
 .tabbed.list div:last-child, .tabbed.items.list div:last-child, .list_header div:last-child {
 	border-bottom: none;
 }
-.light-bg, .invoice-inner-wrap, .form-inner-wrap {
-	padding: 3rem;
+.light-bg {
 	background: @paper-color;
+	color: @brand-color;
+}
+.invoice-form, .invoice-inner-wrap, .form-inner-wrap {
+	padding: 3rem;
 	border-radius: 6px;
 	-webkit-border-radius: 6px;
-	color: @brand-color;
 }
 .edit-list-container {
 }
@@ -599,7 +614,7 @@ a.button, input.button {
 	padding: .5rem 3rem;
 	color: @body-color;
 }
-.button:hover {
+a.button:hover, input.button:hover {
 	background: @dark-color;
 	color: @body-color;
 }
@@ -621,7 +636,7 @@ a.button, input.button {
 select, input[type="text"], input[type="email"], input[type="tel"], input[type="password"], textarea {
 	box-shadow: none !important;
 	-moz-box-shadow: none !important;
-	background-color: #fff;
+	//background-color: #fff;
 	border: none;
 	color: @brand-color;
 }
@@ -632,7 +647,7 @@ select:hover, input[type="text"]:hover {
 select:focus {
 	outline:none;
 }
-.invoice-form select, .invoice-form input[type="text"], input, input[type="password"], input[type="password"]:focus, input[type="email"], input[type="tel"], input[type="search"], .invoice-form textarea, isindex {
+.light-bg select, .light-bg input[type="text"], input, input[type="password"], input[type="password"]:focus, input[type="email"], input[type="tel"], input[type="search"], .invoice-form textarea, isindex {
 	background-color: @brand-color;
 	box-shadow: none !important;
 	-moz-box-shadow: none !important;
@@ -643,7 +658,7 @@ select:focus {
 	-o-transition: background 300ms ease-in-out;
 	transition: background 300ms ease-in-out;
 }
-.invoice-form select:hover, .invoice-form select:focus, .invoice-form input[type="text"]:hover, .invoice-form input[type="text"]:focus, input:hover, input:focus, .invoice-form input[type="email"]:hover, .invoice-form input[type="email"]:focus, .invoice-form input[type="tel"]:hover, .invoice-form input[type="tel"]:focus, input[type="password"]:hover, input[type="password"]:focus, input[type="search"]:hover, input[type="search"]:focus, .invoice-form textarea:hover, .invoice-form textarea:focus, isindex:hover, isindex:focus {
+.light-bg select:hover, .light-bg select:focus, .light-bg input[type="text"]:hover, .light-bg input[type="text"]:focus, input:hover, input:focus, .light-bg input[type="email"]:hover, .light-bg input[type="email"]:focus, .light-bg input[type="tel"]:hover, .light-bg input[type="tel"]:focus, input[type="password"]:hover, input[type="password"]:focus, input[type="search"]:hover, input[type="search"]:focus, .light-bg textarea:hover, .light-bg textarea:focus, isindex:hover, isindex:focus {
 	background-color: #E99090;
 	box-shadow: none;
 	-moz-box-shadow: none;
@@ -663,11 +678,8 @@ input[type="file"] {
 	background: @body-color;
 }
 .reveal-modal select, .reveal-modal input[type="text"] {
-	background: #fff;
-	padding-top: 4px !important;
-	padding-bottom: 4px !important;
-	height: 2rem;
-	margin: .5rem;
+	//background: #fff;
+
 }
 ::-webkit-input-placeholder {
    color: #9C6E81;
@@ -753,7 +765,7 @@ footer {
      .tabbed.items.list div {
      	color: #ddd;
      }
-     .light-bg, .invoice-inner-wrap {
+     .invoice-inner-wrap {
      	padding: 2rem;
      }
      .list_header {
@@ -806,6 +818,11 @@ footer {
      	border-bottom: none;
      	padding-bottom: 1.5rem;
      }
+     
+     section.content {
+     	padding: 3rem 0 1.5rem;
+     }
+     
      
      /*
      ** FORMS
