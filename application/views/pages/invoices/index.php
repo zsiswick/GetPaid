@@ -1,10 +1,7 @@
 <?php 
 	setlocale(LC_MONETARY, 'en_US'); 
+	//print("<pre>".print_r($invoices,true)."</pre>");
 ?>
-
-
-
-
 
 <?php
 	if ($invoices) { ?>
@@ -17,7 +14,7 @@
 	 		</div>
 	 		<div class="row">
 	 			<div class="medium-3 medium-centered columns">
- 					<div class="svg-container">
+ 					<div id="plus-button" class="svg-container">
  						<a href="<?php echo base_url(); ?>index.php/invoices/create" class="plus-button">
 	 						<svg version="1.1" viewBox="0 0 100 100" class="svg-content">
 	 						<path fill-rule="evenodd" clip-rule="evenodd" fill="#fff" d="M50,0C22.4,0,0,22.4,0,50s22.4,50,50,50s50-22.4,50-50S77.6,0,50,0
@@ -99,11 +96,13 @@
 		 						
 		 						<?php 
 			 						if ($invoice_item['status'] == 4) { // Invoice Due
+			 						
 			 							echo('<span class="round alert label">'.$status_flags[$invoice_item['status']].'</span>');
+			 						
 			 						}	else if ($invoice_item['status'] == 3) {?> 
 			 						
 				 						<div class="progress round">
-				 							<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?> Paid"><?php echo($status_flags[$invoice_item['status']]);?></span>
+				 							<span class="progress-label"><?php echo($status_flags[$invoice_item['status']]);?></span>
 				 						  <span class="meter complete" style="width:<?php echo(round($percent).'%');?>"></span>
 				 						</div>
 			 						<?php
@@ -111,7 +110,7 @@
 			 							echo('<span class="round secondary label">'.$status_flags[$invoice_item['status']].'</span>');
 			 						} else if ($invoice_item['status'] == 1) { ?>
 			 								<div class="progress round">
-			 									<span class="progress-label has-tip" data-tooltip title="<?php echo(money_format('%.2n', $sum));?> Paid"><?php echo($status_flags[$invoice_item['status']]);?></span>
+			 									<span class="progress-label"><?php echo($status_flags[$invoice_item['status']]);?></span>
 			 								  <span class="meter complete" style="width: 0%;"></span>
 			 								</div>
 			 						<?php }  

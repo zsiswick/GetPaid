@@ -17,13 +17,17 @@
 					}
 				?>
 				<?php echo validation_errors(); ?>
-				<?php echo form_open_multipart('settings') ?>
+				<?php 
+					$attributes = array('data-abide'=>'');
+					echo form_open_multipart('settings', $attributes); 
+				?>
 					
 					
 					<div class="row">
 						<div class="small-6 columns">
 							<label for="companyName">Company Name</label>
-							<input type="text" name="company_name" value="<?php echo($settings[0]['company_name']) ?>" />
+							<input type="text" name="company_name" value="<?php echo($settings[0]['company_name']) ?>" required />
+							<small class="error">Company Name is required.</small>
 						</div>
 						<div class="small-6 columns">
 							<?php 
@@ -45,11 +49,13 @@
 					<div class="row">
 						<div class="small-6 columns">
 							<label for="fullname">Full Name</label>
-							<input type="text" name="full_name" value="<?php echo($settings[0]['full_name']) ?>" />
+							<input type="text" name="full_name" value="<?php echo($settings[0]['full_name']) ?>" required />
+							<small class="error">Full Name is required.</small>
 						</div>
 						<div class="small-6 columns">
 							<label for="email">Email</label>
-							<input type="email" name="email" value="<?php echo $settings[0]['email'] ?>" />
+							<input type="email" name="email" value="<?php echo $settings[0]['email'] ?>" required />
+							<small class="error">Email is required.</small>
 						</div>
 					</div>
 					

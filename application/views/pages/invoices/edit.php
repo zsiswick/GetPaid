@@ -33,7 +33,7 @@
 	<div class="large-12 columns">
 		
 		<?php 
-			$attributes = array('class' => 'invoice-form light-bg');
+			$attributes = array('class' => 'invoice-form light-bg', 'data-abide'=>'');
 			$hidden = array('iid' => $item[0]['iid'], 'new_client' => 0);
 			echo form_open('invoices/edit/'.$item[0]['iid'], $attributes, $hidden);
 			
@@ -171,7 +171,8 @@
 									<div class="info-block">
 									<div class="row">
 										<div class="small-12 columns">
-											<input type="text" id="send-date" name="send-date" data-value="<?php echo($date) ?>" />
+											<input type="text" id="send-date" name="send-date" data-value="<?php echo($date) ?>" required />
+											<small class="error">Creation date is required.</small>
 										</div>
 									</div>
 									
@@ -184,7 +185,8 @@
 									<div class="info-block last">
 										<div class="row">
 											<div class="small-12 columns">
-												<input type="text" id="due-date" name="due-date" data-value="<?php echo($due_date) ?>" />
+												<input type="text" id="due-date" name="due-date" data-value="<?php echo($due_date) ?>" required />
+												<small class="error">Due date is required.</small>
 											</div>
 										</div>
 									</div>
@@ -230,6 +232,7 @@
 								<div class="row">
 									<div class="qty small-12 medium-2 columns">
 										<input type="hidden" name="item_id[]" value="<?php echo $invoice_item['id'] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $invoice_item['quantity'] ?>" />
+										<small class="error">Quantity is required.</small>
 									</div>
 									<div class="description small-12 medium-5 columns">
 										<input type="text" name="description[]" value="<?php echo $invoice_item['description'] ?>" />

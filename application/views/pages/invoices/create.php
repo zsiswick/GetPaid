@@ -2,7 +2,7 @@
 	<div class="large-12 columns">
 		<h1 class="text-center">New Invoice</h1>
 		<?php 
-			$attributes = array('class' => 'invoice-form light-bg', 'id' => 'createForm');
+			$attributes = array('class' => 'invoice-form light-bg', 'id' => 'createForm', 'data-abide'=>'');
 			echo form_open('invoices/create', $attributes); 
 		?>
 		<div id="invoiceCreate" class="invoice-list-wrap">
@@ -21,7 +21,7 @@
 						</div>
 						<div class="medium-7 columns">
 							<div class="row">
-								<div class="large-12 columns text-right">
+								<div class="large-12 columns text-right small-only-text-left">
 									<h4 class="caps">Draft Invoice</h4>
 								</div>
 								<div class="medium-6 columns">
@@ -120,7 +120,8 @@
 										<div class="info-block">
 											<div class="row">
 											<div class="small-12 columns">
-												<input type="text" id="send-date" name="send-date" data-value="<?php echo( date('Y-m-d')); ?>" />
+												<input type="text" id="send-date" name="send-date" data-value="<?php echo( date('Y-m-d')); ?>" required />
+												<small class="error">Creation date is required.</small>
 											</div>	
 											</div>	
 										</div>
@@ -132,7 +133,8 @@
 										<div class="info-block last">
 											<div class="row">
 												<div class="small-12 columns">
-													<input type="text" id="due-date" name="due-date" value=""/>
+													<input type="text" id="due-date" name="due-date" value="" required />
+													<small class="error">Due date is required.</small>
 												</div>
 											</div>
 										</div>	
@@ -167,13 +169,13 @@
 						<div class="tabbed list no-rules">
 							<div class="row">
 								<div class="qty small-12 medium-2 columns">
-									<input class="qty sum" type="text" name="qty[]" value="<?php echo set_value('qty[]'); ?>"/>
+									<input class="qty sum" type="text" name="qty[]" value="<?php echo set_value('qty[]'); ?>" placeholder="1.5"/>
 								</div>
 								<div class="description small-12 medium-5 columns">
-									<input type="text" name="description[]" value="<?php echo set_value('description[]'); ?>"/>
+									<input type="text" name="description[]" value="<?php echo set_value('description[]'); ?>" placeholder="Client Meeting"/>
 								</div>
 								<div class="price small-12 medium-2 columns">
-									<input class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>"/>
+									<input class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>" placeholder="65"/>
 								</div>
 								<div class="totalSum small-12 medium-2 large-only-text-right columns" >
 									$0.00

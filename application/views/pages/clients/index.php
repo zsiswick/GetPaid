@@ -10,8 +10,8 @@
 		
 		
 		<div class="row">
-			<div class="medium-3 medium-centered columns">
-				<div class="svg-container">
+			<div class="medium-3 medium-centered text-center columns">
+				<div id="plus-button" class="svg-container">
 					<a href="<?php echo base_url(); ?>index.php/clients/create" class="plus-button">
 						<svg version="1.1" viewBox="0 0 100 100" class="svg-content">
 						<path fill-rule="evenodd" clip-rule="evenodd" fill="#fff" d="M50,0C22.4,0,0,22.4,0,50s22.4,50,50,50s50-22.4,50-50S77.6,0,50,0

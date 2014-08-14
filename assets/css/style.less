@@ -360,8 +360,6 @@ li {
 	margin: 0;
 	list-style: none;
 }
-
-
 a.branding {
 	height: 50px;
 	width: 50px;
@@ -369,6 +367,10 @@ a.branding {
 }
 a.branding:hover {
 	background: transparent;
+}
+#plus-button {
+	max-width: 100px;
+	padding-bottom: 35%;
 }
 .plus-button path {
 	-webkit-transition: fill 400ms ease;
@@ -679,18 +681,14 @@ input[readonly="readonly"], input[readonly] {
 input[type="file"] {
 	background: none;
 }
-/* all */
-::-webkit-input-placeholder { color:@pale-red; }
-::-moz-placeholder { color:@pale-red; } /* firefox 19+ */
-:-ms-input-placeholder { color:@pale-red; } /* ie */
-input:-moz-placeholder { color:@pale-red; }
+
 
 input::-webkit-input-placeholder{
-    color:@pale-red;
+    color:#a43a3a;
     font-style: italic;
 }
 input:-moz-placeholder {
-    color:@pale-red;
+    color:#a43a3a;
     font-style: italic;
 }
 .reveal-modal {
@@ -699,20 +697,10 @@ input:-moz-placeholder {
 #login, #password {
 	background: @brand-color !important;
 }
-::-webkit-input-placeholder {
-   color: #9C6E81;
-}
 
-:-moz-placeholder { /* Firefox 18- */
-   color: #9C6E81;  
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   color: #9C6E81;  
-}
 
 :-ms-input-placeholder, ::-moz-placeholder, :-moz-placeholder, ::-webkit-input-placeholder  {  
-   color: #9C6E81;  
+   color: #a43a3a;  
 }
 input:-webkit-autofill {
     color: #fff !important;
@@ -727,16 +715,26 @@ div.switch label::after {
 	background: @body-color;
 }
 
+[data-abide] .error small.error, [data-abide] .error span.error, [data-abide] span.error, [data-abide] small.error {
+	background: transparent;
+	color: @dark-color;
+}
+
 /*
 ** FOOTER
 */
 
 footer {
-	margin-top: 0rem;
+	margin-top: 4rem;
+	font-size: .8rem;
 }
 
 footer > div {
 	color: @body-color;
+}
+#lil-ruby{
+	width: 30px;
+	padding-bottom: 15%;
 }
 
 @media only screen and (min-width: 768px) {
@@ -785,7 +783,7 @@ footer > div {
      .tabbed.items.list div {
      	color: #ddd;
      }
-     .invoice-inner-wrap {
+     .invoice-inner-wrap, .invoice-form, .form-inner-wrap {
      	padding: 2rem;
      }
      .list_header {
@@ -833,6 +831,10 @@ footer > div {
      	border-bottom: none;
      	padding-bottom: 0rem;
      	margin-bottom: 1rem;
+     }
+     .dashb-item.last {
+     	border-bottom: 1px solid @body-color;
+     	padding-bottom: .5rem;
      }
      .info-block.last {
      	border-bottom: none;

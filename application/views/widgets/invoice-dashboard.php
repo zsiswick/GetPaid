@@ -75,7 +75,7 @@
 		
 		<div class="columns medium-4 text-center large-text-left">
 			<div class="dashb-item clearfix">
-				<h5 class="ruled caps">Invoices Overdue</h5>
+				<h5 class="ruled caps">Invoices Due</h5>
 				<div class="small-12 large-4 columns">
 					<figure>
 						<svg height="75" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -94,7 +94,7 @@
 		</div>
 		
 		<div class="columns medium-4 text-center large-text-left">
-			<div class="dashb-item clearfix">
+			<div class="dashb-item clearfix last">
 				<h5 class="ruled caps">Invoices Paid</h5>
 				<div class="small-12 large-4 columns">
 					<figure>
