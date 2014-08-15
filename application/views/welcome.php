@@ -24,7 +24,7 @@
 		</div>
 		<div class="columns large-6 small-text-center large-text-left">
 			<h2>Who it's For</h2>
-			<p class="big-p light">Ruby Invoice was created for freelance artists, designers, UXers and the like. Heck, it was even created by a freelance designer, so if you are looking to save time on invoicing, and have an appreciation for simple-to-use software, Ruby Invoice is here to help.</p>
+			<p class="big-p light">Ruby Invoice was created for freelance artists, designers, UXers and the like. Heck, it was even made by a freelance designer, so if you want to save time on invoicing, and have an appreciation for simple-to-use software, Ruby Invoice is here to help.</p>
 		</div>
 		<div class="small-12 columns pad-top"><hr class="light-bg"/></div>
 	</div>

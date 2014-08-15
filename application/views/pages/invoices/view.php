@@ -98,7 +98,7 @@
 								<div class="large-7 small-centered large-uncentered columns">
 									<div class="row">
 									
-										<div class="large-12 columns text-right small-only-text-center">
+										<div class="large-12 columns text-right small-only-text-left">
 											<h4 class="caps">Invoice <?php echo($status_flags[$item[0]['status']]);?></h4>
 										</div>
 										

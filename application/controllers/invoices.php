@@ -65,11 +65,11 @@ class Invoices extends CI_Controller {
 	
 	public function create(){
 		
+		$uid = $this->tank_auth_my->get_user_id();
+		$data['settings'] = $this->invoice_model->get_invoice_settings($uid);
 		$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
 		$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
 		$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
-		$uid = $this->tank_auth_my->get_user_id();
-		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['title'] = 'Create an invoice';
 		$this->form_validation->set_rules('client', 'Client', 'required|xss_clean');
 		$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
@@ -78,6 +78,8 @@ class Invoices extends CI_Controller {
 		$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
 		$this->form_validation->set_message('due-date', 'Please enter a due date', 'valid_date');
 		$this->form_validation->set_message('send-date', 'Please enter a creation date', 'valid_date');
+		
+		//print("<pre>".print_r($data['settings'],true)."</pre>");
 		
 		// CHECK THE FORM TO SEE IF SUBMITTED VIA AJAX
 		if($this->input->is_ajax_request()){

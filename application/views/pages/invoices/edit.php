@@ -54,7 +54,7 @@
 					<div class="large-7 small-centered large-uncentered columns">
 						<div class="row">
 						
-							<div class="large-12 columns text-right small-only-text-center">
+							<div class="large-12 columns text-right small-only-text-left">
 								<h4 class="caps">Invoice <?php echo($status_flags[$item[0]['status']]);?></h4>
 							</div>
 							
@@ -153,7 +153,6 @@
 							</div>		
 							
 							<div class="medium-6 columns">
-								
 									<h5 class="caps ruled on-paper">
 											Invoice Num
 									</h5>
@@ -163,8 +162,6 @@
 										<div class="small-8 columns"><input type="text" name="invoice_num" placeholder="Invoice Number" value="<?php echo($inv_num); ?>"/></div>
 									</div>
 								</div>
-								
-								
 									<h5 class="caps ruled on-paper">
 											Creation Date
 									</h5>
@@ -175,12 +172,9 @@
 											<small class="error">Creation date is required.</small>
 										</div>
 									</div>
-									
 								</div>
-								
-								
 									<h5 class="caps ruled on-paper">
-											Due Date
+										Due Date
 									</h5>
 									<div class="info-block last">
 										<div class="row">
@@ -191,11 +185,7 @@
 										</div>
 									</div>
 							</div>
-							
-							
 						</div>
-						
-						
 					</div>
 				</div>
 				<h3 class="small-only-text-center top-rule">Invoice Items</h3>

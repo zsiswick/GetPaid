@@ -13,9 +13,9 @@
 							<div class="row">
 								<div class="large-12 columns">
 									<div class="customer-logo">
-										
+										<?php if(!empty($settings[0]['logo'])): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$settings[0]['logo'].'" />'; endif ?>
 									</div>
-									<h3>Zachary Siswick (DBA - Chromaloop)</h3>	
+									<h3><?php if(!empty($settings[0]['company_name'])): echo '<h3>'.$settings[0]['company_name'].'<h3/>'; endif ?></h3>	
 								</div>
 							</div>
 						</div>
@@ -32,14 +32,14 @@
 											<div class="info-block">	
 										
 												<?php 
-													if ($clients) {
+													if ($settings) {
 														// Map select option values to the list of clients available
 														$clientList = array_map(function ($ar) {
 															return $ar['company'];
-														}, $clients);
+														}, $settings);
 														$clientID = array_map(function ($ar) {
 															return $ar['id'];
-														}, $clients);
+														}, $settings);
 														$clientList = array_combine($clientID, $clientList);
 														$clientList['add_new_client'] = 'Add New Client';
 														echo form_dropdown('client', $clientList, 1);
@@ -57,7 +57,7 @@
 												<script type="text/javascript">
 											    $(document).ready(function() {
 											    
-											    	var client_data = <?php echo json_encode($clients); ?>;
+											    	var client_data = <?php echo json_encode($settings); ?>;
 											    	var client_val = $('[name="client"]').val();
 											    	var count = 0;
 												    
@@ -133,7 +133,7 @@
 										<div class="info-block last">
 											<div class="row">
 												<div class="small-12 columns">
-													<input type="text" id="due-date" name="due-date" value="" required />
+													<input type="text" id="due-date" name="due-date" value="<?php echo( date('d F, Y', strtotime(date('Y-m-d'). ' + '.$settings[0]['due'].' days'))); ?>" required />
 													<small class="error">Due date is required.</small>
 												</div>
 											</div>
