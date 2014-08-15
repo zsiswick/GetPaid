@@ -10,28 +10,14 @@ class Invoice_model extends CI_Model {
 	public function get_invoice_settings($uid) 
 	{
 		
-		$this->db->select("*", false);
-		$this->db->from('client');
-		$this->db->join('settings', 'settings.uid = client.uid', 'left');
-		$this->db->where('client.uid', $uid);
+		$this->db->select("cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes, settings.due, settings.logo, settings.company_name", false);
+		$this->db->from('client cl');
+		$this->db->join('settings', 'settings.uid = cl.uid', 'left');
+		$this->db->where('cl.uid', $uid);
 		$query = $this->db->get();
 		
 		return $query->result_array();
 		
-	}
-	
-	public function get_clients($client = FALSE, $uid)
-	{
-		if ($client === FALSE)
-		{
-			$query = $this->db->get_where('client', array('uid' => $uid));
-			return $query->result_array();
-		}
-	
-		$query = $this->db->get_where('common', array('client' => $client));
-		
-		return $query->result_array();
-			
 	}
 	
 	public function get_invoices($id)

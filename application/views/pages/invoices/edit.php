@@ -143,9 +143,6 @@
 											    today: 'today',
 											    clear: 'Clear selection'
 											});
-											
-											
-											
 										});
 									</script>
 									
