@@ -62,7 +62,7 @@
 														Invoice Num
 												</h5>
 												<div class="info-block">	
-													<?php echo($inv_num); ?>
+													<?php if(!empty($item[0]['prefix'])): echo $item[0]['prefix'].'-'; endif ?><?php echo($item[0]['inv_num']) ?>
 												</div>
 												
 												<h5 class="caps ruled on-paper">
