@@ -693,9 +693,6 @@ input:-moz-placeholder {
   color: #a43a3a;
   font-style: italic;
 }
-.reveal-modal {
-  background: #ffffff;
-}
 #login,
 #password {
   background: #f15959 !important;
