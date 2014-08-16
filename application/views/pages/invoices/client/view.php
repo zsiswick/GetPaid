@@ -31,7 +31,7 @@
 					
 					
 					
-						<div class="invoice-inner-wrap">
+						<div class="invoice-form light-bg">
 								<div class="row invoice-info">
 									<div class="medium-5 small-centered large-uncentered columns invoice-info">
 											<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$item[0]['uid']."/".$logo.'" />'; endif ?>

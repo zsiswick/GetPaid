@@ -69,7 +69,7 @@ class Invoice_model extends CI_Model {
 		    	if ($query4->num_rows() > 0) 
 		    	{
 		    		// the query returned results
-		    		$this->db->select('cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
+		    		$this->db->select('cl.id, cl.uid, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes', false);
 		    		$this->db->where('cl.id', $common[0]['cid']);
 		    		$this->db->from('client cl');
 		    		$query5 = $this->db->get();
@@ -333,7 +333,7 @@ class Invoice_model extends CI_Model {
 		return $query->result_array();
 	}
 	
-	public function get_invoice_num($cid) { // Retrieves an invoice number stored for each client and increments it for the next invoice
+	public function get_invoice_num($cid) { // Retrieves an invoice number stored for a client
 		$this->db->select('inv_num', false);
 		$this->db->where('i.cid', $cid);
 		$this->db->limit(1);
@@ -343,7 +343,7 @@ class Invoice_model extends CI_Model {
 		return $query->result_array();
 	}
 	
-	public function get_set_invoice_num($cid) { // Retrieves an invoice number stored for each client and increments it for the next invoice
+	public function get_set_invoice_num($cid) { // Retrieves an invoice number stored for a client and increments it for the next invoice
 		$this->db->select('inv_num', false);
 		$this->db->where('i.cid', $cid);
 		$this->db->limit(1);
@@ -358,9 +358,18 @@ class Invoice_model extends CI_Model {
 			$this->db->where('cid', $cid);
 			$this->db->limit(1);
 			$this->db->update('invoice_nums', $data['num'][0]);
+			
+			return $query->result_array();
+			
+		} else {
+			$data = array(
+				'cid' => $cid,
+				'inv_num' => 1
+			);
+			$this->db->insert('invoice_nums', $data);
 		}
 		
-		return $query->result_array();
+		return 1;
 	}
 	
 	public function get_set_invoice_status($id) 
