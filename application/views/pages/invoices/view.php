@@ -120,20 +120,20 @@
 													Invoice Num
 											</h5>
 											<div class="info-block ">	
-												<?php echo($inv_num); ?>
+												<?php if(!empty($item[0]['prefix'])): echo $item[0]['prefix'].'-'; endif ?><?php echo($item[0]['inv_num']) ?>
 											</div>
 											
-											<h5 class="caps ruled ">
+											<h5 class="caps ruled">
 													Creation Date
 											</h5>
-											<div class="info-block ">	
+											<div class="info-block">	
 												<?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?>
 											</div>
 											
-												<h5 class="caps ruled ">
+												<h5 class="caps ruled">
 														Due Date
 												</h5>
-												<div class="info-block  last">
+												<div class="info-block last">
 													<?php
 														
 														$today = new DateTime(date('Ymd'));
