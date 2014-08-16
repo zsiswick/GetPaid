@@ -1,7 +1,7 @@
-<div class="row">
+<div class="row light-bg">
 	<div class="small-12 columns">
-		<h4 class="text-center">The invoice will be sent to:</h4>
-		<h5 class="text-center"><?php echo($item['client'][0]['contact']);?> (<?php echo($item['client'][0]['email'])?>)</h5>
+		<h3 class="text-center">The invoice will be sent to:</h3>
+		<p class="text-center"><?php echo($item['client'][0]['contact']);?> (<?php echo($item['client'][0]['email'])?>)</p>
 		<?php
 			$hidden = array('client_email' => $item['client'][0]['email']);
 			$attributes = array('class' => 'invoice-form', 'id' => 'sendInvoiceEmail');
@@ -26,7 +26,7 @@ Best regards,&#013;
 	 </textarea>
 	 <div class="row">
 	 	<div class="small-12 columns text-center">
-	 		<input type="submit" name="submit" value="Send Invoice" class="button small round"/>	
+	 		<input type="submit" name="submit" value="Send Invoice" class="button round"/>	
 	 	</div>
 	 </div>
 	 
