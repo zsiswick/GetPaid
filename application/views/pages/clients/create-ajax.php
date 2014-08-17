@@ -47,6 +47,9 @@
 				<div class="medium-6 columns">
 					<input type="text" name="default_inv_prefix" placeholder="Invoice Prefix"/>
 				</div>
+				<div class="medium-12 columns">
+					<textarea name="notes" id="" cols="30" rows="10" placeholder="Notes"></textarea>
+				</div>
 			</div>
 		</div>
 		<div class="row">

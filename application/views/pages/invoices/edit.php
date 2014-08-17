@@ -271,11 +271,11 @@
 </div>
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
-		<div id="editModal" class="reveal-modal small" data-reveal>
+		<div id="editModal" class="reveal-modal small light-bg" data-reveal>
 			<div class="row">
 				<div class="small-10 columns text-center small-centered">
 					<h3>Blimey!</h3>
-					<h5>Are you sure you want to delete this invoice?</h5>
+					<p>Are you sure you want to delete this invoice?</p>
 					<hr />
 					<a id="cancelDeleteBtn" href="#" class="button round secondary">No Thanks</a>
 					<?php echo anchor('invoices/delete_invoice/'.$item[0]['iid'], 'Delete It', 'class="button round"', 'id="delete-'.$item[0]['iid'].'"'); ?>

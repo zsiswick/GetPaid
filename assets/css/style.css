@@ -641,7 +641,7 @@ input[type="password"]:focus,
 input[type="email"],
 input[type="tel"],
 input[type="search"],
-.invoice-form textarea,
+.light-bg textarea,
 isindex {
   background-color: #f15959;
   box-shadow: none !important;

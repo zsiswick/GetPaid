@@ -14,6 +14,8 @@ class Tank_auth_my extends Tank_auth {
     {
 			//Run parent constructor to setup everything normally
 			parent::__construct();
+			
+			$this->ci->load->model('client_model');
 		
 		}
     /**
@@ -88,6 +90,8 @@ class Tank_auth_my extends Tank_auth {
     				$data['password'] = $password;
     				
     				$this->ci->users->update_profile_info($data['email'], $company, $data['user_id']);
+    				
+    				$this->ci->client_model->set_sample_client($data['user_id']);
     				
     				unset($data['last_ip']);
     				return $data;
