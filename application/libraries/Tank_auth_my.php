@@ -47,6 +47,55 @@ class Tank_auth_my extends Tank_auth {
     			return $loggedIn;
     }
     
+    /**
+    	 * Create new user on the site and return some data about it:
+    	 * user_id, username, password, email, new_email_key (if any).
+    	 *
+    	 * @param	string
+    	 * @param	string
+    	 * @param	string
+    	 * @param	bool
+    	 * @return	array
+    	 */
+    	function create_user($username, $email, $password, $email_activation, $company)
+    	{
+    		if ((strlen($username) > 0) AND !$this->ci->users->is_username_available($username)) {
+    			$this->error = array('username' => 'auth_username_in_use');
+    
+    		} elseif (!$this->ci->users->is_email_available($email)) {
+    			$this->error = array('email' => 'auth_email_in_use');
+    
+    		} else {
+    			// Hash password using phpass
+    			$hasher = new PasswordHash(
+    					$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
+    					$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
+    			$hashed_password = $hasher->HashPassword($password);
+    
+    			$data = array(
+    				'username'	=> $username,
+    				'password'	=> $hashed_password,
+    				'email'		=> $email,
+    				'last_ip'	=> $this->ci->input->ip_address(),
+    			);
+    
+    			if ($email_activation) {
+    				$data['new_email_key'] = md5(rand().microtime());
+    			}
+    			if (!is_null($res = $this->ci->users->create_user($data, !$email_activation))) {
+    			
+    				$data['user_id'] = $res['user_id'];
+    				$data['password'] = $password;
+    				
+    				$this->ci->users->update_profile_info($data['email'], $company, $data['user_id']);
+    				
+    				unset($data['last_ip']);
+    				return $data;
+    			}
+    		}
+    		return NULL;
+    	}
+    
     function get_email()
     {
     	return $this->ci->session->userdata('email');

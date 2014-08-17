@@ -8,6 +8,13 @@ if ($use_username) {
 		'size'	=> 30,
 	);
 }
+$company = array(
+	'name'	=> 'company',
+	'id'	=> 'company',
+	'value'	=> set_value('company'),
+	'maxlength'	=> 40,
+	'size'	=> 30,
+);
 $email = array(
 	'name'	=> 'email',
 	'id'	=> 'email',
@@ -50,6 +57,13 @@ $captcha = array(
 							</div>	
 						</div>
 						<?php } ?>
+						<div class="row">
+							<div class="large-12 small-centered columns">
+								<?php echo form_label('Company Name', $company['id']); ?>
+								<?php echo form_input($company); ?>
+								<?php echo form_error($company['name']); ?><?php echo isset($errors[$company['name']])?$errors[$company['name']]:''; ?>
+							</div>
+						</div>
 						<div class="row">
 							<div class="large-12 small-centered columns">
 								<?php echo form_label('Email Address', $email['id']); ?>

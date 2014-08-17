@@ -380,6 +380,11 @@ class Users extends CI_Model
 		$this->db->set('uid', $user_id);
 		return $this->db->insert($this->profile_table_name);
 	}
+	
+	function update_profile_info ($email, $company, $user_id)
+	{
+	   return $this->db->update($this->profile_table_name, array('email'=>$email, 'company_name'=>$company), array('uid' => $user_id)); 
+	}
 
 	/**
 	 * Delete user profile

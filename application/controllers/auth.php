@@ -133,6 +133,7 @@ class Auth extends CI_Controller
 				$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|min_length['.$this->config->item('username_min_length', 'tank_auth').']|max_length['.$this->config->item('username_max_length', 'tank_auth').']|alpha_dash');
 			}
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
+			$this->form_validation->set_rules('company', 'Company Name', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|min_length['.$this->config->item('password_min_length', 'tank_auth').']|max_length['.$this->config->item('password_max_length', 'tank_auth').']|alpha_dash');
 			$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|xss_clean|matches[password]');
 
@@ -148,13 +149,15 @@ class Auth extends CI_Controller
 			$data['errors'] = array();
 
 			$email_activation = $this->config->item('email_activation', 'tank_auth');
+			
+			//$userInfo['company'] = $this->form_validation->set_value('company');
 
 			if ($this->form_validation->run()) {								// validation ok
 				if (!is_null($data = $this->tank_auth_my->create_user(
 						$use_username ? $this->form_validation->set_value('username') : '',
 						$this->form_validation->set_value('email'),
 						$this->form_validation->set_value('password'),
-						$email_activation))) {									// success
+						$email_activation, $this->form_validation->set_value('company')))) {									// success
 
 					$data['site_name'] = $this->config->item('website_name', 'tank_auth');
 
