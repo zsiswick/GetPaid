@@ -95,11 +95,11 @@
 
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
-		<div id="editModal" class="reveal-modal small" data-reveal>
+		<div id="editModal" class="reveal-modal small light-bg" data-reveal>
 			<div class="row">
 				<div class="small-10 columns text-center small-centered">
 					<h3>Careful Now!</h3>
-					<h5>Are you sure you want to delete this client?</h5>
+					<p>Are you sure you want to delete this client?</p>
 					<p>When you delete clients, all of the invoices created for that client are deleted as well.</p>
 					<hr />
 					<a id="cancelDeleteBtn" href="#" class="button round secondary">No Thanks</a>

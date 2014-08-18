@@ -100,6 +100,14 @@ $(document).ready(function() {
     	});
     }
     
+    function add_client_callback(cl_data) {
+    
+    	setTimeout(function() {
+    	      location.reload();
+    	}, 2000);
+    	
+    }
+    
     // AJAX FORMS
     function ajaxRequest($this, url, callback) {
     	// abort any pending request
@@ -129,11 +137,11 @@ $(document).ready(function() {
             	
             	var keys = Object.keys(respond);
             	
-            	$('#form-errors').html(respond.errors).addClass("alert").show();
+            	$('#form-errors').html(respond.errors).addClass("").show();
             	
             } else {
             
-             $('#form-errors').html(respond.errors).addClass("success").show();
+             $('#form-errors').html(respond.errors).addClass("").show();
              
              if(typeof respond.redirect != "undefined") window.location.href = respond.redirect;
              
@@ -167,7 +175,7 @@ $(document).ready(function() {
     $( "#form-wrap" ).on( "submit", "#addClient", function(event) {
       var id = window.location.pathname.split('/').pop();
       $this = $(this);
-      ajaxRequest($this, 'index.php/clients/create');
+      ajaxRequest($this, 'index.php/clients/create', add_client_callback);
     });
     
     $("#addPaymentBtn, #addPayment2Btn").on("click", function() {

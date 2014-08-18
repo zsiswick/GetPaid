@@ -43,8 +43,19 @@ class Clients extends CI_Controller {
 	public function create() {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		
 		$uid = $this->tank_auth_my->get_user_id();
+		
+		$cl_data = array(
+			'company'=>$this->input->post('company'),
+			'contact'=> $this->input->post('contact'),
+			'address_1'=>$this->input->post('address_1'),
+			'address_2'=>$this->input->post('address_2'),
+			'zip'=>$this->input->post('zip'),
+			'city'=>$this->input->post('city'),
+			'state'=>$this->input->post('state'),
+			'country'=>$this->input->post('country'),
+		);
+		
 		$data['title'] = 'Add a client';
 		$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
 		$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
@@ -66,6 +77,7 @@ class Clients extends CI_Controller {
 			} else {
 			  $respond['result'] = 'true';
 				$respond['errors'] = 'The client was added!';
+				$respond['records'] = $cl_data;
 				$this->client_model->set_client($uid);
 			}
 			return $this->output->set_output(json_encode($respond));
@@ -83,6 +95,7 @@ class Clients extends CI_Controller {
 		}
 	}
 	
+	
 	public function create_ajax() 
 	{
 		$this->load->helper('form');
@@ -90,26 +103,11 @@ class Clients extends CI_Controller {
 			
 			$uid = $this->tank_auth_my->get_user_id();
 			$data['title'] = 'Add a client';
-			$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
-			$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
-			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
-			$this->form_validation->set_rules('address_1', 'Address 1', 'xss_clean');
-			$this->form_validation->set_rules('address_2', 'Address 2', 'xss_clean');
-			$this->form_validation->set_rules('zip', 'Zip Code', 'alpha_dash|xss_clean');
-			$this->form_validation->set_rules('city', 'City', 'xss_clean');
-			$this->form_validation->set_rules('state', 'State', 'xss_clean');
-			$this->form_validation->set_rules('country', 'Country', 'xss_clean');
-			$this->form_validation->set_rules('tax_id', 'Tax ID', 'xss_clean');
-			$this->form_validation->set_rules('notes', 'Notes', 'xss_clean');
-		
-			if ($this->form_validation->run() === FALSE) {
-				$this->load->view('pages/clients/create-ajax');
-			} else {
-				$this->client_model->set_client($uid);
-				redirect('/clients', 'refresh');
-				
-			}
+			
+			$this->load->view('pages/clients/create-ajax');
+			
 	}
+	
 	
 	public function edit($id = false) {
 		

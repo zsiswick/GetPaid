@@ -217,7 +217,7 @@
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
 		<div id="clientModal" class="reveal-modal small" data-reveal>
-			<div id="form-errors" class="alert-box round"></div>
+			<div id="form-errors" class="light-bg"></div>
 			<div id="form-wrap"></div>
 		</div>
 	</div>
