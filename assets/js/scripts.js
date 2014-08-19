@@ -124,6 +124,8 @@ $(document).ready(function() {
       // Disabled form elements will not be serialized.
       $inputs.prop("disabled", true);
       
+      $('#loadingImg').show();
+      
       // fire off the request
       request = $.ajax({
           url: baseurl+url,
@@ -155,6 +157,7 @@ $(document).ready(function() {
       request.always(function () {
           // reenable the inputs
           $inputs.prop("disabled", false);
+          $('#loadingImg').hide();
       });
       // prevent default posting of form
       event.preventDefault();
@@ -178,50 +181,75 @@ $(document).ready(function() {
       ajaxRequest($this, 'index.php/clients/create', add_client_callback);
     });
     
-    $("#addPaymentBtn, #addPayment2Btn").on("click", function() {
+    $("#addPaymentBtn").on("click", function() {
+    	$("#form-wrap").hide();
+    	$('#loadingImg').show();
     	var id = window.location.pathname.split('/').pop();
     	$.get( baseurl+"index.php/invoices/view_payments/"+id, function( data ) {
     	  $("#form-wrap").html( data );
     	  $("#form-errors").hide();
-    	});
+    	}).always(function() {
+    	    $('#loadingImg').hide();
+    	    $('#form-wrap').show();
+    	  });
     });
     
     $('[name="client"]').on("change", function() {
     	
     	if ( $(this).val() == "add_new_client") {
+    		$("#form-wrap").hide();
+    		$('#loadingImg').show();
     		$('#clientModal').foundation('reveal', 'open');
     		
     		var id = window.location.pathname.split('/').pop();
     		$.get( baseurl+"index.php/clients/create_ajax", function( data ) {
     		  $("#form-wrap").html( data );
     		  $("#form-errors").hide();
-    		});
+    		}).always(function() {
+    		    $('#loadingImg').hide();
+    		    $('#form-wrap').show();
+    		  });
     	}
     	
     });
     
     $("#sendInvoiceBtn").on("click", function() {
+    	$("#form-wrap").hide();
+    	$('#loadingImg').show();
     	var id = window.location.pathname.split('/').pop();
     	$.get( baseurl+"index.php/invoices/view_invoice_email/"+id+"/0", function( data ) {
     	  $("#form-wrap").html( data );
     	  $("#form-errors").hide();
-    	});
+    	}).always(function() {
+    	    $('#loadingImg').hide();
+    	    $('#form-wrap').show();
+    	  });
     });
     
     $("#sendInvoiceRemindBtn").on("click", function() {
+    	$("#form-wrap").hide();
+    	$('#loadingImg').show();
     	var id = window.location.pathname.split('/').pop();
     	$.get( baseurl+"index.php/invoices/view_invoice_email/"+id+"/1", function( data ) {
     	  $("#form-wrap").html( data );
     	  $("#form-errors").hide();
-    	});
+    	}).always(function() {
+    	    $('#loadingImg').hide();
+    	    $('#form-wrap').show();
+    	  });
     });
     
     $("#sendInvoiceThanks").on("click", function() {
+    	$("#form-wrap").hide();
+    	$('#loadingImg').show();
     	var id = window.location.pathname.split('/').pop();
     	$.get( baseurl+"index.php/invoices/view_invoice_email/"+id+"/2", function( data ) {
     	  $("#form-wrap").html( data );
     	  $("#form-errors").hide();
-    	});
+    	}).always(function() {
+    	    $('#loadingImg').hide();
+    	    $('#form-wrap').show();
+    	  });
     });
     
     $("#auto_reminder").on("click", function() {
@@ -237,7 +265,13 @@ $(document).ready(function() {
     	    type: 'POST',
     	    url: baseurl+"index.php/invoices/set_auto_reminder/"+id+"/"+checked,
     	    success: function(msg) {
-    	    
+    	    	$('#paymentModal').foundation('reveal', 'open');
+    	    		if (checked == 1) {
+    	    			$("#form-wrap").html( 'Auto-Reminder has been set to remind every '+$("#inv_due").val()+' days' );
+    	    		} else {
+    	    			$("#form-wrap").html( 'Auto-Reminder has been unset' );
+    	    		}
+    	    	
     	    }
     	  });
     	

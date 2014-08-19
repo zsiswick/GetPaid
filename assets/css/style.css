@@ -192,6 +192,9 @@ svg {
   display: none;
   background: #24000f;
 }
+#loadingImg {
+  display: none;
+}
 .branding-mobile {
   width: 72px;
   height: 70px;

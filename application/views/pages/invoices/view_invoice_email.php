@@ -4,7 +4,7 @@
 		<p class="text-center"><?php echo($item['client'][0]['contact']);?> (<?php echo($item['client'][0]['email'])?>)</p>
 		<?php
 			$hidden = array('client_email' => $item['client'][0]['email']);
-			$attributes = array('class' => 'invoice-form', 'id' => 'sendInvoiceEmail');
+			$attributes = array('id' => 'sendInvoiceEmail');
 			echo form_open('invoices/send_invoice_email/'.$item[0]['iid'], $attributes, $hidden); 
 		?>
 		<label for="emailSubject">Subject</label>

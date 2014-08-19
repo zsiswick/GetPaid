@@ -60,7 +60,6 @@ class Invoices extends CI_Controller {
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/invoices/view', $data);
-			//$this->load->view('pages/invoices/view_pdf', $data);
 			$this->load->view('templates/footer');
 		}
 	}

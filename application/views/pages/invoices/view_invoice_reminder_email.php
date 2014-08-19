@@ -1,13 +1,13 @@
 <?php 
 	$date = new DateTime($item[0]['due_date']);
 ?>
-<div class="row">
+<div class="row light-bg">
 	<div class="small-12 columns">
-		<h4 class="text-center">The invoice Reminder will be sent to:</h4>
-		<h5 class="text-center"><?php echo($item['client'][0]['contact']);?> (<?php echo($item['client'][0]['email'])?>)</h5>
+		<h3 class="text-center">The invoice Reminder will be sent to:</h3>
+		<p class="text-center"><?php echo($item['client'][0]['contact']);?> (<?php echo($item['client'][0]['email'])?>)</p>
 		<?php
 			$hidden = array('client_email' => $item['client'][0]['email']);
-			$attributes = array('class' => 'invoice-form', 'id' => 'sendInvoiceEmail');
+			$attributes = array('id' => 'sendInvoiceEmail');
 			echo form_open('invoices/send_invoice_email/'.$item[0]['iid'], $attributes, $hidden); 
 		?>
 		<label for="emailSubject">Subject</label>

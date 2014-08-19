@@ -43,7 +43,7 @@
 				<h5 class="ruled caps">
 					Payments
 				</h5>
-				<div class="info-block"><a href="#" id="addPayment2Btn" data-reveal-id="paymentModal" class="button round small light">Add Payment</a></div>
+				<div class="info-block"><a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="button round small light">Add Payment</a></div>
 				<h5 class="ruled caps">
 					Send Email
 				</h5>
@@ -137,6 +137,7 @@
 														Due Date
 												</h5>
 												<div class="info-block last">
+													<input id="inv_due" type="hidden" value="<?php echo($item['settings'][0]['due'])?>" />
 													<?php
 														
 														$today = new DateTime(date('Ymd'));
@@ -290,7 +291,8 @@
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
 		<div id="paymentModal" class="reveal-modal small" data-reveal>
-			<div id="form-errors" class="alert-box round"></div>
+			<div id="form-errors"></div>
+			<div id="loadingImg"><img src="<?php echo base_url();?>assets/images/ajax-loader.gif" alt="loading" /></div>
 			<div id="form-wrap"></div>
 		</div>
 	</div>
