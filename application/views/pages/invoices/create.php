@@ -44,7 +44,9 @@
 														$clientList['add_new_client'] = 'Add New Client';
 														echo form_dropdown('client', $clientList, 1);
 													} else {
-														echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
+														//echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
+														$clientList = array('choose' => 'Choose...', 'add_new_client' => 'Add New Client');
+														echo form_dropdown('client', $clientList, 1);
 													}
 												?>
 													<ul id="client_data">
@@ -86,7 +88,10 @@
 														
 														update_address(count, client_val);
 														
-														$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
+														if (client_data.length) {
+															$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
+														}
+														
 														
 														$('#send-date, #due-date').pickadate({
 														    formatSubmit: 'yyyy-mm-dd',
@@ -133,7 +138,7 @@
 										<div class="info-block last">
 											<div class="row">
 												<div class="small-12 columns">
-													<input type="text" id="due-date" name="due-date" value="<?php echo( date('d F, Y', strtotime(date('Y-m-d'). ' + '.$settings[0]['due'].' days'))); ?>" required />
+													<input type="text" id="due-date" name="due-date" value="<?php if(!empty($settings[0]['due'])): echo( date('d F, Y', strtotime(date('Y-m-d'). ' + '.$settings[0]['due'].' days'))); endif ?>" required />
 													<small class="error">Due date is required.</small>
 												</div>
 											</div>

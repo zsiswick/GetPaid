@@ -1,6 +1,6 @@
 <?php
 	if ($clients) { ?>
-		<section class="">
+		<section>
 			<div class="row">
 			  <div class="large-12 columns text-center">
 			  <h1>Clients</h1></div>
@@ -66,8 +66,8 @@
 	</div>
 	<div class="row">
 		<div class="large-12 columns text-center">
-			<h5>No clients yet? No worries mate, just add a few and you'll be good to go!</h5>
-			<a href="<?php echo base_url(); ?>index.php/clients/create" class="button round">Add New Client</a>
+			<h4>No clients yet? No worries, just add a few and you'll be good to go!</h4>
+			<a href="<?php echo base_url(); ?>index.php/clients/create" class="button round light">Add New Client</a>
 		</div>
 	</div>	
 <?php	}

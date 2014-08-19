@@ -128,7 +128,7 @@
 <?php	} else { ?>
 	<div class="row">
 		<div class="large-12 columns text-center">
-			<h4>Looks like you're new around town...</h4>
+			<h4>Looks like you're new in town...</h4>
 			<div id="plus-button" class="svg-container">
 				<a href="<?php echo base_url(); ?>index.php/invoices/create" class="plus-button">
 					<svg version="1.1" viewBox="0 0 100 100" class="svg-content">

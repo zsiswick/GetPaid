@@ -842,7 +842,6 @@ footer > div {
     box-shadow: none;
     -moz-box-shadow: none;
     border: none;
-    color: #f15959;
   }
   select:hover,
   input[type="text"]:hover {
