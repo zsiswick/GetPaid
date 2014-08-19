@@ -467,6 +467,7 @@ class Invoice_model extends CI_Model {
 		$data = array('status' => 4);
 		$this->db->where('due_date <=', date('Y-m-d'));
 		$this->db->where('status !=', 3); // don't select paid invoices
+		$this->db->where('status !=', 0); // don't select draft invoices
 		$this->db->update('common', $data);	
 	}
 	
