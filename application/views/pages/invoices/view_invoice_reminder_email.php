@@ -11,7 +11,7 @@
 			echo form_open('invoices/send_invoice_email/'.$item[0]['iid'], $attributes, $hidden); 
 		?>
 		<label for="emailSubject">Subject</label>
-		<input type="text" name="emailSubject" value="Reminder: Invoice #<?php echo($item[0]['iid']);?> from <?php echo($first_name);?>" />
+		<input type="text" name="emailSubject" value="Reminder: Invoice #<?php echo($item[0]['iid']);?> from <?php echo($item['settings'][0]['company_name']);?>" />
 		<label for="emailMessage">Message</label>
 		<textarea name="emailMessage" id="" cols="30" rows="15">Hello <?php echo($item['client'][0]['contact']);?>,&#013;
 		 
@@ -20,9 +20,6 @@ You can view the invoice online at:&#013;
 <?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']."/".$item['client'][0]['key']?>&#013;
 
 Best regards,&#013; 
-
-<?php echo($first_name);?> 
-
 
 <?php echo($item['settings'][0]['company_name']);?>
 	 </textarea>

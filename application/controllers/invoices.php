@@ -27,6 +27,7 @@ class Invoices extends CI_Controller {
 	
 	public function index() 
 	{
+		$this->invoice_model->get_set_due_invoices();
 		$id = $this->tank_auth_my->get_user_id();
 		$data['invoices'] = $this->invoice_model->get_invoices($id);
 		$data['user_id']	= $this->tank_auth_my->get_user_id();
@@ -360,9 +361,10 @@ class Invoices extends CI_Controller {
 				show_404();
 		} else {
 			$data['first_name']	= $this->tank_auth_my->get_username();
+			$data['email'] = $this->tank_auth_my->get_email();
 			$uid = $this->tank_auth_my->get_user_id();
 			$data['item'] = $this->invoice_model->get_invoice($id, $uid);
-			$emailType = array('0'=>'pages/invoices/view_invoice_email', '1'=>'pages/invoices/view_invoice_reminder_email');
+			$emailType = array('0'=>'pages/invoices/view_invoice_email', '1'=>'pages/invoices/view_invoice_reminder_email', '2'=>'pages/invoices/view_invoice_thanks_email');
 			
 			$this->load->view($emailType[$type], $data);
 		}

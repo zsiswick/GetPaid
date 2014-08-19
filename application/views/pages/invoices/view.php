@@ -49,14 +49,17 @@
 				</h5>
 				<div class="info-block">
 					<?php
+						if ($invoice_sent == true && $item[0]['status'] != 3) { ?>
 						
-						if ($invoice_sent == true) { ?>
-						
-					  	<a href="#" id="sendInvoiceRemind2Btn" data-reveal-id="paymentModal" class="button round small light">Send Reminder</a>
+					  	<a href="#" id="sendInvoiceRemindBtn" data-reveal-id="paymentModal" class="button round small light">Send Reminder</a>
 							
-					<?php	} else { ?>
+					<?php	} else if ( $item[0]['status'] == 3) { ?>
 						
-					  	<a href="#" id="sendInvoice2Btn" data-reveal-id="paymentModal" class="button round small light">Send Invoice</a>
+					  <a href="#" id="sendInvoiceThanks" data-reveal-id="paymentModal" class="button round small light">Send Thank You</a>	
+					
+					<?php } else {?>
+					
+						<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="button round small light">Send Invoice</a>
 					
 					<?php } ?>
 				</div>
