@@ -104,7 +104,7 @@ $(document).ready(function() {
     
     	setTimeout(function() {
     	      location.reload();
-    	}, 2000);
+    	}, 1000);
     	
     }
     
@@ -257,6 +257,9 @@ $(document).ready(function() {
     	var checked = 0;
     	$this = $(this);
     	
+    	$("#form-wrap").hide();
+    	$('#loadingImg').show();
+    	
     	if ($('#auto_reminder').is(':checked')) {
     		checked = 1;
     	}
@@ -265,11 +268,14 @@ $(document).ready(function() {
     	    type: 'POST',
     	    url: baseurl+"index.php/invoices/set_auto_reminder/"+id+"/"+checked,
     	    success: function(msg) {
+    	    	
+    	    	$('#loadingImg').hide();
+    	    	$('#form-wrap').show();
     	    	$('#paymentModal').foundation('reveal', 'open');
     	    		if (checked == 1) {
-    	    			$("#form-wrap").html( 'Auto-Reminder has been set to remind every '+$("#inv_due").val()+' days' );
+    	    			$("#form-wrap").html( '<div class="row"><div class="small-12 columns text-center"><h2>Auto Reminder</h2><p>Auto-Reminder has been set to remind every '+$("#inv_due").val()+' days</p></div></div><a class="close-reveal-modal">&#215;</a>' );
     	    		} else {
-    	    			$("#form-wrap").html( 'Auto-Reminder has been unset' );
+    	    			$("#form-wrap").html( '<div class="row"><div class="small-12 columns text-center"><h2>Auto Reminder</h2><p>Auto-Reminder is off</p></div></div><a class="close-reveal-modal">&#215;</a>' );
     	    		}
     	    	
     	    }

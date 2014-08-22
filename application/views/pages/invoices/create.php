@@ -46,9 +46,11 @@
 													} else {
 														//echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
 														$clientList = array('choose' => 'Choose...', 'add_new_client' => 'Add New Client');
-														echo form_dropdown('client', $clientList, 1);
+														$attributes = 'required="" type="number"';
+														echo form_dropdown('client', $clientList, 1, $attributes);
 													}
 												?>
+												<small class="error">Client is required.</small>
 													<ul id="client_data">
 														<li id="contactName"></li>
 														<li id="addressOne"></li>
@@ -97,9 +99,6 @@
 														    formatSubmit: 'yyyy-mm-dd',
 														    hiddenName: true
 														});
-														
-														
-														
 													});
 											  </script>
 										</div> 
@@ -138,7 +137,13 @@
 										<div class="info-block last">
 											<div class="row">
 												<div class="small-12 columns">
-													<input type="text" id="due-date" name="due-date" value="<?php if(!empty($settings[0]['due'])): echo( date('d F, Y', strtotime(date('Y-m-d'). ' + '.$settings[0]['due'].' days'))); endif ?>" required />
+													<input type="text" id="due-date" name="due-date" value="<?php if(!empty($settings[0]['due']))
+													{
+														echo( date('d F, Y', strtotime(date('Y-m-d'). ' + '.$settings[0]['due'].' days')));  
+													} else {
+														echo( date('d F, Y', strtotime(date('Y-m-d'). ' + 15 days')));
+													}?>
+													 " required />
 													<small class="error">Due date is required.</small>
 												</div>
 											</div>
@@ -164,23 +169,23 @@
 								Total
 							</div>
 							<div class="small-12 medium-1 large-only-text-right columns delete">
-								
 							</div>
 						</div>
-						
 					</div>
 					
 					<div class="edit-list-container">
 						<div class="tabbed list no-rules">
 							<div class="row">
 								<div class="qty small-12 medium-2 columns">
-									<input class="qty sum" type="text" name="qty[]" value="<?php echo set_value('qty[]'); ?>" placeholder="1.5"/>
+									<input class="qty sum" type="text" name="qty[]" value="<?php echo set_value('qty[]'); ?>" placeholder="1.5" required />
+									<small class="error">Quantity is required.</small>
 								</div>
 								<div class="description small-12 medium-5 columns">
-									<input type="text" name="description[]" value="<?php echo set_value('description[]'); ?>" placeholder="Client Meeting"/>
+									<input type="text" name="description[]" value="<?php echo set_value('description[]'); ?>" placeholder="Client Meeting" />
 								</div>
 								<div class="price small-12 medium-2 columns">
-									<input class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>" placeholder="65"/>
+									<input class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>" placeholder="65" required />
+									<small class="error">Price is required.</small>
 								</div>
 								<div class="totalSum small-12 medium-2 large-only-text-right columns" >
 									$0.00
@@ -190,7 +195,6 @@
 								</div>
 								<div class="small-12 columns"><hr /></div>
 							</div>
-							
 						</div>
 					</div>
 					
@@ -212,7 +216,6 @@
 					<input type="submit" name="submit" value="Create Invoice" class="button round" />
 				</div>
 			</div>
-				
 		</div>
 		
 		</form>
@@ -223,6 +226,7 @@
 	<div class="small-12 medium-12 large-4 columns large-centered">
 		<div id="clientModal" class="reveal-modal small" data-reveal>
 			<div id="form-errors" class="light-bg"></div>
+			<div id="loadingImg"><img src="<?php echo base_url();?>assets/images/ajax-loader.gif" alt="loading" /></div>
 			<div id="form-wrap"></div>
 		</div>
 	</div>

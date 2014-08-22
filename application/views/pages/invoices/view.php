@@ -290,7 +290,7 @@
 
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
-		<div id="paymentModal" class="reveal-modal small" data-reveal>
+		<div id="paymentModal" class="reveal-modal small light-bg" data-reveal>
 			<div id="form-errors"></div>
 			<div id="loadingImg"><img src="<?php echo base_url();?>assets/images/ajax-loader.gif" alt="loading" /></div>
 			<div id="form-wrap"></div>

@@ -26,7 +26,7 @@
 <div class="row">
 	<div class="large-8 columns large-centered">
 		<h1 class="text-center">Edit Invoice #<?php echo($item[0]['iid']);?></h1>
-		<div id="form-errors" class="alert-box alert round"></div>
+		
 	</div>
 </div>
 <div class="row">
@@ -42,7 +42,7 @@
 		
 		<div class="invoice-list-wrap">
 			<div class="clearfix">
-				
+				<?php echo validation_errors(); ?>
 				<div class="row invoice-info">
 					<div class="medium-5 small-centered large-uncentered columns invoice-info">
 							<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$logo.'" />'; endif ?>
@@ -75,12 +75,13 @@
 											}, $clients);
 											$clientList = array_combine($clientID, $clientList);
 											$clientList['add_new_client'] = 'Add New Client';
-											echo form_dropdown('client', $clientList, $id);
+											$attributes = 'required="" type="number"';
+											echo form_dropdown('client', $clientList, $id, $attributes);
 										} else {
 											echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
 										}
 									?>
-									
+									<small class="error">Client is required.</small>
 									<ul id="client_data">
 										<li id="contactName"><?php echo $item['client'][0]['contact']; ?></li>
 										<li id="addressOne"><?php if(!empty($address_1)): echo $address_1.'<br/>'; endif ?></li>
@@ -218,14 +219,15 @@
 								?>
 								<div class="row">
 									<div class="qty small-12 medium-2 columns">
-										<input type="hidden" name="item_id[]" value="<?php echo $invoice_item['id'] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $invoice_item['quantity'] ?>" />
+										<input type="hidden" name="item_id[]" value="<?php echo $invoice_item['id'] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $invoice_item['quantity'] ?>" required />
 										<small class="error">Quantity is required.</small>
 									</div>
 									<div class="description small-12 medium-5 columns">
 										<input type="text" name="description[]" value="<?php echo $invoice_item['description'] ?>" />
 									</div>
 									<div class="price small-12 medium-2 columns">
-										<input type="text" class="unitCost sum" name="unit_cost[]" value="<?php echo $invoice_item['unit_cost'] ?>" />
+										<input type="text" class="unitCost sum" name="unit_cost[]" value="<?php echo $invoice_item['unit_cost'] ?>" required />
+										<small class="error">Price is required.</small>
 									</div>
 									<div class="totalSum small-12 medium-2 large-only-text-right columns" data-totalsum="<?php echo number_format((float)$number, 2, '.', ''); ?>">
 										$<?php echo number_format((float)$number, 2, '.', ','); ?>

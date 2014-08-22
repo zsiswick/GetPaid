@@ -128,6 +128,7 @@
 <?php	} else { ?>
 	<div class="row">
 		<div class="large-12 columns text-center">
+			<h1>Invoices</h1>
 			<h4>Looks like you're new in town...</h4>
 			<div id="plus-button" class="svg-container">
 				<a href="<?php echo base_url(); ?>index.php/invoices/create" class="plus-button">
