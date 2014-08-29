@@ -61,6 +61,7 @@
 			  			<li><?php echo anchor('invoices', 'Invoices', 'class="button round light"'); ?></li>
 			  			<li><?php echo anchor('clients', 'Clients', 'class="button round light"'); ?></li>
 			  			<li><?php echo anchor('settings', 'Settings', 'class="button round light"'); ?></li>
+			  			<li><?php echo anchor('contact', 'Contact', 'class="button round light"'); ?></li>
 			  		</ul>
 			  	</nav>
 			  </div>	
@@ -72,6 +73,7 @@
 			  			<li><?php echo anchor('invoices', 'Invoices'); ?></li>
 			  			<li><?php echo anchor('clients', 'Clients'); ?></li>
 			  			<li><?php echo anchor('settings', 'Settings'); ?></li>
+			  			<li><?php echo anchor('contact', 'Contact'); ?></li>
 			  		</ul>
 			  	</nav>
 			  	<div id="nav-container-mobile" class="text-center show-for-small-only">

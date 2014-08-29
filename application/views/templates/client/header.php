@@ -52,6 +52,7 @@
 					  			<ul id="main-menu">
 					  				<li><a href="<?php echo base_url(); ?>index.php/auth/login" class="button round light">Sign In</a></li>
 					  				<li><a href="<?php echo base_url(); ?>index.php/auth/register" class="button round light">Register</a></li>
+					  				<li><a href="<?php echo base_url(); ?>index.php/contact" class="button round light">Contact</a></li>
 					  			</ul>
 					  		</nav>
 					  	</div>
@@ -59,6 +60,7 @@
 					  		<ul id="main-menu-mobile">
 					  			<li><a href="<?php echo base_url(); ?>index.php/auth/login">Sign In</a></li>
 					  			<li><a href="<?php echo base_url(); ?>index.php/auth/register">Register</a></li>
+					  			<li><a href="<?php echo base_url(); ?>index.php/contact">Contact</a></li>
 					  		</ul>
 					  	</nav>
 					  	<div id="nav-container-mobile" class="text-center show-for-small-only">
