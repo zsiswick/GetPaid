@@ -2,21 +2,7 @@
 
 class Settings extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+	 
 	var $userdata;
 	 
 	public function __construct() {
@@ -82,7 +68,6 @@ class Settings extends CI_Controller {
 			} else {  
 			    // in here is where things went according to plan.   
 			    //file is uploaded, people are happy
-			      
 			    $udata = array('upload_data' => $this->upload->data());
 			}
 			if(!isset($udata)) {
@@ -100,7 +85,13 @@ class Settings extends CI_Controller {
 		$this->user_model->delete_logo($uid);
 		redirect('/settings', 'refresh');
 	}
+	
+	public function disconnect_stripe() 
+	{
+		$uid = $this->tank_auth_my->get_user_id();
+		$this->user_model->unset_stripe_token($uid);	
+	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file settings.php */
+/* Location: ./application/controllers/settings.php */

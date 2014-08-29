@@ -224,6 +224,9 @@ a:hover,
 a:focus {
   color: #4b011f;
 }
+.small-type {
+  font-size: .6rem;
+}
 .light {
   color: #ffffff;
 }
@@ -392,6 +395,27 @@ table {
 .table-container {
   padding: 3rem;
   background-color: #fff;
+}
+ul.tabs {
+  border-bottom: 1px solid #f15959;
+}
+.tabs dd.active a,
+.tabs .tab-title.active a {
+  background: #4b011f;
+  color: #fff;
+}
+.tabs dd > a,
+.tabs .tab-title > a {
+  background: #f15959;
+  color: #fff;
+}
+.tabs dd > a:hover,
+.tabs .tab-title > a:hover {
+  background: #E99090;
+}
+.tabs dd.active a:hover,
+.tabs .tab-title.active a:hover {
+  background: #4b011f;
 }
 /*
 ** Invoice
@@ -582,13 +606,17 @@ table {
   padding-bottom: 1.5rem;
 }
 /*
+** Settings
+*/
+/*
 ** Forms
 */
 label {
   color: #f15959;
 }
 a.button,
-input.button {
+input.button,
+button.button {
   background: #f15959;
   font-size: 1rem;
   font-family: 'robotomedium', Helvetica, Arial, sans-serif;
@@ -598,7 +626,8 @@ input.button {
   color: #ffffff;
 }
 a.button:hover,
-input.button:hover {
+input.button:hover,
+button.button:hover {
   background: #4b011f;
   color: #ffffff;
 }
@@ -726,6 +755,9 @@ div.switch label::after {
 [data-abide] small.error {
   background: transparent;
   color: #4b011f;
+}
+.alert-box {
+  background: #4b011f;
 }
 /*
 ** FOOTER

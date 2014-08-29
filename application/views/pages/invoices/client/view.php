@@ -11,11 +11,14 @@
 	//////////////////////////////////
 	$logo = $item['settings'][0]['logo'];
 	$company_name = $item['settings'][0]['company_name'];
+	$cust_email = $item['settings'][0]['email'];
 	$p_address_1 = $item['settings'][0]['address_1'];
 	$p_address_2 = $item['settings'][0]['address_2'];
 	$p_city = $item['settings'][0]['city'];
 	$p_state = $item['settings'][0]['state'];
 	$p_zip = $item['settings'][0]['zip'];
+	$invoice_id = $this->uri->segment(3, 0);
+	$client_key = $this->uri->segment(4, 0);
 ?>
 
 <div id="invoiceContainer">
@@ -25,13 +28,26 @@
 				<div class="invoice-wrap">
 					<div class="row">
 						<div class="small-12 columns text-center">
-							<p></p><a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="button round light">Download PDF</a>
+							<p></p><a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="button round light">Download PDF</a> 
+							<?php 
+								if($item['settings'][0]['enable_payments'] == 1 && $item[0]['status'] != 3): echo anchor('#', 'Pay Invoice', 'title="Pay Invoice" data-reveal-id="paymentModal" class="button round light"'); endif
+							?>
 						</div>
 					</div>
 					
 					
 					
 						<div class="invoice-form light-bg">
+							<div class="row">
+								<div class="small-12 columns">
+									<?php
+										if ($this->session->flashdata('error')) { ?>
+												<div class="alert-box radius text-center">
+													<?php echo($this->session->flashdata('error')); ?>
+												</div>
+									<?php }?>
+								</div>
+							</div>
 								<div class="row invoice-info">
 									<div class="medium-5 small-centered large-uncentered columns invoice-info">
 											<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$item[0]['uid']."/".$logo.'" />'; endif ?>
@@ -127,11 +143,6 @@
 									</div>
 								</div>
 								
-								
-								
-								
-								
-								
 								<div class="tabbed list no-rules">
 									<?php 
 											foreach ($item['items'] as $invoice_item): 
@@ -166,14 +177,12 @@
 									<?php endforeach ?>
 								</div>
 									
-							
-							
 							<section id="payment-info">
 								<div class="row">
 									<div id="payments" class="large-push-7 large-5 columns">
 										
 										<div class="row">
-											<div class="small-5 columns large-only-text-right">
+											<div class="small-5 columns large-only-text-left">
 												<h3>Due:</h3>
 											</div>
 											<div class="small-7 columns text-right">
@@ -182,7 +191,7 @@
 											<div class="small-12 columns"><hr /></div>
 										</div>
 										<div class="row">
-											<div class="small-5 columns large-only-text-right">
+											<div class="small-5 columns large-only-text-left">
 												<h4>Paid:</h4>
 											</div>
 											<div class="small-7 columns text-right">
@@ -200,7 +209,7 @@
 										</div>
 										
 										<div class="row">
-											<div class="small-5 columns large-only-text-right">
+											<div class="small-5 columns large-only-text-left">
 												<h4>Left:</h4>
 											</div>
 											<div class="small-7 columns text-right">
@@ -214,7 +223,7 @@
 									</div>
 									<div class="large-pull-5 large-7 columns">
 										<h3>Notes</h3>
-										<p><?php echo($item['settings'][0]['notes']) ?></p>
+										<p><?php echo($item['settings'][0]['notes']); ?></p>
 									</div>
 								</div>
 								
@@ -225,11 +234,26 @@
 		</div>
 	</div>
 </div>
+
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
-		<div id="paymentModal" class="reveal-modal small" data-reveal>
+		<div id="paymentModal" class="reveal-modal small light-bg" data-reveal>
+			<h3 class="text-center">Choose Payment Method</h3>
+			<hr />
 			<div id="form-errors" class="alert-box round"></div>
-			<div id="form-wrap"></div>
+			<div id="form-wrap">
+				
+				<?php require_once(APPPATH.'config/stripe.php'); ?>
+				<form action="<?php echo(base_url());?>index.php/invoice/stripe_payment" method="POST">
+					<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_Bj38OttZCFdKmufc5CrsZmei"></script>
+					<input type="hidden" name="uid" value="<?php echo($item[0]['uid']);?>" />
+					<input type="hidden" name="invoice_num" value="<?php echo($inv_num);?>" />
+					<input type="hidden" name="invoice_amount" value="<?php echo($item[0]['amount']);?>" />
+					<input type="hidden" name="iid" value="<?php echo($item[0]['iid']); ?>"/>
+					<input type="hidden" name="client_key" value="<?php echo($client_key); ?>"/>
+					<input type="hidden" name="cust_email" value="<?php echo($cust_email); ?>"/>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

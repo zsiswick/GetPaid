@@ -19,7 +19,7 @@
 	$invoice_sent = $item[0]['inv_sent'];
 	
 ?>
-<h1 class="text-center">View Invoice</h1>
+<h1 class="text-center">View Invoice #<?php echo($item[0]['iid']);?></h1>
 <div class="row">
 	<div class="small-12 columns">
 		<h3 class="small-only-text-center top-rule">Invoice Actions</h3>
@@ -35,7 +35,7 @@
 					Auto-reminder
 				</h5>
 				<div class="switch round info-block">
-				  <input id="auto_reminder" name="auto_reminder" type="checkbox" <?php if( $item[0]['auto_reminder'] == 1) {?> checked="checked" <?php } ?>>
+				  <input id="auto_reminder" name="auto_reminder" type="checkbox" <?php if( $item[0]['auto_reminder'] == 1) {?> checked="checked" <?php } ?>/>
 				  <label for="auto_reminder"></label>
 				</div>
 			</div>

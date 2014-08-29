@@ -180,13 +180,10 @@ class Invoices extends CI_Controller {
 				show_404();
 		} else {
 		
-			$this->form_validation->set_rules('month', 'Month', 'numeric');
-			$this->form_validation->set_rules('day', 'Day', 'numeric');
-			$this->form_validation->set_rules('year', 'Year', 'numeric|valid_selectsdate[month,day]');
 			$this->form_validation->set_rules('pamount', 'Payment Amount', 'required|callback_numeric_money|greater_than[0]|xss_clean');
-			$this->form_validation->set_rules('day', 'Day', 'required|greater_than[0]');
-			$this->form_validation->set_rules('month', 'Month', 'required');
-			$this->form_validation->set_rules('year', 'Year', 'required');
+			$this->form_validation->set_rules('day', 'Day', 'required|numeric|greater_than[0]');
+			$this->form_validation->set_rules('month', 'Month', 'required|numeric');
+			$this->form_validation->set_rules('year', 'Year', 'required|numeric|valid_selectsdate[month,day]');
 			$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
 			// CHECK THE FORM TO SEE IF SUBMITTED VIA AJAX
 			if($this->input->is_ajax_request()){

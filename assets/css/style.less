@@ -231,6 +231,9 @@ a {
 a:hover, a:focus {
 	color: @dark-color;
 }
+.small-type {
+	font-size: .6rem;
+}
 .light {
 	color: @body-color;
 }
@@ -404,9 +407,29 @@ table thead th {
 	background-color: #fff;
 }
 
+ul.tabs {
+	border-bottom: 1px solid @brand-color;
+}
+
+.tabs dd.active a, .tabs .tab-title.active a {
+	background: @dark-color;
+	color: #fff;
+}
+.tabs dd>a, .tabs .tab-title>a {
+	background: @brand-color;
+	color: #fff;
+}
+.tabs dd>a:hover, .tabs .tab-title>a:hover {
+	background: #E99090;
+}
+.tabs dd.active a:hover, .tabs .tab-title.active a:hover {
+	background: @dark-color;
+}
+
 /*
 ** Invoice
 */
+
 .invoice-info {
 	margin-bottom: 3rem !important;
 }
@@ -426,8 +449,6 @@ table thead th {
 	color: @brand-color !important;
 	//border-bottom: 1px solid #D98E8E;
 }
-
-
 .list_header > div{
 	color: @body-color;
 }
@@ -599,6 +620,15 @@ table thead th {
 	border-bottom: 1px solid @paper-rule;
 	padding-bottom: 1.5rem;
 }
+
+/*
+** Settings
+*/
+
+#paypal_settings {
+
+}
+
 /*
 ** Forms
 */
@@ -606,7 +636,7 @@ table thead th {
 label {
 	color: @brand-color;
 }
-a.button, input.button {
+a.button, input.button, button.button {
 	background: @brand-color;
 	font-size: 1rem;
 	font-family: 'robotomedium', Helvetica, Arial, sans-serif;
@@ -615,7 +645,7 @@ a.button, input.button {
 	padding: .5rem 3rem;
 	color: @body-color;
 }
-a.button:hover, input.button:hover {
+a.button:hover, input.button:hover, button.button:hover {
 	background: @dark-color;
 	color: @body-color;
 }
@@ -708,6 +738,9 @@ div.switch label::after {
 [data-abide] .error small.error, [data-abide] .error span.error, [data-abide] span.error, [data-abide] small.error {
 	background: transparent;
 	color: @dark-color;
+}
+.alert-box {
+	background: @dark-color;
 }
 
 /*

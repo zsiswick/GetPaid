@@ -28,15 +28,44 @@ class User_model extends CI_Model {
   		'state' => $this->input->post('state'),
   		'country' => $this->input->post('country'),
   		'due' => $this->input->post('due'),
-  		'notes' => $this->input->post('notes')
+  		'notes' => $this->input->post('notes'),
+  		'enable_payments' => $this->input->post('enable_payments'),
+  		'payment_notification' => $this->input->post('payment_notification')
   	);
   	$this->db->where('uid', $uid);
   	$this->db->update('settings', $data);
   	return; 
   }
   
-  public function delete_logo($uid) {
+  public function delete_logo($uid) 
+  {
   	$data = array('logo' => '');
+  	$this->db->where('uid', $uid);
+  	$this->db->limit(1);
+  	$this->db->update('settings', $data);
+  }
+  
+  public function set_stripe_token($uid, $cust_token) 
+  {
+  	$data = array('uid' => $uid, 'stripe_cust_token' => $cust_token);
+  	$this->db->where('uid', $uid);
+  	$this->db->limit(1);
+  	$this->db->update('settings', $data);
+  }
+  
+  public function get_stripe_token($uid) 
+  {
+  	$this->db->select('stripe_cust_token', false);
+  	$this->db->where('settings.uid', $uid);
+  	$this->db->limit(1);
+  	$this->db->from('settings');
+  	$query = $this->db->get();
+  	return $query->result_array();
+  }
+  
+  public function unset_stripe_token($uid) 
+  {
+  	$data = array('uid' => $uid, 'stripe_cust_token' => '');
   	$this->db->where('uid', $uid);
   	$this->db->limit(1);
   	$this->db->update('settings', $data);

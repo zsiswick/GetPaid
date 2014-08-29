@@ -286,5 +286,20 @@ $(document).ready(function() {
     $("#cancelDeleteBtn").on("click", function() {
     	$('#editModal').foundation('reveal', 'close');
     });
+    
+    $("#enable_payments").on("click", function() {
+    		
+    		if ( $('#enable_payments:checked').length >0 ) {
+    			$("#paypal_settings").slideDown("fast");
+    		} else {
+    			$("#paypal_settings").slideUp("fast");
+    		}
+    });
+    
+    if ( $('#enable_payments:checked').length >0 ) {
+    	$("#paypal_settings").show();
+    } else {
+    	$("#paypal_settings").hide();
+    }
        
 });

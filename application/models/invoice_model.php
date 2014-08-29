@@ -398,7 +398,7 @@ class Invoice_model extends CI_Model {
 		
 		// If the invoice isn't already paid, set status as Open or Partial Payment
 		// Finally, check if the invoice is due and not paid in full
-		if ( $invoice['data'][0]['inv_sent'] == 0) {
+		if ( $invoice['data'][0]['inv_sent'] == 0 && $payment_amount < $invoice_total ) {
 			$inv_status = 0;
 		} else {
 		

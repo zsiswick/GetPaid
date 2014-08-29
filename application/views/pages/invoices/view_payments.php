@@ -3,7 +3,8 @@
 		$payment_amount = 0;
 		$sumTotal = 0;
 		$amount = 0;
-		$hidden = array('iid' => $item[0]['iid']); 
+		$hidden = array('iid' => $item[0]['iid']);
+		$date = new DateTime($item['payments'][0]['pdate']);
 	?>
 	
 	<?php 
@@ -73,10 +74,10 @@
 						
 							<div class="row">
 								<div class="small-12 medium-2 columns small-only-text-center">
-									<input type="hidden" name="payment_amount[]" class="amt" value="<?php echo $payment['payment_amount'] ?>" />$<?php echo $payment['payment_amount'] ?>
+									<input type="hidden" name="payment_amount[]" class="amt" value="<?php echo $payment['payment_amount']; ?>" />$<?php echo $payment['payment_amount']; ?>
 								</div>
 								<div class="small-12 medium-8 columns small-only-text-center">
-									<?php echo $payment['pdate'] ?>
+									<?php echo ($date->format('F j, Y'));  ?>
 								</div>
 								<div class="small-12 medium-2 columns small-only-text-center text-right">
 									<a href="<?php echo base_url(); ?>index.php/invoices/delete_payment?pid=<?php echo $payment["pid"].'&common_id='.$payment["common_id"].'&iuid='.$item[0]['uid']; ?>" class="button small round">x</a>
