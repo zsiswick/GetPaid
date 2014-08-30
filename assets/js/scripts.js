@@ -290,16 +290,16 @@ $(document).ready(function() {
     $("#enable_payments").on("click", function() {
     		
     		if ( $('#enable_payments:checked').length >0 ) {
-    			$("#paypal_settings").slideDown("fast");
+    			$("#payment_settings").slideDown("fast");
     		} else {
-    			$("#paypal_settings").slideUp("fast");
+    			$("#payment_settings").slideUp("fast");
     		}
     });
     
     if ( $('#enable_payments:checked').length >0 ) {
-    	$("#paypal_settings").show();
+    	$("#payment_settings").show();
     } else {
-    	$("#paypal_settings").hide();
+    	$("#payment_settings").hide();
     }
        
 });

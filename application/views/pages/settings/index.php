@@ -17,6 +17,12 @@
 					echo($upload_error);
 				}
 			?>
+			<?php
+				if ($this->session->flashdata('error')) { ?>
+						<div class="alert-box radius text-center">
+							<?php echo($this->session->flashdata('error')); ?>
+						</div>
+			<?php }?>
 			<?php 
 				$hidden = array('uid' => $uid);
 				$attributes = array('data-abide'=>'');
@@ -121,13 +127,15 @@
 			    <div class="row">
 			    	<div class="columns small-12">
 			    		<label for="notes">Payment Terms</label>
-			    		<textarea placeholder="Please remit full payment 15 days from receipt of invoice. Make check payable to John Smith" name="notes" cols="30" rows="10"><?php echo($settings[0]['notes']) ?></textarea>
+			    		<textarea placeholder="Please remit full payment 15 days from receipt of invoice. Make check payable to John Smith" name="notes" cols="30" rows="5"><?php echo($settings[0]['notes']) ?></textarea>
 			    	</div>
 			    </div>   
 			    
 			    <div class="row">
 			    	<div class="columns small-12 end">
-			    		<label data-tooltip title="Get paid quicker! Once you've linked Stripe with your Ruby Invoice account, your clients will be able to pay invoices directly.">Enable Stripe Payments</label>
+			    		<hr />
+			    		<h3>Invoice Payments <i class="fi-info size-18" data-tooltip title="Get paid quicker! Once you've linked a payment gateway with your Ruby Invoice account, your clients will be able to pay invoices directly."></i></h3> 
+			    		<label>Enable Payments</label>
 			    		<div class="switch round">
 			    		  <input id="enable_payments" name="enable_payments" type="checkbox" <?php if( $settings[0]['enable_payments'] == 1) {?> checked="checked" <?php } ?> value="1"/>
 			    		  <label for="enable_payments"></label>
@@ -137,24 +145,44 @@
 			    
 			    
 			    
-			    <div id="paypal_settings" class="row">
-			    	<div class="columns medium-6 end">
-			    		<label for="stripe_connect">Connect to Stripe</label>
+			    <div id="payment_settings" class="row">
+			    	<div class="columns medium-6">
+			    		<h5 class="ruled">Connect to Stripe</h5>
+			    		<div class="info-block">
+			    			<?php 
+			    				if ( $settings[0]['stripe_cust_token'] == false ) {
+			    					
+			    					echo anchor('https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_4eR11ZVjVsJOIKtOVnqhMRK4HSSX6ONl&scope=read_write&stripe_user[email]='.$settings[0]['email'].'&stripe_user[business_name]='.$settings[0]['company_name'].'&stripe_user[street_address]='.$settings[0]['address_1'].'&stripe_user[city]='.$settings[0]['city'].'&stripe_user[state]='.$settings[0]['state'].'&stripe_user[zip]='.$settings[0]['zip'], 'Connect Account', 'title="Connect Account" class="button small round"');
+			    					
+			    				} else {
+			    					
+			    					echo anchor('settings/disconnect_stripe', 'Disconnect Account', 'title="Disconnect Account" class="button small round"');
+			    					
+			    				}
+			    			?>
+			    		</div>
 			    		
-			    		<?php 
-			    			if ( $settings[0]['stripe_cust_token'] == false ) {
-			    				
-			    				echo anchor('https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_4eR11ZVjVsJOIKtOVnqhMRK4HSSX6ONl&scope=read_write&stripe_user[email]='.$settings[0]['email'].'&stripe_user[business_name]='.$settings[0]['company_name'].'&stripe_user[street_address]='.$settings[0]['address_1'].'&stripe_user[city]='.$settings[0]['city'].'&stripe_user[state]='.$settings[0]['state'].'&stripe_user[zip]='.$settings[0]['zip'], 'Connect Account', 'title="Connect Account" class="button small round"');
-			    				
-			    			} else {
-			    				
-			    				echo anchor('settings/disconnect_stripe', 'Disconnect Account', 'title="Disconnect Account" class="button small round"');
-			    				
-			    			}
-			    		?>
+			    		<ul>
+			    			<li><i class="fi-credit-card" data-tooltip title="Learn more at: www.stripe.com/us/pricing"></i> Stripe Fee: 2.9% + 30¢</li>
+			    			<li><hr /></li>
+			    			<li><i class="fi-dollar-bill"></i> Ruby Invoice Fee: <?php echo(RUBY_TRANSACTION_FEE)?>%</li>
+			    		</ul>
+			    	</div>
+			    	<div class="columns medium-6">
+			    		<h5 class="ruled">Stripe Settings</h5>
+			    		<div class="info-block">
+			    			<p class="small-type">You must have a <a href="https://stripe.com"><strong>Stripe Account</strong></a> and you must grant Ruby Invoice third-party API access to your Stripe account.</p>
+			    			<ol class="small-type">
+			    				<li>Clicking <strong>Connect Account</strong> will redirect to a Stripe connect page.</li>
+			    				<li>If you already have a Stripe account, sign in, otherwise you can create an account on that page.</li>
+			    				<li>After granting permissions, you will be redirected back to this page with your Stripe account connected.</li>
+			    			</ol>
+			    		</div>
+			    		
 			    	</div>
 			    	<div class="columns small-12">
-			    		<input type="checkbox" id="payment_notification" name="payment_notification" <?php if( $settings[0]['payment_notification'] == 1) {?> checked="checked" <?php } ?> value="1" /><label for="payment_notification">Send notification email upon payment</label>
+			    		<hr />
+			    		<input type="checkbox" id="payment_notification" name="payment_notification" <?php if( $settings[0]['payment_notification'] == 1) {?> checked="checked" <?php } ?> value="1" /><label for="payment_notification">Send me a notification email upon payment</label>
 			    	</div>
 			    </div>
 			    

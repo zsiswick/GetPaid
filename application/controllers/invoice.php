@@ -51,55 +51,6 @@ class Invoice extends CI_Controller {
 		}
 	}
 	
-	public function stripe_return() 
-	{
-		define('CLIENT_ID', 'ca_4eR11ZVjVsJOIKtOVnqhMRK4HSSX6ONl');
-	  define('API_KEY', 'sk_test_7X4jGTKA2sfVOPSH7rZKaHtq');
-	 
-	  define('TOKEN_URI', 'https://connect.stripe.com/oauth/token');
-	  define('AUTHORIZE_URI', 'https://connect.stripe.com/oauth/authorize');
-	 
-	  if (isset($_GET['code'])) { // Redirect w/ code
-	    $code = $_GET['code'];
-	 
-	    $token_request_body = array(
-	      'client_secret' => API_KEY,
-	      'grant_type' => 'authorization_code',
-	      'client_id' => CLIENT_ID,
-	      'code' => $code,
-	    );
-	 
-	    $req = curl_init(TOKEN_URI);
-	    curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
-	    curl_setopt($req, CURLOPT_POST, true );
-	    curl_setopt($req, CURLOPT_POSTFIELDS, http_build_query($token_request_body));
-	 
-	    // TODO: Additional error handling
-	    $respCode = curl_getinfo($req, CURLINFO_HTTP_CODE);
-	    $resp = json_decode(curl_exec($req), true);
-	    curl_close($req);
-	 
-	    $this->load->library('tank_auth_my');
-	    $uid = $this->tank_auth_my->get_user_id();
-	    $this->load->model('user_model');
-	    $this->user_model->set_stripe_token($uid, $resp['access_token']);
-	    
-	    redirect('/settings', 'refresh');
-	    
-	  } else if (isset($_GET['error'])) { // Error
-	    echo $_GET['error_description'];
-	  } else { // Show OAuth link
-	    $authorize_request_body = array(
-	      'response_type' => 'code',
-	      'scope' => 'read_write',
-	      'client_id' => CLIENT_ID
-	    );
-	 
-	    $url = AUTHORIZE_URI . '?' . http_build_query($authorize_request_body);
-	    echo "<a href='$url'>Connect with Stripe</a>";
-	  }
-	}
-	
 	public function stripe_payment() 
 	{
 		require_once(APPPATH.'libraries/stripe-php/lib/Stripe.php');

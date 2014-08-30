@@ -225,7 +225,7 @@ a:focus {
   color: #4b011f;
 }
 .small-type {
-  font-size: .6rem;
+  font-size: .8rem;
 }
 .light {
   color: #ffffff;
@@ -359,6 +359,10 @@ ul {
 li {
   margin: 0;
   list-style: none;
+}
+ol li {
+  list-style-type: decimal;
+  margin-bottom: .5rem;
 }
 a.branding {
   height: 50px;

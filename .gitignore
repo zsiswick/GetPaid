@@ -38,3 +38,11 @@ uploads/logo/logo1.jpg
 application/config/config.php
 
 application/logs/log-2014-08-30.php
+
+application/config/stripe.php
+
+application/views/pages/invoices/client/view.php
+
+application/views/pages/invoices/client/view.php
+
+assets/css/style.less
