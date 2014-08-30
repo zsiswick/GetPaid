@@ -252,6 +252,7 @@
 					<input type="hidden" name="iid" value="<?php echo($item[0]['iid']); ?>"/>
 					<input type="hidden" name="client_key" value="<?php echo($client_key); ?>"/>
 					<input type="hidden" name="cust_email" value="<?php echo($cust_email); ?>"/>
+					<input type="hidden" name="payment_notification" value="<?php echo($item['settings'][0]['payment_notification']); ?>"/>
 				</form>
 			</div>
 		</div>

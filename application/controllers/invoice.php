@@ -109,6 +109,7 @@ class Invoice extends CI_Controller {
 		$uid = $this->input->post('uid');
 		$id = $this->input->post('iid');
 		$cust_email = $this->input->post('cust_email');
+		$payment_notification = $this->input->post('payment_notification');
 		$today = date('Y-m-d');
 		define('ADMIN_EMAIL', 'zsiswick@gmail.com');
 		define('CUSTOMER_EMAIL', $cust_email);
@@ -184,8 +185,10 @@ class Invoice extends CI_Controller {
 						);
 						
 						// Send email to customer to let them know a payment was made
-						$message = "Huzzah! You have received a payment of $".number_format((float)$invoice_amount, 2, '.', ',')." for Invoice #".$invoice_num.'. The payment has been sent to your Stripe account.';
-						$this->_send_invoice_payment_email($message, CUSTOMER_EMAIL);
+						if ($payment_notification == 1) {
+							$message = "Huzzah! You have received a payment of $".number_format((float)$invoice_amount, 2, '.', ',')." for Invoice #".$invoice_num.'. The payment has been sent to your Stripe account.';
+							$this->_send_invoice_payment_email($message, CUSTOMER_EMAIL);
+						}
 						
 						// Add the payment to the db
 						$this->invoice_model->add_payment($pdata, $id);
