@@ -1,14 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Contact extends CI_Controller {
-
+	
+	var $userdata;
 	 	 
 	public function __construct() 
 	{
 		parent::__construct();
-				
+		$this->load->library('tank_auth_my');		
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
+		$this->session_data = $this->session->userdata('logged_in');
 	} 
 	
 	public function index() 
@@ -18,9 +20,15 @@ class Contact extends CI_Controller {
 		$this->form_validation->set_rules('message', 'Message', 'required|xss_clean');
 		
 		if ($this->form_validation->run() === FALSE){
-			$this->load->view('templates/client/header');
-			$this->load->view('pages/contact/index');
-			$this->load->view('templates/client/footer');
+			if (!$this->tank_auth_my->is_logged_in()) {
+				$this->load->view('templates/client/header');
+				$this->load->view('pages/contact/index');
+				$this->load->view('templates/client/footer');
+			} else {
+				$this->load->view('templates/header');
+				$this->load->view('pages/contact/index');
+				$this->load->view('templates/footer');
+			}
 		} else {
 			
 			$message = array(
@@ -31,11 +39,17 @@ class Contact extends CI_Controller {
 			);
 			
 			$this->_send_contact_email($message);
-			$this->load->view('templates/client/header');
-			$this->load->view('pages/contact/index');
-			$this->load->view('templates/client/footer');
+			
+			if (!$this->tank_auth_my->is_logged_in()) {
+				$this->load->view('templates/client/header');
+				$this->load->view('pages/contact/index');
+				$this->load->view('templates/client/footer');
+			} else {
+				$this->load->view('templates/header');
+				$this->load->view('pages/contact/index');
+				$this->load->view('templates/footer');
+			}
 		}
-		
 	}
 	
 	private function _send_contact_email($message) 

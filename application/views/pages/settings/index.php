@@ -142,9 +142,9 @@
 			    		<label for="stripe_connect">Connect to Stripe</label>
 			    		
 			    		<?php 
-			    			if ( !isset($settings[0]['state']) ) {
+			    			if ( $settings[0]['stripe_cust_token'] == false ) {
 			    				
-			    				echo anchor('https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_4eR11ZVjVsJOIKtOVnqhMRK4HSSX6ONl&scope=read_write&stripe_user[email]='.$settings[0]['email'].'&stripe_user[url]=http://www.bilbobaggins.com&stripe_user[business_name]='.$settings[0]['company_name'].'&stripe_user[street_address]='.$settings[0]['address_1'].'&stripe_user[city]='.$settings[0]['city'].'&stripe_user[state]='.$settings[0]['state'].'&stripe_user[zip]='.$settings[0]['zip'], 'Connect Account', 'title="Connect Account" class="button small round"');
+			    				echo anchor('https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_4eR11ZVjVsJOIKtOVnqhMRK4HSSX6ONl&scope=read_write&stripe_user[email]='.$settings[0]['email'].'&stripe_user[business_name]='.$settings[0]['company_name'].'&stripe_user[street_address]='.$settings[0]['address_1'].'&stripe_user[city]='.$settings[0]['city'].'&stripe_user[state]='.$settings[0]['state'].'&stripe_user[zip]='.$settings[0]['zip'], 'Connect Account', 'title="Connect Account" class="button small round"');
 			    				
 			    			} else {
 			    				

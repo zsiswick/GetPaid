@@ -37,6 +37,7 @@ class Invoices extends CI_Controller {
 		//$this->load->view('widgets/invoice-dashboard', $data);
 		$this->load->view('pages/invoices/index', $data);
 		$this->load->view('templates/footer');
+		
 	}
 	
 	public function view($id = FALSE) 

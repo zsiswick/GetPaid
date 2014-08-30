@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 		<meta charset="utf-8">
 		<title><?php echo($this->tank_auth_my->get_username());?> — Ruby Invoice</title>
-		<link href='http://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation-icons.css" />
@@ -58,10 +58,11 @@
 			  	</a>
 			  	<nav>
 			  		<ul id="main-menu">
+			  			<li><?php echo anchor('quotes', 'Quotes', 'class="button round light"'); ?></li>
 			  			<li><?php echo anchor('invoices', 'Invoices', 'class="button round light"'); ?></li>
 			  			<li><?php echo anchor('clients', 'Clients', 'class="button round light"'); ?></li>
 			  			<li><?php echo anchor('settings', 'Settings', 'class="button round light"'); ?></li>
-			  			<li><?php echo anchor('contact', 'Contact', 'class="button round light"'); ?></li>
+			  			
 			  		</ul>
 			  	</nav>
 			  </div>	
@@ -70,6 +71,7 @@
 			  	
 			  	<nav class="menu-mobile show-for-small-only">
 			  		<ul id="main-menu-mobile">
+			  			<li><?php echo anchor('quotes', 'Quotes'); ?></li>
 			  			<li><?php echo anchor('invoices', 'Invoices'); ?></li>
 			  			<li><?php echo anchor('clients', 'Clients'); ?></li>
 			  			<li><?php echo anchor('settings', 'Settings'); ?></li>
@@ -83,30 +85,4 @@
 			</div>
 		</div>
 	</div>
-	<!--
-	<section class="main-nav">
-		<div class="row">
-			<nav class="top-bar" data-topbar>
-				<ul class="title-area">
-			    <li class="name">
-			      <h1><a href="<?php echo base_url(); ?>index.php/invoices"><?php echo($this->tank_auth_my->get_username()) ?></a></h1>
-			    </li>
-			    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-			  </ul>
-				<section class="top-bar-section">
-					<ul class="right show-for-large-up">
-						<li><?php echo anchor('invoices', 'Invoices'); ?></li>
-						<li><?php echo anchor('clients', 'Clients'); ?></li>
-						<li><?php echo anchor('settings', 'Settings'); ?></li>
-					</ul>
-					<ul class="right hide-for-large-up">
-						<li><?php echo anchor('invoices', 'Invoices'); ?></li>
-						<li><?php echo anchor('clients', 'Clients'); ?></li>
-						<li><?php echo anchor('settings', 'Settings'); ?></li>
-					</ul>
-				</section>
-			</nav>
-		</div>
-	</section>-->
-	
 	<section role="main" class="outer-wrap">

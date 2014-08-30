@@ -218,7 +218,7 @@ class Invoice extends CI_Controller {
 				    // You screwed up in your programming. Shouldn't happen!
 				    $message = "Error #1 — Something went wrong. Your card wasn't charged. Please contact customer support for help with your payment";
 				    $this->session->set_flashdata('error', $message);
-				    send_invoice_payment_email($message, ADMIN_EMAIL);
+				    $this->_send_invoice_payment_email($message, ADMIN_EMAIL);
 				    redirect('/invoice/view/'.$id.'/'.$client_key , 'refresh');
 				} catch (Stripe_ApiError $e) {
 				    // Stripe's servers are down!
@@ -228,7 +228,7 @@ class Invoice extends CI_Controller {
 				    // Something else that's not the customer's fault.
 				    $message = "Error #2 — Something went wrong. Your card wasn't charged. Please contact customer support for help with your payment";
 				    $this->session->set_flashdata('error', $message);
-				    send_invoice_payment_email($message, ADMIN_EMAIL);
+				    $this->_send_invoice_payment_email($message, ADMIN_EMAIL);
 				    redirect('/invoice/view/'.$id.'/'.$client_key , 'refresh');
 				}
 			}		

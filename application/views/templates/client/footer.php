@@ -32,7 +32,7 @@
 	</div>
 	<div class="row">
 		<div class="large-6 small-centered columns text-center">
-			&#169; <?php echo(date('Y'))?> Ruby Invoice &nbsp;|&nbsp;  Made by <a href="http://www.chromaloop.com">Chromaloop</a></p>
+			&#169; <?php echo(date('Y'))?> Ruby Invoice &nbsp;|&nbsp;  Made by <a href="http://www.chromaloop.com">Chromaloop</a><br/><?php echo anchor('contact', 'Contact Us'); ?><p></p>
 		</div>
 	</div>
 </footer>		

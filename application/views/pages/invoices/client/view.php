@@ -226,7 +226,6 @@
 										<p><?php echo($item['settings'][0]['notes']); ?></p>
 									</div>
 								</div>
-								
 							</section>
 						</div>
 				</div>
@@ -234,18 +233,27 @@
 		</div>
 	</div>
 </div>
-
+<div class="row">
+	<div class="columns small-12 text-center">
+		<p></p><a href="https://www.positivessl.com" style="font-family: arial; font-size: 10px; color: #212121; text-decoration: none;"><img src="https://www.positivessl.com/images-new/PositiveSSL_tl_trans2.png" alt="SSL Certificate" title="SSL Certificate" border="0"></a>
+	</div>
+</div>
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
-		<div id="paymentModal" class="reveal-modal small light-bg" data-reveal>
-			<h3 class="text-center">Choose Payment Method</h3>
+		<div id="paymentModal" class="reveal-modal small light-bg text-center" data-reveal>
+			<h3>Pay Invoice</h3>
 			<hr />
 			<div id="form-errors" class="alert-box round"></div>
 			<div id="form-wrap">
 				
 				<?php require_once(APPPATH.'config/stripe.php'); ?>
 				<form action="<?php echo(base_url());?>index.php/invoice/stripe_payment" method="POST">
-					<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_Bj38OttZCFdKmufc5CrsZmei"></script>
+					<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
+						data-key="pk_test_Bj38OttZCFdKmufc5CrsZmei"
+						data-image="<?php echo base_url();?>assets/images/ruby-invoice-logo.jpg"
+						data-name="Ruby Invoice"
+						data-description="Invoice: #<?php echo($inv_num);?> ($<?php echo($item[0]['amount']);?>)">
+					</script>
 					<input type="hidden" name="uid" value="<?php echo($item[0]['uid']);?>" />
 					<input type="hidden" name="invoice_num" value="<?php echo($inv_num);?>" />
 					<input type="hidden" name="invoice_amount" value="<?php echo($item[0]['amount']);?>" />
@@ -254,6 +262,11 @@
 					<input type="hidden" name="cust_email" value="<?php echo($cust_email); ?>"/>
 					<input type="hidden" name="payment_notification" value="<?php echo($item['settings'][0]['payment_notification']); ?>"/>
 				</form>
+			</div>
+			<div class="row">
+				<div class="columns small-12 text-center">
+					<p></p><a href="https://www.positivessl.com" style="font-family: arial; font-size: 10px; color: #212121; text-decoration: none;"><img src="https://www.positivessl.com/images-new/PositiveSSL_tl_trans2.png" alt="SSL Certificate" title="SSL Certificate" border="0"></a>
+				</div>
 			</div>
 		</div>
 	</div>

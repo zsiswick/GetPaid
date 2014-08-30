@@ -89,7 +89,8 @@ class Settings extends CI_Controller {
 	public function disconnect_stripe() 
 	{
 		$uid = $this->tank_auth_my->get_user_id();
-		$this->user_model->unset_stripe_token($uid);	
+		$this->user_model->unset_stripe_token($uid);
+		redirect('/settings', 'refresh');	
 	}
 }
 
