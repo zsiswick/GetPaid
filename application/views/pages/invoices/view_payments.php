@@ -4,7 +4,13 @@
 		$sumTotal = 0;
 		$amount = 0;
 		$hidden = array('iid' => $item[0]['iid']);
-		$date = new DateTime($item['payments'][0]['pdate']);
+		
+		if ( !empty($item['payments'][0]['pdate']) ) {
+			$date = new DateTime($item['payments'][0]['pdate']);
+		} 
+		
+		
+		//print("<pre>".print_r( $item, true )."</pre>");
 	?>
 	
 	<?php 

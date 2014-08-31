@@ -762,6 +762,7 @@ div.switch label::after {
 }
 .alert-box {
   background: #4b011f;
+  border: none;
 }
 /*
 ** FOOTER

@@ -179,6 +179,9 @@ class Auth extends CI_Controller
 
 							$this->_send_email('welcome', $data['email'], $data);
 						}
+						
+						$this->_send_email('new_customer', $this->config->item('webmaster_email', 'tank_auth'), $data); // send an email to the site admin
+						
 						unset($data['password']); // Clear password (just for any case)
 
 						$this->_show_message($this->lang->line('auth_message_registration_completed_2').' '.anchor('/auth/login/', 'Login'));

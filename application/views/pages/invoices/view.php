@@ -73,10 +73,10 @@
 					<a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="button round small light">Download</a>
 				</div>
 				<h5 class="ruled caps">
-					Share
+					Permalink
 				</h5>
 				<div class="info-block">
-					<a href="<?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']?>/<?php echo $item['client'][0]['key']?>" class="button round small light">Permalink</a>
+					<a href="<?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']?>/<?php echo $item['client'][0]['key']?>" class="button round small light">View</a>
 				</div>
 				
 			</div>
@@ -275,7 +275,7 @@
 									</div>
 								</div>
 								<div class="large-pull-5 large-7 columns ">
-									<h3>Notes</h3>
+									<h3>Payment Terms</h3>
 									<p><?php echo($item['settings'][0]['notes']) ?></p>
 								</div>
 							</div>

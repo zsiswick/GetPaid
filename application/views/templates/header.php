@@ -58,8 +58,8 @@
 			  	</a>
 			  	<nav>
 			  		<ul id="main-menu">
-			  			<li><?php echo anchor('quotes', 'Quotes', 'class="button round light"'); ?></li>
 			  			<li><?php echo anchor('invoices', 'Invoices', 'class="button round light"'); ?></li>
+			  			<li><?php echo anchor('quotes', 'Quotes', 'class="button round light"'); ?></li>
 			  			<li><?php echo anchor('clients', 'Clients', 'class="button round light"'); ?></li>
 			  			<li><?php echo anchor('settings', 'Settings', 'class="button round light"'); ?></li>
 			  			
@@ -71,8 +71,8 @@
 			  	
 			  	<nav class="menu-mobile show-for-small-only">
 			  		<ul id="main-menu-mobile">
-			  			<li><?php echo anchor('quotes', 'Quotes'); ?></li>
 			  			<li><?php echo anchor('invoices', 'Invoices'); ?></li>
+			  			<li><?php echo anchor('quotes', 'Quotes'); ?></li>
 			  			<li><?php echo anchor('clients', 'Clients'); ?></li>
 			  			<li><?php echo anchor('settings', 'Settings'); ?></li>
 			  			<li><?php echo anchor('contact', 'Contact'); ?></li>
