@@ -45,7 +45,7 @@
 				</h5>
 				<div class="info-block"><a href="#" id="addPaymentBtn" data-reveal-id="paymentModal" class="button round small light">Add Payment</a></div>
 				<h5 class="ruled caps">
-					Send Email
+					Send
 				</h5>
 				<div class="info-block">
 					<?php
@@ -93,18 +93,27 @@
 				<div id="invoiceCreate" class="invoice-form light-bg">
 					
 						<div class="">
+							<div class="row">
+								<div class="large-12 columns text-right small-only-text-left">
+									<h4 class="caps">Invoice <?php echo($status_flags[$item[0]['status']]);?></h4>
+								</div>
+							</div>
 							<div class="row invoice-info">
 								<div class="medium-5 small-centered large-uncentered columns invoice-info">
 										<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$logo.'" />'; endif ?>
-									<p><?php if(!empty($company_name)): echo '<h3>'.$company_name.'<h3/>'; endif ?></p>
+									<?php if(!empty($company_name)): echo '<h3>'.$company_name.'<h3/>'; endif ?>
+									<div class="info-block">
+										<ul>
+											<?php if( !empty($item['settings'][0]['address_1']) ): echo('<li>'.$item['settings'][0]['address_1'].'</li>'); endif ?>
+											<?php if( !empty($item['settings'][0]['address_2']) ): echo('<li>'.$item['settings'][0]['address_2'].'</li>'); endif ?>
+											<?php if( !empty($item['settings'][0]['city']) || !empty($item['settings'][0]['state']) || !empty($item['settings'][0]['zip']) ): echo('<li>'); endif ?><?php echo($item['settings'][0]['city'].' '.$item['settings'][0]['state'].' '.$item['settings'][0]['zip']); ?><?php if( !empty($item['settings'][0]['city']) || !empty($item['settings'][0]['state']) || !empty($item['settings'][0]['zip']) ): echo('</li>'); endif ?>
+											<?php if( !empty($item['settings'][0]['country']) ): echo('<li>'.$item['settings'][0]['country'].'</li>'); endif ?>
+										</ul>
+									</div>
 								</div>
+								
 								<div class="large-7 small-centered large-uncentered columns">
 									<div class="row">
-									
-										<div class="large-12 columns text-right small-only-text-left">
-											<h4 class="caps">Invoice <?php echo($status_flags[$item[0]['status']]);?></h4>
-										</div>
-										
 										<div class="medium-6 columns">
 											<h5 class="caps ruled">Billing Information</h5>
 												<div class="info-block ">
@@ -167,10 +176,19 @@
 										
 									</div>
 									
-									
+								<?php
+									if (!empty($item[0]['description'])) { ?>
+										<div class="row">
+									<div class="columns small-12">
+										<h5 class="ruled caps">Description</h5>
+										<div class="info-block">
+											<?php echo($item[0]['description']);?>
+										</div>
+									</div>
+								</div>
+									<?php } ?>
 								</div>
 							</div>
-							<h3 class="small-only-text-center top-rule">Invoice Items</h3>
 								
 							<div class="invoice-create list_header clearfix">
 								<div class="row">

@@ -4,6 +4,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 		<meta charset="utf-8">
+		<meta name="google-site-verification" content="ytvgo-pM6llaRZTvpSHPZb90kLxsWEyK05wPIX_SwH0" />
 		<title>Ruby Invoice</title>
 		<link href='https://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
@@ -12,6 +13,14 @@
 		<!--<link rel="stylesheet" href="<?php $autoload['helper'] = array('url','utility'); ?>assets/css/company.css" />-->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" />
 		<script src="<?php echo base_url(); ?>assets/js/vendor/modernizr.js"></script>
+		<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
+		
+		<? if (isset($css_to_load)) : 
+				foreach ($css_to_load as $css) : ?>
+					<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?=$css;?>" />
+		<?php endforeach;?>
+			
+		<? endif;?>
 	</head>
 	<body>
 
@@ -50,17 +59,18 @@
 					  		</a>
 					  		<nav class="menu-desktop">
 					  			<ul id="main-menu">
-					  				<li><a href="<?php echo base_url(); ?>index.php/auth/login" class="button round light">Sign In</a></li>
-					  				<li><a href="<?php echo base_url(); ?>index.php/auth/register" class="button round light">Register</a></li>
+					  				<li><a href="<?php echo base_url(); ?>index.php/features" class="button round light">Features</a></li>
 					  				<li><a href="<?php echo base_url(); ?>index.php/contact" class="button round light">Contact</a></li>
+					  				<li><a href="<?php echo base_url(); ?>index.php/auth/login" class="button round light">Sign In</a></li>
 					  			</ul>
 					  		</nav>
 					  	</div>
 					  	<nav class="menu-mobile show-for-small-only">
 					  		<ul id="main-menu-mobile">
+					  			<li><a href="<?php echo base_url(); ?>index.php/features">Features</a></li>
+					  			<li><a href="<?php echo base_url(); ?>index.php/contact">Contact</a></li>
 					  			<li><a href="<?php echo base_url(); ?>index.php/auth/login">Sign In</a></li>
 					  			<li><a href="<?php echo base_url(); ?>index.php/auth/register">Register</a></li>
-					  			<li><a href="<?php echo base_url(); ?>index.php/contact">Contact</a></li>
 					  		</ul>
 					  	</nav>
 					  	<div id="nav-container-mobile" class="text-center show-for-small-only">

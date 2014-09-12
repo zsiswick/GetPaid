@@ -34,10 +34,10 @@ class Settings extends CI_Controller {
 		// File Upload Config
 		$config['upload_path'] = $upload_path.$uid.'/';
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
+		$config['max_size']	= '300';
 		$config['overwrite'] = true;
-		$config['max_width']  = '150';
-		$config['max_height']  = '150';
+		$config['max_width']  = '700';
+		$config['max_height']  = '700';
 		$filename = $data['settings'][0]['logo'];
 		$data['filename'] = $filename;
 		

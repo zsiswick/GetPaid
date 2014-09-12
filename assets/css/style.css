@@ -50,6 +50,9 @@ svg {
   border-radius: 50%;
   background: #4679BD;
 }
+.fi-info {
+  color: #f15959;
+}
 .row {
   max-width: 68rem;
 }
@@ -224,6 +227,12 @@ a:hover,
 a:focus {
   color: #4b011f;
 }
+.light a {
+  color: #4b011f;
+}
+.light a:hover {
+  color: #ffffff;
+}
 .small-type {
   font-size: .8rem;
 }
@@ -273,6 +282,14 @@ section.white {
   padding-bottom: 75%;
   margin-bottom: 1rem;
 }
+.shadow {
+  box-shadow: -2px -1px 3px rgba(100, 100, 100, 0.5);
+  -moz-box-shadow: -2px -1px 3px rgba(100, 100, 100, 0.5);
+}
+img.screen {
+  border-radius: 6px 6px 0px 0px;
+  -moz-border-radius: 6px 6px 0px 0px;
+}
 .dashboard {
   margin-bottom: 1rem;
   padding: 1rem 0;
@@ -284,6 +301,9 @@ section.white {
 }
 .dashb-item h5 {
   margin-bottom: 2rem;
+}
+h3 {
+  margin-bottom: 1.5rem;
 }
 h3.top-rule {
   font-size: 1.5rem;
@@ -307,15 +327,15 @@ h5 {
 .light-bg h4,
 .light-bg h5,
 .light-bg h5.ruled {
-  color: #f15959;
+  color: #000;
 }
 .ruled {
   border-top: 1px solid #ffffff;
   border-bottom: 1px solid #ffffff;
 }
 .light-bg .ruled {
-  border-top: 1px solid #f15959;
-  border-bottom: 1px solid #f15959;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 .ruled.sans-top {
   border-top: none;
@@ -421,9 +441,15 @@ ul.tabs {
 .tabs .tab-title.active a:hover {
   background: #4b011f;
 }
+.sidebar {
+  margin-top: 3rem;
+}
 /*
 ** Invoice
 */
+.invoice-form {
+  box-shadow: 0px 3px 5px #333;
+}
 .invoice-info {
   margin-bottom: 3rem !important;
 }
@@ -436,10 +462,9 @@ ul.tabs {
 }
 .invoice-form {
   margin-top: 3rem;
-  color: #f15959 !important;
 }
 #invoiceCreate .tabbed.list {
-  color: #f15959 !important;
+  color: #000 !important;
 }
 .list_header > div {
   color: #ffffff;
@@ -457,13 +482,16 @@ ul.tabs {
   padding: .25rem .5rem;
 }
 .list_header {
-  padding: .8rem 0px;
+  padding: .1rem 0px;
   margin: 0;
-  border-top: 1px solid #f15959;
-  border-bottom: 1px solid #f15959;
-  text-transform: uppercase;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   font-size: .8rem;
   font-family: "robotomedium";
+}
+.invoice-form .list_header {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .tabbed.list {
   margin-bottom: 0px;
@@ -473,16 +501,33 @@ ul.tabs {
 .tabbed.list .label {
   width: 100%;
 }
+.tabbed.list input[type=text] {
+  margin-bottom: 0rem;
+}
+.tabbed.list hr {
+  margin: 1rem 0 1.25rem;
+}
+.tabbed.list small {
+  margin-top: 1rem !important;
+}
 .list_header li,
 .tabbed.list li {
   list-style: none;
   float: left;
 }
+.light-bg {
+  background: #ffffff;
+  color: #f15959;
+}
 .light-bg .list_header div {
   color: #f15959;
 }
+.invoice-form,
+.invoice-form .list_header div {
+  color: #000;
+}
 .tabbed.list {
-  border-bottom: 1px solid #f15959;
+  border-bottom: 1px solid #ddd;
 }
 .tabbed.list:last-child {
   border-bottom: none;
@@ -497,10 +542,6 @@ ul.tabs {
 .tabbed.items.list div:last-child,
 .list_header div:last-child {
   border-bottom: none;
-}
-.light-bg {
-  background: #ffffff;
-  color: #f15959;
 }
 .invoice-form,
 .invoice-inner-wrap,
@@ -606,7 +647,6 @@ ul.tabs {
   padding: .8rem 0rem 1rem;
 }
 .info-block.last {
-  border-bottom: 1px solid #d98e8e;
   padding-bottom: 1.5rem;
 }
 /*
@@ -650,6 +690,10 @@ button.button:hover {
 .button label {
   color: #f15959;
 }
+.invoice-form li,
+.invoice-form .info-block {
+  color: #999;
+}
 select,
 input[type="text"],
 input[type="email"],
@@ -660,6 +704,9 @@ textarea {
   -moz-box-shadow: none !important;
   border: none;
   color: #f15959;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
 }
 select:hover,
 input[type="text"]:hover {
@@ -679,15 +726,32 @@ input[type="tel"],
 input[type="search"],
 .light-bg textarea,
 isindex {
-  background-color: #f15959;
+  background-color: #fff;
   box-shadow: none !important;
   -moz-box-shadow: none !important;
-  color: #ffffff;
+  color: #000;
+  border: 1px solid #f15959;
   -webkit-transition: background 300ms ease-in-out;
   -moz-transition: background 300ms ease-in-out;
   -ms-transition: background 300ms ease-in-out;
   -o-transition: background 300ms ease-in-out;
   transition: background 300ms ease-in-out;
+}
+.invoice-form select,
+.invoice-form input[type="text"],
+.invoice-form input[type="password"],
+.invoice-form input[type="password"]:focus,
+.invoice-form input[type="email"],
+.invoice-form input[type="tel"],
+.invoice-form input[type="search"],
+.invoice-form textarea,
+.invoice-form isindex {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+.invoice-form hr {
+  border-color: #ddd;
 }
 .light-bg select:hover,
 .light-bg select:focus,
@@ -707,23 +771,43 @@ input[type="search"]:focus,
 .light-bg textarea:focus,
 isindex:hover,
 isindex:focus {
-  background-color: #E99090;
-  box-shadow: none;
-  -moz-box-shadow: none;
+  background-color: #fff;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="time"]:focus,
+input[type="url"]:focus,
+textarea:focus {
+  border-color: #f15959 !important;
+  -webkit-box-shadow: 0 0 3px 0 #f15959 !important;
+  box-shadow: 0 0 3px 0 #f15959 !important;
 }
 input[type="text"][readonly] {
-  color: #fff;
+  color: #f15959;
 }
 input[readonly="readonly"],
 input[readonly] {
-  color: #fff;
+  color: #f15959;
+}
+.invoice-form input[type="text"][readonly] {
+  color: #000;
 }
 input[type="file"] {
   background: none;
+  border: none;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
-  color: #a43a3a;
+  color: #ccc;
   font-style: italic;
 }
 input:-moz-placeholder,
@@ -731,9 +815,20 @@ textarea:-moz-placeholder {
   color: #a43a3a;
   font-style: italic;
 }
-#login,
-#password {
-  background: #f15959 !important;
+.error input,
+.error textarea,
+.error select {
+  margin-bottom: 1rem;
+}
+[data-abide] .error small.error,
+[data-abide] .error span.error,
+[data-abide] span.error,
+[data-abide] small.error {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: -1rem;
+  font-size: .7rem;
 }
 :-ms-input-placeholder,
 ::-moz-placeholder,
@@ -760,9 +855,100 @@ div.switch label::after {
   background: transparent;
   color: #4b011f;
 }
+.invoice-form .error small.error,
+.invoice-form .error span.error,
+.invoice-form span.error,
+.invoice-form small.error {
+  color: #f15959 !important;
+}
 .alert-box {
   background: #4b011f;
   border: none;
+}
+.reveal-modal {
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+/* Animations */
+.shake {
+  -webkit-animation: shake .7s ease forwards;
+}
+/* Shake */
+@-webkit-keyframes shake {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translateX(-8px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translateX(8px);
+  }
+}
+@-moz-keyframes shake {
+  0%,
+  100% {
+    -moz-transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -moz-transform: translateX(-8px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    -moz-transform: translateX(8px);
+  }
+}
+@-o-keyframes shake {
+  0%,
+  100% {
+    -o-transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -o-transform: translateX(-8px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    -o-transform: translateX(8px);
+  }
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-8px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(8px);
+  }
 }
 /*
 ** FOOTER
@@ -775,8 +961,8 @@ footer > div {
   color: #ffffff;
 }
 #lil-ruby {
-  width: 30px;
-  padding-bottom: 15%;
+  width: 40px;
+  padding-bottom: 10%;
 }
 @media only screen and (min-width: 768px) {
   /* tablets and desktop */
@@ -881,10 +1067,6 @@ footer > div {
   textarea {
     box-shadow: none;
     -moz-box-shadow: none;
-    border: none;
-  }
-  select:hover,
-  input[type="text"]:hover {
     border: none;
   }
   .invoice-form select,

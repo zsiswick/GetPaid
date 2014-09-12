@@ -23,7 +23,7 @@ Best regards,&#013;
 	 </textarea>
 	 <div class="row">
 	 	<div class="small-12 columns text-center">
-	 		<input type="submit" name="submit" value="Send Invoice" class="button round"/>	
+	 		<input type="submit" name="submit" value="Send Thank You" class="button round"/>	
 	 	</div>
 	 </div>
 	 

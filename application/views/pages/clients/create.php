@@ -5,12 +5,12 @@
 </div>
 <div class="row">
 	<div class="large-8 columns large-centered">
-		<div class="invoice-list-wrap invoice-form light-bg clearfix">
+		<div class="">
 			<div class="">
 				<?php echo validation_errors(); ?>
 				
 				<?php 
-					$attributes = array('data-abide'=>'');
+					$attributes = array('data-abide'=>'', 'class'=>'invoice-list-wrap invoice-form light-bg clearfix');
 					echo form_open('clients/create', $attributes); 
 				?>
 				

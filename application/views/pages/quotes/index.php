@@ -11,7 +11,6 @@
  		
 	 	<div class="large-12 columns text-center">
 	 		<h1>Quotes</h1>
-	 		<h4>Make a quote to print, or download as a PDF</h4>
 	 		<div class="row">
 	 			<div class="medium-3 medium-centered columns">
  					<div id="plus-button" class="svg-container">
@@ -57,40 +56,28 @@
 	 				</div>
 	 		</div>
 	 		
-	 				
-	 				
-	 				
-	 				<?php foreach ($quotes as $quote_item): ?>
-		 			
-		 			<?php 
-		 				// Get comma delimited payments and put them into an array so we can find the sum of their amount
-		 				//$path = explode(",", $quote_item['ipayments']);
-		 				//$exp = array_merge($path);
-		 				//$sum = array_sum( $exp );
-		 				//$percent = ($sum / $quote_item['amount']) * 100;
-		 			?>
-		 			<div class="tabbed list clearfix">
-		 				<div class="small-12 small-only-text-center medium-2 large-2 columns invoice-id">
-		 					<a href="<?php echo base_url(); ?>index.php/invoices/view/<?php echo $quote_item['iid']; ?>" class="button round small light">#<?php echo $quote_item['iid'];?></a>
-		 				</div>
-		 				<div class="small-12 small-only-text-center medium-2 large-2 columns date">
-		 					<?php echo $quote_item['pdate']; ?>
-		 				</div>
-		 				<div class="small-12 small-only-text-center medium-4 large-4 columns client">
-		 					<?php echo $quote_item['company']; ?>
-		 				</div>
-		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
-		 					<?php echo money_format('%.2n', $quote_item['amount']); ?>
-		 				</div>
-		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
-		 					TEST
-		 					
-		 				</div>
-		 			</div>
-		 			
-		 		<?php endforeach ?>
-	 		
-	 		
+	 		<?php foreach ($quotes as $quote_item): ?>
+			
+			
+			<div class="tabbed list clearfix">
+				<div class="small-12 small-only-text-center medium-2 large-2 columns invoice-id">
+					<a href="<?php echo base_url(); ?>index.php/quotes/view/<?php echo $quote_item['iid']; ?>" class="button round small light">#<?php echo $quote_item['iid'];?></a>
+				</div>
+				<div class="small-12 small-only-text-center medium-2 large-2 columns date">
+					<?php echo $quote_item['pdate']; ?>
+				</div>
+				<div class="small-12 small-only-text-center medium-4 large-4 columns client">
+					<?php echo $quote_item['company']; ?>
+				</div>
+				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
+					<?php echo money_format('%.2n', $quote_item['amount']); ?>
+				</div>
+				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
+					<span class="label secondary round"><?php echo($quote_flags[$quote_item['status']]);?></span>
+				</div>
+			</div>
+			
+		<?php endforeach ?>
 	 		
 	 	</div>
 	 </div>

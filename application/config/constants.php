@@ -36,10 +36,20 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| USER DEFINED
+|--------------------------------------------------------------------------
+|
+|
+*/
+
 define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 
 define('STATUS_FLAGS', serialize (array('0' => 'DRAFT', '1' => 'OPEN', '2' => 'PARTIAL', '3' => 'PAID', '4' => 'DUE')));
+define('QUOTE_FLAGS', serialize (array('0' => 'DRAFT', '1' => 'ACCEPTED', '2' => 'DECLINED')));
 define('RUBY_TRANSACTION_FEE', 0);
+define('RUBY_EMAIL', 'hello@rubyinvoice.com');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

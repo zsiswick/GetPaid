@@ -21,6 +21,71 @@ class Welcome extends CI_Controller
 		}
 			
 	}
+	
+	public function privacy() 
+	{
+		$this->load->view('templates/client/header');
+		$this->load->view('pages/privacy');
+		$this->load->view('templates/client/footer');
+	}
+	
+	public function terms() 
+	{
+		$this->load->view('templates/client/header');
+		$this->load->view('pages/terms-of-service');
+		$this->load->view('templates/client/footer');	
+	}
+	
+	public function free_invoice_maker() 
+	{
+		$this->load->helper('form');
+		$this->load->helper('date_input_helper');
+		$this->load->library('form_validation');
+		$this->load->model('invoice_model');
+		
+		$jsfiles = array('picker.js', 'picker.date.js');
+		$cssfiles = array('default.css', 'default.date.css');
+		$data['css_to_load'] = $cssfiles;
+		$data['js_to_load'] = $jsfiles;
+		$data['title'] = "Create a Free Invoice";
+		$data['register_form'] = $this->load->view('auth/register_form', $data, TRUE);
+		
+		$this->load->view('templates/client/header', $data);
+		$this->load->view('pages/invoices/create_free_invoice', $data);
+		$this->load->view('templates/client/footer', $data);
+	}
+	
+	public function pdf() 
+	{
+		$data['name'] = $this->input->post('name');
+		$data['address'] = $this->input->post('address');
+		$data['client_name'] = $this->input->post('client_name');
+		$data['client_address'] = $this->input->post('client_address');
+		$data['inv_description'] = $this->input->post('inv_description');
+		$data['invoice_num'] = $this->input->post('invoice_num');
+		$data['send_date'] = $this->input->post('send_date');
+		$data['due_date'] = $this->input->post('due_date');
+		$data['qty'] = $this->input->post('qty');
+		$data['description'] = $this->input->post('description');
+		$data['unit_cost'] = $this->input->post('unit_cost');
+		$data['terms_conditions'] = $this->input->post('terms_conditions');
+		
+		//$this->load->view('pages/invoices/view_free_pdf', $data, false);
+		//print("<pre>".print_r($data,true)."</pre>");
+		
+		
+		$filename = "ruby_invoice_".$data['client_name'];
+		 
+		ini_set('memory_limit','32M'); // boost the memory limit if it's low 
+    $html = $this->load->view('pages/invoices/view_free_pdf', $data, true); // render the view into HTML
+     
+    $this->load->library('pdf');
+    $pdf = $this->pdf->load();
+    $pdf->WriteHTML($html); 
+    $pdf->Output($filename, 'D'); 
+		
+		//redirect("../downloads/reports/$filename.pdf");
+	}    
 }
 
 /* End of file welcome.php */

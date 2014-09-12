@@ -1,10 +1,11 @@
 <?php
-$attributes = array('autocomplete'=>'off');
+$attributes = array('autocomplete'=>'off', 'data-abide' => '');
 $login = array(
 	'name'	=> 'login',
 	'id'	=> 'login',
 	'value' => set_value('login'),
 	'maxlength'	=> 80,
+	'required' => ''
 );
 if ($login_by_username AND $login_by_email) {
 	$login_label = 'Email or login';
@@ -16,6 +17,7 @@ if ($login_by_username AND $login_by_email) {
 $password = array(
 	'name'	=> 'password',
 	'id'	=> 'password',
+	'required' => ''
 );
 $remember = array(
 	'name'	=> 'remember',
@@ -43,6 +45,7 @@ $captcha = array(
 											<?php echo form_label($login_label, $login['id']); ?>
 											<?php echo form_input($login); ?>
 											<?php echo form_error($login['name']); ?><?php echo isset($errors[$login['name']])?$errors[$login['name']]:''; ?>
+											<small class="error">Email or login is required.</small>
 										</div>
 									</div>
 									
@@ -51,6 +54,7 @@ $captcha = array(
 									<?php echo form_label('Password', $password['id']); ?>
 									<?php echo form_password($password); ?>
 									<?php echo form_error($password['name']); ?><?php echo isset($errors[$password['name']])?$errors[$password['name']]:''; ?>
+									<small class="error">Password is required.</small>
 								</div>
 							</div>
 							

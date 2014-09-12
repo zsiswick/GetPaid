@@ -1,7 +1,7 @@
 	</section>
 <footer>
 	<div class="row">
-		<div class="large-6 columns small-centered text-center">
+		<div class="large-6 columns text-center small-centered">
 			<div id="lil-ruby" class="svg-container">
 				<svg version="1.1" viewBox="0 0 22.8 22.6" class="svg-content">
 				<g>
@@ -27,22 +27,29 @@
 				</g>
 				</svg>
 			</div>
-			
+			<h4>Say Hello</h4>
+			<a href="mailto:hello@rubyinvoice.com">hello@rubyinvoice.com</a> or tweet us <a href="https://twitter.com/intent/tweet?screen_name=rubyinvoice&amp;text=Hi!" target="_blank">@rubyinvoice</a>
+			<hr class="light-bg" />
 		</div>
+		
 	</div>
 	<div class="row">
 		<div class="large-6 small-centered columns text-center">
-			&#169; <?php echo(date('Y'))?> Ruby Invoice &nbsp;|&nbsp;  Made by <a href="http://www.chromaloop.com">Chromaloop</a><br/><?php echo anchor('contact', 'Contact Us'); ?><p></p>
+			&#169; <?php echo(date('Y'))?> Ruby Invoice &nbsp;|&nbsp;  <?php echo anchor('contact', 'Contact Us'); ?> &nbsp;|&nbsp; <?php echo anchor('welcome/privacy', 'Privacy Policy'); ?>  &nbsp;|&nbsp; <?php echo anchor('welcome/terms', 'Terms'); ?> <br/>Made by <a href="http://www.chromaloop.com">Chromaloop</a><p></p>
 		</div>
 	</div>
 </footer>		
 </body>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/foundation.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.hoverIntent.minified.js"></script>
-<? if (isset($js_to_load)) : ?>
-	<script type="text/javascript" src="<?php echo base_url();?>assets/js/<?=$js_to_load;?>"></script>
+<? if (isset($js_to_load)) : 
+		foreach ($js_to_load as $js) : ?>
+			<script type="text/javascript" src="<?php echo base_url();?>assets/js/<?=$js;?>"></script>
+<?php endforeach;?>
+	
 <? endif;?>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/scripts.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/ga.js"></script>
+<?php 
+	if (strpos(base_url(),'localhost') != true) { ?>
+		<script type="text/javascript" src="<?php echo base_url();?>assets/js/ga.js"></script>
+<?php } ?>
 </html>

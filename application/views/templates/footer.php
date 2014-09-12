@@ -27,12 +27,14 @@
 				</g>
 				</svg>
 			</div>
-			
+			<h4>Say Hello</h4>
+			<a href="mailto:hello@rubyinvoice.com">hello@rubyinvoice.com</a> or tweet us <a href="https://twitter.com/intent/tweet?screen_name=rubyinvoice&amp;text=Hi!" target="_blank">@rubyinvoice</a>
+			<hr class="light-bg" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="large-6 small-centered columns text-center">
-			&#169; <?php echo(date('Y'))?> Ruby Invoice &nbsp;|&nbsp;  Made by <a href="http://www.chromaloop.com">Chromaloop</a><br/><?php echo anchor('contact', 'Contact Us'); ?><p></p>
+			&#169; <?php echo(date('Y'))?> Ruby Invoice &nbsp;|&nbsp;  <?php echo anchor('contact', 'Contact Us'); ?> &nbsp;|&nbsp; <?php echo anchor('welcome/privacy', 'Privacy Policy'); ?>  &nbsp;|&nbsp; <?php echo anchor('welcome/terms', 'Terms'); ?> <br/>Made by <a href="http://www.chromaloop.com">Chromaloop</a><p></p>
 		</div>
 	</div>	
 </footer>	
@@ -45,5 +47,8 @@
 	
 <? endif;?>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/scripts.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/ga.js"></script>
+	<?php 
+		if (strpos(base_url(),'localhost') != true) { ?>
+			<script type="text/javascript" src="<?php echo base_url();?>assets/js/ga.js"></script>
+	<?php } ?>
 </html>

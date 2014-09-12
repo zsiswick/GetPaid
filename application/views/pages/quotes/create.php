@@ -8,6 +8,11 @@
 		<div id="quoteCreate" class="invoice-list-wrap">
 			<div class="">
 				<?php echo validation_errors(); ?>
+					<div class="row">
+						<div class="large-12 columns text-right small-only-text-left">
+							<h4 class="caps">Draft Quote</h4>
+						</div>
+					</div>
 					<div class="row invoice-info">
 						<div class="medium-5 columns">
 							<div class="row">
@@ -15,126 +20,22 @@
 									<div class="customer-logo">
 										<?php if(!empty($settings[0]['logo'])): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$settings[0]['logo'].'" />'; endif ?>
 									</div>
-									<h3><?php if(!empty($settings[0]['company_name'])): echo '<h3>'.$settings[0]['company_name'].'<h3/>'; endif ?></h3>	
+									<?php if(!empty($settings[0]['company_name'])): echo '<h3>'.$settings[0]['company_name'].'<h3/>'; endif ?>
 								</div>
 							</div>
 						</div>
 						<div class="medium-7 columns">
+							<?php $this->load->view('templates/billing-info'); ?>
 							<div class="row">
-								<div class="large-12 columns text-right small-only-text-left">
-									<h4 class="caps">Draft Quote</h4>
-								</div>
-								<div class="medium-6 columns">
-									<div class="">
-										<h5 class="caps ruled">
-												Billing Information
-											</h5>
-											<div class="info-block">	
-										
-												<?php 
-													if ($settings) {
-														// Map select option values to the list of clients available
-														$clientList = array_map(function ($ar) {
-															return $ar['company'];
-														}, $settings);
-														$clientID = array_map(function ($ar) {
-															return $ar['id'];
-														}, $settings);
-														$clientList = array_combine($clientID, $clientList);
-														$clientList['add_new_client'] = 'Add New Client';
-														echo form_dropdown('client', $clientList, 1);
-													} else {
-														//echo anchor('clients/create', 'Add a Client', 'class="button round"', 'id="addClient"');
-														$clientList = array('choose' => 'Choose...', 'add_new_client' => 'Add New Client');
-														$attributes = 'required="" type="number"';
-														echo form_dropdown('client', $clientList, 1, $attributes);
-													}
-												?>
-												<small class="error">Client is required.</small>
-													<ul id="client_data">
-														<li id="contactName"></li>
-														<li id="addressOne"></li>
-														<li id="addressTwo"></li>
-														<li id="cityStateZip"></li>
-													</ul>
-												
-												<script type="text/javascript">
-											    $(document).ready(function() {
-											    
-											    	var client_data = <?php echo json_encode($settings); ?>;
-											    	var client_val = $('[name="client"]').val();
-											    	var count = 0;
-												    
-												    function update_address(count, client_val) 
-												    {
-												    	if($.isNumeric(client_val)) {
-												    		$('#contactName').html( client_data[count]['contact'] );
-												    		$('#addressOne').html( client_data[count]['address_1'] );
-												    		$('#addressTwo').html( client_data[count]['address_2'] );
-												    		$('#cityStateZip').html( client_data[count]['city']+' '+client_data[count]['state']+' '+client_data[count]['zip'] );
-												    		$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
-												    	} else {
-												    		$('#contactName').html('');
-												    		$('#addressOne').html('');
-												    		$('#addressTwo').html('');
-												    		$('#cityStateZip').html('');
-												    	}
-												    }
-													    
-														$('[name="client"]').on( "change", function() {
-															var count = $(this)[0].selectedIndex;
-															
-														  client_val =  $( this ).val();
-														  update_address(count, client_val);
-														});
-														
-														update_address(count, client_val);
-														
-														if (client_data.length) {
-															$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
-														}
-														
-														
-														$('#send-date, #due-date').pickadate({
-														    formatSubmit: 'yyyy-mm-dd',
-														    hiddenName: true
-														});
-													});
-											  </script>
-										</div> 
-									</div>
-								</div>
-								<div class="medium-6 columns">
-									<div class="">
-										<h5 class="caps ruled">
-											Quote ID
-										</h5>
-										<div class="info-block">
-											<div class="row">
-												<div class="small-4 columns"><input type="text" name="prefix" placeholder="Prefix" maxlength="6"/></div>
-												<div class="small-8 columns"><input type="text" readonly="readonly" name="invoice_num" placeholder="Quote Number" /></div>
-											</div>
-										</div>	
-									</div>
-									
-									<div class="">
-										<h5 class="caps ruled">
-											Issue Date
-										</h5>
-										<div class="info-block">
-											<div class="row">
-											<div class="small-12 columns">
-												<input type="text" id="send-date" name="issue-date" data-value="<?php echo( date('Y-m-d')); ?>" required />
-												<small class="error">Issue date is required.</small>
-											</div>	
-											</div>	
-										</div>
+								<div class="columns small-12">
+									<h5 class="ruled caps">Description</h5>
+									<div class="info-block">
+										<textarea name="quote_description" id="" cols="30" rows="2"></textarea>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<h3 class="small-only-text-center top-rule">Quote Items</h3>
 					<div class="list_header">
 						<div class="row">
 							<div class="small-12 medium-2 columns qty">
@@ -153,32 +54,30 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="edit-list-container">
-						<div class="tabbed list no-rules">
-							<div class="row">
-								<div class="qty small-12 medium-2 columns">
-									<input class="qty sum" type="text" name="qty[]" value="<?php echo set_value('qty[]'); ?>" placeholder="1.5" required />
-									<small class="error">Quantity is required.</small>
+						<div class="edit-list-container">
+							<div class="tabbed list no-rules">
+								<div class="row">
+									<div class="qty small-12 medium-2 columns">
+										<input class="qty sum" type="text" name="qty[]" value="<?php echo set_value('qty[]'); ?>" placeholder="1.5" required />
+										<small class="error">Quantity is required.</small>
+									</div>
+									<div class="description small-12 medium-5 columns">
+										<input type="text" name="description[]" value="<?php echo set_value('description[]'); ?>" placeholder="Client Meeting" />
+									</div>
+									<div class="price small-12 medium-2 columns">
+										<input class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>" placeholder="65" required />
+										<small class="error">Price is required.</small>
+									</div>
+									<div class="totalSum small-12 medium-2 large-only-text-right columns" >
+										$0.00
+									</div>
+									<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
+										<a class="delete-row button small round">x</a>
+									</div>
+									<div class="small-12 columns"><hr /></div>
 								</div>
-								<div class="description small-12 medium-5 columns">
-									<input type="text" name="description[]" value="<?php echo set_value('description[]'); ?>" placeholder="Client Meeting" />
-								</div>
-								<div class="price small-12 medium-2 columns">
-									<input class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>" placeholder="65" required />
-									<small class="error">Price is required.</small>
-								</div>
-								<div class="totalSum small-12 medium-2 large-only-text-right columns" >
-									$0.00
-								</div>
-								<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
-									<a class="delete-row button small round">x</a>
-								</div>
-								<div class="small-12 columns"><hr /></div>
 							</div>
 						</div>
-					</div>
-					
 					<div class="row">
 						<div class="large-12 columns text-left small-only-text-center">
 							<a id="addItems" class="button small round">Add Another Item</a>
@@ -187,7 +86,7 @@
 					<hr />
 					<div class="row">
 						<div class="large-12 columns text-right small-only-text-center">
-							<h3>Total Due: <span id="invoiceTotal">$0.00</span></h3>
+							<h3>Total: <span id="invoiceTotal">$0.00</span></h3>
 						</div>
 					</div>
 			</div>

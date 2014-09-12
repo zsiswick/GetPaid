@@ -1,4 +1,5 @@
 <?php
+$attributes = array('autocomplete'=>'off', 'data-abide' => '');
 if ($use_username) {
 	$username = array(
 		'name'	=> 'username',
@@ -6,6 +7,7 @@ if ($use_username) {
 		'value' => set_value('username'),
 		'maxlength'	=> $this->config->item('username_max_length', 'tank_auth'),
 		'size'	=> 30,
+		'required' => ''
 	);
 }
 $company = array(
@@ -14,6 +16,7 @@ $company = array(
 	'value'	=> set_value('company'),
 	'maxlength'	=> 40,
 	'size'	=> 30,
+	'required' => ''
 );
 $email = array(
 	'name'	=> 'email',
@@ -21,6 +24,8 @@ $email = array(
 	'value'	=> set_value('email'),
 	'maxlength'	=> 80,
 	'size'	=> 30,
+	'required' => '',
+	'pattern' => 'email'
 );
 $password = array(
 	'name'	=> 'password',
@@ -28,6 +33,7 @@ $password = array(
 	'value' => set_value('password'),
 	'maxlength'	=> $this->config->item('password_max_length', 'tank_auth'),
 	'size'	=> 30,
+	'required' => ''
 );
 $confirm_password = array(
 	'name'	=> 'confirm_password',
@@ -35,6 +41,7 @@ $confirm_password = array(
 	'value' => set_value('confirm_password'),
 	'maxlength'	=> $this->config->item('password_max_length', 'tank_auth'),
 	'size'	=> 30,
+	'required' => ''
 );
 $captcha = array(
 	'name'	=> 'captcha',
@@ -43,7 +50,7 @@ $captcha = array(
 );
 ?>
 
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), $attributes); ?>
 	<div class="row">
 		<div class="large-6 medium-10 small-centered columns">
 			<div class="form-wrap invoice-form light-bg">
@@ -54,6 +61,7 @@ $captcha = array(
 								<?php echo form_label('Username', $username['id']); ?>
 								<?php echo form_input($username); ?>
 								<?php echo form_error($username['name']); ?><?php echo isset($errors[$username['name']])?$errors[$username['name']]:''; ?>
+								<small class="error">User name is required.</small>
 							</div>	
 						</div>
 						<?php } ?>
@@ -62,6 +70,7 @@ $captcha = array(
 								<?php echo form_label('Company Name', $company['id']); ?>
 								<?php echo form_input($company); ?>
 								<?php echo form_error($company['name']); ?><?php echo isset($errors[$company['name']])?$errors[$company['name']]:''; ?>
+								<small class="error">Company name is required.</small>
 							</div>
 						</div>
 						<div class="row">
@@ -69,6 +78,7 @@ $captcha = array(
 								<?php echo form_label('Email Address', $email['id']); ?>
 								<?php echo form_input($email); ?>
 								<?php echo form_error($email['name']); ?><?php echo isset($errors[$email['name']])?$errors[$email['name']]:''; ?>
+								<small class="error">Email is required.</small>
 							</div>
 						</div>
 						<div class="row">
@@ -76,6 +86,7 @@ $captcha = array(
 								<?php echo form_label('Password', $password['id']); ?>
 								<?php echo form_password($password); ?>
 								<?php echo form_error($password['name']); ?>
+								<small class="error">Password is required.</small>
 							</div>
 						</div>
 						<div class="row">
@@ -83,6 +94,7 @@ $captcha = array(
 								<?php echo form_label('Confirm Password', $confirm_password['id']); ?>
 								<?php echo form_password($confirm_password); ?>
 								<?php echo form_error($confirm_password['name']); ?>
+								<small class="error">Confirm password is required.</small>
 							</div>
 						</div>
 					

@@ -32,6 +32,7 @@ class User_model extends CI_Model {
   		'state' => $this->input->post('state'),
   		'country' => $this->input->post('country'),
   		'due' => $this->input->post('due'),
+  		'remind' => $this->input->post('remind'),
   		'notes' => $this->input->post('notes'),
   		'enable_payments' => $this->input->post('enable_payments'),
   		'payment_notification' => $this->input->post('payment_notification')

@@ -2,12 +2,18 @@
 	<div class="large-12 columns">
 		<h1 class="text-center">New Invoice</h1>
 		<?php 
+			$hidden = array('remind' => $settings[0]['remind']);
 			$attributes = array('class' => 'invoice-form light-bg', 'id' => 'createForm', 'data-abide'=>'');
-			echo form_open('invoices/create', $attributes); 
+			echo form_open('invoices/create', $attributes, $hidden); 
 		?>
 		<div id="invoiceCreate" class="invoice-list-wrap">
 			<div class="">
 				<?php echo validation_errors(); ?>
+					<div class="row">
+						<div class="large-12 columns text-right small-only-text-left">
+							<h4 class="caps">Draft Invoice</h4>
+						</div>
+					</div>
 					<div class="row invoice-info">
 						<div class="medium-5 columns">
 							<div class="row">
@@ -15,15 +21,22 @@
 									<div class="customer-logo">
 										<?php if(!empty($settings[0]['logo'])): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$settings[0]['logo'].'" />'; endif ?>
 									</div>
-									<h3><?php if(!empty($settings[0]['company_name'])): echo '<h3>'.$settings[0]['company_name'].'<h3/>'; endif ?></h3>	
+									<?php if(!empty($settings[0]['company_name'])): echo '<h3>'.$settings[0]['company_name'].'<h3/>'; endif ?>
+									<div class="info-block">
+										<ul>
+											<?php if( !empty($settings[0]['my_address_1']) ): echo('<li>'.$settings[0]['my_address_1'].'</li>'); endif ?>
+											<?php if( !empty($settings[0]['my_address_2']) ): echo('<li>'.$settings[0]['my_address_2'].'</li>'); endif ?>
+											<?php if( !empty($settings[0]['my_city']) || !empty($settings[0]['my_state']) || !empty($settings[0]['my_zip']) ): echo('<li>'); endif ?><?php echo($settings[0]['my_city'].' '.$settings[0]['my_state'].' '.$settings[0]['my_zip']); ?><?php if( !empty($settings[0]['my_city']) || !empty($settings[0]['my_state']) || !empty($settings[0]['my_zip']) ): echo('</li>'); endif ?>
+											<?php if( !empty($settings[0]['my_country']) ): echo('<li>'.$settings[0]['my_country'].'</li>'); endif ?>
+										</ul>
+									</div>
+										
 								</div>
 							</div>
+							
 						</div>
 						<div class="medium-7 columns">
 							<div class="row">
-								<div class="large-12 columns text-right small-only-text-left">
-									<h4 class="caps">Draft Invoice</h4>
-								</div>
 								<div class="medium-6 columns">
 									<div class="">
 										<h5 class="caps ruled">
@@ -134,7 +147,7 @@
 										<h5 class="caps ruled">
 											Due Date
 										</h5>
-										<div class="info-block last">
+										<div class="info-block">
 											<div class="row">
 												<div class="small-12 columns">
 													<input type="text" id="due-date" name="due-date" value="<?php if(!empty($settings[0]['due']))
@@ -151,9 +164,16 @@
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="columns small-12">
+									<h5 class="ruled caps">Description</h5>
+									<div class="info-block">
+										<textarea name="inv_description" id="" cols="30" rows="2"></textarea>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<h3 class="small-only-text-center top-rule">Invoice Items</h3>
 					<div class="list_header">
 						<div class="row">
 							<div class="small-12 medium-2 columns qty">
@@ -231,3 +251,4 @@
 		</div>
 	</div>
 </div>
+

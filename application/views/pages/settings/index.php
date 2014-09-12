@@ -86,28 +86,30 @@
 			    <label for="country">Country</label>
 			    <input type="text" name="country" value="<?php echo $settings[0]['country'] ?>" />
 			    
+			    <div class="row">
+			    	<div class="small-12 columns">
+			    		<div class="info-block">
+				    		<?php 
+				    			if (!empty($filename)) 
+				    			{
+				    				echo('<img src="'.base_url().'uploads/logo/'.$uid."/".$filename.'" class="logo thumb" />');
+				    				echo('<a class="small-type" href="'.base_url().'index.php/settings/remove_logo/'.$uid.'">Remove</a>');
+				    			}
+				    		?>
+			    			<label for="userfile">Upload a Logo</label>
+			    			<input type="file" name="userfile" size="20" />
+			    			<p class="small-type">Max image size 700x700 px.<br/>Max file size is 300kb.<br/>Allowed formats: gif, png, or jpg.</p>
+			    		</div>
+			    	</div>
+			    </div>
+			    
 			  </section>
 			  <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
 			    
 			    <div class="row">
-			    	<div class="small-12 columns">
-			    		<?php 
-			    			if (!empty($filename)) 
-			    			{
-			    				echo('<img src="'.base_url().'uploads/logo/'.$uid."/".$filename.'" class="logo thumb" />');
-			    				echo('<a href="'.base_url().'index.php/settings/remove_logo/'.$uid.'">Remove</a>');
-			    			}
-			    		?>
-			    		
-			    		<label for="userfile">Upload a Logo</label>
-			    		<input type="file" name="userfile" size="20" />
-			    	</div>
-			    </div>
-			    
-			    <div class="row">
-			    	<div class="columns medium-6 end">
+			    	<div class="columns medium-6">
 			    		<input type="hidden" name="sid" value="" />
-			    		<label for="due">Invoice Due In</label>
+			    		<label for="due">Invoices Due</label>
 			    		
 			    		
 			    		<?php
@@ -121,13 +123,30 @@
 			    			echo form_dropdown('due', $options, $settings[0]['due']);
 			    		?>
 			    	</div>
+			    	
+			    	<div class="columns medium-6">
+			    		<label for="due">Send a Reminder Every</label>
+			    		
+			    		
+			    		<?php
+			    			$options = array(
+			    		                '7'  => '7 Days',
+			    		                '15'  => '15 Days',
+			    		                '30'    => '30 Days',
+			    		                '45'   => '45 Days',
+			    		              );
+			    			
+			    			
+			    			echo form_dropdown('remind', $options, $settings[0]['remind']);
+			    		?>
+			    	</div>
 			    </div>
 			    
 			    
 			    <div class="row">
 			    	<div class="columns small-12">
 			    		<label for="notes">Payment Terms</label>
-			    		<textarea placeholder="Please remit full payment 15 days from receipt of invoice. Make check payable to John Smith" name="notes" cols="30" rows="5"><?php echo($settings[0]['notes']) ?></textarea>
+			    		<textarea placeholder="Please remit full payment <?php echo($settings[0]['due']); ?> days from receipt of invoice. Make check payable to <?php echo($settings[0]['company_name']); ?>" name="notes" cols="30" rows="5"><?php echo($settings[0]['notes']) ?></textarea>
 			    	</div>
 			    </div>   
 			    
@@ -147,7 +166,7 @@
 			    
 			    <div id="payment_settings" class="row">
 			    	<div class="columns medium-6">
-			    		<h5 class="ruled">Connect to Stripe</h5>
+			    		<h5 class="ruled caps">Connect to Stripe</h5>
 			    		<div class="info-block">
 			    			<?php 
 			    				if ( $settings[0]['stripe_cust_token'] == false ) {
@@ -169,7 +188,7 @@
 			    		</ul>
 			    	</div>
 			    	<div class="columns medium-6">
-			    		<h5 class="ruled">Stripe Settings</h5>
+			    		<h5 class="ruled caps">Stripe Settings</h5>
 			    		<div class="info-block">
 			    			<p class="small-type">You must have a <a href="https://stripe.com"><strong>Stripe Account</strong></a> and you must grant Ruby Invoice third-party API access to your Stripe account.</p>
 			    			<ol class="small-type">

@@ -12,14 +12,19 @@
 		<p class="light">If you have any feature requests or ideas on how to improve your invoicing experience, you can post them here as well.</p>
 	</div>
 	<div class="large-8 columns">
-		<div class="form-wrap invoice-form light-bg">
+		<div class="">
 			<?php echo validation_errors(); ?>
 			
 			<?php 
-				$attributes = array('data-abide'=>'');
+				$attributes = array('data-abide'=>'', 'class'=>'form-wrap invoice-form light-bg');
 				echo form_open('contact', $attributes); 
 			?>
-			
+			<?php
+				if ($this->session->flashdata('error')) { ?>
+						<div class="alert-box radius text-center">
+							<?php echo($this->session->flashdata('error')); ?>
+						</div>
+			<?php }?>
 				<div class="row">
 					<div class="small-12 columns">
 						<label for="name">Your Name</label>
@@ -37,7 +42,7 @@
 					</div>
 					<div class="small-12 columns">
 						<label for="message">Message</label>
-						<textarea name="message" id="message" cols="30" rows="5" value="<?php echo set_value('message'); ?>" placeholder="Leave your remarks here" required ></textarea>
+						<textarea name="message" id="message" cols="30" rows="5" placeholder="Leave your remarks here" required ><?php echo set_value('message'); ?></textarea>
 						<small class="error"></small>
 					</div>
 					

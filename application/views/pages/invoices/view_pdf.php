@@ -87,8 +87,14 @@
 					<table style="width: 100%;">
 						<tr>
 							<td style="width: 35%;" valign="top">
-								<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$item['client'][0]['uid']."/".$logo.'" /><br/><br/>'; endif ?>
-								<p><?php if(!empty($company_name)): echo '<h3>'.$company_name.'<h3/>'; endif ?></p>
+								<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$item['client'][0]['uid']."/".$logo.'" /><br/>'; endif ?>
+								<p><?php if(!empty($company_name)): echo '<br/><h3>'.$company_name.'<h3/><br/><br/>'; endif ?></p>
+								<div class="info-block">
+										<?php if( !empty($item['settings'][0]['address_1']) ): echo($item['settings'][0]['address_1'].'<br/>'); endif ?>
+										<?php if( !empty($item['settings'][0]['address_2']) ): echo($item['settings'][0]['address_2'].'<br/>'); endif ?>
+										<?php if(!empty($item['settings'][0]['city'])): echo $item['settings'][0]['city'].' '; endif ?> <?php if(!empty($item['settings'][0]['state'])): echo $item['settings'][0]['state'].' '; endif ?> <?php if(!empty($item['settings'][0]['zip'])): echo $item['settings'][0]['zip']; endif ?>
+										<?php if( !empty($item['settings'][0]['country']) ): echo('<br/>'.$item['settings'][0]['country']); endif ?>
+								</div>
 							</td>
 							<td style="width: 5%;" valign="top">
 							</td>
@@ -162,11 +168,26 @@
 								</div>
 							</td>
 						</tr>
+						
+						<?php
+							if (!empty($item[0]['description'])) { ?>
+								<tr>
+									<td style="width: 35%;" valign="top">
+									<td style="width: 5%;" valign="top">
+									<td colspan="2" valign="top">
+										<hr class="rule" />
+										<h5 >Description</h5>
+										<hr class="rule" />
+										
+										<div class="info-block">
+											<?php echo($item[0]['description']);?>
+										</div>
+								</td>
+								</tr>
+							<?php } ?>
+							
 					</table>
 					
-					
-					
-							
 					<table style="width: 100%;" cellpadding="0" cellspacing="0" border-collapse="collapse">
 						<thead class="invoice-create list_header">
 							<tr><th colspan="4"><hr /></th></tr>
@@ -210,7 +231,7 @@
 				<table style="width: 100%;">
 					<tr>
 						<td valign="top" style="width: 70%;">
-							<h3>Notes</h3>
+							<h3>Payment Terms</h3>
 							<p><?php echo($item['settings'][0]['notes']) ?></p>
 						</td>
 						<td style="width: 30%;">

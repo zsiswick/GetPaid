@@ -10,7 +10,7 @@ class Invoice_model extends CI_Model {
 	public function get_invoice_settings($uid) 
 	{
 		
-		$this->db->select("cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes, cl.default_inv_prefix, settings.due, settings.logo, settings.company_name", false);
+		$this->db->select("cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes, cl.default_inv_prefix, settings.due, settings.remind, settings.logo, settings.company_name, settings.address_1 as my_address_1, settings.address_2 as my_address_2, settings.city as my_city, settings.state as my_state, settings.zip as my_zip, settings.country as my_country", false);
 		$this->db->from('client cl');
 		$this->db->join('settings', 'settings.uid = cl.uid', 'left');
 		$this->db->where('cl.uid', $uid);
@@ -39,7 +39,7 @@ class Invoice_model extends CI_Model {
 	public function get_invoice($id, $uid)
 	{
 		
-		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.prefix, c.inv_num, c.auto_reminder, c.inv_sent, c.due_date', false);
+		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.description, c.prefix, c.inv_num, c.auto_reminder, c.inv_sent, c.due_date', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -94,7 +94,7 @@ class Invoice_model extends CI_Model {
 	public function get_client_invoice($id, $key)
 	{
 		
-		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.inv_sent, c.prefix, c.inv_num, c.due_date', false);
+		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.status, c.inv_sent, c.prefix, c.description, c.inv_num, c.due_date', false);
 		$this->db->where('c.id', $id);
 		$this->db->from('common c');
 		$query = $this->db->get();
@@ -170,8 +170,7 @@ class Invoice_model extends CI_Model {
 			$due_date = $this->_calc_due_date($uid, $send_date);
 		}
 		//
-		$common_data = array('uid' => $uid, 'cid' => $cid, 'prefix' => $this->input->post('prefix'), 'date' => $send_date, 'due_date'=>$due_date, 'remind_date'=>$due_date, 'inv_num' => $inv_num);
-		$client_data = array(); // Populate this with input fields from form...
+		$common_data = array('uid' => $uid, 'cid' => $cid, 'prefix' => $this->input->post('prefix'), 'description' => $this->input->post('inv_description'), 'date' => $send_date, 'due_date'=>$due_date, 'remind_date'=>$due_date, 'inv_num' => $inv_num);
 		$this->db->insert('common', $common_data);
 		// Get the table id of the last row updated using insert_id() function
 		$common_id = $this->db->insert_id();
@@ -234,7 +233,7 @@ class Invoice_model extends CI_Model {
 		if (!($due_date)) {
 			$due_date = $this->_calc_due_date($uid, $send_date);
 		}
-		$common_data = array('date' => $send_date, 'cid' => $this->input->post('client'), 'prefix' => $this->input->post('prefix'), 'inv_num' => $this->input->post('invoice_num'), 'amount' => $sumTotal, 'due_date'=>$due_date, 'remind_date'=>$due_date);
+		$common_data = array('date' => $send_date, 'cid' => $this->input->post('client'), 'prefix' => $this->input->post('prefix'), 'description' => $this->input->post('inv_description'), 'inv_num' => $this->input->post('invoice_num'), 'amount' => $sumTotal, 'due_date'=>$due_date, 'remind_date'=>$due_date);
 		
 		$this->db->where('id', $common_id);
 		$this->db->update('common', $common_data);
@@ -424,7 +423,7 @@ class Invoice_model extends CI_Model {
 		$a = 0;
 		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.prefix, c.amount, c.status, c.prefix, c.inv_num, c.auto_reminder, c.inv_sent, c.due_date, c.remind_date', false);
 		$this->db->select('client.email AS client_email, client.key', FALSE);
-		$this->db->select('settings.email AS user_email, settings.due, settings.full_name, settings.company_name', FALSE);
+		$this->db->select('settings.email AS user_email, settings.remind, settings.full_name, settings.company_name', FALSE);
 		$this->db->where('c.auto_reminder', 1); // filter out invoices that aren't set to auto-remind
 		$this->db->where('c.status !=', 3); // filter out paid invoices
 		$this->db->where('c.status !=', 0); // filter out draft invoices
@@ -442,8 +441,8 @@ class Invoice_model extends CI_Model {
 			  
 			foreach ($invoices as &$invoice) {
 				
-				$reminders[$a]['remind_date'] = date('Y-m-d', strtotime($invoice['remind_date']. ' + '.$invoice['due'].' days'));
-				$invoice['remind_date'] = date('Y-m-d', strtotime($invoice['remind_date']. ' + '.$invoice['due'].' days'));
+				$reminders[$a]['remind_date'] = date('Y-m-d', strtotime($invoice['remind_date']. ' + '.$invoice['remind'].' days'));
+				$invoice['remind_date'] = date('Y-m-d', strtotime($invoice['remind_date']. ' + '.$invoice['remind'].' days'));
 				$reminders[$a]['id'] = $invoice['iid'];
 				$a+=1;
 			}

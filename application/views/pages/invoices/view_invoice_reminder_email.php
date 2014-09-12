@@ -3,7 +3,7 @@
 ?>
 <div class="row light-bg">
 	<div class="small-12 columns">
-		<h3 class="text-center">The invoice Reminder will be sent to:</h3>
+		<h3 class="text-center">The reminder will be sent to:</h3>
 		<p class="text-center"><?php echo($item['client'][0]['contact']);?> (<?php echo($item['client'][0]['email'])?>)</p>
 		<?php
 			$hidden = array('client_email' => $item['client'][0]['email']);
@@ -25,7 +25,7 @@ Best regards,&#013;
 	 </textarea>
 	 <div class="row">
 	 	<div class="small-12 columns text-center">
-	 		<input type="submit" name="submit" value="Send Invoice" class="button small round"/>	
+	 		<input type="submit" name="submit" value="Send Reminder" class="button round"/>	
 	 	</div>
 	 </div>
 	 

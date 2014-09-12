@@ -33,8 +33,8 @@ class Invoices extends CI_Controller {
 		$data['user_id']	= $this->tank_auth_my->get_user_id();
 		$data['username']	= $this->tank_auth_my->get_username();
 		$data['status_flags'] = unserialize(STATUS_FLAGS);
+		
 		$this->load->view('templates/header', $data);
-		//$this->load->view('widgets/invoice-dashboard', $data);
 		$this->load->view('pages/invoices/index', $data);
 		$this->load->view('templates/footer');
 		
@@ -71,9 +71,6 @@ class Invoices extends CI_Controller {
 		
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['settings'] = $this->invoice_model->get_invoice_settings($uid);
-		$data['dob_dropdown_day'] = buildDayDropdown('day', $this->thisDay);
-		$data['dob_dropdown_month'] = buildMonthDropdown('month', $this->thisMonth);
-		$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
 		
 		$this->form_validation->set_rules('client', 'Client', 'required|numeric|xss_clean|client');
 		$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
@@ -123,6 +120,8 @@ class Invoices extends CI_Controller {
 		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		$data['status_flags'] = unserialize(STATUS_FLAGS);
+		
+		//print("<pre>".print_r( $data['item'], true )."</pre>");
 		
 		if (empty($data['item'])) {
 				show_404();
@@ -282,6 +281,19 @@ class Invoices extends CI_Controller {
 			
 			$this->load->view('pages/invoices/view_payments', $data);
 		}
+	}
+	
+	public function create_timer() 
+	{
+		//$data['timer'] = $this->timer_model->create_timer();
+		$data['title'] = "Create a Timer";
+		$jsfiles = array('picker.js', 'picker.date.js', 'timer.jquery.min.js');
+		$cssfiles = array('default.css', 'default.date.css');
+		$data['css_to_load'] = $cssfiles;
+		$data['js_to_load'] = $jsfiles;
+		$this->load->view('templates/header', $data);
+		$this->load->view('pages/invoices/create_timer', $data);
+		$this->load->view('templates/footer', $data);	
 	}
 	
 	public function pdf($id = FALSE) 

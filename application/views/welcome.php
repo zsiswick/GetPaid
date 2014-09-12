@@ -9,7 +9,7 @@
 		</div>
 		<div class="large-pull-6 large-6 small-text-center large-text-left columns">
 			<h1>Ruby Invoice</h1>
-			<p class="big-p light">The mobile-friendly billing service that helps you create professional looking invoices with neither muss, nor fuss.</p>
+			<p class="big-p light">The free mobile-friendly billing service that helps you create professional looking invoices with neither muss, nor fuss.</p>
 			<a href="<?php echo base_url(); ?>index.php/auth/register" class="button round light">Register For Free</a>
 		</div>
 		<div class="small-12 columns pad-top"><hr class="light-bg" /></div>
@@ -24,7 +24,7 @@
 		</div>
 		<div class="columns large-6 small-text-center large-text-left">
 			<h2>Who it's For</h2>
-			<p class="big-p light">Ruby Invoice was created for freelance artists, designers, UXers and the like. Heck, it was even made by a freelance designer, so if you want to save time on invoicing, and have an appreciation for simple-to-use software, Ruby Invoice is here to help.</p>
+			<p class="big-p light">Ruby Invoice was created for freelance artists, designers, UXers and the like. Heck, it was even made by a freelance designer. So if you want to save time on invoicing, and have an appreciation for simple-to-use software, Ruby Invoice is here to help.</p>
 		</div>
 		<div class="small-12 columns pad-top"><hr class="light-bg"/></div>
 	</div>
@@ -38,8 +38,9 @@
 		</div>
 		<div class="columns large-6 large-pull-6 small-text-center large-text-left">
 			<h2>Why Use It?</h2>
-			<p class="big-p light">Ruby Invoice makes billing a snap, with a simple interface and tools to help save time, (like auto-reminders and a cool dashboard view to name a couple), so you can get back to doing what you really love!</p>
-			<a href="<?php echo base_url(); ?>index.php/auth/register" class="button round light">Get started invoicing</a>
+			<!--<p class="big-p light">Ruby Invoice makes billing a snap, with a simple interface and tools to help save time, (like auto-reminders and a cool dashboard view to name a couple), so you can get back to doing what you really love!</p> -->
+			<p class="big-p light">Ruby Invoice makes billing a snap, with a simple interface and time-saving tools, (like auto-reminders, project quotes, and a dashboard that tracks all of your outstanding and paid invoices to name a few).</p> <p class="big-p light">Getting paid gets easier too, with <a href="https://stripe.com">Stripe</a>, you can accept credit cards and collect payment directly from your invoices.</p>
+			<a href="<?php echo base_url(); ?>index.php/auth/register" class="button round light">Get started invoicing</a> <?php echo anchor('features', 'Learn More', 'title="Learn More" class="button round light"'); ?>
 		</div>
 		<div class="small-12 columns pad-top"><hr class="light-bg"/></div>
 	</div>
