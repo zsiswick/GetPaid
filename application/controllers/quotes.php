@@ -243,8 +243,9 @@ class Quotes extends CI_Controller {
 					show_404();
 			} else {
 				$data['quote'] = $this->quote_model->convert_quote($id);
-				print("<pre>".print_r($data['quote'], true)."</pre>");
-				//redirect('/quotes/view/'.$id, 'refresh');
+				//print("<pre>".print_r($data['quote'], true)."</pre>");
+				$this->session->set_flashdata('error', 'You have created an invoice from this quote. You will find a new draft in the invoices page.');
+				redirect('/quotes/view/'.$id, 'refresh');
 			}
 		}
 	}

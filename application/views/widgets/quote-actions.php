@@ -10,6 +10,13 @@
 					<a href="<?php echo base_url()?>index.php/quotes/edit/<?php echo $quote[0]['iid']?>" class="button small round light">Edit Quote</a>
 				</div>
 				
+				<h5 class="ruled caps">
+					Create invoice from quote
+				</h5>
+				<div class="info-block">
+					<a href="<?php echo base_url()?>index.php/quotes/convert/<?php echo $quote[0]['iid']?>" class="button small round light">Create Invoice</a>
+				</div>
+				
 			</div>
 			<div class="medium-4 columns">
 				
