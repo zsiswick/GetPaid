@@ -20,8 +20,19 @@ class Invoice_model extends CI_Model {
 		
 	}
 	
-	public function get_invoices($id)
-	{		
+	public function get_invoices_rows($id) 
+	{
+		$query = $this->db->get_where('common', array('uid' => $id));
+		return $query->num_rows();	
+	}
+	
+	public function get_invoices($id, $limit = false, $offset = false)
+	{	
+	
+		if (!empty($limit)) {
+			$this->db->limit($limit, $offset);
+		}
+		
 		$this->db->select("c.id as iid, c.uid, c.cid, c.amount, c.status, client.company, GROUP_CONCAT(payments.payment_amount) AS ipayments", false);
 		$this->db->select("DATE_FORMAT(c.date, '%b %d, %Y') AS pdate", false);
 		$this->db->from('common c');
@@ -30,6 +41,20 @@ class Invoice_model extends CI_Model {
 		$this->db->where('c.uid', $id);
 		$this->db->group_by('c.id');
 		$this->db->order_by("date", "desc");
+		$query = $this->db->get();
+				
+		return $query->result_array();
+	}
+	
+	public function get_invoices_payments($id)
+	{	
+		
+		$this->db->select("c.id as iid, c.amount, c.status, GROUP_CONCAT(payments.payment_amount) AS ipayments", false);
+		$this->db->select("DATE_FORMAT(c.date, '%b %d, %Y') AS pdate", false);
+		$this->db->from('common c');
+		$this->db->join('payments', 'payments.common_id = c.id', 'left');
+		$this->db->where('c.uid', $id);
+		$this->db->group_by('c.id');
 		$query = $this->db->get();
 				
 		return $query->result_array();

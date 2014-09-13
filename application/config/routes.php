@@ -44,7 +44,8 @@ $route['invoices/item_delete/(:any)'] = "invoices/item_delete/$1";
 $route['invoices/delete_payment/(:any)'] = "invoices/delete_payment/$1";
 $route['invoices/delete_invoice/(:any)'] = "invoices/delete_invoice/$1";
 
-$route['invoices'] = 'invoices';
+//$route['invoices'] = 'invoices';
+$route['invoices/(:any)'] = "invoices";
 $route['invoices/create'] = 'invoices/create';
 
 //$route['clients/edit/(:any)'] = "clients/edit/$1";

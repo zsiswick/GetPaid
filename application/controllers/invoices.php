@@ -27,9 +27,32 @@ class Invoices extends CI_Controller {
 	
 	public function index() 
 	{
+		
 		$this->invoice_model->get_set_due_invoices();
 		$id = $this->tank_auth_my->get_user_id();
-		$data['invoices'] = $this->invoice_model->get_invoices($id);
+		
+		$this->load->library('pagination');
+		$config['base_url'] = "http://localhost/rubyinvoice/index.php/invoices/";
+		$config['total_rows'] = $this->invoice_model->get_invoices_rows($id);
+		$config['per_page'] = 10;
+		$config['num_links'] = 20;
+		$config['uri_segment'] = 2;
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="current"><a href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['next_tag_open'] = '<li class="arrow">';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_tag_open'] = '<li class="arrow">';
+		$config['prev_tag_close'] = '</li>';
+		
+		$this->pagination->initialize($config);
+		
+		$data['invoices'] = $this->invoice_model->get_invoices($id, $config['per_page'], $this->uri->segment(2));
+		$data['payments'] = $this->invoice_model->get_invoices_payments($id);
+		
 		$data['user_id']	= $this->tank_auth_my->get_user_id();
 		$data['username']	= $this->tank_auth_my->get_username();
 		$data['status_flags'] = unserialize(STATUS_FLAGS);

@@ -20,9 +20,9 @@
 	    return (is_array($var) && $var['status'] == 3);
 	}
 	
-	$filtered_drafts = array_filter($invoices, "filter_drafts");
-	$filtered_due = array_filter($invoices, "filter_due");
-	$filtered_paid = array_filter($invoices, "filter_pay");
+	$filtered_drafts = array_filter($payments, "filter_drafts");
+	$filtered_due = array_filter($payments, "filter_due");
+	$filtered_paid = array_filter($payments, "filter_pay");
 	
 	foreach ($filtered_drafts as $k) {
 	  $drafts_sum+=$k['amount'];

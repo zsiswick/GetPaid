@@ -444,6 +444,30 @@ ul.tabs {
 .sidebar {
   margin-top: 3rem;
 }
+ul.pagination li.current a,
+ul.pagination li.current button {
+  background: #fff;
+  color: #f15959;
+}
+ul.pagination li a,
+ul.pagination li button {
+  background: #4b011f;
+  color: #f15959;
+}
+ul.pagination li.current a:hover,
+ul.pagination li.current a:focus,
+ul.pagination li.current button:hover,
+ul.pagination li.current button:focus {
+  background: #fff;
+  color: #f15959;
+}
+ul.pagination li a:hover,
+ul.pagination li a:focus,
+ul.pagination li button:hover,
+ul.pagination li button:focus {
+  background: #fff;
+  color: #f15959;
+}
 /*
 ** Invoice
 */
