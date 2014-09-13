@@ -36,7 +36,7 @@ class Welcome extends CI_Controller
 		$this->load->view('templates/client/footer');	
 	}
 	
-	public function free_invoice_maker() 
+	public function free_invoice_template() 
 	{
 		$this->load->helper('form');
 		$this->load->helper('date_input_helper');

@@ -1,4 +1,9 @@
-<h1 class="text-center hide-for-print">Create an Invoice</h1>
+<div class="row">
+	<div class="columns small-12 hide-for-print">
+		<h1 class="text-center">Create a Free Invoice</h1>
+		<p class="big-p light">Hate commitments? No worries, that's why we created this free invoice template for you to use without having to register. You can download a PDF or print out a copy to mail. If you want to track invoices online, send auto-reminder emails, and more, <a href="<?php echo(base_url()); ?>index.php/auth/register">register for an account</a>!</p>
+	</div>
+</div>
 
 <?php 
 	$attributes = array('id' => 'createForm', 'data-abide'=>'');
@@ -161,7 +166,7 @@
 			<a href='javascript:window.print();' class="button radius expand light"><i class="fi-print"></i> Print Invoice</a>
 			
 			<div class="panel">
-			  <p class="large-p text-center light">Want to send quotes by email, mark them as accepted or declined, and turn them into invoices?<br/> Check out our online <a href="<?php echo(base_url()); ?>index.php/features">quoting features</a> or <a href="<?php echo(base_url()); ?>index.php/auth/register">register for a free account</a>.</p>
+			  <p class="large-p text-center light">Want to send invoices by email, get paid by credit card, and more?<br/> Check out our online <a href="<?php echo(base_url()); ?>index.php/features">invoicing features</a> or <a href="<?php echo(base_url()); ?>index.php/auth/register">register for a free account</a>.</p>
 			</div>
 			
 			<div class="panel">
