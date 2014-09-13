@@ -26,7 +26,7 @@
 
 	<?php 
 		if (!isset($top_nav)) { ?>
-			<div class="main-nav">
+			<div class="main-nav hide-for-print">
 				<div class="row">
 					<div class="small-12 columns">
 					  	<div id="nav-container" class="text-center hide-for-small-only">

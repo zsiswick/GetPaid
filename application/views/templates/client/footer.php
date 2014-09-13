@@ -1,5 +1,5 @@
 	</section>
-<footer>
+<footer class="hide-for-print">
 	<div class="row">
 		<div class="large-6 columns text-center small-centered">
 			<div id="lil-ruby" class="svg-container">

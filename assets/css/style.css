@@ -444,6 +444,23 @@ ul.tabs {
 .sidebar {
   margin-top: 3rem;
 }
+.panel {
+  border-color: #DC1919;
+}
+.panel .title {
+  display: block;
+  padding: 1rem;
+  background: #E1E1E1;
+  margin: -1.25rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ccc;
+}
+.panel a {
+  color: #f15959;
+}
+.panel a:hover {
+  color: #4b011f;
+}
 ul.pagination li.current a,
 ul.pagination li.current button {
   background: #fff;
@@ -1120,4 +1137,64 @@ footer > div {
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   /* portrait phones */
+}
+@media print {
+  .large-1 {
+    width: 8.33333%;
+  }
+  .large-2 {
+    width: 16.66667%;
+  }
+  .large-3 {
+    width: 25%;
+  }
+  .large-4 {
+    width: 33.33333%;
+  }
+  .large-5 {
+    width: 41.66667%;
+  }
+  .large-6 {
+    width: 50%;
+  }
+  .large-7 {
+    width: 58.33333%;
+  }
+  .large-8 {
+    width: 66.66667%;
+  }
+  .large-9 {
+    width: 75%;
+  }
+  .large-10 {
+    width: 83.33333%;
+  }
+  .large-11 {
+    width: 91.66667%;
+  }
+  .large-12 {
+    width: 100%;
+  }
+  .print-full-width {
+    width: 100%;
+  }
+  .invoice-form select,
+  .invoice-form input[type="text"],
+  .invoice-form input[type="password"],
+  .invoice-form input[type="password"]:focus,
+  .invoice-form input[type="email"],
+  .invoice-form input[type="tel"],
+  .invoice-form input[type="search"],
+  .invoice-form textarea,
+  .invoice-form isindex {
+    border: none !important;
+  }
+  .delete-row,
+  #addItems,
+  .error {
+    display: none;
+  }
+  textarea {
+    resize: none;
+  }
 }

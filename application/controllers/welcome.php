@@ -43,8 +43,8 @@ class Welcome extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('invoice_model');
 		
-		$jsfiles = array('picker.js', 'picker.date.js');
-		$cssfiles = array('default.css', 'default.date.css');
+		$jsfiles = array('picker.js', 'picker.date.js', 'social-likes/social-likes.min.js');
+		$cssfiles = array('default.css', 'default.date.css', 'social-likes_flat.css');
 		$data['css_to_load'] = $cssfiles;
 		$data['js_to_load'] = $jsfiles;
 		$data['title'] = "Create a Free Invoice";
