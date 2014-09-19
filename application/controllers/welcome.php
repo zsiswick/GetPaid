@@ -24,14 +24,16 @@ class Welcome extends CI_Controller
 	
 	public function privacy() 
 	{
-		$this->load->view('templates/client/header');
+		$data['title'] = "Privacy Policy | Ruby Invoice";
+		$this->load->view('templates/client/header', $data);
 		$this->load->view('pages/privacy');
 		$this->load->view('templates/client/footer');
 	}
 	
 	public function terms() 
 	{
-		$this->load->view('templates/client/header');
+		$data['title'] = "Terms of Use | Ruby Invoice";
+		$this->load->view('templates/client/header', $data);
 		$this->load->view('pages/terms-of-service');
 		$this->load->view('templates/client/footer');	
 	}

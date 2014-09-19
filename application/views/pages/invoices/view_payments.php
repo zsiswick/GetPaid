@@ -80,7 +80,7 @@
 						
 							<div class="row">
 								<div class="small-12 medium-2 columns small-only-text-center">
-									<input type="hidden" name="payment_amount[]" class="amt" value="<?php echo $payment['payment_amount']; ?>" />$<?php echo $payment['payment_amount']; ?>
+									<input type="hidden" name="payment_amount[]" class="amt" value="<?php echo $payment['payment_amount']; ?>" /><?php echo $payment['payment_amount']; ?>
 								</div>
 								<div class="small-12 medium-8 columns small-only-text-center">
 									<?php echo ($date->format('F j, Y'));  ?>

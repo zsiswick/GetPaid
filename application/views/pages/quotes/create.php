@@ -3,7 +3,9 @@
 		<h1 class="text-center">New Quote</h1>
 		<?php 
 			$attributes = array('class' => 'invoice-form light-bg', 'id' => 'createForm', 'data-abide'=>'');
-			echo form_open('quotes/create', $attributes); 
+			echo form_open('quotes/create', $attributes);
+			$this->load->helper('currency_helper');
+			$currency = currency_method($settings[0]['currency']); 
 		?>
 		<div id="quoteCreate" class="invoice-list-wrap">
 			<div class="">
@@ -69,7 +71,7 @@
 										<small class="error">Price is required.</small>
 									</div>
 									<div class="totalSum small-12 medium-2 large-only-text-right columns" >
-										$0.00
+										0.00
 									</div>
 									<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
 										<a class="delete-row button small round">x</a>
@@ -86,7 +88,7 @@
 					<hr />
 					<div class="row">
 						<div class="large-12 columns text-right small-only-text-center">
-							<h3>Total: <span id="invoiceTotal">$0.00</span></h3>
+							<h3>Total: <?= $currency ?><span id="invoiceTotal">0.00</span></h3>
 						</div>
 					</div>
 			</div>
@@ -111,3 +113,18 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+  
+  	function init_autoNumeric() {
+			$('.sum, .totalSum, #invoiceTotal').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
+		}
+		
+		$(document).on('click', "#addItems", function() { 
+			init_autoNumeric();
+		});
+		
+		init_autoNumeric();
+		
+	});
+</script>

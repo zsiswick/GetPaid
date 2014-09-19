@@ -36,7 +36,8 @@
 			$attributes = array('class' => 'invoice-form light-bg', 'data-abide'=>'');
 			$hidden = array('iid' => $item[0]['iid'], 'new_client' => 0);
 			echo form_open('invoices/edit/'.$item[0]['iid'], $attributes, $hidden);
-			
+			$this->load->helper('currency_helper');
+			$currency = currency_method($item['settings'][0]['currency']);
 		?>
 		<?php $sumTotal = 0 ?>
 		
@@ -149,6 +150,16 @@
 											    today: 'today',
 											    clear: 'Clear selection'
 											});
+											
+											function init_autoNumeric() {
+												$('.sum, .totalSum, #invoiceTotal').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
+											}
+											
+											$(document).on('click', "#addItems", function() { 
+												init_autoNumeric();
+											});
+											
+											init_autoNumeric();
 										});
 									</script>
 									
@@ -236,14 +247,14 @@
 										<small class="error">Quantity is required.</small>
 									</div>
 									<div class="description small-12 medium-5 columns">
-										<input type="text" name="description[]" value="<?php echo $invoice_item['description'] ?>" />
+										<textarea type="text" name="description[]" value="<?php echo $invoice_item['description'] ?>" ></textarea>
 									</div>
 									<div class="price small-12 medium-2 columns">
 										<input type="text" class="unitCost sum" name="unit_cost[]" value="<?php echo $invoice_item['unit_cost'] ?>" required />
 										<small class="error">Price is required.</small>
 									</div>
-									<div class="totalSum small-12 medium-2 large-only-text-right columns" data-totalsum="<?php echo number_format((float)$number, 2, '.', ''); ?>">
-										$<?php echo number_format((float)$number, 2, '.', ','); ?>
+									<div class="totalSum small-12 medium-2 large-only-text-right columns">
+										<?php echo number_format((float)$number, 2, '.', ','); ?>
 									</div>
 									<div class="delete small-12 medium-1 columns small-text-center large-only-text-right">
 										<a href="<?php echo base_url(); ?>index.php/invoices/item_delete?id=<?php echo $invoice_item["id"].'&common_id='.$invoice_item["common_id"].'&iuid='.$item[0]['uid'];?>" id="remove-<?php echo $invoice_item["id"]; ?>" class="button small round">x</a>
@@ -265,7 +276,9 @@
 				<hr />
 				<div class="row">
 					<div class="large-12 columns small-only-text-center text-right">
-						<h3>Total Due: <span id="invoiceTotal">$<?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>
+						<!--<h3>Total Due: <span id="invoiceTotal">$<?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>-->
+						
+						<h3>Total Due: <?php echo($currency);?><span id="invoiceTotal" data-a-dec="." data-a-sep=''><?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>
 					</div>
 				</div>
 				

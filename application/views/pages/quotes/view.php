@@ -31,6 +31,9 @@
 	$cos = explode(",", $quote[0]['icost']);
 	$icosts = array_merge($cos);
 	
+	$this->load->helper('currency_helper');
+	$currency = currency_method($quote[0]['currency']);
+	
 	//print("<pre>".print_r($quote, true )."</pre>");
 ?>
 
@@ -198,7 +201,7 @@
 													<small class="error">Price is required.</small>
 												</div>
 												<div class="totalSum small-12 medium-2 large-only-text-right columns" data-totalsum="<?php echo number_format((float)$number, 2, '.', ''); ?>">
-													$<?php echo number_format((float)$number, 2, '.', ','); ?>
+													<?php echo number_format((float)$number, 2, '.', ','); ?>
 												</div>
 												<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
 													<a class="delete-row button small round">x</a>
@@ -216,15 +219,13 @@
 												<?php echo $idescriptions[$i]; ?>
 											</div>
 											<div class="small-12 small-only-text-center medium-3 large-2 columns text-right hide-for-small-only">
-												<?php echo '$'.$icosts[$i]; ?>
+												<?php echo $icosts[$i]; ?>
 											</div>
 											<div class="small-12 columns small-only-text-center show-for-small-only">
 												<?php echo $item_qts; ?> x <?php echo '$'.$icosts[$i]; ?>
 											</div>
 											<div class="small-12 small-only-text-center medium-3 large-2 columns text-right totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">
-												$<?php 
-													echo number_format((float)$number, 2, '.', ','); 
-												?>
+												<?php echo number_format((float)$number, 2, '.', ','); ?>
 											</div>
 											<div class="small-12 columns"><hr /></div>
 										</div>
@@ -257,9 +258,9 @@
 										</div>
 										<div class="small-7 columns text-right">
 											<?php if ( $edit === FALSE ) { ?>
-												<h3>$<span id="invoiceTotal"></span><?php echo number_format((float)($quote[0]['amount']), 2, '.', ',');?></h3>
+												<h3><?= $currency ?><span id="invoiceTotal"></span><?php echo number_format((float)($quote[0]['amount']), 2, '.', ',');?></h3>
 											<?php } else { ?>
-												<h3><span id="invoiceTotal">$<?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>
+												<h3><?= $currency ?><span id="invoiceTotal"><?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>
 											<?php } ?>
 										</div>
 										<div class="small-12 columns"><hr /></div>
@@ -337,3 +338,18 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+  
+  	function init_autoNumeric() {
+			$('.sum, .totalSum, #invoiceTotal').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
+		}
+		
+		$(document).on('click', "#addItems", function() { 
+			init_autoNumeric();
+		});
+		
+		init_autoNumeric();
+		
+	});
+</script>

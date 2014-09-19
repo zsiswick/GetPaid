@@ -12,7 +12,7 @@
 		<label for="emailMessage">Message</label>
 		<textarea name="emailMessage" id="" cols="30" rows="15">Hello <?php echo($item['client'][0]['contact']);?>,&#013;
 		 
-We received your payment of $<?php echo($item[0]['amount']);?> for invoice #<?php if($item[0]['prefix']) : echo($item[0]['prefix'].'-'); endif ?><?php echo($item[0]['inv_num']); ?>.&#013;
+We received your payment of <?php echo($item[0]['amount']);?> for invoice #<?php if($item[0]['prefix']) : echo($item[0]['prefix'].'-'); endif ?><?php echo($item[0]['inv_num']); ?>.&#013;
 Thanks so much for your continued business, we are looking forward to working with you again in the near future.&#013;
 
 If you have any questions or comments about our service, please reach out to us at <?php echo($email);?>

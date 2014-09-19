@@ -10,7 +10,8 @@ class Features extends CI_Controller {
 	
 	public function index() 
 	{
-		$this->load->view('templates/client/header');
+		$data['title'] = "Invoicing Features | Ruby Invoice";
+		$this->load->view('templates/client/header', $data);
 		$this->load->view('pages/features/index');
 		$this->load->view('templates/client/footer');
 	}

@@ -1,6 +1,6 @@
 <?php
 	
-	setlocale(LC_MONETARY, 'en_US');
+	setlocale(LC_MONETARY, $invoices[0]['currency']);
 	$drafts_sum = 0;
 	$due_sum = 0;
 	$paid_sum = 0;

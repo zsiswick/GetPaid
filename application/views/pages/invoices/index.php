@@ -1,5 +1,5 @@
 <?php 
-	setlocale(LC_MONETARY, 'en_US'); 
+	//setlocale(LC_MONETARY, 'en_US'); 
 	//print("<pre>".print_r($invoices,true)."</pre>");
 ?>
 
@@ -68,9 +68,20 @@
 	 				?>
 	 				
 	 				
-	 				<?php foreach ($invoices as $invoice_item): ?>
+	 				<?php 
+	 					setlocale(LC_MONETARY, $invoices[0]['currency']);
+	 					foreach ($invoices as $invoice_item): 
+	 					
+	 				?>
 		 			
-		 			
+		 			<?php 
+		 				// Get comma delimited payments and put them into an array so we can find the sum of their amount
+		 				
+		 				$path = explode(",", $invoice_item['ipayments']);
+		 				$exp = array_merge($path);
+		 				$sum = array_sum( $exp );
+		 				$percent = ($sum / $invoice_item['amount']) * 100;
+		 			?>
 		 			<div class="tabbed list clearfix">
 		 				<div class="small-12 small-only-text-center medium-2 large-2 columns invoice-id">
 		 					<a href="<?php echo base_url(); ?>index.php/invoices/view/<?php echo $invoice_item['iid']; ?>" class="button round small light">#<?php echo $invoice_item['iid'];?></a>

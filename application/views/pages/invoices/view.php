@@ -17,7 +17,8 @@
 	$p_state = $item['settings'][0]['state'];
 	$p_zip = $item['settings'][0]['zip'];
 	$invoice_sent = $item[0]['inv_sent'];
-	
+	$this->load->helper('currency_helper');
+	$currency = currency_method($item['settings'][0]['currency']);
 ?>
 <h1 class="text-center">View Invoice #<?php echo($item[0]['iid']);?></h1>
 <div class="row">
@@ -192,25 +193,20 @@
 								
 							<div class="invoice-create list_header clearfix">
 								<div class="row">
-									<div class="small-12 medium-4 large-6 columns">
-										Description
-									</div>
-									<div class="small-12 medium-2 large-2 columns">
+									<div class="small-12 medium-2 columns qty">
 										Qty
 									</div>
-									<div class="small-12 medium-3 large-2 columns text-right">
+									<div class="small-12 medium-6 columns description">
+										Description
+									</div>
+									<div class="small-12 medium-2 columns price text-right">
 										Price
 									</div>
-									<div class="small-12 medium-3 large-2 columns text-right">
+									<div class="small-12 medium-2 text-right columns totalSum">
 										Total
 									</div>
 								</div>
 							</div>
-							
-							
-							
-							
-							
 							
 							<div class="tabbed list no-rules">
 								<?php 
@@ -221,21 +217,20 @@
 									?>
 									
 									<div class="row">
-										
-										<div class="small-12 medium-4 large-6 columns small-only-text-center">
-											<?php echo $invoice_item['description'] ?>
-										</div>
 										<div class="small-12 medium-2 large-2 columns hide-for-small-only">
 											<?php echo $invoice_item['quantity'] ?>
 										</div>
-										<div class="small-12 small-only-text-center medium-3 large-2 columns text-right hide-for-small-only">
-											<?php echo '$'.$invoice_item['unit_cost'] ?>
+										<div class="small-12 medium-6 columns small-only-text-center">
+											<?php echo $invoice_item['description'] ?>
+										</div>
+										<div class="small-12 small-only-text-center medium-2 columns text-right hide-for-small-only">
+											<?php echo $invoice_item['unit_cost'] ?>
 										</div>
 										<div class="small-12 columns small-only-text-center show-for-small-only">
-											<?php echo $invoice_item['quantity'] ?> x <?php echo '$'.$invoice_item['unit_cost'] ?>
+											<?php echo $invoice_item['quantity'] ?> x <?php echo $invoice_item['unit_cost'] ?>
 										</div>
-										<div class="small-12 small-only-text-center medium-3 large-2 columns text-right totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">
-											$<?php 
+										<div class="small-12 small-only-text-center medium-2 columns text-right totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">
+											<?php 
 												echo number_format((float)$number, 2, '.', ','); 
 											?>
 										</div>
@@ -257,7 +252,7 @@
 											<h3>Due:</h3>
 										</div>
 										<div class="small-7 columns text-right">
-											<h3>$<span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></h3>
+											<h3><?php echo($currency)?><span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></h3>
 										</div>
 										<div class="small-12 columns"><hr /></div>
 									</div>
@@ -267,7 +262,7 @@
 										</div>
 										<div class="small-7 columns text-right">
 											<h4>
-												$<span id="amtPaid"><?php 
+												<?php echo($currency)?><span id="amtPaid"><?php 
 														foreach ($item['payments'] as $payment){
 															$number = $payment['payment_amount'] ; 
 															$payment_amount = $payment_amount + $number;
@@ -284,7 +279,7 @@
 											<h4>Left:</h4>
 										</div>
 										<div class="small-7 columns text-right">
-											<h4>$<span id="amtLeft"><?php
+											<h4><?php echo($currency)?><span id="amtLeft"><?php
 												$amtLeft = max($sumTotal - $payment_amount,0);
 												echo(number_format((float)($amtLeft), 2, '.', ','));
 											?></span></h4>

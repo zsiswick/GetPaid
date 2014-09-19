@@ -849,6 +849,10 @@ input[type="file"] {
   background: none;
   border: none;
 }
+textarea {
+  min-height: inherit;
+  line-height: 1rem;
+}
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   color: #ccc;

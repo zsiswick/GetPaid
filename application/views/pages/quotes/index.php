@@ -1,5 +1,5 @@
 <?php 
-	setlocale(LC_MONETARY, 'en_US'); 
+	setlocale(LC_MONETARY, $quotes[0]['currency']); 
 	//print("<pre>".print_r($quotes,true)."</pre>");
 ?>
 

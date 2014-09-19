@@ -15,7 +15,7 @@
 		<label for="emailMessage">Message</label>
 		<textarea name="emailMessage" id="" cols="30" rows="15">Hello <?php echo($item['client'][0]['contact']);?>,&#013;
 		 
-Just a reminder that invoice #<?php echo($item[0]['iid']);?> was due on <?php echo ($date->format('F j, Y'));?>.&#013;Please make a payment of $<?php echo($item[0]['amount']);?> as soon as possible.&#013;&#013;
+Just a reminder that invoice #<?php echo($item[0]['iid']);?> was due on <?php echo ($date->format('F j, Y'));?>.&#013;Please make a payment of <?php echo($item[0]['amount']);?> as soon as possible.&#013;&#013;
 You can view the invoice online at:&#013;
 <?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']."/".$item['client'][0]['key']?>&#013;
 

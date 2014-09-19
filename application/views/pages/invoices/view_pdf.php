@@ -17,11 +17,14 @@
 		    font-style: normal;
 		
 		}
-	
+		body {
+			font-size: 14px;
+		}
 		body, p, h1, h2, h3, h4, h5, h3.top-rule {
 			color: #000 !important;
 			background: #fff;
 			font-family: "robotoregular", Helvetica, Arial, sans-serif;
+			font-size: 16px !important;
 		}
 		.light-bg .ruled, .info-block.last, h3.top-rule, .list_header, hr {
 			border-color: #ccc;
@@ -33,7 +36,9 @@
 		table tr, table td {
 			background: #fff;
 		}
-		
+		.info-block {
+			font-size: 16px !important;
+		}
 		.rule {
 			padding: 0px;
 			margin: 0px;
@@ -41,7 +46,7 @@
 		}
 		h5 {
 			text-transform: uppercase;
-			font-size: 10px;
+			font-size: 14px;
 			padding: 0;
 			margin: 0;
 			line-height: 0;
@@ -81,14 +86,15 @@
 	$p_state = $item['settings'][0]['state'];
 	$p_zip = $item['settings'][0]['zip'];
 	$invoice_sent = $item[0]['inv_sent'];
-	
+	$this->load->helper('currency_helper');
+	$currency = currency_method($item['settings'][0]['currency']);
 ?>
 				<div id="" class="light-bg">
 					<table style="width: 100%;">
 						<tr>
 							<td style="width: 35%;" valign="top">
 								<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$item['client'][0]['uid']."/".$logo.'" /><br/>'; endif ?>
-								<p><?php if(!empty($company_name)): echo '<br/><h3>'.$company_name.'<h3/><br/><br/>'; endif ?></p>
+								<p><?php if(!empty($company_name)): echo '<br/><h2>'.$company_name.'<h2/><br/><br/>'; endif ?></p>
 								<div class="info-block">
 										<?php if( !empty($item['settings'][0]['address_1']) ): echo($item['settings'][0]['address_1'].'<br/>'); endif ?>
 										<?php if( !empty($item['settings'][0]['address_2']) ): echo($item['settings'][0]['address_2'].'<br/>'); endif ?>
@@ -105,12 +111,12 @@
 									<hr class="rule" />
 								
 									<div class="info-block">
-									<?php echo $item['client'][0]['company'].'<br/>'; ?>
-									<?php echo $item['client'][0]['contact'].'<br/>'; ?>
-									<?php if(!empty($address_1)): echo $address_1.'<br/>'; endif ?>
-									<?php if(!empty($address_2)): echo $address_2.'<br/>'; endif ?>
-									<?php if(!empty($city)): echo $city.' '; endif ?> <?php if(!empty($state)): echo $state.' '; endif ?> <?php if(!empty($zip)): echo $zip; endif ?> <br /><br />
-								</div>
+										<?php echo $item['client'][0]['company'].'<br/>'; ?>
+										<?php echo $item['client'][0]['contact'].'<br/>'; ?>
+										<?php if(!empty($address_1)): echo $address_1.'<br/>'; endif ?>
+										<?php if(!empty($address_2)): echo $address_2.'<br/>'; endif ?>
+										<?php if(!empty($city)): echo $city.' '; endif ?> <?php if(!empty($state)): echo $state.' '; endif ?> <?php if(!empty($zip)): echo $zip; endif ?> <br /><br />
+									</div>
 							</td>
 							<td style="width: 30%;" valign="top">
 								<hr class="rule" />
@@ -213,12 +219,10 @@
 								<?php echo $invoice_item['description'] ?>
 							</td>
 							<td style="text-align: right;">
-								<?php echo '$'.$invoice_item['unit_cost'] ?>
+								<?php echo $invoice_item['unit_cost'] ?>
 							</td>
-							<td style="text-align: right;" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">
-								$<?php 
-									echo number_format((float)$number, 2, '.', ','); 
-								?>
+							<td style="text-align: right;">
+								<?php echo $number; ?>
 							</td>
 						</tr>	
 						<tr>
@@ -241,7 +245,7 @@
 										<h3>Due:</h3>
 									</td>
 									<td style="width: 60%; text-align: right;">
-										<h3>$<span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></h3>
+										<h3><?php echo($currency)?><span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></h3>
 									</td>
 								</tr>
 								<tr>
@@ -252,7 +256,7 @@
 										<h4>Paid:</h4>
 									</td>
 									<td style="width: 60%; text-align: right;">
-										<h4>$<span id="amtPaid"><?php 
+										<h4><?php echo($currency)?><span id="amtPaid"><?php 
 													foreach ($item['payments'] as $payment){
 														$number = $payment['payment_amount'] ; 
 														$payment_amount = $payment_amount + $number;
@@ -268,7 +272,7 @@
 										<h4>Left:</h4>
 									</td>
 									<td style="width: 60%; text-align: right;">
-										<h4>$<span id="amtLeft"><?php
+										<h4><?php echo($currency)?><span id="amtLeft"><?php
 											$amtLeft = max($sumTotal - $payment_amount,0);
 											echo(number_format((float)($amtLeft), 2, '.', ','));
 										?></span></h4>

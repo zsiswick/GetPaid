@@ -10,7 +10,7 @@ class Invoice_model extends CI_Model {
 	public function get_invoice_settings($uid) 
 	{
 		
-		$this->db->select("cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes, cl.default_inv_prefix, settings.due, settings.remind, settings.logo, settings.company_name, settings.address_1 as my_address_1, settings.address_2 as my_address_2, settings.city as my_city, settings.state as my_state, settings.zip as my_zip, settings.country as my_country", false);
+		$this->db->select("cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes, cl.default_inv_prefix, settings.due, settings.remind, settings.logo, settings.company_name, settings.address_1 as my_address_1, settings.address_2 as my_address_2, settings.city as my_city, settings.state as my_state, settings.zip as my_zip, settings.country as my_country, settings.currency", false);
 		$this->db->from('client cl');
 		$this->db->join('settings', 'settings.uid = cl.uid', 'left');
 		$this->db->where('cl.uid', $uid);
@@ -33,11 +33,12 @@ class Invoice_model extends CI_Model {
 			$this->db->limit($limit, $offset);
 		}
 		
-		$this->db->select("c.id as iid, c.uid, c.cid, c.amount, c.status, client.company, GROUP_CONCAT(payments.payment_amount) AS ipayments", false);
+		$this->db->select("c.id as iid, c.uid, c.cid, c.amount, c.status, client.company, GROUP_CONCAT(payments.payment_amount) AS ipayments, settings.currency", false);
 		$this->db->select("DATE_FORMAT(c.date, '%b %d, %Y') AS pdate", false);
 		$this->db->from('common c');
 		$this->db->join('payments', 'payments.common_id = c.id', 'left');
 		$this->db->join('client', 'client.id = c.cid', 'left');
+		$this->db->join('settings', 'settings.uid = c.uid', 'left');
 		$this->db->where('c.uid', $id);
 		$this->db->group_by('c.id');
 		$this->db->order_by("date", "desc");

@@ -4,7 +4,9 @@
 		<?php 
 			$hidden = array('remind' => $settings[0]['remind']);
 			$attributes = array('class' => 'invoice-form light-bg', 'id' => 'createForm', 'data-abide'=>'');
-			echo form_open('invoices/create', $attributes, $hidden); 
+			echo form_open('invoices/create', $attributes, $hidden);
+			$this->load->helper('currency_helper');
+			$currency = currency_method($settings[0]['currency']);
 		?>
 		<div id="invoiceCreate" class="invoice-list-wrap">
 			<div class="">
@@ -107,11 +109,21 @@
 															$('input[name="prefix"]').attr('value', client_data[count]['default_inv_prefix']);
 														}
 														
-														
 														$('#send-date, #due-date').pickadate({
 														    formatSubmit: 'yyyy-mm-dd',
 														    hiddenName: true
 														});
+														
+														function init_autoNumeric() {
+															$('.sum, .totalSum, #invoiceTotal').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
+														}
+														
+														$(document).on('click', "#addItems", function() { 
+															init_autoNumeric();
+														});
+														
+														init_autoNumeric();
+														
 													});
 											  </script>
 										</div> 
@@ -201,15 +213,17 @@
 									<small class="error">Quantity is required.</small>
 								</div>
 								<div class="description small-12 medium-5 columns">
-									<input type="text" name="description[]" value="<?php echo set_value('description[]'); ?>" placeholder="Client Meeting" />
+									<textarea name="description[]" value="<?php echo set_value('description[]'); ?>" placeholder="Client Meeting"></textarea>
 								</div>
 								<div class="price small-12 medium-2 columns">
-									<input class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>" placeholder="65" required />
+									<input data-a-dec="." data-a-sep='' class="unitCost sum" type="text" name="unit_cost[]" value="<?php echo set_value('unit_cost[]'); ?>" placeholder="65" required />
 									<small class="error">Price is required.</small>
 								</div>
-								<div class="totalSum small-12 medium-2 large-only-text-right columns" >
+								<!--<div class="totalSum small-12 medium-2 large-only-text-right columns" >
 									$0.00
-								</div>
+								</div><-->
+								<div class="totalSum small-12 medium-2 large-only-text-right columns">0.00</div>
+								
 								<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
 									<a class="delete-row button small round">x</a>
 								</div>
@@ -226,7 +240,7 @@
 					<hr />
 					<div class="row">
 						<div class="large-12 columns text-right small-only-text-center">
-							<h3>Total Due: <span id="invoiceTotal">$0.00</span></h3>
+							<h3>Total Due: <?php echo($currency);?><span id="invoiceTotal" data-a-dec="." data-a-sep=''>0.00</span></h3>
 						</div>
 					</div>
 			</div>

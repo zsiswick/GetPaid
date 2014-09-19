@@ -54,7 +54,7 @@ class Quotes extends CI_Controller {
 			
 			if ($this->form_validation->run() === FALSE){
 			  
-			  $jsfiles = array('picker.js', 'picker.date.js');
+			  $jsfiles = array('picker.js', 'picker.date.js', 'auto-numeric/autoNumeric.js', 'jquery-ui.min.js');
 			  $cssfiles = array('default.css', 'default.date.css');
 			  $data['css_to_load'] = $cssfiles;
 			  $data['js_to_load'] = $jsfiles;
@@ -112,7 +112,7 @@ class Quotes extends CI_Controller {
 			
 			if ($this->form_validation->run() === FALSE){
 			  
-			  $jsfiles = array('picker.js', 'picker.date.js');
+			  $jsfiles = array('picker.js', 'picker.date.js', 'auto-numeric/autoNumeric.js', 'jquery-ui.min.js');
 			  $cssfiles = array('default.css', 'default.date.css');
 			  $data['css_to_load'] = $cssfiles;
 			  $data['js_to_load'] = $jsfiles;

@@ -82,10 +82,40 @@
 			    		<input type="text" name="zip" value="<?php echo $settings[0]['zip'] ?>"/>
 			    	</div>
 			    </div>
-			    
-			    <label for="country">Country</label>
-			    <input type="text" name="country" value="<?php echo $settings[0]['country'] ?>" />
-			    
+			    <div class="row">
+			    	<div class="small-6 columns">
+			    		<label for="country">Country</label>
+			    		<input type="text" name="country" value="<?php echo $settings[0]['country'] ?>" />
+			    	</div>
+			    	
+			    	<div class="small-6 columns">
+			    		<label for="currency">Default Currency</label>
+			    		<?php
+			    			$currency_options = array(
+			    		    'en_AU'    => 'AUD (Australia)',
+			    		    'pt_BR'  => 'BRL (Brazil)',
+			    		    'en_CA'   => 'CAD (Canadian)',
+			    		    'cs_CZ'    => 'CZK (Czech Republic)',
+			    		    'da_DK'   => 'DKK (Denmark)',
+			    		    'nl_NL'    => 'EUR (Euro Member Countries)',
+			    		    'de_DE' => 'German (Germany)',
+			    		    'el_GR' => 'Greek (Greece)',
+			    		    'hu_HU'    => 'HUF (Hungary)',
+			    		    'he_IL'   => 'ILS (Israel)',
+			    		    'it_IT' => 'Italian (Italy)',
+			    		    'ja_JP'  => 'JPY (Japan)',
+			    		    'ko_KR' => 'Korean (South Korea)',
+			    		    'en_NZ'   => 'NZD (New Zealand)',
+			    		    'pl_PL'   => 'PLN (Poland)',
+			    		    'ru_RU' => 'Russian (Russia)',
+			    		    'de_CH'    => 'SHF (Switzerland)',
+			    		    'en_GB'   => 'GBP (United Kingdom)',
+			    		    'en_US'  => 'USD (United States)'
+			    		  );
+			    			echo form_dropdown('currency', $currency_options, $settings[0]['currency']);
+			    		?>
+			    	</div>
+			    </div>
 			    <div class="row">
 			    	<div class="small-12 columns">
 			    		<div class="info-block">
