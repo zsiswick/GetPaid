@@ -1,6 +1,6 @@
 <?php
-	
-	setlocale(LC_MONETARY, $invoices[0]['currency']);
+	$this->load->helper('currency_helper');
+	$currency = currency_method($invoices[0]['currency']);
 	$drafts_sum = 0;
 	$due_sum = 0;
 	$paid_sum = 0;
@@ -68,7 +68,7 @@
 					</figure>
 				</div>
 				<div class="small-12 large-8 columns">
-					<h2><?php echo(money_format('%.2n', $drafts_sum)); ?></h2>
+					<h2><?= $currency ?><?php echo number_format((float)$drafts_sum, 2, '.', ',');?></h2>
 				</div>
 			</div>	
 		</div>
@@ -88,7 +88,7 @@
 					</figure>
 				</div>
 				<div class="small-12 large-8 columns">
-					<h2><?php echo(money_format('%.2n', $due_sum)); ?></h2>
+					<h2><?= $currency ?><?php echo number_format((float)$due_sum, 2, '.', ',');?></h2>
 				</div>
 			</div>	
 		</div>
@@ -106,7 +106,7 @@
 					</figure>
 				</div>
 				<div class="small-12 large-8 columns">	
-					<h2><?php echo(money_format('%.2n', $paid_sum)); ?></h2>
+					<h2><?= $currency ?><?php echo number_format((float)$paid_sum, 2, '.', ',');?></h2>
 				</div>
 			</div>	
 		</div>

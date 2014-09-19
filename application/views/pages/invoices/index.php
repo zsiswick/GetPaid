@@ -69,9 +69,9 @@
 	 				
 	 				
 	 				<?php 
-	 					setlocale(LC_MONETARY, $invoices[0]['currency']);
+	 					$this->load->helper('currency_helper');
+	 					$currency = currency_method($invoices[0]['currency']);
 	 					foreach ($invoices as $invoice_item): 
-	 					
 	 				?>
 		 			
 		 			<?php 
@@ -93,7 +93,7 @@
 		 					<?php echo $invoice_item['company']; ?>
 		 				</div>
 		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
-		 					<?php echo money_format('%.2n', $invoice_item['amount']); ?>
+		 					<?= $currency ?><?php echo number_format((float)$invoice_item['amount'], 2, '.', ',');?>
 		 				</div>
 		 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
 		 				

@@ -1,5 +1,6 @@
 <?php 
-	setlocale(LC_MONETARY, $quotes[0]['currency']); 
+	$this->load->helper('currency_helper');
+	$currency = currency_method($quotes[0]['currency']);
 	//print("<pre>".print_r($quotes,true)."</pre>");
 ?>
 
@@ -70,7 +71,7 @@
 					<?php echo $quote_item['company']; ?>
 				</div>
 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
-					<?php echo money_format('%.2n', $quote_item['amount']); ?>
+					<?= $currency ?><?php echo number_format((float)$quote_item['amount'], 2, '.', ',');?>
 				</div>
 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
 					<span class="label secondary round"><?php echo($quote_flags[$quote_item['status']]);?></span>
