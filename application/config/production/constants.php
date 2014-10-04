@@ -50,10 +50,10 @@ define('STATUS_FLAGS', serialize (array('0' => 'DRAFT', '1' => 'OPEN', '2' => 'P
 define('QUOTE_FLAGS', serialize (array('0' => 'DRAFT', '1' => 'ACCEPTED', '2' => 'DECLINED')));
 define('RUBY_TRANSACTION_FEE', 0);
 define('RUBY_EMAIL', 'hello@rubyinvoice.com');
-define('STRIPE_CLIENT_ID', 'ca_4eR11ZVjVsJOIKtOVnqhMRK4HSSX6ONl');
-define('STRIPE_REDIRECT_URI', 'http://localhost/rubyinvoice/index.php/settings/stripe_return');
-define('SECRET_KEY', 'sk_test_7X4jGTKA2sfVOPSH7rZKaHtq');
-define('PUBLISHABLE_KEY', 'pk_test_Bj38OttZCFdKmufc5CrsZmei');
+define('STRIPE_CLIENT_ID', 'ca_4eR1KfPCsb7yLu7V8tyCaGjJayNpEtqu');
+define('STRIPE_REDIRECT_URI', 'https://www.rubyinvoice.com/index.php/settings/stripe_return');
+define('SECRET_KEY', 'sk_live_lA9zuBURdxoln5Qt43fl7lVi');
+define('PUBLISHABLE_KEY', 'pk_live_O759uhrCqTG6TDA1tRXdd0qM');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -178,6 +178,16 @@
 			    		<label for="notes">Payment Terms</label>
 			    		<textarea placeholder="Please remit full payment <?php echo($settings[0]['due']); ?> days from receipt of invoice. Make check payable to <?php echo($settings[0]['company_name']); ?>" name="notes" cols="30" rows="5"><?php echo($settings[0]['notes']) ?></textarea>
 			    	</div>
+			    </div>
+			    <div class="row">
+			    	<div class="medium-4 columns">
+			    		<label for="tax_1">Tax 1 %</label>
+			    		<input type="text" name="tax_1" value="<?php echo($settings[0]['tax_1']) ?>" pattern="integer"/>
+			    		<small class="error">Number is required.</small>
+			    		<label for="tax_2">Tax 2 %</label>
+			    		<input type="text" name="tax_2" value="<?php echo($settings[0]['tax_2']) ?>" pattern="integer" />
+			    		<small class="error">Number is required.</small>
+			    	</div>
 			    </div>   
 			    
 			    <div class="row">
@@ -201,7 +211,7 @@
 			    			<?php 
 			    				if ( $settings[0]['stripe_cust_token'] == false ) {
 			    					
-			    					echo anchor('https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_4eR11ZVjVsJOIKtOVnqhMRK4HSSX6ONl&scope=read_write&stripe_user[email]='.$settings[0]['email'].'&stripe_user[business_name]='.$settings[0]['company_name'].'&stripe_user[street_address]='.$settings[0]['address_1'].'&stripe_user[city]='.$settings[0]['city'].'&stripe_user[state]='.$settings[0]['state'].'&stripe_user[zip]='.$settings[0]['zip'], 'Connect Account', 'title="Connect Account" class="button small round"');
+			    					echo anchor('https://connect.stripe.com/oauth/authorize?response_type=code&client_id='.STRIPE_CLIENT_ID.'&scope=read_write&stripe_user[email]='.$settings[0]['email'].'&stripe_user[business_name]='.$settings[0]['company_name'].'&stripe_user[street_address]='.$settings[0]['address_1'].'&stripe_user[city]='.$settings[0]['city'].'&stripe_user[state]='.$settings[0]['state'].'&stripe_user[zip]='.$settings[0]['zip'], 'Connect Account', 'title="Connect Account" class="button small round"');
 			    					
 			    				} else {
 			    					

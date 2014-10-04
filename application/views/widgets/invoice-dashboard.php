@@ -1,16 +1,16 @@
 <?php
 	$this->load->helper('currency_helper');
-	$currency = currency_method($invoices[0]['currency']);
+	$currency = currency_method($invoices[0]['currency_setting']);
 	$drafts_sum = 0;
 	$due_sum = 0;
 	$paid_sum = 0;
 	//var_dump($invoices);
-	
+
 	function filter_drafts($var)
 	{
 	    return (is_array($var) && $var['status'] == 0);
 	}
-	
+
 	function filter_due($var)
 	{
 	    return (is_array($var) && $var['status'] == 4);
@@ -19,19 +19,19 @@
 	{
 	    return (is_array($var) && $var['status'] == 3);
 	}
-	
+
 	$filtered_drafts = array_filter($payments, "filter_drafts");
 	$filtered_due = array_filter($payments, "filter_due");
 	$filtered_paid = array_filter($payments, "filter_pay");
-	
+
 	foreach ($filtered_drafts as $k) {
 	  $drafts_sum+=$k['amount'];
 	}
-	
+
 	foreach ($filtered_due as $k) {
 	  $due_sum+=$k['amount'];
 	}
-	
+
 	foreach ($filtered_paid as $k) {
 	  $paid_sum+=$k['amount'];
 	}
@@ -43,9 +43,9 @@
 			<h3 class="small-only-text-center top-rule">Invoice Statistics</h3>
 		</div>
 	</div>
-	
+
 	<div class="row">
-		
+
 		<div class="columns medium-4 text-center large-text-left">
 			<div class="dashb-item clearfix">
 				<h5 class="ruled caps">Uninvoiced</h5>
@@ -70,9 +70,9 @@
 				<div class="small-12 large-8 columns">
 					<h2><?= $currency ?><?php echo number_format((float)$drafts_sum, 2, '.', ',');?></h2>
 				</div>
-			</div>	
+			</div>
 		</div>
-		
+
 		<div class="columns medium-4 text-center large-text-left">
 			<div class="dashb-item clearfix">
 				<h5 class="ruled caps">Invoices Due</h5>
@@ -90,9 +90,9 @@
 				<div class="small-12 large-8 columns">
 					<h2><?= $currency ?><?php echo number_format((float)$due_sum, 2, '.', ',');?></h2>
 				</div>
-			</div>	
+			</div>
 		</div>
-		
+
 		<div class="columns medium-4 text-center large-text-left">
 			<div class="dashb-item clearfix last">
 				<h5 class="ruled caps">Invoices Paid</h5>
@@ -105,11 +105,11 @@
 						</svg>
 					</figure>
 				</div>
-				<div class="small-12 large-8 columns">	
+				<div class="small-12 large-8 columns">
 					<h2><?= $currency ?><?php echo number_format((float)$paid_sum, 2, '.', ',');?></h2>
 				</div>
-			</div>	
+			</div>
 		</div>
-		
+
 	</div>
 </section>

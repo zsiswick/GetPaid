@@ -447,7 +447,7 @@ ul.tabs {
 .sidebar {
   margin-top: 3rem;
 }
-.panel {
+.sidebar .panel {
   border-color: #DC1919;
 }
 .panel .title {
@@ -668,7 +668,7 @@ ul.pagination li button:focus {
   border-bottom: none;
 }
 .has-tip:hover {
-  color: #fff;
+  color: #f15959;
   border: none;
 }
 .logo.thumb {
@@ -692,6 +692,15 @@ ul.pagination li button:focus {
 }
 .info-block.last {
   padding-bottom: 1.5rem;
+}
+#invoiceSettings {
+  display: none;
+}
+#invoiceTotals h4 {
+  font-size: 1.1rem;
+}
+#invoice-item-template {
+  display: none;
 }
 /*
 ** Settings
@@ -722,6 +731,9 @@ button.button:hover {
 .button.small {
   font-size: 13px;
   padding: .125rem 1.5rem;
+}
+.button.tiny {
+  padding: .25rem .5rem;
 }
 .button.light {
   background: #ffffff;
@@ -862,6 +874,9 @@ input:-moz-placeholder,
 textarea:-moz-placeholder {
   color: #a43a3a;
   font-style: italic;
+}
+.tax {
+  margin-top: 1.4rem;
 }
 .error input,
 .error textarea,

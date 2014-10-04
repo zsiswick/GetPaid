@@ -5,7 +5,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 		<meta charset="utf-8">
 		<title><?php echo($this->tank_auth_my->get_username());?> | Ruby Invoice</title>
-		<link href='https://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation-icons.css" />
@@ -13,6 +12,8 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" />
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/vendor/modernizr.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
+		<script type="text/javascript" src="<?php echo base_url();?>assets/js/libs/angular.js"></script>
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.2/angular.min.js"></script> -->
 		
 		<? if (isset($css_to_load)) : 
 				foreach ($css_to_load as $css) : ?>

@@ -11,7 +11,6 @@
 			<title>Ruby Invoice</title>
 		<?php } ?>
 		
-		<link href='https://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation-icons.css" />

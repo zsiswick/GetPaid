@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>Ruby Invoice</title>
-	
+
 	<style type="text/css">
-		
+
 		@font-face {
 		    font-family: 'robotoregular';
 		    src: url('fonts/roboto/roboto-regular-webfont.eot');
@@ -15,7 +15,7 @@
 		         url('fonts/roboto/roboto-regular-webfont.svg#robotoregular') format('svg');
 		    font-weight: normal;
 		    font-style: normal;
-		
+
 		}
 		body {
 			font-size: 14px;
@@ -62,15 +62,16 @@
 		hr {
 			border-bottom: 1px solid #fff;
 		}
-		
+
 	</style>
 </head>
 <body>
 
-<?php 
-	$sumTotal = 0; 
+<?php
+	$totalAmount = $item[0]['amount'];
+	$subTotal = 0;
 	$payment_amount = 0;
-	$hidden = array('iid' => $item[0]['iid']); 
+	$hidden = array('iid' => $item[0]['iid']);
 	$address_1 = $item['client'][0]['address_1'];
 	$address_2 = $item['client'][0]['address_2'];
 	$city = $item['client'][0]['city'];
@@ -87,7 +88,12 @@
 	$p_zip = $item['settings'][0]['zip'];
 	$invoice_sent = $item[0]['inv_sent'];
 	$this->load->helper('currency_helper');
-	$currency = currency_method($item['settings'][0]['currency']);
+	$currency = currency_method($item[0]['currency']);
+	$invoice_tax_1 = $item[0]['invoice_tax_1'];
+	$invoice_tax_2 = $item[0]['invoice_tax_2'];
+	$discount = $item[0]['discount'];
+	$tax_1_amnt = 0;
+	$tax_2_amnt = 0;
 ?>
 				<div id="" class="light-bg">
 					<table style="width: 100%;">
@@ -105,11 +111,11 @@
 							<td style="width: 5%;" valign="top">
 							</td>
 							<td style="width: 30%;" valign="top">
-									
+
 									<hr class="rule" />
 									<h5>Billing Information</h5>
 									<hr class="rule" />
-								
+
 									<div class="info-block">
 										<?php echo $item['client'][0]['company'].'<br/>'; ?>
 										<?php echo $item['client'][0]['contact'].'<br/>'; ?>
@@ -124,57 +130,57 @@
 										Invoice Num
 								</h5>
 								<hr class="rule" />
-								<div class="info-block">	
+								<div class="info-block">
 									<?php if(!empty($item[0]['prefix'])): echo $item[0]['prefix'].'-'; endif ?><?php echo($item[0]['inv_num'])?>
 									<br /><br />
 								</div>
-								
+
 								<hr class="rule" />
 								<h5>
 										Creation Date
 								</h5>
 								<hr class="rule" />
-								
-								<div class="info-block">	
+
+								<div class="info-block">
 									<?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?>
 									<br /><br />
 								</div>
-								
+
 									<hr class="rule" />
 									<h5>
 											Due Date
 									</h5>
 									<hr class="rule" />
-									
+
 									<div class="info-block last">
 										<?php
-											
+
 											$today = new DateTime(date('Ymd'));
 											$due = new DateTime($item[0]['due_date']);
 											// Calculate the difference between today's date, and the invoice due date
 											$diff = $today->diff($due);
-											
+
 											if ($item[0]['status'] == 3){ ?>
 												INVOICE PAID
 											<?php }
-											
+
 											else if ($item[0]['status'] == 4) { ?>
 												<?php echo $diff->format('%a DAYS'); ?> PAST DUE
-											
+
 										<?php	} else { ?>
-											
-												<?php 
-													
+
+												<?php
+
 													$date = new DateTime($item[0]['due_date']);
 													echo ($date->format('F j, Y')); ?>
-												
-											
+
+
 										<?php	} ?>
 										<br /><br />
 								</div>
 							</td>
 						</tr>
-						
+
 						<?php
 							if (!empty($item[0]['description'])) { ?>
 								<tr>
@@ -184,16 +190,16 @@
 										<hr class="rule" />
 										<h5 >Description</h5>
 										<hr class="rule" />
-										
+
 										<div class="info-block">
 											<?php echo($item[0]['description']);?>
 										</div>
 								</td>
 								</tr>
 							<?php } ?>
-							
+
 					</table>
-					
+
 					<table style="width: 100%;" cellpadding="0" cellspacing="0" border-collapse="collapse">
 						<thead class="invoice-create list_header">
 							<tr><th colspan="4"><hr /></th></tr>
@@ -205,15 +211,28 @@
 							</tr>
 							<tr><th colspan="4"><hr /></th></tr>
 						</thead>
-						<?php 
-							foreach ($item['items'] as $invoice_item): 
-							 
-							$number = $invoice_item['quantity'] * $invoice_item['unit_cost']; 
-							$sumTotal = $sumTotal + $number;
+						<?php
+							foreach ($item['items'] as $invoice_item):
+
+							$number = $invoice_item['quantity'] * $invoice_item['unit_cost'];
+							$subTotal = $subTotal + $number;
+
+							// CALCULATE TAX
+							if ( $invoice_item['tax'] == $invoice_tax_1 )
+							{
+								$tx = ( $invoice_item['tax'] / 100 );
+								$tax_1_amnt = $number * $tx;
+							}
+								else if ( $invoice_item['tax'] == $invoice_tax_2 )
+							{
+								$tx = ( $invoice_item['tax'] / 100 );
+								$tax_2_amnt = $number * $tx;
+							}
+
 						?>
 						<tr>
 							<td style="text-align: left;">
-								<?php echo $invoice_item['quantity'] ?>
+								<?php echo $invoice_item['quantity'].' '.$invoice_item['unit'] ?>
 							</td>
 							<td style="text-align: left;">
 								<?php echo $invoice_item['description'] ?>
@@ -222,16 +241,16 @@
 								<?php echo $invoice_item['unit_cost'] ?>
 							</td>
 							<td style="text-align: right;">
-								<?php echo $number; ?>
+								<?php echo(number_format((float)($number), 2, '.', ',')); ?>
 							</td>
-						</tr>	
+						</tr>
 						<tr>
 							<td colspan="4"><hr /></td>
 						</tr>
-						
+
 					<?php endforeach ?>
-				</table>	
-				
+				</table>
+
 				<table style="width: 100%;">
 					<tr>
 						<td valign="top" style="width: 70%;">
@@ -242,49 +261,89 @@
 							<table style="width: 250px;">
 								<tr>
 									<td style="width: 40%; text-align: left;">
-										<h3>Due:</h3>
+										<h3>Subtotal:</h3>
 									</td>
 									<td style="width: 60%; text-align: right;">
-										<h3><?php echo($currency)?><span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></h3>
+										<h3><?php echo($currency)?><span id="invoiceTotal"></span><?php echo(number_format((float)($subTotal), 2, '.', ',')); ?></h3>
 									</td>
 								</tr>
+
+								<tr>
+									<td style="width: 40%; text-align: left;">
+										<h3>Tax (<?php echo($item[0]['invoice_tax_1']);?>%)</h3>
+									</td>
+									<td style="width: 60%; text-align: right;">
+										<h3><span id="taxOne"><?= number_format((float)($tax_1_amnt), 2, '.', ','); ?></span></h3>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="width: 40%; text-align: left;">
+										<h3>Tax (<?php echo($item[0]['invoice_tax_2']);?>%)</h3>
+									</td>
+									<td style="width: 60%; text-align: right;">
+										<h3><span id="taxTwo"><?= number_format((float)($tax_2_amnt), 2, '.', ','); ?></span></h3>
+									</td>
+								</tr>
+
+								<?php if ( $item[0]['discount'] > 0 ): ?>
+									<tr>
+										<td style="width: 40%; text-align: left;">
+											<h3>Discount</h3>
+										</td>
+										<td style="width: 60%; text-align: right;">
+											<h3>-<span id="discount"><?php echo(number_format((float)$item[0]['discount'], 2, '.', ','));?></span></h3>
+										</td>
+									</tr>
+								<?php endif; ?>
+
 								<tr>
 									<td colspan="2"><hr /></td>
 								</tr>
+
 								<tr>
 									<td style="width: 40%; text-align: left;">
-										<h4>Paid:</h4>
+										<h4>Total Due</h4>
 									</td>
 									<td style="width: 60%; text-align: right;">
-										<h4><?php echo($currency)?><span id="amtPaid"><?php 
-													foreach ($item['payments'] as $payment){
-														$number = $payment['payment_amount'] ; 
-														$payment_amount = $payment_amount + $number;
-													}
-													echo number_format((float)$payment_amount, 2, '.', ',');?></span></h4>
+										<h4><?php echo($currency)?><span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></h4>
 									</td>
 								</tr>
-								<tr>
-									<td colspan="2"><hr /></td>
-								</tr>
-								<tr>
-									<td style="width: 40%; text-align: left;">
-										<h4>Left:</h4>
-									</td>
-									<td style="width: 60%; text-align: right;">
-										<h4><?php echo($currency)?><span id="amtLeft"><?php
-											$amtLeft = max($sumTotal - $payment_amount,0);
-											echo(number_format((float)($amtLeft), 2, '.', ','));
-										?></span></h4>
-									</td>
-								</tr>
+
+								<?php if ( !empty($item['payments']) ): ?>
+									<tr>
+										<td style="width: 40%; text-align: left;">
+											<h4>Paid:</h4>
+										</td>
+										<td style="width: 60%; text-align: right;">
+											<h4><?php echo($currency)?><span id="amtPaid"><?php
+														foreach ($item['payments'] as $payment){
+															$number = $payment['payment_amount'] ;
+															$payment_amount = $payment_amount + $number;
+														}
+														echo number_format((float)$payment_amount, 2, '.', ',');?></span></h4>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 40%; text-align: left;">
+											<h4>Left:</h4>
+										</td>
+										<td style="width: 60%; text-align: right;">
+											<h4><?php echo($currency)?><span id="amtLeft"><?php
+												$amtLeft = max($totalAmount - $payment_amount,0);
+												echo(number_format((float)($amtLeft), 2, '.', ','));
+											?></span></h4>
+										</td>
+									</tr>
+								<?php endif; ?>
+
 							</table>
 						</td>
 					</tr>
-				</table>				
+				</table>
 </div>
-	
-					
+
+
 </body>
 
 </html>

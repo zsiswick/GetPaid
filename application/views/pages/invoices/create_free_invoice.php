@@ -129,7 +129,7 @@
 									<small class="error">Price is required.</small>
 								</div>
 								<div class="totalSum small-12 large-2 large-only-text-right columns" >
-									$0.00
+									0.00
 								</div>
 								<div class="delete small-12 large-1 columns large-only-text-right small-text-center">
 									<a class="delete-row button small round">x</a>
@@ -147,7 +147,7 @@
 					<hr />
 					<div class="row">
 						<div class="large-12 columns text-right small-only-text-center">
-							<h3>Total Due: <span id="invoiceTotal">$0.00</span></h3>
+							<h3>Total Due: <span id="invoiceTotal">0.00</span></h3>
 						</div>
 					</div>
 					<div class="row">
@@ -203,5 +203,15 @@
 		$('#download').click(function() {       
 		    $('#createForm').submit();
 		});
+		
+		function init_autoNumeric() {
+			$('.sum, .totalSum, #invoiceTotal').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
+		}
+		
+		$(document).on('click', "#addItems", function() { 
+			init_autoNumeric();
+		});
+		
+		init_autoNumeric();
 	});
 </script>
