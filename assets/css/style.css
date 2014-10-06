@@ -232,11 +232,11 @@ a:focus {
 }
 .light a,
 .light-bg a {
-  color: #008cdd;
+  color: #222;
 }
 .light a:hover,
 .light-bg a:hover {
-  color: #222;
+  color: #fff;
 }
 .small-type {
   font-size: .8rem;
