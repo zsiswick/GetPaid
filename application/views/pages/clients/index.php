@@ -6,9 +6,9 @@
 			  <h1>Clients</h1></div>
 			</div>
 		</section>
-		
-		
-		
+
+
+
 		<div class="row">
 			<div class="medium-3 medium-centered text-center columns">
 				<div id="plus-button" class="svg-container">
@@ -22,12 +22,12 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="large-12 columns">
 				<div class="form-wrap invoice-form light-bg">
 					<div class="">
-						
+
 						<div class="row invoice-create list_header">
 							<div class="small-12 medium-4 large-4 columns">
 								Company
@@ -39,12 +39,12 @@
 								Email
 							</div>
 						</div>
-						
-						
+
+
 							<?php foreach ($clients as $client): ?>
 								<div class="row tabbed list">
 									<div class="small-12 small-only-text-center medium-4 large-4 columns">
-										<input type="hidden" value="<?php echo $client['id']?>" /><a href="<?php echo base_url(); ?>index.php/clients/edit/<?php echo $client['id']; ?>" class="button round small"><?php echo $client['company'] ?></a>
+										<input type="hidden" value="<?php echo $client['id']?>" /><a href="<?php echo base_url(); ?>index.php/clients/edit/<?php echo $client['id']; ?>" class="button round small"><i class="fi-torso-business"></i>&nbsp; <?php echo $client['company'] ?></a>
 									</div>
 									<div class="small-12 small-only-text-center medium-4 large-4 columns">
 										<?php echo $client['contact'] ?>
@@ -54,9 +54,9 @@
 									</div>
 								</div>
 							<?php endforeach ?>
-						
+
 					</div>
-				</div>		
+				</div>
 			</div>
 		</div>
 <?php	} else { ?>
@@ -76,8 +76,8 @@
 					</svg>
 				</a>
 			</div>
-			
+
 		</div>
-	</div>	
+	</div>
 <?php	}
-?>		
+?>

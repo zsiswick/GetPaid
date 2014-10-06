@@ -40,12 +40,12 @@
       if ( $invoice_item['tax'] == $invoice_tax_1 )
       {
         $tx = ( $invoice_item['tax'] / 100 );
-        $tax_1_amnt = $number * $tx;
+        $tax_1_amnt += $number * $tx;
       }
         else if ( $invoice_item['tax'] == $invoice_tax_2 )
       {
         $tx = ( $invoice_item['tax'] / 100 );
-        $tax_2_amnt = $number * $tx;
+        $tax_2_amnt += $number * $tx;
       }
 
     ?>

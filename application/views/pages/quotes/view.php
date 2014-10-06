@@ -1,13 +1,19 @@
-<?php 
-	$sumTotal = 0; 
+<?php
+	$totalAmount = $quote[0]['amount'];
+	$subTotal = 0;
 	$payment_amount = 0;
-	$hidden = array('iid' => $quote[0]['iid']); 
+	$hidden = array('iid' => $quote[0]['iid']);
 	$address_1 = $quote[0]['address_1'];
 	$address_2 = $quote[0]['address_2'];
 	$city = $quote[0]['city'];
 	$state = $quote[0]['state'];
 	$zip = $quote[0]['zip'];
 	$inv_num = $quote[0]['prefix'].'-'.$quote[0]['inv_num'];
+	$invoice_tax_1 = $quote[0]['invoice_tax_1'];
+	$invoice_tax_2 = $quote[0]['invoice_tax_2'];
+	$tax_1_amnt = 0;
+	$tax_2_amnt = 0;
+	$discount = $quote[0]['discount'];
 	//////////////////////////////////
 	$logo = $quote[0]['logo'];
 	$company_name = $quote[0]['company_name'];
@@ -16,24 +22,30 @@
 	$p_city = $quote[0]['my_city'];
 	$p_state = $quote[0]['my_state'];
 	$p_zip = $quote[0]['my_zip'];
-	
+
 	if (!empty($quote[0]['item_id'])) {
 		$is = explode(",", $quote[0]['item_id']);
 		$item_ids = array_merge($is);
 	}
-	
+
 	$desc = explode(",", $quote[0]['idescription']);
 	$idescriptions = array_merge($desc);
-	
+
 	$qs = explode(",", $quote[0]['iqty']);
 	$iqtys = array_merge($qs);
-	
+
 	$cos = explode(",", $quote[0]['icost']);
 	$icosts = array_merge($cos);
-	
+
+	$tx = explode(",", $quote[0]['itax']);
+	$itax = array_merge($tx);
+
+	$un = explode(",", $quote[0]['iunit']);
+	$iunit = array_merge($un);
+
 	$this->load->helper('currency_helper');
 	$currency = currency_method($quote[0]['currency']);
-	
+
 	//print("<pre>".print_r($quote, true )."</pre>");
 ?>
 
@@ -45,12 +57,12 @@
 <?php if ($this->uri->segment(2, 0) === "view"): $this->load->view('widgets/quote-actions'); endif ?>
 <?php if ($this->uri->segment(2, 0) === "review"): echo('<p></p><div class="row"><div class="small-12 columns text-center"><a id="declineQuoteBtn" class="button round light" data-reveal-id="emailModal2">Decline</a> <a id="approveQuoteBtn" class="button round light" data-reveal-id="emailModal">Accept</a></div></div>'); endif ?>
 
-<div id="invoiceContainer">
+<div id="invoiceContainer" ng-app="invoiceEditApp" ng-controller="InvoiceEditController">
 		<div class="row">
 			<div class="large-12 columns">
-						<?php 
+						<?php
 							$attributes = array('class' => 'invoice-form light-bg', 'id' => 'editForm', 'data-abide'=>'');
-							echo form_open('quotes/edit/'.$quote[0]['iid'], $attributes, $hidden); 
+							echo form_open('quotes/edit/'.$quote[0]['iid'], $attributes, $hidden);
 						?>
 							<div class="row">
 								<div class="large-12 columns text-right small-only-text-left">
@@ -78,10 +90,10 @@
 										</ul>
 									</div>
 								</div>
-								
+
 								<div class="large-7 small-centered large-uncentered columns">
-									
-									
+
+
 									<?php if( $edit === FALSE ) { ?>
 										<div class="row">
 										<div class="medium-6 columns">
@@ -95,32 +107,32 @@
 														<li><?php if(!empty($city)): echo $city.' '; endif ?> <?php if(!empty($state)): echo $state.' '; endif ?> <?php if(!empty($zip)): echo $zip; endif ?></li>
 													</ul>
 											</div>
-										</div>		
-										
+										</div>
+
 										<div class="medium-6 columns">
 											<h5 class="caps ruled">
 													Quote Num
 											</h5>
-											<div class="info-block ">	
+											<div class="info-block ">
 												<?php if(!empty($quote[0]['prefix'])): echo $quote[0]['prefix'].'-'; endif ?><?php echo($quote[0]['inv_num']) ?>
 											</div>
-											
+
 											<h5 class="caps ruled">
 													Issue Date
 											</h5>
-											<div class="info-block">	
+											<div class="info-block">
 												<?php echo($theDate['month'].' '.$theDate['day'].', '.$theDate['year']);?>
 											</div>
-											
-												
+
+
 										</div>
-										
-										
+
+
 									</div>
 									<?php } else { ?>
 										<?php $this->load->view('templates/billing-info'); ?>
 									<?php } ?>
-									
+
 								<?php
 									if (!empty($quote[0]['description'])) { ?>
 										<div class="row">
@@ -134,12 +146,65 @@
 									<?php } ?>
 								</div>
 							</div>
-							
-							
+
+							<div class="row">
+								<div class="small-12 columns">
+									<div class="small-only-text-center">
+										<a id="invoiceSettingsBtn" class="button small secondary round"><i class="fi-widget"></i> Settings</a>
+									</div>
+									<div class="panel" id="invoiceSettings">
+										<div class="row">
+											<div class="small-12 medium-6 columns large-centered">
+												<div class="row">
+													<div class="small-12 columns">
+														<label for="tax_1">Tax 1 %</label>
+														<input id="invoice_tax_1" type="text" name="invoice_tax_1" ng-model="invoice_tax_1" ng-init="invoice_tax_1='<?php echo($invoice_tax_1) ?>'" maxlength="3" />
+													</div>
+												</div>
+												<div class="row">
+													<div class="small-12 columns">
+														<label for="tax_2">Tax 2 %</label>
+														<input id="invoice_tax_2" type="text" name="invoice_tax_2" ng-model="invoice_tax_2" ng-init="invoice_tax_2='<?php echo($invoice_tax_2) ?>'" maxlength="3" />
+													</div>
+												</div>
+												<label for="discount">Discount Amount</label>
+
+												<div class="row">
+													<div class="small-6 medium-8 columns">
+														<input id="invoiceDiscount" type="text" name="discount" ng-model="discount" ng-init="discount='<?php echo($discount) ?>'" />
+													</div>
+													<!--
+													<div class="small-4 columns">
+														<?php
+															$discount_options = array(
+																'per'    => 'Percentage',
+																'amt'  => 'Amount'
+															);
+															echo form_dropdown('discount_type', $discount_options, $discount_type, 'class="discount_type" id="discount_type"');
+														?>
+													</div>
+													-->
+												</div>
+												<div class="row">
+													<div class="small-12 medium-5 columns">
+														<label for="currencies">Currency</label>
+														<select name="currency" ng-model="selectedCurrency" ng-options="currency.label for currency in currencies track by currency.code" ng-change="onCurrenciesOptionChange()">
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+
 									<?php if ($edit === TRUE ) {?>
 										<div class="list_header">
 											<div class="row">
-												<div class="small-12 medium-2 columns qty">
+												<div class="small-12 medium-3 columns qty">
 													Qty
 												</div>
 												<div class="small-12 medium-5 columns description">
@@ -148,10 +213,8 @@
 												<div class="small-12 medium-2 columns price">
 													Price
 												</div>
-												<div class="small-12 medium-2 large-only-text-right columns totalSum">
+												<div class="small-12 medium-2 text-right columns totalSum">
 													Total
-												</div>
-												<div class="small-12 medium-1 large-only-text-right columns delete">
 												</div>
 											</div>
 										</div>
@@ -173,106 +236,255 @@
 											</div>
 										</div>
 									<?php } ?>
-								
+
 									<div class="edit-list-container">
 									<div class="tabbed list no-rules">
-							
-									<?php 
+
+									<?php
 										$i = 0;
-										foreach ($iqtys as $item_qts): 
-										 
-										$number = $item_qts * $icosts[$i]; 
-										$sumTotal = $sumTotal + $number;
-										
+										foreach ($iqtys as $item_qts):
+
+										$number = $item_qts * $icosts[$i];
+										$subTotal = $subTotal + $number;
+
+										// CALCULATE TAX
+										if ( $itax[$i] == $invoice_tax_1 )
+										{
+											$tx = ( $itax[$i] / 100 );
+											$tax_1_amnt += $number * $tx;
+										}
+											else if ( $itax[$i] == $invoice_tax_2 )
+										{
+											$tx = ( $itax[$i] / 100 );
+											$tax_2_amnt += $number * $tx;
+										}
+
 									?>
-									
+
 									<?php if( $edit === TRUE ) { // SHOW THE EDIT FORM ?>
-										
-											<div class="row">
-												<div class="qty small-12 medium-2 columns">
-													<input type="hidden" name="item_id[]" value="<?php echo $item_ids[$i] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $item_qts ?>" required />
-													<small class="error">Quantity is required.</small>
+
+											<div id="invoiceCreate" class="row">
+												<div class="qty small-12 medium-3 columns">
+													<div class="row">
+														<div class="small-6 medium-4 columns">
+															<input type="hidden" name="item_id[]" value="<?php echo $item_ids[$i] ?>" /><input type="text" class="qty sum" name="qty[]" value="<?php echo $item_qts ?>" required />
+															<small class="error">Quantity is required.</small>
+														</div>
+														<div class="small-6 medium-8 columns">
+
+															<select name="unit[]" class="unit">
+																<option value="{{unit.hours}}" ng-selected="{{unit.hours == '<?php print($iunit[$i]); ?>' && 'true' || 'false'}}">{{unit.hours}}</option>
+																<option value="{{unit.days}}" ng-selected="{{unit.days == '<?php print($iunit[$i]); ?>' && 'true' || 'false'}}">{{unit.days}}</option>
+																<option value="{{unit.services}}" ng-selected="{{unit.services == '<?php print($iunit[$i]); ?>' && 'true' || 'false'}}">{{unit.services}}</option>
+																<option value="{{unit.products}}" ng-selected="{{unit.products == '<?php print($iunit[$i]); ?>' && 'true' || 'false'}}">{{unit.products}}</option>
+															</select>
+
+														</div>
+													</div>
+													<div class="row">
+														<div class="medium-12 columns">
+															<div class="small-type"><a class="delete-row">Remove</a> &nbsp;|&nbsp; <a class="add-favorite">Save Item</a></div>
+															<small class="error">Quantity is required.</small>
+														</div>
+													</div>
 												</div>
 												<div class="description small-12 medium-5 columns">
-													<input type="text" name="description[]" value="<?php echo $idescriptions[$i] ?>" />
+													<textarea type="text" name="description[]" rows="5"><?php echo $idescriptions[$i] ?></textarea>
 												</div>
+
 												<div class="price small-12 medium-2 columns">
-													<input type="text" class="unitCost sum" name="unit_cost[]" value="<?php echo $icosts[$i] ?>" required />
-													<small class="error">Price is required.</small>
+													<div class="row">
+														<div class="medium-12 columns">
+															<input type="text" class="unitCost sum" name="unit_cost[]" value="<?php echo $icosts[$i] ?>" required />
+														</div>
+													</div>
+													<div class="row">
+														<div class="medium-12 columns">
+															<select name="tax[]" class="tax">
+																<option value="0"></option>
+																<option value="{{invoice_tax_1}}" ng-selected="{{invoice_tax_1 == <?= $itax[$i] ?> && 'true' || 'false'}}">Tax 1: {{invoice_tax_1}}%</option>
+																<option value="{{invoice_tax_2}}" ng-selected="{{invoice_tax_2 == <?= $itax[$i] ?> && 'true' || 'false'}}">Tax 2: {{invoice_tax_2}}%</option>
+																<!--<option value="{{invoice_tax_1*1 + invoice_tax_2*1}}" ng-selected="{{invoice_tax_1*1 + invoice_tax_2*1 == <?= $invoice_item['tax'] ?> && 'true' || 'false'}}">Both: {{invoice_tax_1*1 + invoice_tax_2*1}}%</option>-->
+															</select>
+															<small class="error">Price is required.</small>
+														</div>
+													</div>
 												</div>
-												<div class="totalSum small-12 medium-2 large-only-text-right columns" data-totalsum="<?php echo number_format((float)$number, 2, '.', ''); ?>">
+
+												<div class="totalSum small-12 medium-2 text-right columns">
 													<?php echo number_format((float)$number, 2, '.', ','); ?>
-												</div>
-												<div class="delete small-12 medium-1 columns large-only-text-right small-text-center">
-													<a class="delete-row button small round">x</a>
 												</div>
 												<div class="small-12 columns"><hr /></div>
 											</div>
-												
+
 									<?php } else { // SHOW THE STANDARD VIEW ?>
-										
+
 										<div class="row">
 											<div class="small-12 medium-2 large-2 columns hide-for-small-only">
-												<?php echo $item_qts; ?>
+												<?php echo $item_qts ?> <?php echo $iunit[$i] ?>
 											</div>
-											<div class="small-12 medium-4 large-6 columns small-only-text-center">
-												<?php echo $idescriptions[$i]; ?>
+											<div class="small-12 medium-6 columns small-only-text-center">
+												<?php echo $idescriptions[$i] ?>
 											</div>
-											<div class="small-12 small-only-text-center medium-3 large-2 columns text-right hide-for-small-only">
+											<div class="small-12 small-only-text-center medium-2 columns text-right hide-for-small-only">
 												<?php echo $icosts[$i]; ?>
 											</div>
-											<div class="small-12 columns small-only-text-center show-for-small-only">
-												<?php echo $item_qts; ?> x <?php echo '$'.$icosts[$i]; ?>
-											</div>
-											<div class="small-12 small-only-text-center medium-3 large-2 columns text-right totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">
+
+											<div class="small-12 small-only-text-center medium-2 columns text-right totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">
 												<?php echo number_format((float)$number, 2, '.', ','); ?>
 											</div>
 											<div class="small-12 columns"><hr /></div>
 										</div>
+
+
 									<?php } ?>
-								
-								<?php 
+
+								<?php
 									$i++;
-									endforeach 
+									endforeach
 								?>
-								
-								
-								
+
+								<div id="invoiceRows" class="row tabbed" ng-repeat="item in items" ng-include="getIncludeFile()">
+
+								</div>
+
+
+
 							</div>
 						</div> <!-- tabbed list -->
 						<?php if($edit === TRUE ) { ?>
 							<div class="row">
 								<div class="large-12 columns text-left small-only-text-center">
-									<a id="addItems" class="button small round">Add Another Item</a>
+									<button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown add-dropdown radius">Add new item</button>
+
+									<ul id="drop1" class="small f-dropdown" data-dropdown-content>
+										<li><a ng-click="addInvoiceRow()">Add new line</a></li>
+										<li><a data-reveal-id="favModal" ng-click="loadData()">Add from saved</a></li>
+									</ul>
 								</div>
-							</div>	
-						<?php } ?>
-						
-						<section id="payment-info">
+							</div>
+
+
+						<section id="invoiceTotals">
 							<div class="row">
-								<div id="payments" class="large-push-7 large-5 columns ">
-									
-									<div class="row">
-										<div class="small-5 columns">
-											<h3>Total:</h3>
-										</div>
-										<div class="small-7 columns text-right">
-											<?php if ( $edit === FALSE ) { ?>
-												<h3><?= $currency ?><span id="invoiceTotal"></span><?php echo number_format((float)($quote[0]['amount']), 2, '.', ',');?></h3>
-											<?php } else { ?>
-												<h3><?= $currency ?><span id="invoiceTotal"><?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>
-											<?php } ?>
-										</div>
-										<div class="small-12 columns"><hr /></div>
+								<div class="medium-5 medium-offset-7">
+									<div class="small-6 columns medium-text-right">
+										<!--<h3>Total Due: <span id="invoiceTotal">$<?php echo number_format((float)$subTotal, 2, '.', ',');?></span></h3>-->
+										<h4>Subtotal</h4>
 									</div>
-									
-								</div>
-								<div class="large-pull-5 large-7 columns ">
-									<h3>Terms</h3>
-									<p><?php echo($quote[0]['terms']) ?></p>
+									<div class="small-6 columns text-right">
+										<h4><span id="invoiceSubtotal">&nbsp;</span></h4>
+									</div>
+									<div class="small-6 columns medium-text-right">
+										<h4>Tax ({{invoice_tax_1}}%)</h4>
+									</div>
+									<div class="small-6 columns text-right">
+										<h4><span id="taxOne">&nbsp;</span></h4>
+									</div>
+
+									<div class="small-6 columns medium-text-right">
+										<h4>Tax ({{invoice_tax_2}}%)</h4>
+									</div>
+									<div class="small-6 columns text-right">
+										<h4><span id="taxTwo">&nbsp;</span></h4>
+									</div>
+
+									<div class="small-6 columns medium-text-right">
+										<h4>Discount</h4>
+									</div>
+									<div class="small-6 columns text-right">
+										<h4>-<span id="discount">{{discount | number:2}}</span></h4>
+									</div>
+
+									<div class="small-6 columns medium-text-right">
+										<h3>Total Due</h3>
+									</div>
+									<div class="small-6 columns text-right">
+										<h3>{{selectedVal}}<span id="invoiceTotal" data-a-dec="." data-a-sep=''><?php echo number_format((float)$subTotal, 2, '.', ',');?></span></h3>
+
+										<input type="hidden" ng-model="selectedVal" ng-init="selectedVal='<?php echo($currency);?>'" />
+
+									</div>
+
 								</div>
 							</div>
 						</section>
+
+						<?php } else {?>
+
+
+
+						<section id="invoiceTotals">
+						<div class="row">
+
+							<div class="medium-5 medium-push-7 columns">
+
+								<div class="row">
+									<div class="small-6 columns medium-text-right">
+										<h4>Subtotal</h4>
+									</div>
+									<div class="small-6 columns text-right">
+										<h4>
+											<span id="invoiceSubtotal">
+												<span id="amtLeft"><?php echo(number_format((float)($subTotal), 2, '.', ',')); ?>
+											</span>
+										</h4>
+									</div>
+
+
+									<div class="small-6 columns medium-text-right">
+										<h4>Tax (<?php echo($quote[0]['invoice_tax_1']);?>%)</h4>
+									</div>
+									<div class="small-6 columns text-right">
+										<h4><span id="taxOne"><?= number_format((float)($tax_1_amnt), 2, '.', ','); ?></span></h4>
+									</div>
+
+
+									<div class="small-6 columns medium-text-right">
+										<h4>Tax (<?php echo($quote[0]['invoice_tax_2']);?>%)</h4>
+									</div>
+									<div class="small-6 columns text-right">
+										<h4><span id="taxTwo"><?= number_format((float)($tax_2_amnt), 2, '.', ','); ?></span></h4>
+									</div>
+
+									<?php if ( $quote[0]['discount'] > 0 ): ?>
+										<div class="small-6 columns medium-text-right">
+											<h4>Discount</h4>
+										</div>
+										<div class="small-6 columns text-right">
+											<h4>-<span id="discount"><?php echo(number_format((float)$quote[0]['discount'], 2, '.', ','));?></span></h4>
+										</div>
+									<?php endif; ?>
+
+									<div class="small-12 columns">
+										<hr />
+									</div>
+
+									<div class="small-6 columns medium-text-right">
+										<h3>Total Due</h3>
+									</div>
+									<div class="small-6 columns text-right">
+										<h3><?php echo($currency)?><span id="invoiceTotal"></span><?php echo number_format((float)($quote[0]['amount']), 2, '.', ',');?></span></h3>
+									</div>
+
+								</div>
+
+
+							</div>
+							<div class="medium-7 medium-pull-5 columns">
+								<hr class="show-for-small-only">
+								<?php
+									if (!empty($item['settings'][0]['notes'])) { ?>
+										<h3>Payment Terms</h3>
+										<p><?php echo($item['settings'][0]['notes']); ?></p>
+								<?php  } ?>
+							</div>
+						</div>
+						</section>
+
+						<?php } ?>
+
+
 						<?php if( $edit === TRUE ) { ?>
 							<div class="row actions">
 								<div class="large-12 columns text-right small-only-text-center">
@@ -283,13 +495,13 @@
 								</div>
 							</div>
 						<?php } ?>
-					</form>	
+					</form>
 			</div>
 		</div>
 </div>
-<?php 
+<?php
 	if ($this->uri->segment(2, 0) === "review") { ?>
-		
+
 		<div class="row">
 			<div class="small-12 medium-12 large-4 columns large-centered">
 				<div id="emailModal" class="reveal-modal small light-bg" data-reveal>
@@ -299,7 +511,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="small-12 medium-12 large-4 columns large-centered">
 				<div id="emailModal2" class="reveal-modal small light-bg" data-reveal>
@@ -309,7 +521,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 <?php	} ?>
 
 <div class="row">
@@ -340,16 +552,20 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function() {
-  
+
   	function init_autoNumeric() {
-			$('.sum, .totalSum, #invoiceTotal').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
+			$('.sum, .totalSum, #invoiceTotal, #invoiceSubtotal, #discount').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
 		}
-		
-		$(document).on('click', "#addItems", function() { 
+
+		$(document).on('click', "#addItems", function() {
 			init_autoNumeric();
 		});
-		
+
 		init_autoNumeric();
-		
+
+		$("#invoiceSettingsBtn").on("click", function () {
+			$("#invoiceSettings").toggle();
+		});
+
 	});
 </script>

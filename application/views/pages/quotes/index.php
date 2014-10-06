@@ -1,4 +1,4 @@
-<?php 
+<?php
 	$this->load->helper('currency_helper');
 	$currency = currency_method($quotes[0]['currency']);
 	//print("<pre>".print_r($quotes,true)."</pre>");
@@ -6,10 +6,10 @@
 
 <?php
 	if ($quotes) { ?>
-	
-	
+
+
 	 <div class="row">
- 		
+
 	 	<div class="large-12 columns text-center">
 	 		<h1>Quotes</h1>
 	 		<div class="row">
@@ -25,21 +25,21 @@
  					</div>
 	 			</div>
 	 		</div>
-	 		
+
 	 	</div>
 	 </div>
-	 <div id="invoiceList" class="row">
+	 <div id="invoiceList" class="row light-bg invoice-form">
 	 	<div class="large-12 columns">
 	 		<div class="row">
 	 			<div class="large-12 columns text-center large-text-left">
-	 				<h3 class="top-rule">
+	 				<h3>
 	 					Recent Quotes
 	 				</h3>
 	 			</div>
 	 		</div>
-	 		
+
 	 		<div class="invoice-create list_header clearfix">
-	 			
+
 	 				<div class="small-12 medium-2 columns invoice-id">
 	 					ID
 	 				</div>
@@ -56,13 +56,13 @@
 	 					Status
 	 				</div>
 	 		</div>
-	 		
+
 	 		<?php foreach ($quotes as $quote_item): ?>
-			
-			
+
+
 			<div class="tabbed list clearfix">
 				<div class="small-12 small-only-text-center medium-2 large-2 columns invoice-id">
-					<a href="<?php echo base_url(); ?>index.php/quotes/view/<?php echo $quote_item['iid']; ?>" class="button round small light">#<?php echo $quote_item['iid'];?></a>
+					<a href="<?php echo base_url(); ?>index.php/quotes/view/<?php echo $quote_item['iid']; ?>" class="button round small">#<?php echo $quote_item['iid'];?></a>
 				</div>
 				<div class="small-12 small-only-text-center medium-2 large-2 columns date">
 					<?php echo $quote_item['pdate']; ?>
@@ -77,9 +77,9 @@
 					<span class="label secondary round"><?php echo($quote_flags[$quote_item['status']]);?></span>
 				</div>
 			</div>
-			
+
 		<?php endforeach ?>
-	 		
+
 	 	</div>
 	 </div>
 <?php	} else { ?>
@@ -97,6 +97,6 @@
 				</a>
 			</div>
 		</div>
-	</div>	
+	</div>
 <?php	}
 ?>

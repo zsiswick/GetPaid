@@ -220,10 +220,12 @@
 
 				<div class="row">
 					<div class="small-12 columns">
-						<a id="invoiceSettingsBtn" class="button small secondary round"><i class="fi-widget"></i> Settings</a>
+						<div class="small-only-text-center">
+							<a id="invoiceSettingsBtn" class="button small secondary round"><i class="fi-widget"></i> Settings</a>
+						</div>
 						<div class="panel" id="invoiceSettings">
 							<div class="row">
-								<div class="small-6 columns large-centered">
+								<div class="small-12 medium-6 columns large-centered">
 									<div class="row">
 										<div class="small-12 columns">
 											<label for="tax_1">Tax 1 %</label>
@@ -239,7 +241,7 @@
 									<label for="discount">Discount Amount</label>
 
 									<div class="row">
-										<div class="small-8 columns">
+										<div class="small-6 medium-8 columns">
 											<input id="invoiceDiscount" type="text" name="discount" ng-model="discount" ng-init="discount='<?php echo($discount) ?>'" />
 										</div>
 										<!--
@@ -255,7 +257,7 @@
 										-->
 									</div>
 									<div class="row">
-										<div class="small-5 columns">
+										<div class="small-12 medium-5 columns">
 											<label for="currencies">Currency</label>
 											<select name="currency" ng-model="selectedCurrency" ng-options="currency.label for currency in currencies track by currency.code" ng-change="onCurrenciesOptionChange()">
 											</select>
@@ -295,11 +297,11 @@
 							<div class="row">
 								<div class="qty small-12 medium-3 columns">
 									<div class="row">
-										<div class="medium-4 columns">
+										<div class="small-6 medium-4 columns">
 											<input type="hidden" name="item_id[]" value="<?php echo $invoice_item['id'] ?>" />
 											<input type="text" class="qty sum" name="qty[]" value="<?php echo $invoice_item['quantity'] ?>" required />
 										</div>
-										<div class="medium-8 columns">
+										<div class="small-6 medium-8 columns">
 
 											<select name="unit[]" class="unit">
 												<option value="{{unit.hours}}" ng-selected="{{unit.hours == '<?php print($invoice_item['unit']); ?>' && 'true' || 'false'}}">{{unit.hours}}</option>
@@ -356,7 +358,7 @@
 
 				<div class="row">
 					<div class="large-12 columns text-left small-only-text-center">
-						<button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown add-dropdown">Add new item</button>
+						<button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown add-dropdown radius">Add new item</button>
 
 						<ul id="drop1" class="small f-dropdown" data-dropdown-content>
 							<li><a ng-click="addInvoiceRow()">Add new line</a></li>
