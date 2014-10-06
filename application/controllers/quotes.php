@@ -83,6 +83,8 @@ class Quotes extends CI_Controller {
 			$data['view_send_quote'] = $this->load->view('pages/quotes/email/view_send_quote', $data, TRUE);
 			$data['edit'] = FALSE;
 			//print("<pre>".print_r( $data['quote'], true )."</pre>");
+			$jsfiles = array('invoice.js');
+			$data['js_to_load'] = $jsfiles;
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/quotes/view', $data);

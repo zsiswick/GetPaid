@@ -147,6 +147,7 @@
 								</div>
 							</div>
 
+							<?php if( $edit === TRUE ) { ?>
 							<div class="row">
 								<div class="small-12 columns">
 									<div class="small-only-text-center">
@@ -197,7 +198,7 @@
 									</div>
 								</div>
 							</div>
-
+							<?php } ?>
 
 
 
@@ -550,22 +551,24 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-  $(document).ready(function() {
+<?php if( $edit === TRUE ) { ?>
+	<script type="text/javascript">
+	  $(document).ready(function() {
 
-  	function init_autoNumeric() {
-			$('.sum, .totalSum, #invoiceTotal, #invoiceSubtotal, #discount').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
-		}
+	  	function init_autoNumeric() {
+				$('.sum, .totalSum, #invoiceTotal, #invoiceSubtotal, #discount').autoNumeric('init', {aDec:'.', aSep:'', aForm: false});
+			}
 
-		$(document).on('click', "#addItems", function() {
+			$(document).on('click', "#addItems", function() {
+				init_autoNumeric();
+			});
+
 			init_autoNumeric();
+
+			$("#invoiceSettingsBtn").on("click", function () {
+				$("#invoiceSettings").toggle();
+			});
+
 		});
-
-		init_autoNumeric();
-
-		$("#invoiceSettingsBtn").on("click", function () {
-			$("#invoiceSettings").toggle();
-		});
-
-	});
-</script>
+	</script>
+<?php } ?>	
