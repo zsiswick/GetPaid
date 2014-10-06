@@ -230,13 +230,17 @@ a:hover,
 a:focus {
   color: #4b011f;
 }
-.light a,
-.light-bg a {
+.light a {
   color: #222;
 }
-.light a:hover,
-.light-bg a:hover {
+.light a:hover {
   color: #fff;
+}
+.light-bg a {
+  color: #008cdd;
+}
+.light-bg a:hover {
+  color: #222;
 }
 .small-type {
   font-size: .8rem;
@@ -1143,40 +1147,6 @@ footer > div {
   /*
      ** FORMS
      */
-  select,
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="tel"],
-  textarea {
-    box-shadow: none;
-    -moz-box-shadow: none;
-    border: none;
-  }
-  .invoice-form select,
-  .invoice-form input[type="text"],
-  input,
-  input[type="password"],
-  .invoice-form input[type="tel"],
-  .invoice-form input[type="email"],
-  input[type="search"],
-  .invoice-form textarea,
-  isindex {
-    box-shadow: none;
-    -moz-box-shadow: none;
-  }
-  .invoice-form select:hover,
-  .invoice-form input[type="text"]:hover,
-  input:hover,
-  input[type="password"]:hover,
-  .invoice-form input[type="tel"]:hover,
-  .invoice-form input[type="email"]:hover,
-  input[type="search"]:hover,
-  .invoice-form textarea:hover,
-  isindex:hover {
-    box-shadow: none;
-    -moz-box-shadow: none;
-  }
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   /* portrait phones */

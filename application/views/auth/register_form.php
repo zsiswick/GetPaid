@@ -52,7 +52,7 @@ $captcha = array(
 
 <?php echo form_open($this->uri->uri_string(), $attributes); ?>
 	<div class="row">
-		<div class="small-9 columns small-centered">
+		<div class="medium-9 columns small-centered">
 			<div class="row">
 				<div class="small-12 medium-12 large-7 columns">
 					<div class="form-wrap invoice-form light-bg">
@@ -64,7 +64,7 @@ $captcha = array(
 										<?php echo form_input($username); ?>
 										<?php echo form_error($username['name']); ?><?php echo isset($errors[$username['name']])?$errors[$username['name']]:''; ?>
 										<small class="error">User name is required.</small>
-									</div>	
+									</div>
 								</div>
 								<?php } ?>
 								<div class="row">
@@ -99,7 +99,7 @@ $captcha = array(
 										<small class="error">Confirm password is required.</small>
 									</div>
 								</div>
-							
+
 								<?php if ($captcha_registration) {
 									if ($use_recaptcha) { ?>
 								<div class="row">
@@ -142,7 +142,7 @@ $captcha = array(
 								<div class="row">
 									<div class="columns large-12 small-centered text-center">
 									<hr />
-										<?php 
+										<?php
 											$sdata = array(
 											  'name' => 'register',
 											  'class' => 'button round text-centered',
@@ -153,7 +153,7 @@ $captcha = array(
 											echo form_submit($sdata); ?>
 									</div>
 								</div>
-							
+
 					</div>
 				</div>
 				<div class="large-4 columns">
@@ -167,7 +167,6 @@ $captcha = array(
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 <?php echo form_close(); ?>
-
