@@ -160,7 +160,7 @@ class Invoices extends CI_Controller {
 			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
 			$this->form_validation->set_rules('client', 'Client', 'required|numeric|xss_clean');
 			$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
-			$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
+			$this->form_validation->set_rules('description[]',  'Description', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
 			$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
 			$this->form_validation->set_message('due-date', 'Please enter a due date', 'valid_date');

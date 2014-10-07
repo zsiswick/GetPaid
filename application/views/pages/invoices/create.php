@@ -235,17 +235,7 @@
 												<input id="invoiceDiscount" type="text" name="discount" ng-model="discount" />
 												<small class="error">Number is required.</small>
 											</div>
-											<!--
-											<div class="small-4 columns">
-												<?php
-													$discount_options = array(
-												    'per'    => 'Percentage',
-												    'amt'  => 'Amount'
-												  );
-													echo form_dropdown('discount_type', $discount_options, '', 'class="discount_type" id="discount_type"');
-												?>
-											</div>
-											-->
+
 										</div>
 										<div class="row">
 											<div class="small-12 medium-5 columns">

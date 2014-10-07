@@ -10,7 +10,7 @@ class Quote_model extends CI_Model {
 
 	public function get_quotes($uid)
 	{
-		$this->db->select("q.id as iid, q.uid, q.cid, q.amount, q.status, q.date_issued, client.company, settings.currency", false);
+		$this->db->select("q.id as iid, q.uid, q.cid, q.amount, q.status, q.date_issued, q.currency, client.company", false);
 		$this->db->select("DATE_FORMAT(q.date_issued, '%b %d, %Y') AS pdate", false);
 		$this->db->from('quotes q');
 		$this->db->join('client', 'client.id = q.cid', 'left');
@@ -74,6 +74,7 @@ class Quote_model extends CI_Model {
 
 	public function edit_quote($uid)
 	{
+		$quote_id = $this->uri->segment(3, 0);
 		$cid = $this->input->post('client');
 		$inv_num = $this->invoice_model->get_set_invoice_num($cid);
 		$new_client = $this->input->post('new_client');
@@ -133,6 +134,8 @@ class Quote_model extends CI_Model {
 
 		$common_data = array('uid' => $uid, 'cid' => $cid, 'prefix' => $prefix, 'currency' => $currency, 'description' => $quote_description, 'date_issued' => $issue_date, 'inv_num' => $inv_num, 'amount' => $sumTotal - $discount, 'tax_1'=>$invoice_tax_1, 'tax_2'=>$invoice_tax_2, 'discount' => $discount);
 
+		$this->db->where('id', $quote_id);
+		$this->db->limit(1);
 		$this->db->update('quotes', $common_data);
 
 		// FILTER OUT ALL THE NEW ITEMS FROM EXISTING SO THEY CAN BE INSERTED INTO
@@ -150,7 +153,7 @@ class Quote_model extends CI_Model {
 	public function get_quote($id, $uid)
 	{
 
-		$this->db->select('q.id as iid, q.uid, q.cid, q.amount, q.currency, q.tax_1 AS invoice_tax_1, q.tax_2 AS invoice_tax_2, q.discount, q.description, q.status, q.prefix, q.inv_num, q.date_issued, GROUP_CONCAT(quote_item.id) AS item_id, GROUP_CONCAT(quote_item.description) AS idescription, GROUP_CONCAT(quote_item.quantity) AS iqty, GROUP_CONCAT(quote_item.unit_cost) AS icost, GROUP_CONCAT(quote_item.unit) AS iunit, GROUP_CONCAT(quote_item.tax) AS itax, cl.company, cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes, settings.logo, settings.full_name, settings.currency, settings.company_name, settings.email as my_email, settings.address_1 as my_address_1, settings.address_2 as my_address_2, settings.city as my_city, settings.state as my_state, settings.zip as my_zip, settings.country as my_country, settings.notes as terms', false);
+		$this->db->select('q.id as iid, q.uid, q.cid, q.amount, q.currency, q.tax_1 AS invoice_tax_1, q.tax_2 AS invoice_tax_2, q.discount, q.description, q.status, q.prefix, q.inv_num, q.date_issued, GROUP_CONCAT(quote_item.id) AS item_id, GROUP_CONCAT(quote_item.description) AS idescription, GROUP_CONCAT(quote_item.quantity) AS iqty, GROUP_CONCAT(quote_item.unit_cost) AS icost, GROUP_CONCAT(quote_item.unit) AS iunit, GROUP_CONCAT(quote_item.tax) AS itax, cl.company, cl.id, cl.company, cl.contact, cl.key, cl.email, cl.address_1, cl.address_2, cl.zip, cl.city, cl.state, cl.country, cl.tax_id, cl.notes, settings.logo, settings.full_name, settings.company_name, settings.email as my_email, settings.address_1 as my_address_1, settings.address_2 as my_address_2, settings.city as my_city, settings.state as my_state, settings.zip as my_zip, settings.country as my_country, settings.notes as terms', false);
 		$this->db->where('q.id', $id);
 		$this->db->from('quotes q');
 		$this->db->join('client cl', 'cl.id = q.cid', 'left');

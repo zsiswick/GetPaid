@@ -1,11 +1,11 @@
 <section class="content">
 	<div class="row">
 		<div class="columns small-10 small-centered text-center">
-			<h1>An Invoicing Suite that shines</h1>
+			<h1>An Invoicing Suite that Sparkles</h1>
 			<p class="big-p light">Ruby Invoice helps you keep track of all your invoices and gives you a treasure chest of tools to make getting paid easier.</p>
 		</div>
 		<div class="small-12 columns pad-top"><hr class="light-bg"></div>
-	</div>	
+	</div>
 </section>
 <section class="content">
 	<div class="row">
@@ -29,16 +29,16 @@
 		<div class="columns large-pull-5 large-7">
 			<img class="screen shadow" src="<?php echo base_url()."/assets/images/dashboard-view.svg"; ?>" alt="" />
 		</div>
-		
+
 		<div class="small-12 columns pad-top"><hr class="light-bg"></div>
 	</div>
-</section>		
-		
+</section>
+
 <section class="content">
 	<div class="row">
 		<div class="columns large-5">
 			<h3>Accept credit cards</h3>
-			<p class="big-p light">Make it easier for your clients to settle invoices by letting them pay you directly by credit card. Now with a <a href="http://www.stripe.com">Stripe</a> account, you can enable payments on the invoices you send out. Payments are fully secure and seamlessly integrated, no more waiting around for checks in the mail.</p> 
+			<p class="big-p light">Make it easier for your clients to settle invoices by letting them pay you directly by credit card. With a <a href="http://www.stripe.com">Stripe</a> account, you can enable payments on the invoices you send out. Payments are fully secure, (we use https and never store your credit card information), and seamlessly integrated. No more waiting around for checks to arrive in the mail.</p>
 		</div>
 		<div class="columns large-7">
 			<img class="screen" src="<?php echo base_url()."/assets/images/stripe-payments-view.jpg"; ?>" alt="Stripe payments are easy" />
@@ -64,7 +64,7 @@
 	<div class="row">
 		<div class="columns large-5">
 			<h3>Create quotes like a boss</h3>
-			<p class="big-p light">Start looking professional from the very beginning, all the way to the end of the project. Send quotes to your clients and you'll look professional, and you'll be emailed automatically when they accept or decline.</p> 
+			<p class="big-p light">Start looking professional from the very beginning, all the way to the end of the project. Send quotes to your clients and you'll look professional, and you'll be emailed automatically when they accept or decline.</p>
 		</div>
 		<div class="columns large-7">
 			<img class="screen shadow" src="<?php echo base_url()."/assets/images/quote-view.jpg"; ?>" alt="" />
@@ -75,5 +75,4 @@
 			<p></p><a href="<?php echo base_url().'index.php/auth/register';?>" class="button round light">Register now for free</a>
 		</div>
 	</div>
-</section>			
-	
+</section>

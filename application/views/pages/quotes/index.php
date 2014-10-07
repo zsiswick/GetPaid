@@ -71,7 +71,7 @@
 					<?php echo $quote_item['company']; ?>
 				</div>
 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
-					<?= $currency ?><?php echo number_format((float)$quote_item['amount'], 2, '.', ',');?>
+					<?= currency_method($quote_item['currency']); ?><?php echo number_format((float)$quote_item['amount'], 2, '.', ',');?>
 				</div>
 				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
 					<span class="label secondary round"><?php echo($quote_flags[$quote_item['status']]);?></span>

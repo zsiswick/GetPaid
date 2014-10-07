@@ -62,6 +62,7 @@
 			<div class="large-12 columns">
 						<?php
 							$attributes = array('class' => 'invoice-form light-bg', 'id' => 'editForm', 'data-abide'=>'');
+							$hidden = array('iid' => $quote[0]['iid'], 'new_client' => 0, 'invoice_currency' => $quote[0]['currency']);
 							echo form_open('quotes/edit/'.$quote[0]['iid'], $attributes, $hidden);
 						?>
 							<div class="row">
@@ -174,17 +175,7 @@
 													<div class="small-6 medium-8 columns">
 														<input id="invoiceDiscount" type="text" name="discount" ng-model="discount" ng-init="discount='<?php echo($discount) ?>'" />
 													</div>
-													<!--
-													<div class="small-4 columns">
-														<?php
-															$discount_options = array(
-																'per'    => 'Percentage',
-																'amt'  => 'Amount'
-															);
-															echo form_dropdown('discount_type', $discount_options, $discount_type, 'class="discount_type" id="discount_type"');
-														?>
-													</div>
-													-->
+
 												</div>
 												<div class="row">
 													<div class="small-12 medium-5 columns">
@@ -551,6 +542,15 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="small-12 medium-12 large-4 columns large-centered">
+		<div id="revealModal" class="reveal-modal small" data-reveal>
+			<div id="form-errors"></div>
+			<div id="loadingImg"><img src="<?php echo base_url();?>assets/images/ajax-loader.gif" alt="loading" /></div>
+			<div id="form-wrap"></div>
+		</div>
+	</div>
+</div>
 <?php if( $edit === TRUE ) { ?>
 	<script type="text/javascript">
 	  $(document).ready(function() {
@@ -571,4 +571,4 @@
 
 		});
 	</script>
-<?php } ?>	
+<?php } ?>

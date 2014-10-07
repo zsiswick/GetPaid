@@ -45,7 +45,7 @@ class Quotes extends CI_Controller {
 			$data['edit'] = FALSE;
 
 			$this->form_validation->set_rules('client', 'Client', 'required|numeric|xss_clean|client');
-			$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
+			$this->form_validation->set_rules('description[]',  'Description', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 			$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
 			$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
@@ -105,7 +105,7 @@ class Quotes extends CI_Controller {
 			$data['edit'] = TRUE;
 
 			//$this->form_validation->set_rules('client', 'Client', 'required|numeric|xss_clean|client');
-			$this->form_validation->set_rules('description[]',  'Description', 'trim|xss_clean');
+			$this->form_validation->set_rules('description[]',  'Description', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('qty[]',  'Quantity', 'required|numeric');
 			$this->form_validation->set_rules('unit_cost[]',  'Unit Cost', 'callback_numeric_money');
 			$this->form_validation->set_message('numeric_money', 'Please enter an amount greater than $0.99');
