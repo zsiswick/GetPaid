@@ -269,7 +269,7 @@
 
 					<div class="edit-list-container">
 						<div class="tabbed list no-rules">
-							<div class="row">
+							<div class="row item-row">
 
 								<div class="qty small-12 medium-3 columns">
 									<div class="row">
@@ -320,7 +320,7 @@
 								</div>
 								<div class="small-12 columns"><hr /></div>
 							</div>
-							<div id="invoiceRows" class="row tabbed" ng-repeat="item in items" ng-include="getIncludeFile()">
+							<div id="invoiceRows" class="row tabbed item-row" ng-repeat="item in items" ng-include="getIncludeFile()">
 
 							</div>
 						</div>

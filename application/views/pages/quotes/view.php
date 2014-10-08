@@ -229,7 +229,7 @@
 										</div>
 									<?php } ?>
 
-									<div class="edit-list-container">
+									<div id="invoiceCreate" class="edit-list-container">
 									<div class="tabbed list no-rules">
 
 									<?php
@@ -255,7 +255,7 @@
 
 									<?php if( $edit === TRUE ) { // SHOW THE EDIT FORM ?>
 
-											<div id="invoiceCreate" class="row">
+											<div class="row item-row">
 												<div class="qty small-12 medium-3 columns">
 													<div class="row">
 														<div class="small-6 medium-4 columns">
@@ -405,7 +405,6 @@
 						<?php } else {?>
 
 
-
 						<section id="invoiceTotals">
 						<div class="row">
 
@@ -475,7 +474,6 @@
 						</section>
 
 						<?php } ?>
-
 
 						<?php if( $edit === TRUE ) { ?>
 							<div class="row actions">

@@ -294,7 +294,7 @@
 									$number = $invoice_item['quantity'] * $invoice_item['unit_cost'];
 									$sumTotal = $sumTotal + $number;
 								?>
-							<div class="row">
+							<div class="row item-row">
 								<div class="qty small-12 medium-3 columns">
 									<div class="row">
 										<div class="small-6 medium-4 columns">

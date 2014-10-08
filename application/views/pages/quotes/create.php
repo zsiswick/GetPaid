@@ -6,8 +6,9 @@
 	<div class="large-12 columns">
 		<h1 class="text-center">New Quote</h1>
 		<?php
+			$hidden = array('remind' => $settings[0]['remind'], 'invoice_currency' => $settings[0]['currency']);
 			$attributes = array('class' => 'invoice-form light-bg', 'id' => 'createForm', 'data-abide'=>'');
-			echo form_open('quotes/create', $attributes);
+			echo form_open('quotes/create', $attributes, $hidden);
 			$this->load->helper('currency_helper');
 			$currency = currency_method($settings[0]['currency']);
 		?>
@@ -107,7 +108,7 @@
 
 					<div class="edit-list-container">
 						<div class="tabbed list no-rules">
-							<div class="row">
+							<div class="row item-row">
 
 								<div class="qty small-12 medium-3 columns">
 									<div class="row">
@@ -158,7 +159,7 @@
 								</div>
 								<div class="small-12 columns"><hr /></div>
 							</div>
-							<div id="invoiceRows" class="row tabbed" ng-repeat="item in items" ng-include="getIncludeFile()">
+							<div id="invoiceRows" class="row tabbed item-row" ng-repeat="item in items" ng-include="getIncludeFile()">
 
 							</div>
 						</div>

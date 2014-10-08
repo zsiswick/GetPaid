@@ -28,60 +28,67 @@
 
 	 	</div>
 	 </div>
-	 <div id="invoiceList" class="row light-bg invoice-form">
-	 	<div class="large-12 columns">
-	 		<div class="row">
-	 			<div class="large-12 columns text-center large-text-left">
-	 				<h3>
-	 					Recent Quotes
-	 				</h3>
-	 			</div>
-	 		</div>
 
-	 		<div class="invoice-create list_header clearfix">
+	 <div class="row">
+	 	<div class="small-12 columns">
+			<div id="invoiceList" class="light-bg invoice-form clearfix">
+				<div class="large-12 columns">
+					<div class="row">
+						<div class="large-12 columns text-center large-text-left">
+							<h3>
+								Recent Quotes
+							</h3>
+						</div>
+					</div>
 
-	 				<div class="small-12 medium-2 columns invoice-id">
-	 					ID
-	 				</div>
-	 				<div class="small-12 medium-2 columns date">
-	 					Created
-	 				</div>
-	 				<div class="small-12 medium-4 large-4 columns client">
-	 					Client
-	 				</div>
-	 				<div class="small-12 medium-2 large-2 columns text-right amount">
-	 					Amount
-	 				</div>
-	 				<div class="small-12 medium-2 large-2 columns text-center status">
-	 					Status
-	 				</div>
-	 		</div>
+					<div class="invoice-create list_header clearfix">
 
-	 		<?php foreach ($quotes as $quote_item): ?>
+							<div class="small-12 medium-2 columns invoice-id">
+								ID
+							</div>
+							<div class="small-12 medium-2 columns date">
+								Created
+							</div>
+							<div class="small-12 medium-4 large-4 columns client">
+								Client
+							</div>
+							<div class="small-12 medium-2 large-2 columns text-right amount">
+								Amount
+							</div>
+							<div class="small-12 medium-2 large-2 columns text-center status">
+								Status
+							</div>
+					</div>
+
+					<?php foreach ($quotes as $quote_item): ?>
 
 
-			<div class="tabbed list clearfix">
-				<div class="small-12 small-only-text-center medium-2 large-2 columns invoice-id">
-					<a href="<?php echo base_url(); ?>index.php/quotes/view/<?php echo $quote_item['iid']; ?>" class="button round small">#<?php echo $quote_item['iid'];?></a>
+				<div class="tabbed list clearfix">
+					<div class="small-12 small-only-text-center medium-2 large-2 columns invoice-id">
+						<a href="<?php echo base_url(); ?>index.php/quotes/view/<?php echo $quote_item['iid']; ?>" class="button round small">#<?php echo $quote_item['iid'];?></a>
+					</div>
+					<div class="small-12 small-only-text-center medium-2 large-2 columns date">
+						<?php echo $quote_item['pdate']; ?>
+					</div>
+					<div class="small-12 small-only-text-center medium-4 large-4 columns client">
+						<?php echo $quote_item['company']; ?>
+					</div>
+					<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
+						<?= currency_method($quote_item['currency']); ?><?php echo number_format((float)$quote_item['amount'], 2, '.', ',');?>
+					</div>
+					<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
+						<span class="label secondary round"><?php echo($quote_flags[$quote_item['status']]);?></span>
+					</div>
 				</div>
-				<div class="small-12 small-only-text-center medium-2 large-2 columns date">
-					<?php echo $quote_item['pdate']; ?>
-				</div>
-				<div class="small-12 small-only-text-center medium-4 large-4 columns client">
-					<?php echo $quote_item['company']; ?>
-				</div>
-				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
-					<?= currency_method($quote_item['currency']); ?><?php echo number_format((float)$quote_item['amount'], 2, '.', ',');?>
-				</div>
-				<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
-					<span class="label secondary round"><?php echo($quote_flags[$quote_item['status']]);?></span>
+
+				<?php endforeach ?>
+
 				</div>
 			</div>
 
-		<?php endforeach ?>
-
-	 	</div>
+		</div>
 	 </div>
+
 <?php	} else { ?>
 	<div class="row">
 		<div class="large-12 columns text-center">
