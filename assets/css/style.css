@@ -708,6 +708,9 @@ ul.pagination li button:focus {
 #invoice-item-template {
   display: none;
 }
+.terms {
+  color: #999;
+}
 /*
 ** Settings
 */

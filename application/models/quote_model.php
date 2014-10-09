@@ -231,7 +231,7 @@ class Quote_model extends CI_Model {
 	{
 		$uid = $this->tank_auth_my->get_user_id();
 
-		$this->db->select('q.id as iid, q.uid, q.cid, q.amount, q.description, q.status, q.prefix, q.inv_num, q.date_issued, settings.due', false);
+		$this->db->select('q.id as iid, q.uid, q.cid, q.amount, q.currency, q.discount, q.tax_1 AS invoice_tax_1, q.tax_2 AS invoice_tax_2, q.description, q.status, q.prefix, q.inv_num, q.date_issued, settings.due', false);
 		$this->db->where('q.id', $id);
 		$this->db->from('quotes q');
 		$this->db->join('settings', 'settings.uid = q.uid', 'left');
@@ -247,7 +247,7 @@ class Quote_model extends CI_Model {
 
 			$due_date = date('Y-m-d', strtotime($quote[0]['date_issued']. ' + '.$quote[0]['due'].' days'));
 
-			$common_data = array('uid' => $uid, 'cid' => $quote[0]['cid'], 'prefix' => $quote[0]['prefix'], 'inv_num' => $quote[0]['inv_num'], 'description' => $quote[0]['description'], 'amount' => $quote[0]['amount'], 'date' => $quote[0]['date_issued'], 'due_date'=>$due_date, 'remind_date'=>$due_date);
+			$common_data = array('uid' => $uid, 'cid' => $quote[0]['cid'], 'prefix' => $quote[0]['prefix'], 'inv_num' => $quote[0]['inv_num'], 'description' => $quote[0]['description'], 'amount' => $quote[0]['amount'], 'currency' => $quote[0]['currency'], 'tax_1' => $quote[0]['invoice_tax_1'], 'tax_2' => $quote[0]['invoice_tax_2'], 'discount' => $quote[0]['discount'], 'date' => $quote[0]['date_issued'], 'due_date'=>$due_date, 'remind_date'=>$due_date);
 
 
 			$this->db->insert('common', $common_data);

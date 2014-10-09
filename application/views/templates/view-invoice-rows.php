@@ -155,13 +155,14 @@
 
 
   </div>
-  <div class="medium-7 medium-pull-5 columns">
+  <?php
+    if (!empty($item['settings'][0]['notes'])) { ?>
+  <div class="medium-7 medium-pull-5 columns terms">
     <hr class="show-for-small-only">
-    <?php
-      if (!empty($item['settings'][0]['notes'])) { ?>
-        <h3>Payment Terms</h3>
-        <p><?php echo($item['settings'][0]['notes']); ?></p>
-    <?php  } ?>
+    <h3>Payment Terms</h3>
+    <p><?php echo($item['settings'][0]['notes']); ?></p>
+
   </div>
+  <?php  } ?>
 </div>
 </section>
