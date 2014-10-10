@@ -55,7 +55,7 @@
 
 <!-- Load Quote Actions -->
 <?php if ($this->uri->segment(2, 0) === "view"): $this->load->view('widgets/quote-actions'); endif ?>
-<?php if ($this->uri->segment(2, 0) === "review"): echo('<p></p><div class="row"><div class="small-12 columns text-center"><a id="declineQuoteBtn" class="button round light" data-reveal-id="emailModal2">Decline</a> <a id="approveQuoteBtn" class="button round light" data-reveal-id="emailModal">Accept</a></div></div>'); endif ?>
+<?php if ($this->uri->segment(2, 0) === "review"): echo('<p></p><div class="row"><div class="small-12 columns text-center"><a id="declineQuoteBtn" class="button round" data-reveal-id="emailModal2"><i class="fi-x"></i> Decline</a> <a id="approveQuoteBtn" class="button round" data-reveal-id="emailModal"><i class="fi-check"></i> Accept</a></div></div>'); endif ?>
 
 <div id="invoiceContainer" ng-app="invoiceEditApp" ng-controller="InvoiceEditController">
 		<div class="row">
