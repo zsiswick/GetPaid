@@ -1,13 +1,9 @@
 <?php
-	//setlocale(LC_MONETARY, 'en_US');
-	//print("<pre>".print_r($invoices,true)."</pre>");
-?>
-
-<?php
 	if ($invoices) { ?>
 
 
-	 <div class="row">
+
+	<div class="row">
 	 	<div class="large-12 columns text-center">
 	 		<div class="row">
 	 		  <div class="large-12 columns text-center"><h1>Invoices</h1></div>
@@ -26,16 +22,17 @@
 	 			</div>
 	 		</div>
 
-	 		<?php $this->load->view('widgets/invoice-dashboard');?>
+
 	 	</div>
 	 </div>
+	<?php $this->load->view('widgets/invoice-dashboard');?>
 	<div class="row">
 		<div class="small-12 columns">
-			<div id="invoiceList" class="light-bg invoice-form clearfix">
+			<div id="invoiceList" class="light-bg invoice-form clearfix" style="display:none">
 				<div class="large-12 columns">
 					<div class="row">
 						<div class="large-12 columns text-center large-text-left">
-							<h3>
+							<h3 class="text-center">
 								Recent Invoices
 							</h3>
 						</div>
@@ -136,17 +133,71 @@
 
 
 
-					<div class="row">
-						<div class="columns small-12">
-							<div class="pagination-centered">
-								<?php echo $this->pagination->create_links(); ?>
-							</div>
-						</div>
-					</div>
+
+
+
 
 				</div>
 			</div>
 
+				<div id="mini-invoices" class="row">
+					<?php
+						$this->load->helper('status_flag_classes_helper');
+						$count = count($invoices); $num = 0;
+						foreach ($invoices as $invoice_item):
+					?>
+
+						<div class="medium-3 large-2 columns mini-invoice <?php if($num == $count-1){ echo('end'); } ?>">
+							<a href="<?php echo base_url(); ?>index.php/invoices/view/<?php echo $invoice_item['iid']; ?>" >
+								<div class="mini-invoice-inner">
+									<div class="row">
+
+										<div class="medium-4 columns">
+											<span class="label secondary radius company">
+												<?php echo substr($invoice_item['company'], 0, 2); ?>
+											</span>
+										</div>
+										<div class="medium-8 columns">
+											<span class="invoice-num"><?php echo '#'.$invoice_item['inv_num']; ?></span>
+										</div>
+										<div class="small-12 columns">
+											<hr></hr>
+										</div>
+										<div class="small-12 columns">
+											<span class="issue-date"><?php echo $invoice_item['pdate']; ?></span>
+										</div>
+										<div class="small-12 columns">
+											<hr></hr>
+										</div>
+										<div class="small-12 columns">
+											<div class="small-ribbon <?= status_flag_classes($invoice_item); ?>"><?php echo($status_flags[$invoice_item['status']]); ?></div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="medium-12 columns text-right">
+											<div class="amount"><span class="currency"><?= currency_method($invoice_item['currency']); ?></span><?php echo(str_replace(".00", "", (string)number_format ($invoice_item['amount'], 2, ".", ""))); ?>
+
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+							</a>
+						</div>
+					<?php
+						$num++;
+						endforeach
+					?>
+				</div>
+				<div class="row">
+					<div class="columns small-12">
+						<div class="pagination-centered">
+							<?php echo $this->pagination->create_links(); ?>
+						</div>
+					</div>
+				</div>
 		</div>
 	</div>
 

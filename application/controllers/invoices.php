@@ -34,7 +34,7 @@ class Invoices extends CI_Controller {
 		$this->load->library('pagination');
 		$config['base_url'] = "http://localhost/rubyinvoice/index.php/invoices/";
 		$config['total_rows'] = $this->invoice_model->get_invoices_rows($id);
-		$config['per_page'] = 10;
+		$config['per_page'] = 12;
 		$config['num_links'] = 20;
 		$config['uri_segment'] = 2;
 		$config['full_tag_open'] = '<ul class="pagination">';

@@ -10,7 +10,7 @@
 		<?php } else { ?>
 			<title>Ruby Invoice</title>
 		<?php } ?>
-		
+
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation-icons.css" />
@@ -18,24 +18,24 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" />
 		<script src="<?php echo base_url(); ?>assets/js/vendor/modernizr.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
-		
-		<? if (isset($css_to_load)) : 
+
+		<? if (isset($css_to_load)) :
 				foreach ($css_to_load as $css) : ?>
 					<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?=$css;?>" />
 		<?php endforeach;?>
-			
+
 		<? endif;?>
 	</head>
 	<body>
 
-	<?php 
+	<?php
 		if (!isset($top_nav)) { ?>
 			<div class="main-nav hide-for-print">
 				<div class="row">
 					<div class="small-12 columns">
 					  	<div id="nav-container" class="text-center hide-for-small-only">
 					  		<a class="branding" href="<?php echo base_url(); ?>">
-					  		
+
 					  			<svg width="50" height="50" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					  				 viewBox="0 0 35.6 35.1" enable-background="new 0 0 35.6 35.1" xml:space="preserve">
 					  			<g>
@@ -59,13 +59,13 @@
 					  					c-0.5-0.3-1.1-0.1-1.3,0.4l-1.6,3.1C23.2,9.7,23.4,10.4,23.9,10.6z"/>
 					  			</g>
 					  			</svg>
-					  		
+
 					  		</a>
 					  		<nav class="menu-desktop">
 					  			<ul id="main-menu">
-					  				<li><a href="<?php echo base_url(); ?>index.php/features" class="button round light">Features</a></li>
-					  				<li><a href="<?php echo base_url(); ?>index.php/contact" class="button round light">Contact</a></li>
-					  				<li><a href="<?php echo base_url(); ?>index.php/auth/login" class="button round light">Sign In</a></li>
+					  				<li><a href="<?php echo base_url(); ?>index.php/features">Features</a></li>
+					  				<li><a href="<?php echo base_url(); ?>index.php/contact">Contact</a></li>
+					  				<li><a href="<?php echo base_url(); ?>index.php/auth/login">Sign In</a></li>
 					  			</ul>
 					  		</nav>
 					  	</div>
@@ -85,9 +85,9 @@
 				</div>
 			</div>
 		<?php } else { ?>
-			
+
 		<?php }
 	?>
-	
-	
+
+
 	<section role="main" class="outer-wrap">

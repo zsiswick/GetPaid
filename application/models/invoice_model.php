@@ -33,7 +33,7 @@ class Invoice_model extends CI_Model {
 			$this->db->limit($limit, $offset);
 		}
 
-		$this->db->select("c.id as iid, c.uid, c.cid, c.amount, c.currency, c.status, client.company, GROUP_CONCAT(payments.payment_amount) AS ipayments, settings.currency AS currency_setting", false);
+		$this->db->select("c.id as iid, c.uid, c.cid, c.amount, c.currency, c.status, c.prefix, c.inv_num, client.company, GROUP_CONCAT(payments.payment_amount) AS ipayments, settings.currency AS currency_setting", false);
 		$this->db->select("DATE_FORMAT(c.date, '%b %d, %Y') AS pdate", false);
 		$this->db->from('common c');
 		$this->db->join('payments', 'payments.common_id = c.id', 'left');

@@ -27,67 +27,64 @@
 	 		</div>
 
 	 	</div>
-	 </div>
-
-	 <div class="row">
-	 	<div class="small-12 columns">
-			<div id="invoiceList" class="light-bg invoice-form clearfix">
-				<div class="large-12 columns">
-					<div class="row">
-						<div class="large-12 columns text-center large-text-left">
-							<h3>
-								Recent Quotes
-							</h3>
-						</div>
-					</div>
-
-					<div class="invoice-create list_header clearfix">
-
-							<div class="small-12 medium-2 columns invoice-id">
-								ID
-							</div>
-							<div class="small-12 medium-2 columns date">
-								Created
-							</div>
-							<div class="small-12 medium-4 large-4 columns client">
-								Client
-							</div>
-							<div class="small-12 medium-2 large-2 columns text-right amount">
-								Amount
-							</div>
-							<div class="small-12 medium-2 large-2 columns text-center status">
-								Status
-							</div>
-					</div>
-
-					<?php foreach ($quotes as $quote_item): ?>
-
-
-				<div class="tabbed list clearfix">
-					<div class="small-12 small-only-text-center medium-2 large-2 columns invoice-id">
-						<a href="<?php echo base_url(); ?>index.php/quotes/view/<?php echo $quote_item['iid']; ?>" class="button round small">#<?php echo $quote_item['iid'];?></a>
-					</div>
-					<div class="small-12 small-only-text-center medium-2 large-2 columns date">
-						<?php echo $quote_item['pdate']; ?>
-					</div>
-					<div class="small-12 small-only-text-center medium-4 large-4 columns client">
-						<?php echo $quote_item['company']; ?>
-					</div>
-					<div class="small-12 small-only-text-center medium-2 large-2 columns text-right amount">
-						<?= currency_method($quote_item['currency']); ?><?php echo number_format((float)$quote_item['amount'], 2, '.', ',');?>
-					</div>
-					<div class="small-12 small-only-text-center medium-2 large-2 columns text-right status">
-						<span class="label secondary round"><?php echo($quote_flags[$quote_item['status']]);?></span>
-					</div>
-				</div>
-
-				<?php endforeach ?>
-
-				</div>
-			</div>
-
+		<div class="columns small-12">
+			<hr>
 		</div>
 	 </div>
+
+	<div id="mini-invoices" class="row">
+		<?php
+			$this->load->helper('status_flag_classes_helper');
+			$count = count($quotes); $num = 0;
+			foreach ($quotes as $quote_item):
+		?>
+
+			<div class="medium-3 large-2 columns mini-invoice <?php if($num == $count-1){ echo('end'); } ?>">
+				<a href="<?php echo base_url(); ?>index.php/quotes/view/<?php echo $quote_item['iid']; ?>" >
+					<div class="mini-invoice-inner">
+						<div class="row">
+
+							<div class="medium-4 columns">
+								<span class="label secondary radius company">
+									<?php echo substr($quote_item['company'], 0, 2); ?>
+								</span>
+							</div>
+							<div class="medium-8 columns">
+								<span class="invoice-num"><?php echo '#'.$quote_item['inv_num']; ?></span>
+							</div>
+							<div class="small-12 columns">
+								<hr></hr>
+							</div>
+							<div class="small-12 columns">
+								<span class="issue-date"><?php echo $quote_item['pdate']; ?></span>
+							</div>
+							<div class="small-12 columns">
+								<hr></hr>
+							</div>
+							<div class="small-12 columns">
+								<div class="small-ribbon <?php echo(strtolower($quote_flags[$quote_item['status']]));?>"><?php echo($quote_flags[$quote_item['status']]);?></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="medium-12 columns text-right">
+								<div class="amount"><?= currency_method($quote_item['currency']); ?><?php echo(str_replace(".00", "", (string)number_format ($quote_item['amount'], 2, ".", ""))); ?>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</a>
+			</div>
+		<?php
+			$num++;
+			endforeach
+		?>
+	</div>
+
+
 
 <?php	} else { ?>
 	<div class="row">

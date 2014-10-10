@@ -35,7 +35,8 @@
 
 <div class="row" ng-app="invoiceEditApp" ng-controller="InvoiceEditController">
 	<div class="large-12 columns">
-
+		<div class="invoice-wrap">
+			<div class="ribbon <?php if ($status_flags[$item[0]['status']] == 'DRAFT'): echo('draft'); endif ?> <?php if ($status_flags[$item[0]['status']] == 'OPEN'): echo('open'); endif ?> <?php if ($status_flags[$item[0]['status']] == 'PAID'): echo('paid'); endif ?> <?php if ($status_flags[$item[0]['status']] == 'DUE'): echo('due'); endif ?> <?php if ($status_flags[$item[0]['status']] == 'PARTIAL'): echo('partial'); endif ?>"><div><?php echo($status_flags[$item[0]['status']]);?></div></div>
 		<?php
 			$attributes = array('class' => 'invoice-form light-bg', 'data-abide'=>'');
 			$hidden = array('iid' => $item[0]['iid'], 'new_client' => 0, 'invoice_currency' => $item[0]['currency']);
@@ -45,14 +46,8 @@
 		?>
 		<?php $sumTotal = 0 ?>
 
-		<div class="invoice-list-wrap">
-			<div class="clearfix">
 				<?php echo validation_errors(); ?>
-				<div class="row">
-					<div class="large-12 columns text-right small-only-text-left">
-						<h4 class="caps">Invoice <?php echo($status_flags[$item[0]['status']]);?></h4>
-					</div>
-				</div>
+
 				<div class="row invoice-info">
 					<div class="medium-5 small-centered large-uncentered columns invoice-info">
 							<?php if(!empty($logo)): echo'<img class="company-logo" src="'.base_url().'uploads/logo/'.$this->tank_auth_my->get_user_id()."/".$logo.'" />'; endif ?>
@@ -358,7 +353,7 @@
 
 				<div class="row">
 					<div class="large-12 columns text-left small-only-text-center">
-						<button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown add-dropdown radius">Add new item</button>
+						<button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown add-dropdown radius secondary">Add new item</button>
 
 						<ul id="drop1" class="small f-dropdown" data-dropdown-content>
 							<li><a ng-click="addInvoiceRow()">Add new line</a></li>
@@ -420,7 +415,6 @@
 					</div>
 				</section>
 
-			</div>
 
 			<div class="row actions">
 				<div class="large-12 columns text-right small-only-text-center">

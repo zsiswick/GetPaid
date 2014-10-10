@@ -14,24 +14,24 @@
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/libs/angular.js"></script>
 		<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.2/angular.min.js"></script> -->
-		
-		<? if (isset($css_to_load)) : 
+
+		<? if (isset($css_to_load)) :
 				foreach ($css_to_load as $css) : ?>
 					<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?=$css;?>" />
 		<?php endforeach;?>
-			
+
 		<? endif;?>
 	</head>
 	<body>
 
 	<div class="main-nav">
-		
+
 		<div class="row">
 			<div class="small-12 columns">
-			  	
+
 			  <div class="menu-desktop hide-for-small-only">
 			  	<a class="branding" href="<?php echo base_url(); ?>">
-			  	
+
 			  		<svg width="50" height="50" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 			  			 viewBox="0 0 35.6 35.1" enable-background="new 0 0 35.6 35.1" xml:space="preserve">
 			  		<g>
@@ -55,19 +55,19 @@
 			  				c-0.5-0.3-1.1-0.1-1.3,0.4l-1.6,3.1C23.2,9.7,23.4,10.4,23.9,10.6z"/>
 			  		</g>
 			  		</svg>
-			  	
+
 			  	</a>
 			  	<nav>
 			  		<ul id="main-menu">
-			  			<li><?php echo anchor('invoices', 'Invoices', 'class="button round light"'); ?></li>
-			  			<li><?php echo anchor('quotes', 'Quotes', 'class="button round light"'); ?></li>
-			  			<li><?php echo anchor('clients', 'Clients', 'class="button round light"'); ?></li>
-			  			<li><?php echo anchor('settings', 'Settings', 'class="button round light"'); ?></li>
-			  			
+			  			<li><?php echo anchor('invoices', 'Invoices'); ?></li>
+			  			<li><?php echo anchor('quotes', 'Quotes'); ?></li>
+			  			<li><?php echo anchor('clients', 'Clients'); ?></li>
+			  			<li><?php echo anchor('settings', 'Settings'); ?></li>
+
 			  		</ul>
 			  	</nav>
-			  </div>	
-		  		
+			  </div>
+
 			  	<nav class="menu-mobile show-for-small-only">
 			  		<ul id="main-menu-mobile">
 			  			<li><?php echo anchor('invoices', 'Invoices'); ?></li>
