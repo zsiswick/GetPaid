@@ -32,7 +32,7 @@
 												<?php if( !empty($settings[0]['my_city']) || !empty($settings[0]['my_state']) || !empty($settings[0]['my_zip']) ): echo('<li>'); endif ?><?php echo($settings[0]['my_city'].' '.$settings[0]['my_state'].' '.$settings[0]['my_zip']); ?><?php if( !empty($settings[0]['my_city']) || !empty($settings[0]['my_state']) || !empty($settings[0]['my_zip']) ): echo('</li>'); endif ?>
 												<?php if( !empty($settings[0]['my_country']) ): echo('<li>'.$settings[0]['my_country'].'</li>'); endif ?>
 											</ul>
-										</div>	
+										</div>
 									</div>
 								</div>
 							</div>
@@ -253,13 +253,14 @@
 
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
-		<div id="clientModal" class="reveal-modal small" data-reveal>
-			<div id="form-errors" class="light-bg"></div>
+		<div id="revealModal" class="reveal-modal small" data-reveal>
+			<div id="form-errors"></div>
 			<div id="loadingImg"><img src="<?php echo base_url();?>assets/images/ajax-loader.gif" alt="loading" /></div>
 			<div id="form-wrap"></div>
 		</div>
 	</div>
 </div>
+
 <script type="text/javascript">
   $(document).ready(function() {
 

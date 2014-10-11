@@ -67,7 +67,7 @@
 						</div>
 						<div class="row">
 							<div class="medium-12 columns text-right">
-								<div class="amount"><?= currency_method($quote_item['currency']); ?><?php echo(str_replace(".00", "", (string)number_format ($quote_item['amount'], 2, ".", ""))); ?>
+								<div class="amount"><span class="currency"><?= currency_method($quote_item['currency']); ?></span><?php echo(str_replace(".00", "", (string)number_format ($quote_item['amount'], 2, ".", ""))); ?>
 
 								</div>
 

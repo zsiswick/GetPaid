@@ -22,17 +22,14 @@ var app = angular.module('invoiceEditApp', [])
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
       }).success(function(data) {
-        console.log(data);
 
         if (!data.success) {
         	// if not successful, bind errors to error variables
           $scope.message = data.errors;
-          console.log("no success");
 
         } else {
         	// if successful, bind success message to message
           $scope.message = data.message;
-          console.log("success");
           $scope.loadData();
         }
       });

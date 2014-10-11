@@ -12,7 +12,7 @@
 		<?php } ?>
 
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.css" />
+		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation.min.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/foundation-icons.css" />
 		<!--<link rel="stylesheet" href="<?php $autoload['helper'] = array('url','utility'); ?>assets/css/company.css" />-->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" />

@@ -91,6 +91,7 @@
         </h4>
       </div>
 
+      <?php if( $tax_1_amnt > 0 ) { ?>
 
       <div class="small-6 columns medium-text-right">
         <h4>Tax (<?php echo($item[0]['invoice_tax_1']);?>%)</h4>
@@ -99,6 +100,9 @@
         <h4><span id="taxOne"><?= number_format((float)($tax_1_amnt), 2, '.', ','); ?></span></h4>
       </div>
 
+      <?php } ?>
+
+      <?php if( $tax_2_amnt > 0 ) { ?>
 
       <div class="small-6 columns medium-text-right">
         <h4>Tax (<?php echo($item[0]['invoice_tax_2']);?>%)</h4>
@@ -106,6 +110,8 @@
       <div class="small-6 columns text-right">
         <h4><span id="taxTwo"><?= number_format((float)($tax_2_amnt), 2, '.', ','); ?></span></h4>
       </div>
+
+      <?php } ?>
 
       <?php if ( $item[0]['discount'] > 0 ): ?>
         <div class="small-6 columns medium-text-right">
@@ -124,15 +130,16 @@
         <h3>Total Due</h3>
       </div>
       <div class="small-6 columns text-right">
-        <h3><?php echo($currency)?><span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></span></h3>
+        <h3><span class="currency"><?php echo($currency)?></span><span id="invoiceTotal"></span><?php echo number_format((float)($item[0]['amount']), 2, '.', ',');?></span></h3>
       </div>
 
+      <?php if(!empty($item['payments'])) { ?>
       <div class="columns small-6 medium-text-right">
         <h4>Paid</h4>
       </div>
       <div class="columns small-6 text-right">
         <h4>
-          <?php echo($currency)?><span id="amtPaid"><?php
+          <span class="currency"><?php echo($currency)?></span><span id="amtPaid"><?php
               foreach ($item['payments'] as $payment){
                 $number = $payment['payment_amount'] ;
                 $payment_amount = $payment_amount + $number;
@@ -146,11 +153,12 @@
         <h4>Left</h4>
       </div>
       <div class="columns small-6 text-right">
-        <h4><?php echo($currency)?><span id="amtLeft"><?php
+        <h4><span class="currency"><?php echo($currency)?></span><span id="amtLeft"><?php
           $amtLeft = max($totalAmount - $payment_amount,0);
           echo(number_format((float)($amtLeft), 2, '.', ','));
         ?></span></h4>
       </div>
+      <?php } ?>
     </div>
 
 

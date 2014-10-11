@@ -55,7 +55,7 @@
 
 <!-- Load Quote Actions -->
 <?php if ($this->uri->segment(2, 0) === "view"): $this->load->view('widgets/quote-actions'); endif ?>
-<?php if ($this->uri->segment(2, 0) === "review"): echo('<p></p><div class="row"><div class="small-12 columns text-center"><a id="declineQuoteBtn" class="button round" data-reveal-id="emailModal2"><i class="fi-x"></i> Decline</a> <a id="approveQuoteBtn" class="button round" data-reveal-id="emailModal"><i class="fi-check"></i> Accept</a></div></div>'); endif ?>
+<?php if ($this->uri->segment(2, 0) === "review"): echo('<p></p><div class="row"><div class="small-12 columns text-center"><a id="declineQuoteBtn" class="button round" data-reveal-id="emailModal2"><i class="fi-dislike"></i> Decline</a> <a id="approveQuoteBtn" class="button round" data-reveal-id="emailModal"><i class="fi-like"></i></i> Accept</a></div></div>'); endif ?>
 
 <div id="invoiceContainer" ng-app="invoiceEditApp" ng-controller="InvoiceEditController">
 		<div class="row">
@@ -425,13 +425,17 @@
 											</div>
 
 
+											<?php if( $tax_1_amnt > 0 ) { ?>
 											<div class="small-6 columns medium-text-right">
 												<h4>Tax (<?php echo($quote[0]['invoice_tax_1']);?>%)</h4>
 											</div>
 											<div class="small-6 columns text-right">
 												<h4><span id="taxOne"><?= number_format((float)($tax_1_amnt), 2, '.', ','); ?></span></h4>
 											</div>
+											<?php } ?>
 
+
+											<?php if( $tax_2_amnt > 0 ) { ?>
 
 											<div class="small-6 columns medium-text-right">
 												<h4>Tax (<?php echo($quote[0]['invoice_tax_2']);?>%)</h4>
@@ -439,6 +443,8 @@
 											<div class="small-6 columns text-right">
 												<h4><span id="taxTwo"><?= number_format((float)($tax_2_amnt), 2, '.', ','); ?></span></h4>
 											</div>
+
+											<?php } ?>
 
 											<?php if ( $quote[0]['discount'] > 0 ): ?>
 												<div class="small-6 columns medium-text-right">
@@ -457,7 +463,7 @@
 												<h3>Total Due</h3>
 											</div>
 											<div class="small-6 columns text-right">
-												<h3><?php echo($currency)?><span id="invoiceTotal"></span><?php echo number_format((float)($quote[0]['amount']), 2, '.', ',');?></span></h3>
+												<h3><span class="currency"><?php echo($currency)?></span><span id="invoiceTotal"></span><?php echo number_format((float)($quote[0]['amount']), 2, '.', ',');?></span></h3>
 											</div>
 
 										</div>
@@ -506,18 +512,9 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="small-12 medium-12 large-4 columns large-centered">
-				<div id="emailModal2" class="reveal-modal small light-bg" data-reveal>
-					<div id="form-errors"></div>
-					<div id="form-wrap"></div>
-					<?php echo($view_decline_quote); ?>
-				</div>
-			</div>
-		</div>
-
 <?php	} ?>
 
+<?php if ($this->uri->segment(2, 0) === "view") { ?>
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
 		<div id="emailModal" class="reveal-modal small light-bg" data-reveal>
@@ -527,7 +524,7 @@
 		</div>
 	</div>
 </div>
-
+<?php } ?>
 <div class="row">
 	<div class="small-12 medium-12 large-4 columns large-centered">
 		<div id="editModal" class="reveal-modal small light-bg" data-reveal>
@@ -544,16 +541,19 @@
 		</div>
 	</div>
 </div>
-<div class="row">
-	<div class="small-12 medium-12 large-4 columns large-centered">
-		<div id="revealModal" class="reveal-modal small" data-reveal>
-			<div id="form-errors"></div>
-			<div id="loadingImg"><img src="<?php echo base_url();?>assets/images/ajax-loader.gif" alt="loading" /></div>
-			<div id="form-wrap"></div>
+
+<?php if( $edit === TRUE ) { ?>
+
+	<div class="row">
+		<div class="small-12 medium-12 large-4 columns large-centered">
+			<div id="revealModal" class="reveal-modal small" data-reveal>
+				<div id="form-errors"></div>
+				<div id="loadingImg"><img src="<?php echo base_url();?>assets/images/ajax-loader.gif" alt="loading" /></div>
+				<div id="form-wrap"></div>
+			</div>
 		</div>
 	</div>
-</div>
-<?php if( $edit === TRUE ) { ?>
+
 	<script type="text/javascript">
 	  $(document).ready(function() {
 

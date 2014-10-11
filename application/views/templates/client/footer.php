@@ -35,7 +35,7 @@
 	</div>
 	<div class="row">
 		<div class="large-6 small-centered columns text-center">
-			&#169; <?php echo(date('Y'))?> Ruby Invoice &nbsp;|&nbsp;  <?php echo anchor('contact', 'Contact Us'); ?> &nbsp;|&nbsp; <?php echo anchor('welcome/privacy', 'Privacy Policy'); ?>  &nbsp;|&nbsp; <?php echo anchor('welcome/terms', 'Terms'); ?>  &nbsp;|&nbsp; <?php echo anchor('welcome/free_invoice_template', 'Free Invoice Template'); ?> <br/>Made by <a href="http://www.chromaloop.com">Chromaloop</a><p></p>
+			&#169; <?php echo(date('Y'))?> Ruby Invoice &nbsp;|&nbsp;  <?php echo anchor('contact', 'Contact Us'); ?> &nbsp;|&nbsp; <?php echo anchor('welcome/privacy', 'Privacy Policy'); ?>  &nbsp;|&nbsp; <?php echo anchor('welcome/terms', 'Terms'); ?>  &nbsp;|<!--&nbsp;--> <?php /* echo anchor('welcome/free_invoice_template', 'Free Invoice Template'); */?> <br/>Made by <a href="http://www.chromaloop.com">Chromaloop</a><p></p>
 		</div>
 	</div>
 </footer>

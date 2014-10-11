@@ -424,25 +424,31 @@ table {
   background-color: #fff;
 }
 ul.tabs {
-  border-bottom: 1px solid #f15959;
+  border-bottom: 1px solid #ccc;
 }
 .tabs dd.active a,
 .tabs .tab-title.active a {
-  background: #4b011f;
-  color: #fff;
+  background: #fff;
+  color: #333;
+  position: relative;
+  bottom: -1px;
+  border: 1px solid #ccc;
+  border-bottom: none;
 }
 .tabs dd > a,
 .tabs .tab-title > a {
-  background: #f15959;
-  color: #fff;
+  background: #fff;
+  color: #999;
+  position: relative;
+  bottom: -1px;
 }
 .tabs dd > a:hover,
 .tabs .tab-title > a:hover {
-  background: #E99090;
+  background: #eee;
 }
 .tabs dd.active a:hover,
 .tabs .tab-title.active a:hover {
-  background: #4b011f;
+  background: #fff;
 }
 .sidebar {
   margin-top: 3rem;
@@ -501,9 +507,10 @@ ul.pagination li button:focus {
 ** Invoice
 */
 .currency {
-  font-size: .85rem;
-  top: -0.35rem;
+  font-size: 63%;
+  top: -0.28rem;
   position: relative;
+  margin-right: .05rem;
 }
 .invoice-num,
 .issue-date {
