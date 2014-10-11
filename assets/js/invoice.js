@@ -7,10 +7,15 @@ var app = angular.module('invoiceEditApp', [])
     $scope.loadData = function () {
      $http.get(baseurl+'index.php/invoices/get_favorite_invoice_items').success(function(data) {
        $scope.favorites = data;
+
      });
     };
     //initial load
     $scope.loadData();
+
+    $scope.showAlert = function(show) {
+      $scope.showMessage = show;
+    }
 
     // process the form
     $scope.removeFav = function(id) {

@@ -333,10 +333,14 @@
 
 								<ul id="drop1" class="small f-dropdown" data-dropdown-content>
 									<li><a ng-click="addInvoiceRow()">Add new line</a></li>
-									<li><a data-reveal-id="favModal" ng-click="loadData()">Add from saved</a></li>
+									<li><a data-reveal-id="favModal" ng-click="loadData(); showAlert(false)">Add from saved</a></li>
 								</ul>
 
+
+
+
 								<div id="favModal" class="reveal-modal small light-bg" data-reveal>
+									<div class="alert-box alert small-10 small-centered columns text-center radius" ng-show="showMessage">{{message}}</div>
 									<div ng-include="getFavModal()"></div>
 									<a class="close-reveal-modal">&#215;</a>
 								</div>
