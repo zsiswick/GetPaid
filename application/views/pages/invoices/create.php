@@ -336,9 +336,6 @@
 									<li><a data-reveal-id="favModal" ng-click="loadData(); showAlert(false)">Add from saved</a></li>
 								</ul>
 
-
-
-
 								<div id="favModal" class="reveal-modal small light-bg" data-reveal>
 									<div class="alert-box alert small-10 small-centered columns text-center radius" ng-show="showMessage">{{message}}</div>
 									<div ng-include="getFavModal()"></div>
@@ -358,24 +355,24 @@
 									<div class="small-6 columns text-right">
 										<h4><span id="invoiceSubtotal">&nbsp;</span></h4>
 									</div>
-									<div class="small-6 columns medium-text-right">
+									<div class="small-6 columns medium-text-right" ng-show="invoice_tax_1">
 										<h4>Tax ({{invoice_tax_1}}%)</h4>
 									</div>
-									<div class="small-6 columns text-right">
+									<div class="small-6 columns text-right" ng-show="invoice_tax_1">
 										<h4><span id="taxOne">&nbsp;</span></h4>
 									</div>
 
-									<div class="small-6 columns medium-text-right">
+									<div class="small-6 columns medium-text-right" ng-show="invoice_tax_2">
 										<h4>Tax ({{invoice_tax_2}}%)</h4>
 									</div>
-									<div class="small-6 columns text-right">
+									<div class="small-6 columns text-right" ng-show="invoice_tax_2">
 										<h4><span id="taxTwo">&nbsp;</span></h4>
 									</div>
 
-									<div class="small-6 columns medium-text-right">
+									<div class="small-6 columns medium-text-right" ng-show="discount">
 										<h4>Discount</h4>
 									</div>
-									<div class="small-6 columns text-right">
+									<div class="small-6 columns text-right" ng-show="discount">
 										<h4>-<span id="discount">{{discount | number:2}}</span></h4>
 									</div>
 
