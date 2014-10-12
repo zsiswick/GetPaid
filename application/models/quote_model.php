@@ -8,7 +8,7 @@ class Quote_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_quotes($uid)
+	public function get_quotes($uid, $cid = false)
 	{
 		$this->db->select("q.id as iid, q.uid, q.cid, q.amount, q.status, q.date_issued, q.currency, q.inv_num, client.company", false);
 		$this->db->select("DATE_FORMAT(q.date_issued, '%b %d, %Y') AS pdate", false);
@@ -16,6 +16,9 @@ class Quote_model extends CI_Model {
 		$this->db->join('client', 'client.id = q.cid', 'left');
 		$this->db->join('settings', 'settings.uid = q.uid', 'left');
 		$this->db->where('q.uid', $uid);
+		if (!empty($cid)) {
+				$this->db->where('q.cid', $cid);
+		}
 		$query = $this->db->get();
 
 		return $query->result_array();

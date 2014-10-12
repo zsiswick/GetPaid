@@ -221,6 +221,9 @@ svg {
   background: transparent url(images/ruby-logo-mobile.png) top left no-repeat;
   background-size: 36px;
 }
+.sub-nav {
+  display: inline-block;
+}
 /*
 ** Marketing Section
 */
@@ -1070,6 +1073,7 @@ textarea:-moz-placeholder {
   top: -1rem;
   font-size: .7rem;
 }
+.error label,
 .error label.error {
   color: #999;
 }

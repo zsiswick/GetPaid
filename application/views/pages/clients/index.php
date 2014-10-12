@@ -44,7 +44,7 @@
 							<?php foreach ($clients as $client): ?>
 								<div class="row tabbed list">
 									<div class="small-12 small-only-text-center medium-4 large-4 columns">
-										<input type="hidden" value="<?php echo $client['id']?>" /><a href="<?php echo base_url(); ?>index.php/clients/edit/<?php echo $client['id']; ?>" class="button round small"><i class="fi-torso-business"></i>&nbsp; <?php echo $client['company'] ?></a>
+										<input type="hidden" value="<?php echo $client['id']?>" /><a href="<?php echo base_url(); ?>index.php/clients/invoices/<?php echo $client['id']; ?>" class="button round small secondary"><i class="fi-torso-business"></i>&nbsp; <?php echo $client['company'] ?></a>
 									</div>
 									<div class="small-12 small-only-text-center medium-4 large-4 columns">
 										<?php echo $client['contact'] ?>
@@ -66,7 +66,7 @@
 	</div>
 	<div class="row">
 		<div class="large-12 columns text-center">
-			<h4>No clients yet? No worries, just add a few and you'll be good to go!</h4>
+			<h4>No clients yet? No worries, just add one and you'll be good to go!</h4>
 			<div id="plus-button" class="svg-container">
 				<a href="<?php echo base_url(); ?>index.php/clients/create" class="plus-button">
 					<svg version="1.1" viewBox="0 0 100 100" class="svg-content">

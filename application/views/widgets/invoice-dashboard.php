@@ -105,8 +105,5 @@
 				</div>
 			</div>
 		</div>
-		<div class="columns small-12">
-			<hr>
-		</div>
 	</div>
 </section>

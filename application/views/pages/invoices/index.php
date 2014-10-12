@@ -1,3 +1,4 @@
+<?php if (!empty($client)): $company_name = $client[0]['company']; endif ?>
 <?php
 	if ($invoices) { ?>
 
@@ -6,7 +7,16 @@
 	<div class="row">
 	 	<div class="large-12 columns text-center">
 	 		<div class="row">
-	 		  <div class="large-12 columns text-center"><h1>Invoices</h1></div>
+	 		  <div class="large-12 columns text-center">
+
+						<?php if ($this->uri->segment(1, 0) === "clients"){ ?>
+							<h1><?php echo $invoices[0]['company'] ?></h1>
+						<?php $this->load->view('widgets/client-subnav'); ?>
+						<?php } else { ?>
+							<h1>Invoices</h1>
+						<?php } ?>
+
+				</div>
 	 		</div>
 	 		<div class="row">
 	 			<div class="medium-3 medium-centered columns">
@@ -25,8 +35,13 @@
 
 	 	</div>
 	 </div>
-	<?php $this->load->view('widgets/invoice-dashboard');?>
+
+	<?php if ($this->uri->segment(1, 0) === "invoices"): $this->load->view('widgets/invoice-dashboard'); endif ?>
+
 	<div class="row">
+		<div class="columns small-12">
+			<hr>
+		</div>
 		<div class="small-12 columns">
 			<div id="invoiceList" class="light-bg invoice-form clearfix" style="display:none">
 				<div class="large-12 columns">
@@ -206,8 +221,15 @@
 <?php	} else { ?>
 	<div class="row">
 		<div class="large-12 columns text-center">
-			<h1>Invoices</h1>
-			<h4>Looks like you're new in town...</h4>
+
+			<?php if ($this->uri->segment(1, 0) === "clients"){ ?>
+				<h1><?php echo $company_name ?></h1>
+				<?php $this->load->view('widgets/client-subnav'); ?>
+			<?php } else { ?>
+				<h1>Invoices</h1>
+			<?php } ?>
+
+			<h4>Looks like you haven't created any invoices yet...</h4>
 			<div id="plus-button" class="svg-container">
 				<a href="<?php echo base_url(); ?>index.php/invoices/create" class="plus-button">
 					<svg version="1.1" viewBox="0 0 100 100" class="svg-content">

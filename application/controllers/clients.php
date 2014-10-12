@@ -7,10 +7,10 @@ class Clients extends CI_Controller {
 	 *
 	 * Maps to the following URL
 	 * 		http://example.com/index.php/welcome
-	 *	- or -  
+	 *	- or -
 	 * 		http://example.com/index.php/welcome/index
 	 *	- or -
-	 * Since this controller is set as the default controller in 
+	 * Since this controller is set as the default controller in
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
@@ -18,33 +18,33 @@ class Clients extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	var $userdata;
-	 
+
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('tank_auth_my');
 		if (!$this->tank_auth_my->is_logged_in()) {
 			redirect('/auth/login/');
-		}	
-		$this->load->model('client_model');		
-	} 
-	
+		}
+		$this->load->model('client_model');
+	}
+
 	public function index() {
-		
+
 		$client = FALSE;
 		$uid = $this->tank_auth_my->get_user_id();
 		$data['clients'] = $this->client_model->get_clients($client, $uid);
 		$data['first_name']	= $this->tank_auth_my->get_username();
-		
+
 		$this->load->view('templates/header');
 		$this->load->view('pages/clients/index', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	public function create() {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$uid = $this->tank_auth_my->get_user_id();
-		
+
 		$cl_data = array(
 			'company'=>$this->input->post('company'),
 			'contact'=> $this->input->post('contact'),
@@ -55,7 +55,7 @@ class Clients extends CI_Controller {
 			'state'=>$this->input->post('state'),
 			'country'=>$this->input->post('country'),
 		);
-		
+
 		$data['title'] = 'Add a client';
 		$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
 		$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
@@ -68,7 +68,7 @@ class Clients extends CI_Controller {
 		$this->form_validation->set_rules('country', 'Country', 'xss_clean');
 		$this->form_validation->set_rules('tax_id', 'Tax ID', 'xss_clean');
 		$this->form_validation->set_rules('notes', 'Notes', 'xss_clean');
-		
+
 		if($this->input->is_ajax_request()){
 			$respond=array();
 			if($this->form_validation->run()==false){
@@ -82,8 +82,8 @@ class Clients extends CI_Controller {
 			}
 			return $this->output->set_output(json_encode($respond));
 		}
-		
-	
+
+
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/clients/create');
@@ -91,37 +91,37 @@ class Clients extends CI_Controller {
 		} else {
 			$this->client_model->set_client($uid);
 			redirect('/clients', 'refresh');
-			
+
 		}
 	}
-	
-	
-	public function create_ajax() 
+
+
+	public function create_ajax()
 	{
 		$this->load->helper('form');
 			$this->load->library('form_validation');
-			
+
 			$uid = $this->tank_auth_my->get_user_id();
 			$data['title'] = 'Add a client';
-			
+
 			$this->load->view('pages/clients/create-ajax');
-			
+
 	}
-	
-	
+
+
 	public function edit($id = false) {
-		
+
 		$client_id = $this->uri->segment(3, 0);
 		$data['client'] = $this->client_model->get_client($client_id);
-		if (empty($data['client'])) 
+		if (empty($data['client']))
 		{
 			show_404();
-		} 
-			else 
+		}
+			else
 		{
 			$this->load->helper('form');
 			$this->load->library('form_validation');
-			
+
 			$data['title'] = 'Edit Client';
 			$this->form_validation->set_rules('company', 'Company', 'required|xss_clean');
 			$this->form_validation->set_rules('contact', 'Contact Name', 'required|xss_clean');
@@ -134,7 +134,7 @@ class Clients extends CI_Controller {
 			$this->form_validation->set_rules('country', 'Country', 'xss_clean');
 			$this->form_validation->set_rules('tax_id', 'Tax ID', 'xss_clean');
 			$this->form_validation->set_rules('notes', 'Notes', 'xss_clean');
-		
+
 			if ($this->form_validation->run() === FALSE) {
 				$this->load->view('templates/header', $data);
 				$this->load->view('pages/clients/edit', $data);
@@ -143,19 +143,80 @@ class Clients extends CI_Controller {
 				$this->client_model->update_client();
 				redirect('/clients/', 'refresh');
 			}
-		}	
+		}
 	}
-	public function delete($id = FALSE) 
+	public function delete($id = FALSE)
 	{
-	
+
 		if ( $id === FALSE ) {
 				show_404();
 		} else {
-	  
+
 			$this->client_model->delete_client($id);
 			redirect('/clients', 'refresh');
 		}
-	  
+
+	}
+	public function invoices($cid = FALSE)
+	{
+		if ( $cid === FALSE ) {
+				show_404();
+		} else {
+			$data['title'] = 'client invoices';
+			$data['client'] = $this->client_model->get_client($cid);
+			$this->load->model('invoice_model');
+			$this->invoice_model->get_set_due_invoices();
+			$id = $this->tank_auth_my->get_user_id();
+
+			$this->load->library('pagination');
+			$config['base_url'] = "http://localhost/rubyinvoice/index.php/clients/invoices/".$cid."/";
+			$config['total_rows'] = $this->invoice_model->get_invoices_rows($id, $cid);
+			$config['per_page'] = 12;
+			$config['num_links'] = 20;
+			$config['uri_segment'] = 2;
+			$config['full_tag_open'] = '<ul class="pagination">';
+			$config['full_tag_close'] = '</ul>';
+			$config['num_tag_open'] = '<li>';
+			$config['num_tag_close'] = '</li>';
+			$config['cur_tag_open'] = '<li class="current"><a href="#">';
+			$config['cur_tag_close'] = '</a></li>';
+			$config['next_tag_open'] = '<li class="arrow">';
+			$config['next_tag_close'] = '</li>';
+			$config['prev_tag_open'] = '<li class="arrow">';
+			$config['prev_tag_close'] = '</li>';
+
+			$this->pagination->initialize($config);
+
+
+			$data['invoices'] = $this->invoice_model->get_invoices($id, $config['per_page'], $this->uri->segment(2), $cid);
+			$data['payments'] = $this->invoice_model->get_invoices_payments($id);
+
+			$data['user_id'] = $this->tank_auth_my->get_user_id();
+			$data['username']	= $this->tank_auth_my->get_username();
+			$data['status_flags'] = unserialize(STATUS_FLAGS);
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('pages/invoices/index', $data);
+			$this->load->view('templates/footer', $data);
+		}
+	}
+	public function quotes($cid = FALSE)
+	{
+		//CHECK IF USER IS LOGGED IN
+		if (!$this->tank_auth_my->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['client'] = $this->client_model->get_client($cid);
+			$this->load->model('quote_model');
+			$uid = $this->tank_auth_my->get_user_id();
+			$data['quotes'] = $this->quote_model->get_quotes($uid, $cid);
+			$data['quote_flags'] = unserialize(QUOTE_FLAGS);
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('pages/quotes/index', $data);
+			$this->load->view('templates/footer', $data);
+		}
+
 	}
 }
 

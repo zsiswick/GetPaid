@@ -20,13 +20,25 @@ class Invoice_model extends CI_Model {
 
 	}
 
-	public function get_invoices_rows($id)
+	/*
+	public function get_invoices_rows($id, $cid = false)
 	{
 		$query = $this->db->get_where('common', array('uid' => $id));
 		return $query->num_rows();
 	}
+	*/
+	public function get_invoices_rows($id, $cid = false)
+	{
+		$this->db->from('common c');
+		$this->db->where('c.uid', $id);
+		if (!empty($cid)) {
+				$this->db->where('c.cid', $cid);
+		}
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
 
-	public function get_invoices($id, $limit = false, $offset = false)
+	public function get_invoices($id, $limit = false, $offset = false, $cid = false)
 	{
 
 		if (!empty($limit)) {
@@ -40,6 +52,9 @@ class Invoice_model extends CI_Model {
 		$this->db->join('client', 'client.id = c.cid', 'left');
 		$this->db->join('settings', 'settings.uid = c.uid', 'left');
 		$this->db->where('c.uid', $id);
+		if (!empty($cid)) {
+				$this->db->where('c.cid', $cid);
+		}
 		$this->db->group_by('c.id');
 		$this->db->order_by("date", "desc");
 		$query = $this->db->get();

@@ -1,17 +1,21 @@
-<?php
-	$this->load->helper('currency_helper');
-	$currency = currency_method($quotes[0]['currency']);
-	//print("<pre>".print_r($quotes,true)."</pre>");
-?>
+<?php if (!empty($client)): $company_name = $client[0]['company']; endif ?>
 
 <?php
-	if ($quotes) { ?>
+	if ($quotes) {
+		$this->load->helper('currency_helper');
+		$currency = currency_method($quotes[0]['currency']);
+?>
 
 
 	 <div class="row">
 
 	 	<div class="large-12 columns text-center">
-	 		<h1>Quotes</h1>
+	 		<?php if ($this->uri->segment(1, 0) === "clients"){ ?>
+				<h1><?php echo $quotes[0]['company'] ?></h1>
+			<?php $this->load->view('widgets/client-subnav'); ?>
+			<?php } else { ?>
+				<h1>Quotes</h1>
+			<?php } ?>
 	 		<div class="row">
 	 			<div class="medium-3 medium-centered columns">
  					<div id="plus-button" class="svg-container">
@@ -89,7 +93,12 @@
 <?php	} else { ?>
 	<div class="row">
 		<div class="large-12 columns text-center">
-			<h1>Quotes</h1>
+			<?php if ($this->uri->segment(1, 0) === "clients"){ ?>
+				<h1><?php echo $company_name ?></h1>
+				<?php $this->load->view('widgets/client-subnav'); ?>
+			<?php } else { ?>
+				<h1>Quotes</h1>
+			<?php } ?>
 			<h4>Looks like you haven't created any quotes yet...</h4>
 			<div id="plus-button" class="svg-container">
 				<a href="<?php echo base_url(); ?>index.php/quotes/create" class="plus-button">
