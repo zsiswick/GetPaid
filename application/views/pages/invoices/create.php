@@ -380,7 +380,7 @@
 										<h3>Total Due</h3>
 									</div>
 									<div class="small-6 columns text-right">
-										<h3>{{selectedVal}}<span id="invoiceTotal" data-a-dec="." data-a-sep=''></span></h3>
+										<h3><span class="currency">{{selectedVal}}</span><span id="invoiceTotal" data-a-dec="." data-a-sep=''></span></h3>
 
 										<input type="hidden" ng-model="selectedVal" ng-init="selectedVal='<?php echo($currency);?>'" />
 									</div>

@@ -486,18 +486,15 @@ class Invoices extends CI_Controller {
 
 	public function remove_favorite_invoice_item($id)
 	{
-		//header('Content-Type: application/json');
 		if ($id === FALSE) {
 			$data['success'] = false;
 			$data['errors']  = "sorry, there was an error. Try again later...";
-			//echo json_encode("sorry, there was an error. Try again later...");
 			return $this->output->set_output(json_encode($data));
 		} else {
 			$this->invoice_model->remove_favorite_invoice_item($id);
 			$data['success'] = true;
 			$data['message'] = 'You have deleted a saved invoice item.';
 			return $this->output->set_output(json_encode($data));
-			//echo json_encode("You have deleted a saved invoice item.");
 		}
 	}
 
@@ -509,7 +506,8 @@ class Invoices extends CI_Controller {
 		echo json_encode($data['items']);
 	}
 
-	private function _searchArray($items, $searchKey, $val) {
+	private function _searchArray($items, $searchKey, $val)
+	{
 	   foreach($items as $key => $product)
 	   {
 	      if ( $product[$searchKey] === $val )
@@ -517,7 +515,9 @@ class Invoices extends CI_Controller {
 	   }
 	   return false;
 	}
-	private function _format_date_string($year, $month, $day) {
+
+	private function _format_date_string($year, $month, $day)
+	{
 		return $year.'-'.$month.'-'.$day;
 	}
 

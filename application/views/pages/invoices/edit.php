@@ -381,24 +381,24 @@
 							<div class="small-6 columns text-right">
 								<h4><span id="invoiceSubtotal">&nbsp;</span></h4>
 							</div>
-							<div class="small-6 columns medium-text-right">
+							<div class="small-6 columns medium-text-right" ng-show="invoice_tax_1">
 								<h4>Tax ({{invoice_tax_1}}%)</h4>
 							</div>
-							<div class="small-6 columns text-right">
+							<div class="small-6 columns text-right" ng-show="invoice_tax_1">
 								<h4><span id="taxOne">&nbsp;</span></h4>
 							</div>
 
-							<div class="small-6 columns medium-text-right">
+							<div class="small-6 columns medium-text-right" ng-show="invoice_tax_2">
 								<h4>Tax ({{invoice_tax_2}}%)</h4>
 							</div>
-							<div class="small-6 columns text-right">
+							<div class="small-6 columns text-right" ng-show="invoice_tax_2">
 								<h4><span id="taxTwo">&nbsp;</span></h4>
 							</div>
 
-							<div class="small-6 columns medium-text-right">
+							<div class="small-6 columns medium-text-right" ng-show="discount">
 								<h4>Discount</h4>
 							</div>
-							<div class="small-6 columns text-right">
+							<div class="small-6 columns text-right" ng-show="discount">
 								<h4>-<span id="discount">{{discount | number:2}}</span></h4>
 							</div>
 
@@ -406,7 +406,7 @@
 								<h3>Total Due</h3>
 							</div>
 							<div class="small-6 columns text-right">
-								<h3>{{selectedVal}}<span id="invoiceTotal" data-a-dec="." data-a-sep=''><?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>
+								<h3><span class="currency">{{selectedVal}}</span><span id="invoiceTotal" data-a-dec="." data-a-sep=''><?php echo number_format((float)$sumTotal, 2, '.', ',');?></span></h3>
 
 								<input type="hidden" ng-model="selectedVal" ng-init="selectedVal='<?php echo($currency);?>'" />
 
