@@ -63,9 +63,9 @@
 									</a>
 						  		<nav>
 						  			<ul id="main-menu">
-						  				<li><a href="<?php echo base_url(); ?>index.php/features">Features</a></li>
-						  				<li><a href="<?php echo base_url(); ?>index.php/contact">Contact</a></li>
-						  				<li><a href="<?php echo base_url(); ?>index.php/auth/login">Sign In</a></li>
+						  				<li><a href="<?php echo base_url(); ?>index.php/features" class="<?php echo( ($this->uri->segment(1)=='features')? 'active' : '' ) ?>">Features</a></li>
+						  				<li><a href="<?php echo base_url(); ?>index.php/contact" class="<?php echo( ($this->uri->segment(1)=='contact')? 'active' : '' ) ?>">Contact</a></li>
+						  				<li><a href="<?php echo base_url(); ?>index.php/auth/login" class="<?php echo( ($this->uri->segment(2)=='login')? 'active' : '' ) ?>">Sign In</a></li>
 						  			</ul>
 						  		</nav>
 					  	</div>

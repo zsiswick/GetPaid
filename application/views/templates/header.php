@@ -60,10 +60,10 @@
 							</a>
 							<nav>
 								<ul id="main-menu">
-									<li><?php echo anchor('invoices', 'Invoices'); ?></li>
-									<li><?php echo anchor('quotes', 'Quotes'); ?></li>
-									<li><?php echo anchor('clients', 'Clients'); ?></li>
-									<li><?php echo anchor('settings', 'Settings'); ?></li>
+									<li><?php echo anchor('invoices', 'Invoices', array('class' => ($this->uri->segment(1)=='invoices')? 'active' : '')); ?></li>
+									<li><?php echo anchor('quotes', 'Quotes', array('class' => ($this->uri->segment(1)=='quotes')? 'active' : '')); ?></li>
+									<li><?php echo anchor('clients', 'Clients', array('class' => ($this->uri->segment(1)=='clients')? 'active' : '')); ?></li>
+									<li><?php echo anchor('settings', 'Settings', array('class' => ($this->uri->segment(1)=='settings')? 'active' : '')); ?></li>
 								</ul>
 							</nav>
 

@@ -97,7 +97,7 @@ svg {
   font-size: 72px;
 }
 .main-nav {
-  background: #24000f;
+  background: #222;
   margin-bottom: 2rem;
 }
 .branding {
@@ -143,6 +143,9 @@ svg {
 #nav-container nav ul li,
 #main-menu-mobile li {
   list-style: none;
+}
+#main-menu a.active {
+  color: #f15959;
 }
 #nav-container nav ul li,
 #main-menu-mobile li:last-child {
@@ -205,11 +208,12 @@ svg {
 .branding-mobile {
   width: 72px;
   height: 70px;
-  top: .8rem;
+  top: 2px;
   background: transparent url(images/ruby-logo-mini.png) top left no-repeat;
   display: inline-block;
   background-size: 72px;
   text-indent: -10000rem;
+  position: relative;
 }
 .branding-mobile {
   width: 36px;
@@ -1266,9 +1270,6 @@ footer a {
   }
   ul.button-group.round {
     display: inline-block;
-  }
-  .button.secondary {
-    padding: 12px;
   }
   .icon-bar a {
     padding: .7rem;
