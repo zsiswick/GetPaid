@@ -548,10 +548,12 @@ ul.pagination li button:focus {
   border-top: 9px solid #c0c0c0;
   border-bottom: 10px solid #c0c0c0;
 }
-.small-ribbon.partial {
+.small-ribbon.partial,
+.small-ribbon.open {
   background: #008cba;
 }
-.small-ribbon.partial:before {
+.small-ribbon.partial:before,
+.small-ribbon.open:before {
   border-top: 9px solid #008cba;
   border-bottom: 10px solid #008cba;
 }
@@ -624,7 +626,8 @@ ul.pagination li button:focus {
   background-color: #529923;
   background-image: -webkit-linear-gradient(top, #aad283, #529923);
 }
-.ribbon.partial > div {
+.ribbon.partial > div,
+.ribbon.open > div {
   color: #004156;
   background-color: #008cba;
   background-image: -webkit-linear-gradient(top, #008cba, #005b79);
