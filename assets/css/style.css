@@ -907,7 +907,8 @@ button.button {
 .button.small,
 .button.small.secondary {
   font-size: 13px;
-  padding: .125rem 1.5rem;
+  padding-top: .125rem;
+  padding-bottom: .125rem;
 }
 .button.tiny {
   padding: .25rem .5rem;

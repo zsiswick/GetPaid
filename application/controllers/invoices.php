@@ -506,6 +506,20 @@ class Invoices extends CI_Controller {
 		echo json_encode($data['items']);
 	}
 
+	public function mark_invoice_as_sent($id)
+	{
+		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 1);
+		$this->invoice_model->get_set_invoice_status($id);
+		redirect('/invoices/view/'.$id, 'refresh');
+	}
+
+	public function mark_invoice_as_draft($id)
+	{
+		$this->invoice_model->set_invoice_flag($id, 'inv_sent', 0);
+		$this->invoice_model->get_set_invoice_status($id);
+		redirect('/invoices/view/'.$id, 'refresh');
+	}
+
 	private function _searchArray($items, $searchKey, $val)
 	{
 	   foreach($items as $key => $product)

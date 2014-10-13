@@ -49,7 +49,13 @@
 					<?php
 						if ($invoice_sent == true && $item[0]['status'] != 3) { ?>
 
-					  	<a href="#" id="sendInvoiceRemindBtn" data-reveal-id="paymentModal" class="button round small secondary">Send Reminder</a>
+
+
+							<button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown small round secondary">Send Options</button><br>
+							<ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+								<li><a href="#" id="sendInvoiceRemindBtn" data-reveal-id="paymentModal">Send Reminder</a></li>
+								<li><a href="<?php echo base_url(); ?>index.php/invoices/mark_invoice_as_draft/<?php echo $item[0]['iid']?>">Convert to Draft</a></li>
+							</ul>
 
 					<?php	} else if ( $item[0]['status'] == 3) { ?>
 
@@ -57,9 +63,16 @@
 
 					<?php } else {?>
 
-						<a href="#" id="sendInvoiceBtn" data-reveal-id="paymentModal" class="button round small secondary">Send Invoice</a>
+
+
+						<button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown small round secondary">Send Options</button><br>
+						<ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+							<li><a id="sendInvoiceBtn" data-reveal-id="paymentModal">Send Invoice</a></li>
+							<li><a href="<?php echo base_url(); ?>index.php/invoices/mark_invoice_as_sent/<?php echo $item[0]['iid']?>">Mark as Sent</a></li>
+						</ul>
 
 					<?php } ?>
+
 				</div>
 
 			</div>
