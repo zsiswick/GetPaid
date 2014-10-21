@@ -164,40 +164,46 @@ class Clients extends CI_Controller {
 		} else {
 			$data['title'] = 'client invoices';
 			$data['client'] = $this->client_model->get_client($cid);
-			$this->load->model('invoice_model');
-			$this->invoice_model->get_set_due_invoices();
-			$id = $this->tank_auth_my->get_user_id();
+			if (empty($data['client']))
+			{
+				show_404();
+			} else {
+				$this->load->model('invoice_model');
+				$this->invoice_model->get_set_due_invoices();
+				$id = $this->tank_auth_my->get_user_id();
 
-			$this->load->library('pagination');
-			$config['base_url'] = "http://localhost/rubyinvoice/index.php/clients/invoices/".$cid."/";
-			$config['total_rows'] = $this->invoice_model->get_invoices_rows($id, $cid);
-			$config['per_page'] = 12;
-			$config['num_links'] = 20;
-			$config['uri_segment'] = 2;
-			$config['full_tag_open'] = '<ul class="pagination">';
-			$config['full_tag_close'] = '</ul>';
-			$config['num_tag_open'] = '<li>';
-			$config['num_tag_close'] = '</li>';
-			$config['cur_tag_open'] = '<li class="current"><a href="#">';
-			$config['cur_tag_close'] = '</a></li>';
-			$config['next_tag_open'] = '<li class="arrow">';
-			$config['next_tag_close'] = '</li>';
-			$config['prev_tag_open'] = '<li class="arrow">';
-			$config['prev_tag_close'] = '</li>';
+				$this->load->library('pagination');
+				$config['base_url'] = "http://localhost/rubyinvoice/index.php/clients/invoices/".$cid."/";
+				$config['total_rows'] = $this->invoice_model->get_invoices_rows($id, $cid);
+				$config['per_page'] = 12;
+				$config['num_links'] = 20;
+				$config['uri_segment'] = 2;
+				$config['full_tag_open'] = '<ul class="pagination">';
+				$config['full_tag_close'] = '</ul>';
+				$config['num_tag_open'] = '<li>';
+				$config['num_tag_close'] = '</li>';
+				$config['cur_tag_open'] = '<li class="current"><a href="#">';
+				$config['cur_tag_close'] = '</a></li>';
+				$config['next_tag_open'] = '<li class="arrow">';
+				$config['next_tag_close'] = '</li>';
+				$config['prev_tag_open'] = '<li class="arrow">';
+				$config['prev_tag_close'] = '</li>';
 
-			$this->pagination->initialize($config);
+				$this->pagination->initialize($config);
 
 
-			$data['invoices'] = $this->invoice_model->get_invoices($id, $config['per_page'], $this->uri->segment(2), $cid);
-			$data['payments'] = $this->invoice_model->get_invoices_payments($id);
+				$data['invoices'] = $this->invoice_model->get_invoices($id, $config['per_page'], $this->uri->segment(2), $cid);
+				$data['payments'] = $this->invoice_model->get_invoices_payments($id);
 
-			$data['user_id'] = $this->tank_auth_my->get_user_id();
-			$data['username']	= $this->tank_auth_my->get_username();
-			$data['status_flags'] = unserialize(STATUS_FLAGS);
+				$data['user_id'] = $this->tank_auth_my->get_user_id();
+				$data['username']	= $this->tank_auth_my->get_username();
+				$data['status_flags'] = unserialize(STATUS_FLAGS);
 
-			$this->load->view('templates/header', $data);
-			$this->load->view('pages/invoices/index', $data);
-			$this->load->view('templates/footer', $data);
+				$this->load->view('templates/header', $data);
+				$this->load->view('pages/invoices/index', $data);
+				$this->load->view('templates/footer', $data);
+			}
+
 		}
 	}
 	public function quotes($cid = FALSE)
@@ -207,16 +213,69 @@ class Clients extends CI_Controller {
 			redirect('/auth/login/');
 		} else {
 			$data['client'] = $this->client_model->get_client($cid);
-			$this->load->model('quote_model');
-			$uid = $this->tank_auth_my->get_user_id();
-			$data['quotes'] = $this->quote_model->get_quotes($uid, $cid);
-			$data['quote_flags'] = unserialize(QUOTE_FLAGS);
+			if (empty($data['client']))
+			{
+				show_404();
+			} else {
+				$this->load->model('quote_model');
+				$uid = $this->tank_auth_my->get_user_id();
+				$data['quotes'] = $this->quote_model->get_quotes($uid, $cid);
+				$data['quote_flags'] = unserialize(QUOTE_FLAGS);
 
-			$this->load->view('templates/header', $data);
-			$this->load->view('pages/quotes/index', $data);
-			$this->load->view('templates/footer', $data);
+				$this->load->view('templates/header', $data);
+				$this->load->view('pages/quotes/index', $data);
+				$this->load->view('templates/footer', $data);
+			}
 		}
 
+	}
+	public function projects($cid = FALSE)
+	{
+		if (!$this->tank_auth_my->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['client'] = $this->client_model->get_client($cid);
+			$data['title'] = 'client projects';
+			$this->load->model('project_model');
+			$data['projects'] = $this->project_model->get_projects($cid);
+
+			//print("<pre>".print_r($data['projects'],true)."</pre>");
+			$this->load->view('templates/header', $data);
+			$this->load->view('pages/clients/projects', $data);
+			$this->load->view('templates/footer', $data);
+		}
+	}
+
+	public function view_timer($task_id = FALSE)
+	{
+		$this->load->helper('form');
+		$this->load->model('project_model');
+		$data['task'] = $this->project_model->get_task($task_id);
+		print("<pre>".print_r($data['task'], true )."</pre>");
+		$jsfiles = array('timer.js');
+		$data['js_to_load'] = $jsfiles;
+		$this->load->view('pages/clients/view_timer', $data);
+	}
+
+	public function create_timer($task_id = FALSE)
+	{
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->load->model('project_model');
+		//$cid = $this->uri->segment(3, 0);
+		$data['task'] = $this->project_model->get_task($task_id);
+		//$jsfiles = array('timer.js');
+		//$data['js_to_load'] = $jsfiles;
+		$this->form_validation->set_rules('timer', 'Timer', 'xss_clean|numeric');
+		$this->form_validation->set_rules('description', 'Description', 'xss_clean');
+
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('pages/clients/view_timer', $data);
+		} else {
+			$this->project_model->set_timer($task_id);
+			redirect('/clients/projects/'.$data['task'][0]['cid'], 'refresh');
+
+		}
 	}
 }
 

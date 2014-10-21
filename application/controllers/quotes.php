@@ -25,6 +25,7 @@ class Quotes extends CI_Controller {
 		} else {
 			$uid = $this->tank_auth_my->get_user_id();
 			$data['quotes'] = $this->quote_model->get_quotes($uid);
+
 			$data['quote_flags'] = unserialize(QUOTE_FLAGS);
 
 			$this->load->view('templates/header', $data);

@@ -306,19 +306,6 @@ class Invoices extends CI_Controller {
 		}
 	}
 
-	public function create_timer()
-	{
-		//$data['timer'] = $this->timer_model->create_timer();
-		$data['title'] = "Create a Timer";
-		$jsfiles = array('picker.js', 'picker.date.js', 'timer.jquery.min.js');
-		$cssfiles = array('default.css', 'default.date.css');
-		$data['css_to_load'] = $cssfiles;
-		$data['js_to_load'] = $jsfiles;
-		$this->load->view('templates/header', $data);
-		$this->load->view('pages/invoices/create_timer', $data);
-		$this->load->view('templates/footer', $data);
-	}
-
 	public function pdf($id = FALSE)
 	{
 		if ( $id === FALSE ) {

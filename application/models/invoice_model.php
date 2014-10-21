@@ -79,9 +79,9 @@ class Invoice_model extends CI_Model {
 
 	public function get_invoice($id, $uid)
 	{
-
 		$this->db->select('c.id as iid, c.date, c.uid, c.cid, c.amount, c.currency, c.status, c.description, c.prefix, c.inv_num, c.auto_reminder, c.inv_sent, c.due_date, c.tax_1 AS invoice_tax_1, c.tax_2 AS invoice_tax_2, c.discount, c.discount_type', false);
 		$this->db->where('c.id', $id);
+		$this->db->where('c.uid', $uid);
 		$this->db->from('common c');
 		$query = $this->db->get();
 

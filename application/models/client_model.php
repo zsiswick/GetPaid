@@ -22,16 +22,18 @@ class Client_model extends CI_Model {
 
 	public function get_client($client_id = FALSE)
 	{
-
+		$uid = $this->tank_auth_my->get_user_id();
 		if (is_numeric($client_id)) {
 			$this->db->select('*');
 			$this->db->from('client');
 			$this->db->where('id', $client_id);
+			$this->db->where('uid', $uid);
 		} else {
 			$company = str_replace("%20", " ", $client_id);
 			$this->db->select('*');
 			$this->db->from('client');
 			$this->db->where('company', $company);
+			$this->db->where('uid', $uid);
 		}
 			$query = $this->db->get();
 			return $query->result_array();
