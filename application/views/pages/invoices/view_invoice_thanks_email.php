@@ -10,7 +10,7 @@
 		<?php
 			$hidden = array('client_email' => $item['client'][0]['email']);
 			$attributes = array('class' => '', 'id' => 'sendThanksEmail');
-			echo form_open('invoices/send_thanks_email/'.$item[0]['iid'], $attributes, $hidden);
+			echo form_open('invoices/send_invoice_email/'.$item[0]['iid'], $attributes, $hidden);
 		?>
 		<label for="emailSubject">Subject</label>
 		<input type="text" name="emailSubject" value="Thanks from <?php echo($item['settings'][0]['company_name']);?>" />
