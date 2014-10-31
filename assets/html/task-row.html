@@ -1,0 +1,28 @@
+<div ng-include="getEditTaskForm()" ng-show="task.task_form"></div>
+
+<div class="row" ng-hide="task.task_form">
+  <div class="columns medium-8">
+    <h4>{{task.task_name}}</h4>
+    <i class="fi-clock"></i> {{task.time_total}} hours logged | Rate: ${{task.rate}}
+  </div>
+  <div class="columns medium-4 text-right">
+
+    <button href="#" data-dropdown="drop-{{task.id}}" aria-controls="drop-{{task.id}}" aria-expanded="false" class="button dropdown tiny secondary round">Actions</button><br>
+    <ul id="drop-{{task.id}}" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+      <li><a class="text-left" ng-click="showEditTaskForm(task)"><i class="fi-pencil"></i> Edit</a>
+      </li>
+      <li><a class="load-timer text-left" data-reveal-id="revealModal" ng-click="setTimerId(task.id)"><i class="fi-clock"></i> Start Timer</a></li>
+      <!--<li><a href="#" class="text-left"><i class="fi-check"></i> Mark Complete</a></li> -->
+      <li><a href="#" class="text-left" ng-click="removeTaskRow($parent.$parent.$index, $index)"><i class="fi-x-circle"></i> Delete</a></li>
+    </ul>
+  </div>
+  <div class="columns medium-12" ng-if="task.time_estimate > 0">
+    {{task.percent_complete}}% of {{task.time_estimate}} hours
+    <div class="progress success radius">
+      <span class="meter" style="width: {{task.percent_complete}}%"></span>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).foundation();
+</script>

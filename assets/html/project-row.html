@@ -1,0 +1,21 @@
+<div class="small-12 columns">
+  <h3>{{prj.project_name}}</h3>
+</div>
+
+<div class="columns small-8">
+  <h4>Tasks</h4>
+</div>
+<div class="columns small-4 text-right">
+  <a class="button small radius" ng-click="showTaskForm(prj)">Add</a>
+</div>
+
+<div class="columns medium-12">
+  <!-- EMPTY TASK MESSAGE -->
+  <div ng-if="!prj.tasks" ng-hide="prj.task_form" class="panel text-center">
+    <span>Add a task to start logging hours for {{prj.project_name}}</span>
+  </div>
+  <!-- PROJECT TASK FORM -->
+  <div class="panel task-form" ng-show="prj.task_form" ng-include="getTaskForm()"></div>
+  <!-- TASK REPEATER -->
+  <div class="panel task" ng-repeat="task in prj.tasks track by $index" ng-include="getTaskTemplate()"></div>
+</div>

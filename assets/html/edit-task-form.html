@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="columns medium-6">
+    <input type="text" placeholder="{{task.task_name}}" ng-model="task_name" ng-init="task_name=task.task_name" />
+  </div>
+  <div class="columns small-6 medium-2">
+    <div class="row collapse prefix-radius">
+      <div class="small-3 columns">
+        <span class="prefix">$</span>
+      </div>
+      <div class="small-9 columns">
+        <input type="text" placeholder="{{task.rate}}" ng-model="task_rate" ng-init="task_rate=task.rate" />
+      </div>
+    </div>
+  </div>
+
+  <div class="small-6 medium-2 columns">
+    <div class="row collapse postfix-radius">
+      <div class="small-8 columns">
+        <input type="text" placeholder="{{task.time_estimate}}" ng-model="task_estimate" ng-init="task_estimate=task.time_estimate" />
+      </div>
+      <div class="small-4 columns">
+        <span class="postfix">Hours</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns medium-2 text-right">
+    <a class="button small round secondary" ng-click="editTaskRow(task, task_name, task_rate, task_estimate); task_name = null; task_rate = null; task_estimate = null">Save</a><br>
+    <a ng-click="hideEditTaskForm(task)">Cancel</a>
+  </div>
+</div>

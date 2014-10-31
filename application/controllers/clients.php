@@ -95,19 +95,16 @@ class Clients extends CI_Controller {
 		}
 	}
 
-
 	public function create_ajax()
 	{
 		$this->load->helper('form');
-			$this->load->library('form_validation');
+		$this->load->library('form_validation');
 
-			$uid = $this->tank_auth_my->get_user_id();
-			$data['title'] = 'Add a client';
+		$uid = $this->tank_auth_my->get_user_id();
+		$data['title'] = 'Add a client';
 
-			$this->load->view('pages/clients/create-ajax');
-
+		$this->load->view('pages/clients/create-ajax');
 	}
-
 
 	public function edit($id = false) {
 
@@ -145,6 +142,7 @@ class Clients extends CI_Controller {
 			}
 		}
 	}
+
 	public function delete($id = FALSE)
 	{
 
@@ -157,6 +155,7 @@ class Clients extends CI_Controller {
 		}
 
 	}
+
 	public function invoices($cid = FALSE)
 	{
 		if ( $cid === FALSE ) {
@@ -191,7 +190,6 @@ class Clients extends CI_Controller {
 
 				$this->pagination->initialize($config);
 
-
 				$data['invoices'] = $this->invoice_model->get_invoices($id, $config['per_page'], $this->uri->segment(2), $cid);
 				$data['payments'] = $this->invoice_model->get_invoices_payments($id);
 
@@ -206,6 +204,7 @@ class Clients extends CI_Controller {
 
 		}
 	}
+
 	public function quotes($cid = FALSE)
 	{
 		//CHECK IF USER IS LOGGED IN
@@ -229,6 +228,7 @@ class Clients extends CI_Controller {
 		}
 
 	}
+
 	public function projects($cid = FALSE)
 	{
 		if (!$this->tank_auth_my->is_logged_in()) {
@@ -238,7 +238,8 @@ class Clients extends CI_Controller {
 			$data['title'] = 'client projects';
 			$this->load->model('project_model');
 			$data['projects'] = $this->project_model->get_projects($cid);
-
+			$jsfiles = array('project.js');
+			$data['js_to_load'] = $jsfiles;
 			//print("<pre>".print_r($data['projects'],true)."</pre>");
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/clients/projects', $data);
@@ -246,12 +247,49 @@ class Clients extends CI_Controller {
 		}
 	}
 
+	public function get_project_json($cid = FALSE)
+	{
+		$this->load->model('project_model');
+		$data['projects'] = $this->project_model->get_projects($cid);
+		header('Content-Type: application/json');
+		print json_encode($data['projects']);
+	}
+
+	public function set_project()
+	{
+		$this->load->model('project_model');
+		$data['prj_name'] = $this->input->post('prj_name');
+		$data['cid'] = $this->input->post('cid');
+		$data['project_id'] = $this->project_model->set_project($data);
+		print json_encode($data['project_id']);
+	}
+
+	public function set_task()
+	{
+		$this->load->model('project_model');
+		$data['id'] = $this->input->post('id');
+		$data['task_name'] = $this->input->post('task_name');
+		$data['cid'] = $this->input->post('cid');
+		$data['project_id'] = $this->input->post('project_id');
+		$data['time_estimate'] = $this->input->post('time_estimate');
+		$data['rate'] = $this->input->post('rate');
+		$data['update'] = $this->input->post('update');
+
+		if ($data['update'] == "false") {
+			$return = $this->project_model->set_task($data);
+		} else {
+			$return = $this->project_model->update_task($data);
+		}
+
+		print json_encode($return);
+	}
+
 	public function view_timer($task_id = FALSE)
 	{
 		$this->load->helper('form');
 		$this->load->model('project_model');
 		$data['task'] = $this->project_model->get_task($task_id);
-		print("<pre>".print_r($data['task'], true )."</pre>");
+		//print("<pre>".print_r($data['task'], true )."</pre>");
 		$jsfiles = array('timer.js');
 		$data['js_to_load'] = $jsfiles;
 		$this->load->view('pages/clients/view_timer', $data);
