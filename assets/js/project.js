@@ -104,9 +104,21 @@ var app = angular.module('projectApp', [])
       });
     };
 
-    //$scope.projects = []; // Need an empty array to store new project rows from template
+    $scope.deleteTask = function(id) {
 
-    //$scope.task_forms = []; // Need an empty array to store new task forms added
+      $http({
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        url: baseurl+'index.php/clients/delete_task',
+        method: "POST",
+        data: $.param({
+          "id" : id
+        }),
+      })
+      .success(function(data) {
+        $scope.entries = data;
+        console.log(data);
+      });
+    };
 
 
     // PROJECT CREATION INTERACTIONS
@@ -145,7 +157,7 @@ var app = angular.module('projectApp', [])
         "time_estimate":task_estimate,
         "percent_complete":0
       });
-      //console.log(prj);
+      console.log(prj);
       $scope.setTask(null, task_name, task_rate, task_estimate, prj.project_id);
       prj.task_form = false;
     };
@@ -158,14 +170,18 @@ var app = angular.module('projectApp', [])
         "time_estimate":task_estimate,
         "task_form":false
       });
-      console.log(task);
       $scope.setTask(task.id, task_name, task_rate, task_estimate, task.project_id, "true");
     };
 
     $scope.removeTaskRow = function(prj, index) {
-      //tasks.splice(index, 1);
-      $scope.project_object[prj].tasks.splice(index, 1)
-      console.log($scope.project_object[prj]);
+
+      $scope.deleteTask($scope.project_object[prj].tasks[index].id);
+      //console.log( $scope.project_object[prj].tasks[index].id );
+      $scope.project_object[prj].tasks.splice(index, 1);
+
+      if ( $scope.project_object[prj].tasks.length <= 0 ) {
+        $scope.project_object[prj].task_form = false;
+      }
     }
 
     $scope.getTaskForm = function() {
@@ -182,6 +198,7 @@ var app = angular.module('projectApp', [])
 
     $scope.showTaskForm = function(prj){
       prj.task_form = true;
+      console.log(prj);
     }
 
     $scope.hideTaskForm = function(prj) {

@@ -147,6 +147,31 @@ class Project_model extends CI_Model {
     return $this->db->update('tasks', $tdata);
   }
 
+  public function delete_task($data)
+  {
+    $id = $data['id'];
+    $uid = $this->tank_auth_my->get_user_id();
+
+    $this->db->start_cache();
+    $this->db->select('*', false);
+    $this->db->where('id', $id);
+    $this->db->where('uid', $uid);
+    $this->db->from('tasks');
+    $this->db->limit(1);
+    $this->db->stop_cache();
+
+    $query = $this->db->get();
+    $this->db->delete('tasks');
+    $this->db->flush_cache();
+    
+    if ($query->num_rows() > 0)
+    {
+      // Delete all associated timers
+      $this->db->where('task_id', $id);
+      $this->db->delete('timers');
+    }
+  }
+
   public function set_timer()
   {
     $task_id = $this->input->post('task_id');

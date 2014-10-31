@@ -11,7 +11,7 @@
 
 <div class="columns medium-12">
   <!-- EMPTY TASK MESSAGE -->
-  <div ng-if="!prj.tasks" ng-hide="prj.task_form" class="panel text-center">
+  <div ng-if="prj.tasks.length < 1 || !prj.tasks" ng-hide="prj.task_form" class="panel text-center">
     <span>Add a task to start logging hours for {{prj.project_name}}</span>
   </div>
   <!-- PROJECT TASK FORM -->

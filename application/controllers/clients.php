@@ -284,6 +284,14 @@ class Clients extends CI_Controller {
 		print json_encode($return);
 	}
 
+	public function delete_task()
+	{
+		$this->load->model('project_model');
+		$data['id'] = $this->input->post('id');
+		$return = $this->project_model->delete_task($data);
+		print json_encode($return);
+	}
+
 	public function view_timer($task_id = FALSE)
 	{
 		$this->load->helper('form');
