@@ -68,7 +68,7 @@ var app = angular.module('projectApp', [])
         }),
       })
       .success(function(data) {
-        $scope.entries = data;
+        //$scope.entries = data;
         pid = String(data.project_id);
 
         $scope.project_object.unshift({
@@ -99,7 +99,37 @@ var app = angular.module('projectApp', [])
         }),
       })
       .success(function(data) {
-        $scope.entries = data;
+        //$scope.entries = data;
+        console.log(data);
+      });
+    };
+
+    $scope.addTaskRow = function(prj, tname, trate, testimate) {
+
+      $http({
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        url: baseurl+'index.php/clients/set_task',
+        method: "POST",
+        data: $.param({
+          "task_name" : tname,
+          "project_id" : prj.project_id,
+          "cid" : cid,
+          "rate" : trate,
+          "time_estimate" : testimate
+        }),
+      })
+      .success(function(data) {
+
+        if (!prj.tasks) {
+          prj.tasks = [];
+        }
+        data.percent_complete = 0;
+        tid = String(data.id);
+        data.id = tid;
+        prj.tasks.push(data);
+
+        prj.task_form = false;
+
         console.log(data);
       });
     };
@@ -115,8 +145,7 @@ var app = angular.module('projectApp', [])
         }),
       })
       .success(function(data) {
-        $scope.entries = data;
-        console.log(data);
+        //$scope.entries = data;
       });
     };
 
@@ -146,7 +175,9 @@ var app = angular.module('projectApp', [])
 
 
     // TASK CREATION INTERACTIONS
+    /*
     $scope.addTaskRow = function(prj, task_name, task_rate, task_estimate) {
+
 
       if (!prj.tasks) {
         prj.tasks = [];
@@ -157,10 +188,12 @@ var app = angular.module('projectApp', [])
         "time_estimate":task_estimate,
         "percent_complete":0
       });
-      console.log(prj);
+
+      //console.log(prj);
       $scope.setTask(null, task_name, task_rate, task_estimate, prj.project_id);
       prj.task_form = false;
     };
+    */
 
     $scope.editTaskRow = function(task, task_name, task_rate, task_estimate) {
 
@@ -173,15 +206,16 @@ var app = angular.module('projectApp', [])
       $scope.setTask(task.id, task_name, task_rate, task_estimate, task.project_id, "true");
     };
 
-    $scope.removeTaskRow = function(prj, index) {
+    $scope.removeTaskRow = function(prj, task, task_index) {
 
-      $scope.deleteTask($scope.project_object[prj].tasks[index].id);
-      //console.log( $scope.project_object[prj].tasks[index].id );
-      $scope.project_object[prj].tasks.splice(index, 1);
+      $scope.deleteTask(task.id);
+      $scope.project_object[prj].tasks.splice(task_index, 1);
 
       if ( $scope.project_object[prj].tasks.length <= 0 ) {
         $scope.project_object[prj].task_form = false;
       }
+      console.log($scope.project_object[prj].tasks);
+      console.log(task_index);
     }
 
     $scope.getTaskForm = function() {
@@ -218,8 +252,9 @@ var app = angular.module('projectApp', [])
       return baseurl+'index.php/clients/view_timer/'+$scope.timerId;
     }
 
-    $scope.setTimerId = function(id) {
-      $scope.timerId = id;
+    $scope.setTimerId = function(task) {
+      $scope.timerId = task.id;
+      console.log(task);
     }
 
 }]);

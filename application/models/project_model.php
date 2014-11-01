@@ -23,7 +23,7 @@ class Project_model extends CI_Model {
 
       foreach ($projects as &$project) {
 
-        $query = $this->db->get_where('tasks', array('project_id' => $project['project_id']));
+        $query = $this->db->order_by('id', 'desc')->get_where('tasks', array('project_id' => $project['project_id']));
 
         foreach ($query->result() as $task) {
 
@@ -133,7 +133,9 @@ class Project_model extends CI_Model {
       'uid' => $uid, 'project_id' => $data['project_id'], 'cid' => $data['cid'], 'task_name' => $data['task_name'], 'time_estimate' => $data['time_estimate'], 'rate' => $data['rate'], 'date' => date('Y-m-d H:i:s')
     );
 
-    return $this->db->insert('tasks', $data);
+    $this->db->insert('tasks', $data);
+    $data['id'] = $this->db->insert_id();
+    return $data;
   }
 
   public function update_task($data)
@@ -163,7 +165,7 @@ class Project_model extends CI_Model {
     $query = $this->db->get();
     $this->db->delete('tasks');
     $this->db->flush_cache();
-    
+
     if ($query->num_rows() > 0)
     {
       // Delete all associated timers

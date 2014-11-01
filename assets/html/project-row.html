@@ -17,5 +17,5 @@
   <!-- PROJECT TASK FORM -->
   <div class="panel task-form" ng-show="prj.task_form" ng-include="getTaskForm()"></div>
   <!-- TASK REPEATER -->
-  <div class="panel task" ng-repeat="task in prj.tasks track by $index" ng-include="getTaskTemplate()"></div>
+  <div class="panel task" ng-repeat="task in prj.tasks | orderBy:'id':true track by task.id" ng-include="getTaskTemplate()"></div>
 </div>

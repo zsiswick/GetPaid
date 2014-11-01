@@ -251,7 +251,7 @@ class Clients extends CI_Controller {
 	{
 		$this->load->model('project_model');
 		$data['projects'] = $this->project_model->get_projects($cid);
-		header('Content-Type: application/json');
+		//header('Content-Type: application/json');
 		print json_encode($data['projects']);
 	}
 
@@ -275,7 +275,7 @@ class Clients extends CI_Controller {
 		$data['rate'] = $this->input->post('rate');
 		$data['update'] = $this->input->post('update');
 
-		if ($data['update'] == "false") {
+		if ($data['update'] == "false" || empty($data['update']) ) {
 			$return = $this->project_model->set_task($data);
 		} else {
 			$return = $this->project_model->update_task($data);

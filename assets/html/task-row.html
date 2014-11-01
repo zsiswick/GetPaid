@@ -11,9 +11,9 @@
     <ul id="drop-{{task.id}}" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
       <li><a class="text-left" ng-click="showEditTaskForm(task)"><i class="fi-pencil"></i> Edit</a>
       </li>
-      <li><a class="load-timer text-left" data-reveal-id="revealModal" ng-click="setTimerId(task.id)"><i class="fi-clock"></i> Start Timer</a></li>
+      <li><a class="load-timer text-left" data-reveal-id="revealModal" ng-click="setTimerId(task)"><i class="fi-clock"></i> Start Timer</a></li>
       <!--<li><a href="#" class="text-left"><i class="fi-check"></i> Mark Complete</a></li> -->
-      <li><a href="#" class="text-left" ng-click="removeTaskRow($parent.$parent.$index, $index)"><i class="fi-x-circle"></i> Delete</a></li>
+      <li><a href="#" class="text-left" ng-click="removeTaskRow($parent.$parent.$index, task, $index)"><i class="fi-x-circle"></i> Delete</a></li>
     </ul>
   </div>
   <div class="columns medium-12" ng-if="task.time_estimate > 0">
