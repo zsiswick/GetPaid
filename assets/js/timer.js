@@ -40,6 +40,8 @@ function _timer(callback)
                 }
             }, interval);
         }
+        $('#t-play').hide();
+        $('#t-pause').show();
     }
 
     //  Same as the name, this will stop or pause the timer ex. timer.stop()
@@ -50,6 +52,8 @@ function _timer(callback)
             status = 0;
             clearInterval(timer_id);
         }
+      $('#t-pause').hide();
+      $('#t-play').show();
     }
 
     // Reset the timer to zero or reset it to your own custom time ex. reset to zero second timer.reset(0)

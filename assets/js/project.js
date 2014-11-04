@@ -1,7 +1,7 @@
 var baseurl = window.location.protocol + "//" + window.location.host + "/" + "rubyinvoice/";
 var cid = window.location.pathname.split('/').pop();
 
-var app = angular.module('projectApp', [])
+var app = angular.module('projectApp', ['mm.foundation'])
   .controller('ProjectController', ['$scope', '$http', function($scope, $http) {
 
     calcTimers = function() {
@@ -48,15 +48,30 @@ var app = angular.module('projectApp', [])
     // GET PROJECT JSON
     $scope.loadProjects = function () {
      $http.get(baseurl+'index.php/clients/get_project_json/'+cid).success(function(data) {
-       $scope.project_object = data;
-       console.log(data);
-       calcTimers();
+       if (typeof data === "undefined" || data == "null") {
+         console.log("projects is undefined");
+         //$scope.project_object = {0 : { "project_name" : "Sample Project", "project_id" : "1", "status" : "0" }};
+         $scope.project_object = {};
+         $scope.setProject("Sample Project");
+         console.log($scope.project_object);
+
+       } else {
+         console.log("projects is defined");
+         $scope.project_object = data;
+         console.log($scope.project_object);
+         calcTimers();
+       }
+
+
      });
     };
 
     $scope.loadProjects(); //initial load
 
     $scope.setProject = function(prj_name) {
+
+      update = typeof update !== 'undefined' ? update : 'false'; // set this to false by default
+      id = typeof id !== 'undefined' ? id : null; // set this to false by default
 
       $http({
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -68,16 +83,51 @@ var app = angular.module('projectApp', [])
         }),
       })
       .success(function(data) {
-        //$scope.entries = data;
         pid = String(data.project_id);
 
         $scope.project_object.unshift({
           project_id: pid,
           project_name: data.project_name
         });
-        console.log($scope.project_object);
+        //console.log($scope.project_object);
       });
     };
+
+    $scope.editProject = function(prj, prj_name) {
+
+      $http({
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        url: baseurl+'index.php/clients/set_project',
+        method: "POST",
+        data: $.param({
+          "prj_name" : prj_name,
+          "cid" : cid,
+          "project_id" : prj.project_id,
+          "status" : prj.status
+        }),
+      })
+      .success(function(data) {
+        $.extend(true, prj, {
+          "project_name": prj_name,
+          "status":prj.status
+        });
+      });
+    };
+
+    $scope.deleteProject = function(prj) {
+      $http({
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        url: baseurl+'index.php/clients/delete_project',
+        method: "POST",
+        data: $.param({
+          "project_id" : prj.project_id,
+          "cid" : cid
+        }),
+      })
+      .success(function(data) {
+        //console.log(data);
+      });
+    }
 
     $scope.setTask = function(id, tname, trate, testimate, pid, update) {
 
@@ -99,8 +149,7 @@ var app = angular.module('projectApp', [])
         }),
       })
       .success(function(data) {
-        //$scope.entries = data;
-        console.log(data);
+        //console.log(data);
       });
     };
 
@@ -130,7 +179,7 @@ var app = angular.module('projectApp', [])
 
         prj.task_form = false;
 
-        console.log(data);
+        //console.log(data);
       });
     };
 
@@ -151,14 +200,20 @@ var app = angular.module('projectApp', [])
 
 
     // PROJECT CREATION INTERACTIONS
+    /*
     $scope.addProjectRow = function(prj) {
       $scope.project_object.push({
         project_name: prj
       });
     };
+    */
 
     $scope.getProjectForm = function() {
       return baseurl+'assets/html/project-form.html';
+    }
+
+    $scope.getEditProjectForm = function() {
+      return baseurl+'assets/html/edit-project-form.html';
     }
 
     $scope.getProjectTemplate = function () {
@@ -173,27 +228,22 @@ var app = angular.module('projectApp', [])
       $scope.pform = false;
     }
 
+    $scope.hideEditProjectForm = function(prj) {
+      prj.project_form = false;
+    }
+
+    $scope.showEditProjectForm = function(prj){
+      prj.project_form = true;
+    }
+
+    $scope.removeProject = function(prj_index, prj) {
+      $scope.deleteProject(prj);
+      $scope.project_object.splice(prj_index, 1);
+      //console.log(prj);
+    }
+
 
     // TASK CREATION INTERACTIONS
-    /*
-    $scope.addTaskRow = function(prj, task_name, task_rate, task_estimate) {
-
-
-      if (!prj.tasks) {
-        prj.tasks = [];
-      }
-      prj.tasks.push({
-        "task_name":task_name,
-        "rate":task_rate,
-        "time_estimate":task_estimate,
-        "percent_complete":0
-      });
-
-      //console.log(prj);
-      $scope.setTask(null, task_name, task_rate, task_estimate, prj.project_id);
-      prj.task_form = false;
-    };
-    */
 
     $scope.editTaskRow = function(task, task_name, task_rate, task_estimate) {
 
@@ -214,8 +264,8 @@ var app = angular.module('projectApp', [])
       if ( $scope.project_object[prj].tasks.length <= 0 ) {
         $scope.project_object[prj].task_form = false;
       }
-      console.log($scope.project_object[prj].tasks);
-      console.log(task_index);
+      //console.log($scope.project_object[prj].tasks);
+      //console.log(task_index);
     }
 
     $scope.getTaskForm = function() {
@@ -232,7 +282,7 @@ var app = angular.module('projectApp', [])
 
     $scope.showTaskForm = function(prj){
       prj.task_form = true;
-      console.log(prj);
+      //console.log(prj);
     }
 
     $scope.hideTaskForm = function(prj) {
@@ -254,7 +304,7 @@ var app = angular.module('projectApp', [])
 
     $scope.setTimerId = function(task) {
       $scope.timerId = task.id;
-      console.log(task);
+      //console.log(task);
     }
 
 }]);

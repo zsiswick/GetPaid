@@ -238,7 +238,7 @@ class Clients extends CI_Controller {
 			$data['title'] = 'client projects';
 			$this->load->model('project_model');
 			$data['projects'] = $this->project_model->get_projects($cid);
-			$jsfiles = array('project.js');
+			$jsfiles = array('project.js', 'mm-foundation-0.4.0.min.js');
 			$data['js_to_load'] = $jsfiles;
 			//print("<pre>".print_r($data['projects'],true)."</pre>");
 			$this->load->view('templates/header', $data);
@@ -258,10 +258,27 @@ class Clients extends CI_Controller {
 	public function set_project()
 	{
 		$this->load->model('project_model');
+		$data['project_id'] = $this->input->post('project_id');
 		$data['prj_name'] = $this->input->post('prj_name');
+		$data['status'] = $this->input->post('status');
 		$data['cid'] = $this->input->post('cid');
-		$data['project_id'] = $this->project_model->set_project($data);
-		print json_encode($data['project_id']);
+
+		if (empty($data['project_id']) ) {
+			$data['project_id'] = $this->project_model->set_project($data);
+			print json_encode($data['project_id']);
+		} else {
+			$return = $this->project_model->update_project($data);
+			print json_encode($return);
+		}
+	}
+
+	public function delete_project()
+	{
+		$this->load->model('project_model');
+		$data['project_id'] = $this->input->post('project_id');
+		$data['cid'] = $this->input->post('cid');
+		$return = $this->project_model->delete_project($data);
+		print json_encode($return);
 	}
 
 	public function set_task()
@@ -318,9 +335,8 @@ class Clients extends CI_Controller {
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('pages/clients/view_timer', $data);
 		} else {
-			$this->project_model->set_timer($task_id);
+			$this->project_model->set_timer();
 			redirect('/clients/projects/'.$data['task'][0]['cid'], 'refresh');
-
 		}
 	}
 }

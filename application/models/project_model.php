@@ -73,45 +73,58 @@ class Project_model extends CI_Model {
 
   public function update_project($data)
   {
-    $data = array(
-      'project_name' => $data['prj_name'], 'uid' => $uid, 'cid' => $data['cid']
-    );
-    $this->db->where('id', $data['id']);
-    $this->db->update('project', $data);
 
-    return;
-  }
-
-  public function delete_project($id)
-  {
+    $project_id = $data['project_id'];
     $uid = $this->tank_auth_my->get_user_id();
+    $pdata = array(
+      'project_name' => $data['prj_name'], 'status' => $data['status']
+    );
 
     $this->db->start_cache();
     $this->db->select('*', false);
-    $this->db->where('cid', $id);
+    $this->db->where('project_id', $project_id);
     $this->db->where('uid', $uid);
     $this->db->from('projects');
     $this->db->stop_cache();
 
     $query = $this->db->get();
-    $common = $query->result_array();
+
+    $this->db->update('projects', $pdata);
+    $this->db->flush_cache();
+
+    return $query->result_array();
+  }
+
+  public function delete_project($data)
+  {
+    $project_id = $data['project_id'];
+    $uid = $this->tank_auth_my->get_user_id();
+
+    $this->db->start_cache();
+    $this->db->select('*', false);
+    $this->db->where('project_id', $project_id);
+    $this->db->where('uid', $uid);
+    $this->db->where('cid', $data['cid']);
+    $this->db->from('projects');
+    $this->db->limit(1);
+    $this->db->stop_cache();
+
+    $query = $this->db->get();
     $this->db->delete('projects');
     $this->db->flush_cache();
 
-    foreach ($projects as $project) {
-      // Delete all associated items
-      $this->db->where_in('project_id', $project['id']);
-      $this->db->delete('task');
+    if ($query->num_rows() > 0)
+    {
+      // Delete all associated tasks
+      $this->db->where('project_id', $project_id);
+      $this->db->delete('tasks');
+
+      // Delete all associated timers
+      $this->db->where('project_id', $project_id);
+      $this->db->delete('timers');
     }
-    // TODO Delete all associated tasks
-    // TODO Delete all associated timers
 
-    $this->db->where('id', $id);
-    $this->db->where('uid', $uid);
-    $this->db->limit(1);
-    $this->db->delete('projects');
-
-    return;
+    return $query->result_array();
   }
 
   public function get_task($task_id = FALSE)
@@ -178,11 +191,13 @@ class Project_model extends CI_Model {
   {
     $task_id = $this->input->post('task_id');
     $client_id = $this->input->post('client_id');
+    $project_id = $this->input->post('project_id');
     $time = $this->input->post('timer');
     $description = $this->input->post('description');
 
     $data = array(
       'task_id' => $task_id,
+      'project_id' => $project_id,
       'description' => $description,
       'time_started' => date('Y-m-d H:i:s'),
       'time' => $time

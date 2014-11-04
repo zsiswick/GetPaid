@@ -14,13 +14,14 @@
 				</div>
 				<div class="columns small-12">
 					<input type="hidden" name="task_id" value="<?php echo($task[0]['id']) ?>"/>
+					<input type="hidden" name="project_id" value="<?php echo($task[0]['project_id']) ?>"/>
 					<input type="hidden" class="timer" name="timer"/>
 					<div class="timer round">
 							<span class="hour">00</span>:<span class="minute">00</span>:<span class="second">00</span>
 					</div>
 					<div class="control">
-							<a onClick="timer.start(1000)" class="button small round secondary"><i class="fi-play"></i></a>
-							<a onClick="timer.stop()" class="button small round secondary"><i class="fi-pause"></i></a>
+							<a id="t-play" onClick="timer.start(1000)" class="button small round secondary"><i class="fi-play"></i></a>
+							<a id="t-pause" onClick="timer.stop()" class="button small round secondary"><i class="fi-pause"></i></a>
 							<!--<a onClick="timer.reset(0)" class="button small round">Reset</a>
 							<a onClick="timer.mode(1)" class="button small round">Count up</a>
 							<a onClick="timer.mode(0)" class="button small round">Count down</a>-->

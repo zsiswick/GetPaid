@@ -1,5 +1,11 @@
-<div class="small-12 columns">
-  <h3>{{prj.project_name}}</h3>
+<div ng-include="getEditProjectForm()" ng-show="prj.project_form"></div>
+<div class="small-12 columns" ng-hide="prj.project_form">
+
+  <a class="button dropdown secondary" dropdown-toggle="#drop-prj-{{$index}}">{{prj.project_name}}</a>
+  <ul id="drop-prj-{{$index}}" class="f-dropdown">
+    <li><a class="text-left" ng-click="showEditProjectForm(prj)"><i class="fi-pencil"></i> Edit</a></li>
+    <li><a class="text-left" ng-click="removeProject($index, prj)"><i class="fi-x-circle"></i> Delete</a></li>
+  </ul>
 </div>
 
 <div class="columns small-8">
@@ -18,4 +24,9 @@
   <div class="panel task-form" ng-show="prj.task_form" ng-include="getTaskForm()"></div>
   <!-- TASK REPEATER -->
   <div class="panel task" ng-repeat="task in prj.tasks | orderBy:'id':true track by task.id" ng-include="getTaskTemplate()"></div>
+  <div class="row">
+    <div class="small-12 columns">
+      <hr/>
+    </div>
+  </div>
 </div>
