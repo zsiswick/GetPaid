@@ -20,11 +20,14 @@
 							<span class="hour">00</span>:<span class="minute">00</span>:<span class="second">00</span>
 					</div>
 					<div class="control">
-							<a id="t-play" onClick="timer.start(1000)" class="button small round secondary"><i class="fi-play"></i></a>
-							<a id="t-pause" onClick="timer.stop()" class="button small round secondary"><i class="fi-pause"></i></a>
+							<a id="t-play" class="button small round secondary"><i class="fi-play"></i></a>
+							<a id="t-pause" class="button small round secondary"><i class="fi-pause"></i></a>
 							<!--<a onClick="timer.reset(0)" class="button small round">Reset</a>
 							<a onClick="timer.mode(1)" class="button small round">Count up</a>
 							<a onClick="timer.mode(0)" class="button small round">Count down</a>-->
+
+							<a id="t-add-time" class="button small round secondary">+15 Mins</a>
+							<a id="t-minus-time" class="button small round secondary">-15 Mins</a>
 					</div>
 					<hr/>
 					<?php

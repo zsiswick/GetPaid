@@ -44,6 +44,27 @@ function _timer(callback)
         $('#t-pause').show();
     }
 
+    this.add_time = function(amount) {
+
+      time += amount;
+      generateTime();
+
+    }
+
+    this.minus_time = function(amount) {
+
+      if (time !== 0) {
+          time -= amount;
+      }
+
+      if (time < 0) {
+        time = 0;
+        generateTime();
+      } else {
+        generateTime();
+      }
+    }
+
     //  Same as the name, this will stop or pause the timer ex. timer.stop()
     this.stop =  function()
     {
@@ -112,17 +133,34 @@ var timer;
 
 $(document).ready(function(e)
 {
-    timer = new _timer
-    (
-        function(time)
-        {
-            if(time == 0)
-            {
-                timer.stop();
-                //alert('time out');
-            }
-        }
-    );
-    timer.reset(0);
-    timer.mode(1);
+  timer = new _timer
+  (
+    function(time)
+    {
+      if(time == 0)
+      {
+        timer.stop();
+        //alert('time out');
+      }
+    }
+  );
+  timer.reset(0);
+  timer.mode(1);
+
+  $('#t-play').click( function() {
+    timer.start(1000);
+  });
+
+  $('#t-pause').click( function() {
+    timer.stop();
+  });
+
+  $('#t-add-time').click(function() {
+    timer.add_time(900);
+  });
+
+  $('#t-minus-time').click(function() {
+    timer.minus_time(900);
+  });
+
 });
