@@ -206,4 +206,17 @@ class Project_model extends CI_Model {
     return $this->db->insert('timers', $data);
   }
 
+  public function delete_timer($data)
+  {
+    $timer_id = $data['timer_id'];
+
+    $this->db->select('*', false);
+    $this->db->where('timer_id', $timer_id);
+    $this->db->from('timers');
+    $this->db->limit(1);
+    $this->db->delete('timers');
+    return $timer_id;
+
+  }
+
 }

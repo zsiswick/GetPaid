@@ -1,8 +1,21 @@
-var baseurl = window.location.protocol + "//" + window.location.host + "/" + "rubyinvoice/";
+var environ = window.location.host;
+
+if (environ === "localhost") {
+  var baseurl = window.location.protocol + "//" + window.location.host + "/" + "rubyinvoice/";
+} else {
+  var baseurl = window.location.protocol + "//" + window.location.host + "/";
+}
+
 var cid = window.location.pathname.split('/').pop();
 
 var app = angular.module('projectApp', ['mm.foundation'])
   .controller('ProjectController', ['$scope', '$http', function($scope, $http) {
+
+    $scope.convertToHours = function(total_time) {
+      var time_unit = 3600; // time measured in seconds
+      time_hours = (total_time / time_unit).toFixed(2);
+      return time_hours;
+    }
 
     calcTimers = function() {
       var timers_combined = 0;
@@ -12,12 +25,15 @@ var app = angular.module('projectApp', ['mm.foundation'])
       var index3;
 
 
+
         for (index = 0; index < $scope.project_object.length; ++index) { // PROJECT LOOP
           total_time = 0;
 
           if ($scope.project_object[index].tasks) {
 
             for (index2 = 0; index2 < $scope.project_object[index].tasks.length; ++index2) { // TASK LOOP
+
+              var total_time = 0;
 
                if ($scope.project_object[index].tasks[index2].timers) {
 
@@ -29,7 +45,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
                 }
 
                 division = (total_time / time_unit) / $scope.project_object[index].tasks[index2].time_estimate;
-                hour_percent = (division * 100).toFixed(2);
+                hour_percent = Math.round((division * 100).toFixed(2));
 
                 if (hour_percent == Number.POSITIVE_INFINITY || hour_percent == Number.NEGATIVE_INFINITY) {
                   hour_percent = 0;
@@ -49,20 +65,14 @@ var app = angular.module('projectApp', ['mm.foundation'])
     $scope.loadProjects = function () {
      $http.get(baseurl+'index.php/clients/get_project_json/'+cid).success(function(data) {
        if (typeof data === "undefined" || data == "null") {
-         console.log("projects is undefined");
-         //$scope.project_object = {0 : { "project_name" : "Sample Project", "project_id" : "1", "status" : "0" }};
          $scope.project_object = {};
          $scope.setProject("Sample Project");
-         console.log($scope.project_object);
 
        } else {
-         console.log("projects is defined");
          $scope.project_object = data;
-         console.log($scope.project_object);
+         console.log(data);
          calcTimers();
        }
-
-
      });
     };
 
@@ -199,6 +209,23 @@ var app = angular.module('projectApp', ['mm.foundation'])
     };
 
 
+    $scope.deleteTimer = function(id, action) {
+
+      $http({
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        url: baseurl+'index.php/clients/'+action,
+        method: "POST",
+        data: $.param({
+          "timer_id" : id
+        }),
+      })
+      .success(function(data) {
+        //$scope.entries = data;
+        console.log(data);
+      });
+    };
+
+
     // PROJECT CREATION INTERACTIONS
     /*
     $scope.addProjectRow = function(prj) {
@@ -254,6 +281,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
         "task_form":false
       });
       $scope.setTask(task.id, task_name, task_rate, task_estimate, task.project_id, "true");
+      calcTimers();
     };
 
     $scope.removeTaskRow = function(prj, task, task_index) {
@@ -305,6 +333,16 @@ var app = angular.module('projectApp', ['mm.foundation'])
     $scope.setTimerId = function(task) {
       $scope.timerId = task.id;
       //console.log(task);
+    }
+
+    $scope.getTimerRows = function() {
+      return baseurl+'assets/html/timer-row.html';
+    }
+
+    $scope.removeRecord = function(id, action, prj, task, index) {
+      $scope.project_object[prj].tasks[task].timers.splice(index, 1);
+      calcTimers();
+      $scope.deleteTimer(id, action);
     }
 
 }]);

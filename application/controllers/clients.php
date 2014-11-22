@@ -339,6 +339,14 @@ class Clients extends CI_Controller {
 			redirect('/clients/projects/'.$data['task'][0]['cid'], 'refresh');
 		}
 	}
+
+	public function delete_timer()
+	{
+		$this->load->model('project_model');
+		$data['timer_id'] = $this->input->post('timer_id');
+		$return = $this->project_model->delete_timer($data);
+		print json_encode($return);
+	}
 }
 
 /* End of file welcome.php */
