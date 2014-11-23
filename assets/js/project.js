@@ -24,8 +24,6 @@ var app = angular.module('projectApp', ['mm.foundation'])
       var index2;
       var index3;
 
-
-
         for (index = 0; index < $scope.project_object.length; ++index) { // PROJECT LOOP
           total_time = 0;
 
@@ -40,8 +38,8 @@ var app = angular.module('projectApp', ['mm.foundation'])
                  for (index3 = 0; index3 < $scope.project_object[index].tasks[index2].timers.length; ++index3) { // TIMER LOOP
 
                    total_time += parseInt($scope.project_object[index].tasks[index2].timers[index3].time);
-                   time_hours = (total_time / time_unit).toFixed(2);
-                   $scope.project_object[index].tasks[index2].time_total = time_hours;
+                   //time_hours = (total_time / time_unit).toFixed(2);
+                   $scope.project_object[index].tasks[index2].time_total = $scope.convertToHours(total_time);
                 }
 
                 division = (total_time / time_unit) / $scope.project_object[index].tasks[index2].time_estimate;
@@ -220,20 +218,12 @@ var app = angular.module('projectApp', ['mm.foundation'])
         }),
       })
       .success(function(data) {
-        //$scope.entries = data;
         console.log(data);
       });
     };
 
 
     // PROJECT CREATION INTERACTIONS
-    /*
-    $scope.addProjectRow = function(prj) {
-      $scope.project_object.push({
-        project_name: prj
-      });
-    };
-    */
 
     $scope.getProjectForm = function() {
       return baseurl+'assets/html/project-form.html';
@@ -266,7 +256,6 @@ var app = angular.module('projectApp', ['mm.foundation'])
     $scope.removeProject = function(prj_index, prj) {
       $scope.deleteProject(prj);
       $scope.project_object.splice(prj_index, 1);
-      //console.log(prj);
     }
 
 
@@ -292,8 +281,6 @@ var app = angular.module('projectApp', ['mm.foundation'])
       if ( $scope.project_object[prj].tasks.length <= 0 ) {
         $scope.project_object[prj].task_form = false;
       }
-      //console.log($scope.project_object[prj].tasks);
-      //console.log(task_index);
     }
 
     $scope.getTaskForm = function() {
@@ -310,7 +297,6 @@ var app = angular.module('projectApp', ['mm.foundation'])
 
     $scope.showTaskForm = function(prj){
       prj.task_form = true;
-      //console.log(prj);
     }
 
     $scope.hideTaskForm = function(prj) {
