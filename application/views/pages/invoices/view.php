@@ -20,14 +20,14 @@
 ?>
 <div class="row">
 	<div class="small-12 columns">
-		<h3 class="small-only-text-center">Invoice Actions</h3>
+		<h3 id="joyride-begin" class="small-only-text-center">Invoice Actions</h3>
 		<div class="row">
 			<div class="medium-4 columns">
 				<h5 class="ruled caps">
 					Edit
 				</h5>
 				<div class="info-block">
-					<a href="<?php echo base_url()?>index.php/invoices/edit/<?php echo $item[0]['iid']?>" class="button small round secondary">Edit Invoice</a>
+					<a id="joyride-edit" href="<?php echo base_url()?>index.php/invoices/edit/<?php echo $item[0]['iid']?>" class="button small round secondary">Edit Invoice</a>
 				</div>
 				<h5 class="ruled caps">
 					Auto-reminder
@@ -51,7 +51,7 @@
 
 
 
-							<button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown small round secondary">Send Options</button><br>
+							<button id="joyride-email" href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown small round secondary">Send Options</button><br>
 							<ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
 								<li><a href="#" id="sendInvoiceRemindBtn" data-reveal-id="paymentModal">Send Reminder</a></li>
 								<li><a href="<?php echo base_url(); ?>index.php/invoices/mark_invoice_as_draft/<?php echo $item[0]['iid']?>">Convert to Draft</a></li>
@@ -81,13 +81,13 @@
 					PDF
 				</h5>
 				<div class="info-block">
-					<a href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="button round small secondary">Download</a>
+					<a id="joyride-pdf" href="<?php echo base_url(); ?>index.php/invoices/pdf/<?php echo $item[0]['iid']?>" class="button round small secondary">Download</a>
 				</div>
 				<h5 class="ruled caps">
 					Permalink
 				</h5>
 				<div class="info-block">
-					<a href="<?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']?>/<?php echo $item['client'][0]['key']?>" class="button round small secondary">View</a>
+					<a id="joyride-permalink" href="<?php echo base_url(); ?>index.php/invoice/view/<?php echo $item[0]['iid']?>/<?php echo $item['client'][0]['key']?>" class="button round small secondary">View</a>
 				</div>
 
 			</div>
@@ -218,3 +218,34 @@
 		</div>
 	</div>
 </div>
+
+<!-- At the bottom of your page but inside of the body tag -->
+<ol class="joyride-list" data-joyride>
+  <li data-id="joyride-begin" data-text="Next" data-options="tip_location: top; prev_button: false">
+    <p>Hello! Here is where you can manage your invoice. We'll walk you through some of the features to help you get started.</p>
+  </li>
+  <li data-id="joyride-edit" data-text="Next" data-prev-text="Prev">
+    <h4>Edit Invoice</h4>
+    <p>You can add new line items, and make any other adjustments needed here.</p>
+  </li>
+	<li data-id="addPaymentBtn" data-text="Next" data-prev-text="Prev">
+		<h4>Add Payments</h4>
+		<p>If you get paid in installments, or receive a deposit, you can add or remove payments here.</p>
+	</li>
+	<li data-id="joyride-pdf" data-text="Next" data-prev-text="Prev">
+		<h4>Create a PDF</h4>
+		<p>You can download a PDF of the invoice here at any time.</p>
+	</li>
+	<li data-id="auto_reminder" data-text="Next" data-prev-text="Prev">
+		<h4>Auto-Reminder</h4>
+		<p>When this is turned on, your client will receive an auto-reminder on the day the invoice is due, and at regular intervals thereafter. (You can adjust the intervals in Settings.)</p>
+	</li>
+	<li data-id="joyride-email" data-text="Next" data-prev-text="Prev">
+		<h4>Send Invoice</h4>
+		<p>If you want to send your invoice by email, you can compose and send a link to your client here.</p>
+	</li>
+	<li data-id="joyride-permalink" data-text="Done" data-prev-text="Prev">
+		<h4>View Permalink</h4>
+		<p>A link to your final invoice. You can share this link directly with your client. Your client can make a payment at this link if your account is connected to a payment gateway like Stripe. You can connect your account in Settings.</p>
+	</li>
+</ol>

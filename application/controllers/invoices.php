@@ -81,6 +81,8 @@ class Invoices extends CI_Controller {
 			$data['dob_dropdown_year'] = buildYearDropdown('year', $this->thisYear);
 			$data['theDate'] = $this->_month_string($data['item'][0]['date']);
 			$data['title'] = $data['item']['client'][0]['company'];
+			$jsfiles = array('foundation/foundation.joyride.js', 'vendor/jquery.cookie.js', 'helpers/start-joyride.js');
+			$data['js_to_load'] = $jsfiles;
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/invoices/view', $data);
