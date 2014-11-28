@@ -590,7 +590,7 @@ class Invoice_model extends CI_Model {
 		$date = new DateTime($dateString);
 		$date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
 		//
-		return $date;
+		return $date->format('Y-m-d');
 	}
 
 	private function _arrayUnique($array) {

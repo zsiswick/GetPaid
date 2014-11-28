@@ -234,6 +234,8 @@ class Project_model extends CI_Model {
     $timers_time = 0;
     $sumTotal = 0;
     $today = date('Y-m-d');
+    $due_date = $this->_calc_due_date($uid, $today);
+
     $i = 0;
 
 
@@ -245,7 +247,7 @@ class Project_model extends CI_Model {
         $query = $this->db->order_by('id', 'desc')->get_where('tasks', array('project_id' => $project['project_id']));
 
         // CREATE AN INVOICE TABLE
-        $common_data = array('uid' => $uid, 'cid' => $cid, 'date' => $today);
+        $common_data = array('uid' => $uid, 'cid' => $cid, 'date' => $today, 'due_date' => $due_date);
 
         $this->db->insert('common', $common_data);
 
@@ -311,6 +313,16 @@ class Project_model extends CI_Model {
     }
   }
 
+  public function get_user_settings($uid) {
+    $this->db->select('*', false);
+    $this->db->where('s.uid', $uid);
+    $this->db->limit(1);
+    $this->db->from('settings s');
+    $query = $this->db->get();
+
+    return $query->result_array();
+  }
+
   private function _convertToHours($total_time)
   {
     $time_unit = 3600; // time measured in seconds
@@ -318,5 +330,14 @@ class Project_model extends CI_Model {
     return $time_hours;
   }
 
+  private function _calc_due_date($uid, $dateString)
+  {
+    // Calculate the due date based on the invoice creation date, and the user's "due in" settings
+    $userSettings = $this->get_user_settings($uid);
+    $date = new DateTime($dateString);
+    $date->add(new DateInterval('P'.$userSettings[0]['due'].'D'));
+    //
+    return $date->format('Y-m-d');
+  }
 
 }
