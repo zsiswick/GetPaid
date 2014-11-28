@@ -235,7 +235,7 @@
 								<?php echo $invoice_item['quantity'].' '.$invoice_item['unit'] ?>
 							</td>
 							<td style="text-align: left;">
-								<?php echo $invoice_item['description'] ?>
+								<?php echo nl2br($invoice_item['description']); ?>
 							</td>
 							<td style="text-align: right;">
 								<?php echo $invoice_item['unit_cost'] ?>
@@ -255,7 +255,7 @@
 					<tr>
 						<td valign="top" style="width: 70%;">
 							<h3>Payment Terms</h3>
-							<p><?php echo($item['settings'][0]['notes']) ?></p>
+							<p><?php echo nl2br($item['settings'][0]['notes']); ?></p>
 						</td>
 						<td style="width: 30%;">
 							<table style="width: 250px;">

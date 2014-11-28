@@ -240,7 +240,6 @@ class Clients extends CI_Controller {
 			$data['projects'] = $this->project_model->get_projects($cid);
 			$jsfiles = array('project.js', 'mm-foundation-0.4.0.min.js');
 			$data['js_to_load'] = $jsfiles;
-			//print("<pre>".print_r($data['projects'],true)."</pre>");
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/clients/projects', $data);
 			$this->load->view('templates/footer', $data);
@@ -251,7 +250,6 @@ class Clients extends CI_Controller {
 	{
 		$this->load->model('project_model');
 		$data['projects'] = $this->project_model->get_projects($cid);
-		//header('Content-Type: application/json');
 		print json_encode($data['projects']);
 	}
 
@@ -314,7 +312,6 @@ class Clients extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->model('project_model');
 		$data['task'] = $this->project_model->get_task($task_id);
-		//print("<pre>".print_r($data['task'], true )."</pre>");
 		$jsfiles = array('timer.js');
 		$data['js_to_load'] = $jsfiles;
 		$this->load->view('pages/clients/view_timer', $data);
@@ -325,10 +322,7 @@ class Clients extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->model('project_model');
-		//$cid = $this->uri->segment(3, 0);
 		$data['task'] = $this->project_model->get_task($task_id);
-		//$jsfiles = array('timer.js');
-		//$data['js_to_load'] = $jsfiles;
 		$this->form_validation->set_rules('timer', 'Timer', 'xss_clean|numeric');
 		$this->form_validation->set_rules('description', 'Description', 'xss_clean');
 
@@ -352,7 +346,6 @@ class Clients extends CI_Controller {
 	{
 		$this->load->model('project_model');
 		$return = $this->project_model->convert_to_invoice($pid, $cid);
-		//print json_encode($return);
 
 		if (!empty($return) ) {
 			redirect('/invoices/view/'.$return['item'][0]['common_id'], 'refresh');
