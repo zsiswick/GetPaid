@@ -11,8 +11,8 @@
 	<div class="large-8 columns large-centered">
 		<div class="form-wrap invoice-form light-bg">
 			<?php echo validation_errors(); ?>
-			<?php 
-				if (isset($upload_error)) 
+			<?php
+				if (isset($upload_error))
 				{
 					echo($upload_error);
 				}
@@ -23,10 +23,10 @@
 							<?php echo($this->session->flashdata('error')); ?>
 						</div>
 			<?php }?>
-			<?php 
+			<?php
 				$hidden = array('uid' => $uid);
 				$attributes = array('data-abide'=>'');
-				echo form_open_multipart('settings', $attributes, $hidden); 
+				echo form_open_multipart('settings', $attributes, $hidden);
 			?>
 			<ul class="tabs" data-tab role="tablist">
 			  <li class="tab-title active" role="presentational" ><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" controls="panel2-1">Basic Info</a></li>
@@ -34,16 +34,16 @@
 			</ul>
 			<div class="tabs-content">
 			  <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
-			    
+
 			    <div class="row">
 			    	<div class="small-12 columns">
 			    		<label for="companyName">Company Name</label>
 			    		<input type="text" name="company_name" value="<?php echo($settings[0]['company_name']) ?>" required />
 			    		<small class="error">Company Name is required.</small>
 			    	</div>
-			    	
+
 			    </div>
-			    
+
 			    <div class="row">
 			    	<div class="small-6 columns">
 			    		<label for="fullname">Full Name</label>
@@ -56,7 +56,7 @@
 			    		<small class="error">Valid email is required.</small>
 			    	</div>
 			    </div>
-			    
+
 			    <div class="row">
 			    	<div class="small-6 columns">
 			    		<label for="address_1">Address 1</label>
@@ -67,7 +67,7 @@
 			    		<input type="text" name="address_2" value="<?php echo $settings[0]['address_2'] ?>"/>
 			    	</div>
 			    </div>
-			    
+
 			    <div class="row">
 			    	<div class="small-6 columns">
 			    		<label for="city">City</label>
@@ -87,7 +87,7 @@
 			    		<label for="country">Country</label>
 			    		<input type="text" name="country" value="<?php echo $settings[0]['country'] ?>" />
 			    	</div>
-			    	
+
 			    	<div class="small-6 columns">
 			    		<label for="currency">Default Currency</label>
 			    		<?php
@@ -119,8 +119,8 @@
 			    <div class="row">
 			    	<div class="small-12 columns">
 			    		<div class="info-block">
-				    		<?php 
-				    			if (!empty($filename)) 
+				    		<?php
+				    			if (!empty($filename))
 				    			{
 				    				echo('<img src="'.base_url().'uploads/logo/'.$uid."/".$filename.'" class="logo thumb" />');
 				    				echo('<a class="small-type" href="'.base_url().'index.php/settings/remove_logo/'.$uid.'">Remove</a>');
@@ -132,32 +132,32 @@
 			    		</div>
 			    	</div>
 			    </div>
-			    
+
 			  </section>
 			  <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
-			    
+
 			    <div class="row">
 			    	<div class="columns medium-6">
 			    		<input type="hidden" name="sid" value="" />
 			    		<label for="due">Invoices Due</label>
-			    		
-			    		
+
+
 			    		<?php
 			    			$options = array(
 			    		                '15'  => '15 Days',
 			    		                '30'    => '30 Days',
 			    		                '45'   => '45 Days',
 			    		              );
-			    			
-			    			
+
+
 			    			echo form_dropdown('due', $options, $settings[0]['due']);
 			    		?>
 			    	</div>
-			    	
+
 			    	<div class="columns medium-6">
 			    		<label for="due">Send a Reminder Every</label>
-			    		
-			    		
+
+
 			    		<?php
 			    			$options = array(
 			    		                '7'  => '7 Days',
@@ -165,14 +165,14 @@
 			    		                '30'    => '30 Days',
 			    		                '45'   => '45 Days',
 			    		              );
-			    			
-			    			
+
+
 			    			echo form_dropdown('remind', $options, $settings[0]['remind']);
 			    		?>
 			    	</div>
 			    </div>
-			    
-			    
+
+
 			    <div class="row">
 			    	<div class="columns small-12">
 			    		<label for="notes">Payment Terms</label>
@@ -188,12 +188,12 @@
 			    		<input type="text" name="tax_2" value="<?php echo($settings[0]['tax_2']) ?>" pattern="integer" />
 			    		<small class="error">Number is required.</small>
 			    	</div>
-			    </div>   
-			    
+			    </div>
+
 			    <div class="row">
 			    	<div class="columns small-12 end">
 			    		<hr />
-			    		<h3>Invoice Payments <i class="fi-info size-18" data-tooltip title="Get paid quicker! Once you've linked a payment gateway with your Ruby Invoice account, your clients will be able to pay invoices directly."></i></h3> 
+			    		<h3>Invoice Payments <i class="fi-info size-18" data-tooltip title="Get paid quicker! Once you've linked a payment gateway with your Ruby Invoice account, your clients will be able to pay invoices directly."></i></h3>
 			    		<label>Enable Payments</label>
 			    		<div class="switch round">
 			    		  <input id="enable_payments" name="enable_payments" type="checkbox" <?php if( $settings[0]['enable_payments'] == 1) {?> checked="checked" <?php } ?> value="1"/>
@@ -201,26 +201,26 @@
 			    		</div>
 			    	</div>
 			    </div>
-			    
-			    
-			    
+
+
+
 			    <div id="payment_settings" class="row">
 			    	<div class="columns medium-6">
 			    		<h5 class="ruled caps">Connect to Stripe</h5>
 			    		<div class="info-block">
-			    			<?php 
+			    			<?php
 			    				if ( $settings[0]['stripe_cust_token'] == false ) {
-			    					
+
 			    					echo anchor('https://connect.stripe.com/oauth/authorize?response_type=code&client_id='.STRIPE_CLIENT_ID.'&scope=read_write&stripe_user[email]='.$settings[0]['email'].'&stripe_user[business_name]='.$settings[0]['company_name'].'&stripe_user[street_address]='.$settings[0]['address_1'].'&stripe_user[city]='.$settings[0]['city'].'&stripe_user[state]='.$settings[0]['state'].'&stripe_user[zip]='.$settings[0]['zip'], 'Connect Account', 'title="Connect Account" class="button small round"');
-			    					
+
 			    				} else {
-			    					
+
 			    					echo anchor('settings/disconnect_stripe', 'Disconnect Account', 'title="Disconnect Account" class="button small round"');
-			    					
+
 			    				}
 			    			?>
 			    		</div>
-			    		
+
 			    		<ul>
 			    			<li><i class="fi-credit-card" data-tooltip title="Learn more at: www.stripe.com/us/pricing"></i> Stripe Fee: 2.9% + 30¢</li>
 			    			<li><hr /></li>
@@ -237,25 +237,25 @@
 			    				<li>After granting permissions, you will be redirected back to this page with your Stripe account connected.</li>
 			    			</ol>
 			    		</div>
-			    		
+
 			    	</div>
 			    	<div class="columns small-12">
 			    		<hr />
 			    		<input type="checkbox" id="payment_notification" name="payment_notification" <?php if( $settings[0]['payment_notification'] == 1) {?> checked="checked" <?php } ?> value="1" /><label for="payment_notification">Send me a notification email upon payment</label>
 			    	</div>
 			    </div>
-			    
+
 			  </section>
 			</div>
-			
+
 					<div class="row">
 						<div class="large-12 columns text-right small-only-text-center">
 							<input type="submit" name="submit" value="Save Changes" class="button round" />
 						</div>
-					</div>		
-				
+					</div>
+
 				</form>
-				
-		</div>		
+
+		</div>
 	</div>
 </div>

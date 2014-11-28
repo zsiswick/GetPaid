@@ -55,7 +55,7 @@
         <?php echo $invoice_item['quantity'].' '.$invoice_item['unit']; ?>
       </div>
       <div class="small-12 medium-6 columns small-only-text-center">
-        <?php echo str_replace('\n', '<br>', $invoice_item['description']); ?>
+        <?php echo nl2br($invoice_item['description']); ?>
       </div>
       <div class="small-12 small-only-text-center medium-2 columns text-right hide-for-small-only">
         <?php echo $invoice_item['unit_cost']; ?>
@@ -166,7 +166,7 @@
   <div class="medium-7 medium-pull-5 columns terms">
     <hr class="show-for-small-only">
     <h3>Payment Terms</h3>
-    <p><?php echo($item['settings'][0]['notes']); ?></p>
+    <p><?php echo nl2br($item['settings'][0]['notes']); ?></p>
 
   </div>
   <?php  } ?>

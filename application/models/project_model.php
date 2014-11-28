@@ -257,7 +257,7 @@ class Project_model extends CI_Model {
 
           if (!empty($task)) {
 
-            $items_to_convert['item'][]['description'] = $project['project_name'].' - '.$task->task_name.'\n';
+            $items_to_convert['item'][]['description'] = $project['project_name'].' - '.$task->task_name."\n";
 
             $query2 = $this->db->get_where('timers', array('task_id' => $task->id));
 
@@ -267,7 +267,7 @@ class Project_model extends CI_Model {
             foreach ($query2->result() as $timer) {
 
               // CONTAINER TO HOLD AND CONCATINATE TIMER DESCRIPTIONS
-              $timers_combined[$i] .= $timer->description.'\n';
+              $timers_combined[$i] .= $timer->description."\n";
 
               $timers_time += $timer->time;
 
