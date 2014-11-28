@@ -361,6 +361,11 @@ class Invoice_model extends CI_Model {
 			// Delete all associated invoice payments
 			$this->db->where('common_id', $id);
 			$this->db->delete('payments');
+
+			// Update timers
+			$this->db->where('common_id', $id);
+			$invoiced = array('common_id' => '0');
+			$this->db->update('timers', $invoiced);
 		}
 	}
 

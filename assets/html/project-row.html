@@ -25,6 +25,16 @@
   <!-- TASK REPEATER -->
   <div class="panel task" ng-repeat="task in prj.tasks | orderBy:'id':true track by task.id" ng-include="getTaskTemplate()"></div>
   <div class="row">
+    <div class="medium-5 columns">
+      <div class="panel">
+        Hours Worked: {{prj.hours_worked}} | Hours Unbilled: {{prj.hours_unbilled}}<br/>
+        <a ng-if="prj.hours_unbilled !== '0.00'" ng-click="draft_invoice(prj, $index)">Draft an Invoice</a>
+        <span ng-if="prj.hours_unbilled == '0.00'">Fully Billed</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
     <div class="small-12 columns">
       <hr/>
     </div>

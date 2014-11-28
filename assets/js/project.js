@@ -25,22 +25,35 @@ var app = angular.module('projectApp', ['mm.foundation'])
       var index3;
 
         for (index = 0; index < $scope.project_object.length; ++index) { // PROJECT LOOP
-          total_time = 0;
+
+          tasks_total_time = 0;
+          time_unbilled = 0;
 
           if ($scope.project_object[index].tasks) {
+
 
             for (index2 = 0; index2 < $scope.project_object[index].tasks.length; ++index2) { // TASK LOOP
 
               var total_time = 0;
+              var timers_unbilled = 0;
 
                if ($scope.project_object[index].tasks[index2].timers) {
 
                  for (index3 = 0; index3 < $scope.project_object[index].tasks[index2].timers.length; ++index3) { // TIMER LOOP
 
                    total_time += parseInt($scope.project_object[index].tasks[index2].timers[index3].time);
-                   //time_hours = (total_time / time_unit).toFixed(2);
                    $scope.project_object[index].tasks[index2].time_total = $scope.convertToHours(total_time);
+
+                   // TALLY HOURS INVOICED
+                   if( $scope.project_object[index].tasks[index2].timers[index3].common_id == "0" ) {
+                     timers_unbilled += parseInt($scope.project_object[index].tasks[index2].timers[index3].time);
+
+                   }
+
                 }
+
+                time_unbilled += timers_unbilled;
+                tasks_total_time += total_time;
 
                 division = (total_time / time_unit) / $scope.project_object[index].tasks[index2].time_estimate;
                 hour_percent = Math.round((division * 100).toFixed(2));
@@ -56,6 +69,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
               }
             }
         }
+
+        $scope.project_object[index].hours_unbilled = $scope.convertToHours(time_unbilled);
+        $scope.project_object[index].hours_worked = $scope.convertToHours(tasks_total_time);
+
       }
     }
 
@@ -329,6 +346,11 @@ var app = angular.module('projectApp', ['mm.foundation'])
       $scope.project_object[prj].tasks[task].timers.splice(index, 1);
       calcTimers();
       $scope.deleteTimer(id, action);
+    }
+
+    $scope.draft_invoice = function(prj, $index) {
+
+      window.location.href = baseurl+'index.php/clients/convert_invoice/'+prj.project_id+'/'+cid;
     }
 
 }]);

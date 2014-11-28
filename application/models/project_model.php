@@ -48,7 +48,6 @@ class Project_model extends CI_Model {
     }
   }
 
-
   public function get_project($project_id = FALSE)
   {
     $this->db->select('*');
@@ -218,5 +217,106 @@ class Project_model extends CI_Model {
     return $timer_id;
 
   }
+
+  public function convert_to_invoice($pid, $cid)
+  {
+    $uid = $this->tank_auth_my->get_user_id();
+    $this->db->select("p.project_id, p.project_name", false);
+
+    $this->db->from('projects p');
+    $this->db->where('p.uid', $uid);
+    $this->db->where('p.project_id', $pid);
+    $this->db->order_by("project_id", "desc");
+    $query = $this->db->get();
+    $projects = $query->result_array();
+    $items_to_convert = array();
+    $timers_combined = array();
+    $timers_time = 0;
+    $sumTotal = 0;
+    $today = date('Y-m-d');
+    $i = 0;
+
+
+    if ($query->num_rows() > 0)
+    {
+
+      foreach ($projects as &$project) {
+
+        $query = $this->db->order_by('id', 'desc')->get_where('tasks', array('project_id' => $project['project_id']));
+
+        // CREATE AN INVOICE TABLE
+        $common_data = array('uid' => $uid, 'cid' => $cid, 'date' => $today);
+
+        $this->db->insert('common', $common_data);
+
+        // Get the table id of the last row updated using insert_id() function
+        $common_id = $this->db->insert_id();
+
+
+        foreach ($query->result() as $task) {
+
+          if (!empty($task)) {
+
+            $items_to_convert['item'][]['description'] = $project['project_name'].' - '.$task->task_name.'\n';
+
+            $query2 = $this->db->get_where('timers', array('task_id' => $task->id));
+
+            // CREATES AN EMPTY STRING TO CONCATINATE TO IN NEXT LOOP
+            $timers_combined[$i] = '';
+
+            foreach ($query2->result() as $timer) {
+
+              // CONTAINER TO HOLD AND CONCATINATE TIMER DESCRIPTIONS
+              $timers_combined[$i] .= $timer->description.'\n';
+
+              $timers_time += $timer->time;
+
+              // UPDATE THE TIMER'S INVOICED TABLE
+              $this->db->where('timer_id', $timer->timer_id);
+              $invoiced = array('common_id' => $common_id);
+              $this->db->update('timers', $invoiced);
+            }
+          }
+
+          // ADD ITEM PROPERTIES
+          $items_to_convert['item'][$i]['description'] .= $timers_combined[$i];
+          $items_to_convert['item'][$i]['unit'] = 'hours';
+          $items_to_convert['item'][$i]['unit_cost'] = $task->rate;
+          $items_to_convert['item'][$i]['common_id'] = $common_id;
+
+          // SUM OF THE TIMERS
+          $hours = $this->_convertToHours($timers_time);
+          $items_to_convert['item'][$i]['quantity'] = $hours;
+          // CALCULATE THE TASK TOTALS
+          $sumTotal += ($hours * $task->rate);
+
+          $i++;
+        }
+        $this->db->insert_batch('item', $items_to_convert['item']);
+
+        // UPDATE THE INVOICE WITH THE TOTALS FROM THE TASK TIMERS
+        $this->db->where('id', $common_id);
+        $this->db->limit(1);
+        $amount = array('amount' => $sumTotal);
+        $this->db->update('common', $amount);
+
+      }
+
+      return $items_to_convert;
+    }
+
+    else {
+
+      return;
+    }
+  }
+
+  private function _convertToHours($total_time)
+  {
+    $time_unit = 3600; // time measured in seconds
+    $time_hours = round($total_time / $time_unit, 2);
+    return $time_hours;
+  }
+
 
 }

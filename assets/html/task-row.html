@@ -23,7 +23,7 @@
     </div>
   </div>
   <div ng-if="task.timers" class="small-12 columns">
-    <a ng-click="show=!show"><i class="fi-clock"></i> {{show ? 'Hide' : 'Show'}} Timers</a>
+    <a ng-click="show=!show"><i class="fi-clock"></i> {{show ? 'Hide' : 'Show'}} Time</a>
     <div ng-show="show" class="timers" ng-repeat="timer in task.timers track by $index" ng-include="getTimerRows()"></div>
   </div>
 </div>

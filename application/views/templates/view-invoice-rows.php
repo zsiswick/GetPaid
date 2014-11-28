@@ -52,21 +52,19 @@
 
     <div class="row">
       <div class="small-12 medium-2 large-2 columns hide-for-small-only">
-        <?php echo $invoice_item['quantity'] ?> <?php echo $invoice_item['unit'] ?>
+        <?php echo $invoice_item['quantity'].' '.$invoice_item['unit']; ?>
       </div>
       <div class="small-12 medium-6 columns small-only-text-center">
-        <?php echo $invoice_item['description'] ?>
+        <?php echo str_replace('\n', '<br>', $invoice_item['description']); ?>
       </div>
       <div class="small-12 small-only-text-center medium-2 columns text-right hide-for-small-only">
-        <?php echo $invoice_item['unit_cost'] ?>
+        <?php echo $invoice_item['unit_cost']; ?>
       </div>
       <div class="small-12 columns small-only-text-center show-for-small-only">
-        <?php echo $invoice_item['quantity'] ?> x <?php echo $invoice_item['unit_cost'] ?>
+        <?php echo $invoice_item['quantity'].' x '.$invoice_item['unit_cost']; ?>
       </div>
       <div class="small-12 small-only-text-center medium-2 columns text-right totalSum" data-totalsum="<?php echo number_format((float)$number, 2, '.', ','); ?>">
-        <?php
-          echo number_format((float)$number, 2, '.', ',');
-        ?>
+        <?php echo number_format((float)$number, 2, '.', ',');?>
       </div>
       <div class="small-12 columns"><hr /></div>
     </div>

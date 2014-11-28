@@ -347,6 +347,17 @@ class Clients extends CI_Controller {
 		$return = $this->project_model->delete_timer($data);
 		print json_encode($return);
 	}
+
+	public function convert_invoice($pid, $cid)
+	{
+		$this->load->model('project_model');
+		$return = $this->project_model->convert_to_invoice($pid, $cid);
+		//print json_encode($return);
+
+		if (!empty($return) ) {
+			redirect('/invoices/view/'.$return['item'][0]['common_id'], 'refresh');
+		}
+	}
 }
 
 /* End of file welcome.php */
