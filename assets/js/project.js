@@ -11,6 +11,7 @@ var cid = window.location.pathname.split('/').pop();
 var app = angular.module('projectApp', ['mm.foundation'])
   .controller('ProjectController', ['$scope', '$http', function($scope, $http) {
 
+
     $scope.convertToHours = function(total_time) {
       var time_unit = 3600; // time measured in seconds
       time_hours = (total_time / time_unit).toFixed(2);
@@ -76,11 +77,15 @@ var app = angular.module('projectApp', ['mm.foundation'])
       }
     }
 
+
     // GET PROJECT JSON
     $scope.loadProjects = function () {
      $http.get(baseurl+'index.php/clients/get_project_json/'+cid).success(function(data) {
-       if (typeof data === "undefined" || data == "null") {
-         $scope.project_object = {};
+
+      if (typeof data === "undefined" || data == "null") {
+
+        $scope.project_object = [];
+
          $scope.setProject("Sample Project");
 
        } else {
