@@ -24,6 +24,8 @@ var app = angular.module('projectApp', ['mm.foundation'])
       var index;
       var index2;
       var index3;
+      var time_unbilled = 0;
+      var tasks_total_time =0;
 
         for (index = 0; index < $scope.project_object.length; ++index) { // PROJECT LOOP
 
