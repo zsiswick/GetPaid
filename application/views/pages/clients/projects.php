@@ -30,7 +30,7 @@
 
   <div class="row" ng-include="getProjectForm()" ng-show="pform"></div>
   <!--<div class="row project" ng-repeat="prj in project_object | orderBy:'project_id':true" ng-include="getProjectTemplate()"></div>-->
-  <div class="row project" ng-repeat="prj in project_object | orderBy:'project_id':true track by $index" ng-include="getProjectTemplate()"></div>
+  <div class="row project" ng-repeat="prj in project_object | orderBy:'prj.project_id':true track by prj.project_id" ng-include="getProjectTemplate()"></div>
 
   <div class="row">
     <div class="small-12 medium-12 large-4 columns large-centered">
