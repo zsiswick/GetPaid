@@ -81,10 +81,18 @@ var app = angular.module('projectApp', ['mm.foundation'])
       }
     }
 
-
     // GET PROJECT JSON
     $scope.loadProjects = function () {
-     $http.get(baseurl+'index.php/clients/get_project_json/'+cid).success(function(data) {
+     $http.get(baseurl+'index.php/clients/get_project_json/'+cid)
+     .error(function (data) {
+        Messenger().post({
+          message: 'There was a connection error, try refreshing...',
+          type: 'error'
+        });
+
+        $scope.project_object = JSON.parse(localStorage.localData);
+      })
+     .success(function(data) {
 
       if (typeof data === "undefined" || data == "null") {
 
@@ -96,9 +104,22 @@ var app = angular.module('projectApp', ['mm.foundation'])
         });
 
        } else {
+
+         // POPULATE LOCAL STORAGE
+         if(typeof(Storage) !== "undefined") {
+
+           localStorage.localData = JSON.stringify(data);
+           // Retrieve the object from storage
+           retrievedObject = JSON.parse(localStorage.localData);
+
+         } else {
+           // Sorry! No Web Storage support..
+         }
+
          $scope.project_object = data;
-         console.log(data);
+         //$scope.project_object = retrievedObject;
          calcTimers();
+
        }
      });
     };
@@ -119,14 +140,22 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "cid" : cid
         }),
       })
-      .success(function(data) {
-        pid = String(data.project_id);
-
-        $scope.project_object.unshift({
-          project_id: pid,
-          project_name: data.project_name
+      .error(function(data) {
+        Messenger().post({
+          message: 'There was a connection error, try saving again',
+          type: 'error'
         });
-        //console.log($scope.project_object);
+        $scope.project_object.unshift({
+          project_name: prj_name
+        });
+      })
+      .success(function(data) {
+
+        // PROJECT ID IS RETRIEVED FROM DB
+        pid = String(data.project_id);
+        // ADD THE PROJECT ID BACK TO THE NEWLY INSERT PROJECT
+        $scope.project_object[0].project_id = pid;
+
         Messenger().post({
           message: 'Project '+data.project_name+' was added',
           type: 'success'
@@ -147,11 +176,13 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "status" : prj.status
         }),
       })
-      .success(function(data) {
-        $.extend(true, prj, {
-          "project_name": prj_name,
-          "status":prj.status
+      .error(function(data) {
+        Messenger().post({
+          message: 'There was a connection error, try saving again',
+          type: 'error'
         });
+      })
+      .success(function(data) {
         Messenger().post({
           message: 'Project was edited',
           type: 'success'
@@ -168,6 +199,12 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "project_id" : prj.project_id,
           "cid" : cid
         }),
+      })
+      .error(function(data) {
+        Messenger().post({
+          message: 'There was a connection error, try again soon',
+          type: 'error'
+        });
       })
       .success(function(data) {
         //console.log(data);
@@ -197,6 +234,12 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "update" : update
         }),
       })
+      .error(function(data) {
+        Messenger().post({
+          message: 'There was a connection error, try saving again',
+          type: 'error'
+        });
+      })
       .success(function(data) {
         //console.log(data);
         Messenger().post({
@@ -220,16 +263,21 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "time_estimate" : testimate
         }),
       })
+      .error(function(data) {
+        Messenger().post({
+          message: 'There was a connection error, try saving again',
+          type: 'error'
+        });
+      })
       .success(function(data) {
 
         if (!prj.tasks) {
           prj.tasks = [];
         }
-        data.percent_complete = 0;
+
+        // ADD THE TASK ID FROM THE DB
         tid = String(data.id);
-        data.id = tid;
-        data.time_total = 0;
-        prj.tasks.unshift(data);
+        prj.tasks[0].id = tid;
 
         prj.task_form = false;
 
@@ -252,6 +300,12 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "id" : id
         }),
       })
+      .error(function(data) {
+        Messenger().post({
+          message: 'There was a connection error, try again soon',
+          type: 'error'
+        });
+      })
       .success(function(data) {
         Messenger().post({
           message: 'Task was deleted',
@@ -271,8 +325,13 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "timer_id" : id
         }),
       })
+      .error(function(data) {
+        Messenger().post({
+          message: 'There was a connection error, try again soon',
+          type: 'error'
+        });
+      })
       .success(function(data) {
-        console.log(data);
         Messenger().post({
           message: 'Time log deleted',
           type: 'success'
@@ -311,6 +370,21 @@ var app = angular.module('projectApp', ['mm.foundation'])
       prj.project_form = true;
     }
 
+    $scope.addProject = function(prj) {
+      $scope.project_object.unshift({
+        project_name: prj
+      });
+      $scope.setProject(prj);
+    }
+
+    $scope.updateProject = function(prj, project_name) {
+      $.extend(true, prj, {
+        "project_name": project_name,
+        "status":prj.status
+      });
+      $scope.editProject(prj, project_name);
+    }
+
     $scope.removeProject = function(prj_index, prj) {
       $scope.deleteProject(prj);
       $scope.project_object.splice(prj_index, 1);
@@ -319,6 +393,21 @@ var app = angular.module('projectApp', ['mm.foundation'])
 
     // TASK CREATION INTERACTIONS
 
+    $scope.addTask = function(prj, task_name, task_rate, task_estimate) {
+      prj.tasks.unshift({
+        "task_name": task_name,
+        "rate": task_rate,
+        "time_estimate": task_estimate,
+        "percent_complete": 0,
+        "time_total": "0",
+        "project_id": prj.project_id,
+        "time_unbilled": 0,
+        "cid": cid,
+        "complete": 0
+      });
+
+      $scope.addTaskRow(prj, task_name, task_rate, task_estimate)
+    }
     $scope.editTaskRow = function(task, task_name, task_rate, task_estimate) {
 
       $.extend(true, task, {
@@ -393,6 +482,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
 
       window.location.href = baseurl+'index.php/clients/convert_invoice/'+prj.project_id+'/'+cid;
     }
+
 
 }]);
 

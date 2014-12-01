@@ -4,7 +4,7 @@
 			<input type="text" placeholder="Project Name" name="project_name" ng-model="prj_name" ng-init="prj_name=prj.project_name">
 		</div>
 		<div class="small-2 columns">
-			<a class="button postfix secondary" ng-model="project" ng-click="hideEditProjectForm(prj); editProject(prj, prj_name)">Save</a>
+			<a class="button postfix secondary" ng-model="project" ng-click="hideEditProjectForm(prj); updateProject(prj, prj_name)">Save</a>
 		</div>
 		<div class="small-2 columns text-center">
 			 <a ng-click="hideEditProjectForm(prj)">Cancel</a>
