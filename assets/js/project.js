@@ -125,7 +125,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
           project_name: data.project_name
         });
         //console.log($scope.project_object);
-        Messenger().post("Project was added!");
+        Messenger().post({
+          message: 'Project '+data.project_name+' was added',
+          type: 'success'
+        });
       });
     };
 
@@ -147,7 +150,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "project_name": prj_name,
           "status":prj.status
         });
-        Messenger().post("Project was edited!");
+        Messenger().post({
+          message: 'Project was edited',
+          type: 'success'
+        });
       });
     };
 
@@ -163,7 +169,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
       })
       .success(function(data) {
         //console.log(data);
-        Messenger().post("Project was deleted!");
+        Messenger().post({
+          message: 'Project '+prj.project_name+' was deleted',
+          type: 'success'
+        });
       });
     }
 
@@ -188,7 +197,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
       })
       .success(function(data) {
         //console.log(data);
-        Messenger().post("Task was edited!");
+        Messenger().post({
+          message: 'Task was saved',
+          type: 'success'
+        });
       });
     };
 
@@ -214,11 +226,15 @@ var app = angular.module('projectApp', ['mm.foundation'])
         data.percent_complete = 0;
         tid = String(data.id);
         data.id = tid;
+        data.time_total = 0;
         prj.tasks.unshift(data);
 
         prj.task_form = false;
 
-        Messenger().post("Task was added!");
+        Messenger().post({
+          message: 'Task was added',
+          type: 'success'
+        });
 
         //console.log(data);
       });
@@ -235,7 +251,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
         }),
       })
       .success(function(data) {
-        Messenger().post("Task was deleted!");
+        Messenger().post({
+          message: 'Task was deleted',
+          type: 'success'
+        });
       });
     };
 
@@ -252,6 +271,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
       })
       .success(function(data) {
         console.log(data);
+        Messenger().post({
+          message: 'Time log deleted',
+          type: 'success'
+        });
       });
     };
 
