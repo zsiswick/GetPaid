@@ -66,7 +66,7 @@
     <h4>Manage Project</h4>
     <p>From here you can edit, delete, and draft an invoice.</p>
   </li>
-  <li data-id="task-0" data-text="Next" data-prev-text="Prev">
+  <li data-id="task-0" data-text="Done!" data-prev-text="Prev">
     <h4>Add Tasks</h4>
     <p>Add individual project tasks here. Once you've added a task, you can provide an hourly rate, estimate, and start logging time for your work.</p>
   </li>
