@@ -25,7 +25,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
       var index2;
       var index3;
       var time_unbilled = 0;
-      var tasks_total_time =0;
+      var tasks_total_time = 0;
 
         for (index = 0; index < $scope.project_object.length; ++index) { // PROJECT LOOP
 
@@ -66,9 +66,11 @@ var app = angular.module('projectApp', ['mm.foundation'])
                 }
 
                 $scope.project_object[index].tasks[index2].percent_complete = hour_percent;
+                $scope.project_object[index].tasks[index2].time_total = $scope.convertToHours(total_time);
 
               } else {
                 $scope.project_object[index].tasks[index2].percent_complete = 0;
+
               }
             }
         }
