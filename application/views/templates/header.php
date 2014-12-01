@@ -7,6 +7,8 @@
 		<meta name="google-site-verification" content="ytvgo-pM6llaRZTvpSHPZb90kLxsWEyK05wPIX_SwH0" />
 		<meta name="description" content="Free mobile-friendly billing service built for freelancers to help create professional quotes and invoices, track and collect payments, and manage time"/>
 		<title><?php echo($this->tank_auth_my->get_username());?> | Ruby Invoice</title>
+		<script src="<?php echo base_url(); ?>assets/js/pace/pace.js"></script>
+		<link href="<?php echo base_url(); ?>assets/js/pace/themes/pace-theme-minimal.css" rel="stylesheet" />
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/normalize.css" />
