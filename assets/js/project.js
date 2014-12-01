@@ -87,8 +87,11 @@ var app = angular.module('projectApp', ['mm.foundation'])
       if (typeof data === "undefined" || data == "null") {
 
         $scope.project_object = [];
-
-         $scope.setProject("Sample Project");
+        $scope.setProject("Sample Project");
+        Messenger().post({
+          message: 'No projects, sample project added.',
+          type: 'error'
+        });
 
        } else {
          $scope.project_object = data;
@@ -122,6 +125,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
           project_name: data.project_name
         });
         //console.log($scope.project_object);
+        Messenger().post("Project was added!");
       });
     };
 
@@ -143,6 +147,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
           "project_name": prj_name,
           "status":prj.status
         });
+        Messenger().post("Project was edited!");
       });
     };
 
@@ -158,6 +163,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
       })
       .success(function(data) {
         //console.log(data);
+        Messenger().post("Project was deleted!");
       });
     }
 
@@ -182,6 +188,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
       })
       .success(function(data) {
         //console.log(data);
+        Messenger().post("Task was edited!");
       });
     };
 
@@ -207,9 +214,11 @@ var app = angular.module('projectApp', ['mm.foundation'])
         data.percent_complete = 0;
         tid = String(data.id);
         data.id = tid;
-        prj.tasks.push(data);
+        prj.tasks.unshift(data);
 
         prj.task_form = false;
+
+        Messenger().post("Task was added!");
 
         //console.log(data);
       });
@@ -226,7 +235,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
         }),
       })
       .success(function(data) {
-        //$scope.entries = data;
+        Messenger().post("Task was deleted!");
       });
     };
 
@@ -361,3 +370,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
     }
 
 }]);
+
+// MESSENGER INIT
+
+Messenger.options = {
+    extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+    theme: 'air'
+}

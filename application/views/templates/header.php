@@ -7,6 +7,16 @@
 		<meta name="google-site-verification" content="ytvgo-pM6llaRZTvpSHPZb90kLxsWEyK05wPIX_SwH0" />
 		<meta name="description" content="Free mobile-friendly billing service built for freelancers to help create professional quotes and invoices, track and collect payments, and manage time"/>
 		<title><?php echo($this->tank_auth_my->get_username());?> | Ruby Invoice</title>
+		<script>
+	    window.paceOptions = {
+			    ajax: {
+			        trackMethods: ["GET", "POST"],
+			        trackWebSockets: false
+			    },
+			    document: false,
+			    restartOnPushState: false
+			};
+		</script>
 		<script src="<?php echo base_url(); ?>assets/js/pace/pace.js"></script>
 		<link href="<?php echo base_url(); ?>assets/js/pace/themes/pace-theme-minimal.css" rel="stylesheet" />
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -18,6 +28,10 @@
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/vendor/modernizr.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/libs/angular.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/messenger/build/js/messenger.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/messenger/build/js/messenger-theme-future.js"></script>
+		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/messenger/build/css/messenger.css" />
+		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/messenger/build/css/messenger-theme-air.css" />
 
 		<?php if (isset($css_to_load)) :
 				foreach ($css_to_load as $css) : ?>

@@ -21,15 +21,12 @@
   <div ng-if="prj.tasks.length < 1 || !prj.tasks" ng-hide="prj.task_form" class="panel text-center">
     <span><a ng-click="showTaskForm(prj)">Add a task</a> to start logging hours for {{prj.project_name}}</span>
   </div>
-  <!-- TASK REPEATER -->
   <!-- PROJECT TASK FORM -->
   <div class="panel task-form" ng-show="prj.task_form" ng-include="getTaskForm()"></div>
-
+  <!-- TASK REPEATER -->
   <div class="task-list">
-    <div class="panel task" ng-repeat="task in prj.tasks | orderBy:'id':true track by task.id" ng-include="getTaskTemplate()"></div>
+    <div class="panel task" ng-repeat="task in prj.tasks | orderBy:'task.id':false track by task.id" ng-include="getTaskTemplate()"></div>
   </div>
-
-
 
   <div class="row">
     <div class="medium-5 medium-offset-7 columns">

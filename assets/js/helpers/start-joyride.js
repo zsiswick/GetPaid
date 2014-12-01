@@ -4,4 +4,4 @@ $(document).foundation({
     cookie_name: 'joyride',
     cookie_expires: 365
   }
- }).foundation('joyride', 'start');
+}).foundation('joyride', 'start');

@@ -1,9 +1,3 @@
-<?php
-  if (!empty($projects)) {
-
-  }
-?>
-
 <div class="row">
   <div class="large-6 columns large-centered">
     <h1 class="text-center"><?php echo $client[0]['company'] ?></h1>
