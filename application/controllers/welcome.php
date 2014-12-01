@@ -12,7 +12,7 @@ class Welcome extends CI_Controller
 	function index()
 	{
 		$this->load->library('tank_auth_my');
-		$data['title'] = "Ruby Invoice - Mobile-Friendly Billing with Style";
+		$data['title'] = "Free Mobile-Friendly Invoicing for Freelancers";
 		if (!$this->tank_auth_my->is_logged_in()) {
 			$this->load->view('templates/client/header', $data);
 			$this->load->view('welcome', $data);

@@ -9,7 +9,7 @@
 		</div>
 		<div class="large-pull-6 large-6 small-text-center large-text-left columns">
 			<h1>Ruby Invoice</h1>
-			<p class="big-p">The free mobile-friendly billing service that helps you create professional quotes and invoices, track and collect payments, and set overdue reminders with neither muss, nor fuss.</p>
+			<p class="big-p">The free mobile-friendly billing service that helps you create professional quotes and invoices, track and collect payments, and manage your time with neither muss, nor fuss.</p>
 			<a href="<?php echo base_url(); ?>index.php/auth/register" class="button round">Register For Free</a>
 		</div>
 		<div class="small-12 columns pad-top"><hr class="light-bg" /></div>

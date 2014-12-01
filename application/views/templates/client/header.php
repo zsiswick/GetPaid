@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 		<meta charset="utf-8">
 		<meta name="google-site-verification" content="ytvgo-pM6llaRZTvpSHPZb90kLxsWEyK05wPIX_SwH0" />
+		<meta name="description" content="Free mobile-friendly billing service built for freelancers to help create professional quotes and invoices, track and collect payments, and manage time"/>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<?php if (!empty($title)) { ?>
@@ -21,12 +22,12 @@
 		<script src="<?php echo base_url(); ?>assets/js/vendor/modernizr.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/vendor/jquery.js"></script>
 
-		<? if (isset($css_to_load)) :
+		<?php if (isset($css_to_load)) :
 				foreach ($css_to_load as $css) : ?>
 					<link rel="stylesheet" href="<?php echo base_url();?>assets/css/<?=$css;?>" />
 		<?php endforeach;?>
 
-		<? endif;?>
+		<?php endif;?>
 	</head>
 	<body>
 

@@ -219,7 +219,7 @@
 	</div>
 </div>
 
-<!-- At the bottom of your page but inside of the body tag -->
+<!-- Joyride Items -->
 <ol class="joyride-list" data-joyride>
   <li data-id="joyride-begin" data-text="Next" data-options="tip_location: top; prev_button: false">
     <p>Hello! Here is where you can manage your invoice. We'll walk you through some of the features to help you get started.</p>
