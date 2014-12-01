@@ -238,8 +238,9 @@ class Clients extends CI_Controller {
 			$data['title'] = 'client projects';
 			$this->load->model('project_model');
 			$data['projects'] = $this->project_model->get_projects($cid);
-			$jsfiles = array('project.js', 'mm-foundation-0.4.0.min.js');
+			$jsfiles = array('project.js', 'mm-foundation-0.4.0.min.js', 'foundation/foundation.joyride.js', 'vendor/jquery.cookie.js', 'helpers/start-joyride.js');
 			$data['js_to_load'] = $jsfiles;
+
 			$this->load->view('templates/header', $data);
 			$this->load->view('pages/clients/projects', $data);
 			$this->load->view('templates/footer', $data);
