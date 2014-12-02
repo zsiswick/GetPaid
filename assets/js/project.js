@@ -279,8 +279,6 @@ var app = angular.module('projectApp', ['mm.foundation'])
         tid = String(data.id);
         prj.tasks[0].id = tid;
 
-        prj.task_form = false;
-
         Messenger().post({
           message: 'Task was added',
           type: 'success'
@@ -394,6 +392,10 @@ var app = angular.module('projectApp', ['mm.foundation'])
     // TASK CREATION INTERACTIONS
 
     $scope.addTask = function(prj, task_name, task_rate, task_estimate) {
+
+      if (typeof prj.tasks == 'undefined') {
+        prj.tasks = [];
+      }
       prj.tasks.unshift({
         "task_name": task_name,
         "rate": task_rate,
@@ -406,6 +408,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
         "complete": 0
       });
 
+      prj.task_form = false;
       $scope.addTaskRow(prj, task_name, task_rate, task_estimate)
     }
     $scope.editTaskRow = function(task, task_name, task_rate, task_estimate) {
