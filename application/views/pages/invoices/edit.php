@@ -45,7 +45,6 @@
 			$currency = currency_method($item[0]['currency']);
 		?>
 		<?php $sumTotal = 0 ?>
-
 				<?php echo validation_errors(); ?>
 
 				<div class="row invoice-info">

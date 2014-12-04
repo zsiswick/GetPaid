@@ -7,8 +7,6 @@
 			</div>
 		</section>
 
-
-
 		<div class="row">
 			<div class="medium-3 medium-centered text-center columns">
 				<div id="plus-button" class="svg-container">
@@ -24,41 +22,67 @@
 		</div>
 
 		<div class="row">
-			<div class="large-12 columns">
-				<div class="form-wrap invoice-form light-bg">
-					<div class="">
+			<div class="columns small-12">
+				<br/>
+			</div>
+		</div>
 
-						<div class="row invoice-create list_header">
-							<div class="small-12 medium-4 large-4 columns">
-								Company
-							</div>
-							<div class="small-12 medium-4 large-4 columns">
-								Contact
-							</div>
-							<div class="small-12 medium-4 large-4 columns">
-								Email
-							</div>
-						</div>
-
-
-							<?php foreach ($clients as $client): ?>
-								<div class="row tabbed list">
-									<div class="small-12 small-only-text-center medium-4 large-4 columns">
-										<input type="hidden" value="<?php echo $client['id']?>" /><a href="<?php echo base_url(); ?>index.php/clients/invoices/<?php echo $client['id']; ?>" class="button round small secondary"><i class="fi-torso-business"></i>&nbsp; <?php echo $client['company'] ?></a>
+		<?php foreach ($clients as $client): ?>
+			<?php if ( isset($client['cid']) ): ?>
+				<div class="row">
+					<div class="small-12 columns">
+						<a href="<?php echo base_url(); ?>index.php/clients/projects/<?php echo $client['cid']; ?>">
+							<div class="panel radius clickable minimal">
+								<div class="row collapse">
+									<div class="small-6 medium-8 columns">
+										<div class="client-title">
+											<span class="label secondary radius company left show-for-landscape"><?php echo substr($client['company'], 0, 2); ?></span>
+											<h4 class="left no-bottom-margin"><?php echo($client['company']); ?></h4>
+										</div>
 									</div>
-									<div class="small-12 small-only-text-center medium-4 large-4 columns">
-										<?php echo $client['contact'] ?>
+									<div class="small-3 medium-2 columns text-right">
+										<figure>
+											<h4 class="no-bottom-margin">$<?php echo $client['owing']; ?></h4><span class="small-type gray">Owed</span>
+										</figure>
 									</div>
-									<div class="small-12 small-only-text-center medium-4 large-4 columns">
-										<a href="mailto:<?php echo $client['email'] ?>" class=""><?php echo $client['email'] ?></a>
+									<div class="small-3 medium-2 columns text-right">
+										<figure>
+											<h4 class="no-bottom-margin">$<?php echo $client['unbilled']; ?></h4><span class="small-type gray">Unbilled</span>
+										</figure>
 									</div>
 								</div>
-							<?php endforeach ?>
-
+							</div>
+						</a>
+					</div>
+				</div>
+			<?php endif; ?>
+		<?php endforeach; ?>
+		<div class="row">
+			<div class="small-12 columns">
+				<div class="row collapse">
+					<div class="small-6 medium-8 columns">
+						<div class="client-title">
+							<h4 class="text-right gray">Total</h4>
+						</div>
+					</div>
+					<div class="small-3 medium-2 columns text-right">
+						<div class="panel minimal" style="border-right:none">
+							<figure>
+								<h4 class="no-bottom-margin">$<?php echo $clients['totals']['total_owing']; ?></h4><span class="small-type gray">Owed</span>
+							</figure>
+						</div>
+					</div>
+					<div class="small-3 medium-2 columns text-right">
+						<div class="panel minimal" style="border-left:none">
+							<figure>
+								<h4 class="no-bottom-margin">$<?php echo $clients['totals']['total_unbilled']; ?></h4><span class="small-type gray">Unbilled</span>
+							</figure>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 <?php	} else { ?>
 	<div class="row">
 	  <div class="large-12 columns text-center">

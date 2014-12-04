@@ -18,6 +18,7 @@ var app = angular.module('projectApp', ['mm.foundation'])
       return time_hours;
     }
 
+    // TODO MOVE THIS TO THE MODEL
     calcTimers = function() {
       var timers_combined = 0;
       var time_unit = 3600; // time measured in seconds

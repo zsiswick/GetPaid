@@ -6,18 +6,78 @@ class Client_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_clients($client = FALSE, $uid)
+	public function get_client_list()
 	{
-		if ($client === FALSE)
+		$uid = $this->tank_auth_my->get_user_id();
+		$query = $this->db->get_where('client', array('uid' => $uid));
+		return $query->result_array();
+	}
+
+
+	public function get_clients()
+	{
+		$uid = $this->tank_auth_my->get_user_id();
+
+		$this->db->select("cl.id as cid, cl.uid, cl.company, cl.contact, cl.email", false);
+
+		$this->db->from('client cl');
+		$this->db->where('cl.uid', $uid);
+		$this->db->order_by("cid", "desc");
+		$query = $this->db->get();
+		$clients = $query->result_array();
+
+		if ($query->num_rows() > 0)
 		{
-			$query = $this->db->get_where('client', array('uid' => $uid));
-			return $query->result_array();
+
+			$total_owing = 0;
+			$total_unbilled = 0;
+
+			foreach ($clients as &$client) {
+
+				$owing = 0;
+				$unbilled = 0;
+				$payment_amnt = 0;
+
+				$query = $this->db->order_by('id', 'desc')->get_where('common', array('cid' => $client['cid']));
+
+				foreach ($query->result() as $invoice) {
+
+					if (!empty($invoice)) {
+						$client['invoice'][] = $invoice;
+
+						if ($invoice->status != 0 && $invoice->status != 3) {
+							$owing += $invoice->amount;
+						}
+
+						if ($invoice->status == 0) {
+							$unbilled += $invoice->amount;
+						}
+
+						$query2 = $this->db->get_where('payments', array('common_id' => $invoice->id));
+
+						foreach ($query2->result() as $payment) {
+							$invoice->payments[] = $payment;
+							$payment_amnt += $payment->payment_amount;
+						}
+					}
+				}
+
+				$client['owing'] = $owing - $payment_amnt;
+				$client['unbilled'] = $unbilled;
+				$client['payment_amount'] = $payment_amnt;
+				$total_owing += $client['owing'];
+				$total_unbilled += $unbilled;
+
+			}
+			$clients['totals']['total_unbilled'] = $total_unbilled;
+			$clients['totals']['total_owing'] = $total_owing;
+			return $clients;
 		}
 
-		$query = $this->db->get_where('common', array('client' => $client));
+		else {
 
-		return $query->result_array();
-
+			return;
+		}
 	}
 
 	public function get_client($client_id = FALSE)

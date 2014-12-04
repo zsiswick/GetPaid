@@ -30,11 +30,10 @@ class Clients extends CI_Controller {
 
 	public function index() {
 
-		$client = FALSE;
 		$uid = $this->tank_auth_my->get_user_id();
-		$data['clients'] = $this->client_model->get_clients($client, $uid);
+		$data['clients'] = $this->client_model->get_clients($uid);
 		$data['first_name']	= $this->tank_auth_my->get_username();
-
+		//print("<pre>".print_r($data['clients'],true)."</pre>");
 		$this->load->view('templates/header');
 		$this->load->view('pages/clients/index', $data);
 		$this->load->view('templates/footer');

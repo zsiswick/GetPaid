@@ -142,7 +142,7 @@ class Invoices extends CI_Controller {
 		$invoice_id = $this->uri->segment(3, 0);
 		$data['title'] = 'Edit this invoice';
 		$uid = $this->tank_auth_my->get_user_id();
-		$data['clients'] = $this->client_model->get_clients(FALSE, $uid);
+		$data['clients'] = $this->client_model->get_client_list();
 		$data['item'] = $this->invoice_model->get_invoice($id, $uid);
 		$data['status_flags'] = unserialize(STATUS_FLAGS);
 

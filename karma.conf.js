@@ -17,7 +17,6 @@ module.exports = function(config) {
     files: [
       'assets/js/vendor/jquery.js',
       'assets/js/libs/angular.js',
-      'assets/js/mm-foundation-0.4.0.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
       '*.js',
       '**.*.js',

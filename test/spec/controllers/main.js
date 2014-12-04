@@ -1,27 +1,38 @@
-'use strict';
+describe('PasswordController', function() {
+  beforeEach(module('app'));
 
-describe('MainController test', function () {
+  var $controller;
 
-    var scope;
-    var controller;
+  beforeEach(inject(function(_$controller_){
+    // The injector unwraps the underscores (_) from around the parameter names when matching
+    $controller = _$controller_;
+  }));
 
-    beforeEach(function () {
-            angular.mock.module('ngRoute', []);
-            angular.mock.module('ngAnimate', []);
-            angular.mock.module('hmTouchEvents', []);
-            angular.module('cwfApp', [ 'ngRoute', 'ngAnimate', 'hmTouchEvents' ]);
+  describe('$scope.grade', function() {
+    var $scope, controller;
 
-            angular.mock.inject(function ($rootScope, $controller) {
-                scope = $rootScope.$new();
-                controller = $controller('MainCtrl', {
-                    $scope: scope
-                });
-            });
-        });
+    beforeEach(function() {
+      $scope = {};
+      controller = $controller('PasswordController', { $scope: $scope });
+    });
 
-        it('should display a list', function () {
-            console.log('-------------- Run Test 1 | ' + scope);
-            expect(scope.test).toBe("Hello World!");
-        });
+    /*
+    it('sets the strength to "strong" if the password length is >8 chars', function() {
+      $scope.password = 'longerthaneightchars';
+      $scope.grade();
+      expect($scope.strength).toEqual('strong');
+    });
 
+    it('sets the strength to "weak" if the password length <3 chars', function() {
+      $scope.password = 'abc';
+      $scope.grade();
+      expect($scope.strength).toEqual('weak');
+    });
+    */
+
+    it('checks if the strength = "strong"', function() {
+      expect($scope.strength).toEqual('strong');
+    });
+
+  });
 });
